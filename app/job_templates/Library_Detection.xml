@@ -22,7 +22,7 @@
         <hudson.model.StringParameterDefinition>
           <name>iibhost</name>
           <description></description>
-          <defaultValue>icisr031.echristus.net</defaultValue>
+          <defaultValue>icisr031</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>mqsiprofile</name>
