@@ -9,12 +9,22 @@
 */
 
  app.controller('viewjob', function ($scope,$state,$http,$window,$location,$timeout) {
-	 
+	
 	var  serverHosturl;
 	var nextbuild_no;
 	$scope.buildmodal=false;
 	var socket;
-	
+	socket = io('http://localhost:9003');
+			socket.on('news', function (data) {
+				//alert(JSON.stringify(data));
+				console.log(JSON.stringify(data));
+				var dataPort = document.getElementById("console2");
+				/* var textFromTag = dataPort.innerHTML;
+				alert("textFromTag => "+textFromTag);
+				var data1=data.toString().replace(/textFromTag/gim,'');
+				alert(data1); */
+				dataPort.innerHTML=JSON.stringify(data);
+			}); 
 	$http({
 		method : "GET",
 		url : "/public/serverHost.json"	
@@ -22,16 +32,7 @@
 		serverHosturl = response.data.serverHosturl;
 		
 	
-	   socket = io('http://localhost:9003');
-			socket.on('news', function (data) {
-				//alert(data.toString());
-				var dataPort = document.getElementById("console2");
-				/* var textFromTag = dataPort.innerHTML;
-				alert("textFromTag => "+textFromTag);
-				var data1=data.toString().replace(/textFromTag/gim,'');
-				alert(data1); */
-				dataPort.innerHTML=data.toString();
-			}); 
+	   
 			
 		
 	$scope.builddetails= function(){ 
@@ -70,6 +71,7 @@
 	};
 		
 	$scope.build = function(){ 
+	 
 	document.getElementById('id01').style.display='none';
 	//	alert("Clicked on Build");     
 			
@@ -99,22 +101,7 @@
 				
 		});
 		
-		
-			//document.getElementById('id01').style.display='none';
-			/* socket = io('http://localhost:9003');
-			socket.on('news', function (data) {
-				//alert(data.toString());
-				var dataPort = document.getElementById("console2");
-				/* var textFromTag = dataPort.innerHTML;
-				alert("textFromTag => "+textFromTag);
-				var data1=data.toString().replace(/textFromTag/gim,'');
-				alert(data1); 
-				dataPort.innerHTML=data.toString();
-			});  */
-			//socket.disconnect('news');
-			
-		//document.getElementById("console2").innerHTML='';
-		
+	
 		
 		
 		
@@ -122,4 +109,5 @@
 	}
 		
 	});
+	
  });

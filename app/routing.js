@@ -6,7 +6,9 @@ var path = require('path');
 var MongoClient = require('mongodb').MongoClient;
 var body = require('body-parser');
 var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+server.listen(9003);
+var io = require('socket.io')(server);
+//var io = require('socket.io').listen(server);
 var nodemailer = require('nodemailer');
 var rmdirSync = require('rmdir-sync');
 var request1 = require('request');
@@ -18,10 +20,10 @@ var jenkins = require('jenkins')({ baseUrl: config.jenkinurl});
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
 app.use(body.json());
-server.listen(9003);
+
 var fs1 = require('fs-extra'); 
 var svnUltimate = require('node-svn-ultimate');
-
+var client;
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -820,7 +822,10 @@ app.get('/viewjob', function (req, res) {
 	 flowName=req.query.flowName;
 	 folder = flowName.split("_").pop();
 	 console.log(flowName);
-	 res.send("true");	 
+	io.on('connection',function(client1){
+		client = client1;
+	});
+	 res.send("true");	
 });
 app.get('/flowjobs', function (req, res) {
 	 console.log("came flowjobs");
@@ -948,10 +953,10 @@ console.log(req.query.username);
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("build triggered");
-													setTimeout(function() {
+												setTimeout(function() {
 														executed_job=folder+"/"+flowName+"/"+flowName+"_Build";
 												 res.redirect("/console");
-											}, 10000);
+											}, 8000);
 											}); 
 					   
 			         });   
@@ -1001,12 +1006,13 @@ app.get('/console', function (req, res) {
 nextbuild_no=build_no+1;  
 console.log("entered console with nextbuild_no ==> "+nextbuild_no);
    var uri=executed_job;
- // io.on('connection', function (socket) {
-  // console.log("Connected succesfully to the socket ...");
+   console.log("uri : "+uri);
+   if(client){
+   console.log("Connected succesfully to the socket ..."+client);
   
  
      var log = jenkins.build.logStream(uri, nextbuild_no);
-      console.log("Connected succesfully to the socket ..."+log.toString());
+      console.log("log data  ..."+log.toString());
     
 
  
@@ -1015,7 +1021,7 @@ console.log("entered console with nextbuild_no ==> "+nextbuild_no);
     var news ='';
      news = text;
     // Send news on the socket
-  // socket.emit('news', news);
+   client.emit('news', news);
 
   
 });
@@ -1026,7 +1032,7 @@ log.on('error', function(err) {
  var news ='';
   news = err;
       // Send news on the socket
-  // socket.emit('news', news);
+   client.emit('news', news);
 
 });
 
@@ -1055,7 +1061,7 @@ log.on('end', function(end) {
 }); 
 
 });    
-//});
+}
 });
 
 app.get('/build1', function (req, res) {
@@ -1141,7 +1147,7 @@ app.get('/build1', function (req, res) {
 												setTimeout(function() {
 												 executed_job=next_job;
 												 res.redirect("/console");
-											}, 10000);
+											}, 8000);
 											}); 
 											
 											}); 
