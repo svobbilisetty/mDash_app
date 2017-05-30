@@ -1183,6 +1183,7 @@ app.get("/SaveCentralizedParameters",function(req,res){
 					"SVNUserName":SVNUserName,
 					"SVNPassword":SVNPassword					
                 }
+				collection.remove();
                 console.log("Inserting the data -------- "+JSON.stringify(data));
                 collection.insert(data);
             }    
@@ -1220,6 +1221,7 @@ app.get("/SaveEnvironmentalParameters",function(req,res){
 					"BrokerName":BrokerName
 										
                 }
+				collection.remove({ "build_env":build_env});
                 console.log("Inserting the data -------- "+JSON.stringify(data));
                 collection.insert(data);
             }    
