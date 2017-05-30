@@ -60,9 +60,10 @@ text-decoration:none !important;
                 <!-- col -->
                 <div class="col-lg-4 text-center">
                   <div easypiechart options="easypiechart.options" percent="easypiechart.percent" class="easypiechart" style="width: 140px; height: 140px;">
-                    <p class="text-uppercase text-elg mt-20 mb-0" style="line-height: 100px;"><strong class="text-blue">DEV</strong></p>
+                    <p class="text-uppercase text-elg mt-20 mb-0" style="line-height: 100px;"><strong class="text-black">DEV</strong></p>
                   <br> <p class="text-light">&nbsp;</p>
-                  <p class="text-uppercase text-elg mt-10 mb-0"><strong class="text-blue">8,213</strong></p><br>
+				   <p class="text-uppercase text-elg mt-10 mb-0"><strong class="text-blue"><font color="#0d416b">8,213 </font></strong></p><br>
+                 
 
                 </div>
 				</div>
@@ -70,9 +71,9 @@ text-decoration:none !important;
                 <!-- col -->
                 <div class="col-lg-4 text-center">
                   <div easypiechart options="easypiechart2.options" percent="easypiechart2.percent" class="easypiechart" style="width: 140px; height: 140px;">
-                    <p class="text-uppercase text-elg mt-20 mb-0" style="line-height: 100px;"><strong class="text-blue">TEST</strong></p>
+                    <p class="text-uppercase text-elg mt-20 mb-0" style="line-height: 100px;"><strong class="text-black">TEST</strong></p>
                     <br> <p class="text-light">&nbsp;</p>
-                    <p class="text-uppercase text-elg mt-10 mb-0"><strong class="text-lightred"></strong>6,175 </p><br>
+                   <p class="text-uppercase text-elg mt-10 mb-0"><strong class="text-blue">6,175</strong></p><br>
 
                   </div>
                 </div>
@@ -80,7 +81,7 @@ text-decoration:none !important;
                 <!-- col -->
                 <div class="col-lg-4 text-center">
                   <div easypiechart options="easypiechart3.options" percent="easypiechart3.percent" class="easypiechart" style="width: 140px; height: 140px;">
-                    <p class="text-uppercase text-elg mt-20 mb-0" style="line-height: 100px;"><strong class="text-blue">PROD</strong></p>
+                    <p class="text-uppercase text-elg mt-20 mb-0" style="line-height: 100px;"><strong class="text-black">PROD</strong></p>
                     <br> <p class="text-light">&nbsp;</p>
                     <p class="text-uppercase text-elg mt-10 mb-0"><strong class="text-greensea">1632</strong></p><br>
 
@@ -182,7 +183,7 @@ text-decoration:none !important;
 
         <!-- tile header -->
         <div class="tile-header bg-greensea dvd dvd-btm">
-          <h1 class="custom-font"><strong>Deploy </strong>History</h1>
+          <h1 class="custom-font"><strong>Build </strong>History</h1>
           <ul class="controls">
             <li ng-controller="DaterangepickerCtrl">
               <a href="javascript:;" daterangepicker="rangeOptions" date-begin="startDate" date-end="endDate">
@@ -191,30 +192,25 @@ text-decoration:none !important;
             </li>
             <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
 
-              <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+              <a href uib-dropdown-toggle class="dropdown-toggle settings">Environment <i class="fa fa-angle-down"></i></a>
 
               <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
-                <li>
-                  <a href tile-control-toggle>
-                    <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
-                    <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                 <li>
+                  <a href ng-click="ajaxFaker()">
+                     TEST
                   </a>
                 </li>
                 <li>
-                  <a href tile-control-refresh ng-click="ajaxFaker()">
-                    <fa name="refresh"></fa> Refresh
+                  <a href  ng-click="ajaxFaker()">
+                    DEV
                   </a>
                 </li>
                 <li>
-                  <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
-                    <fa name="expand"></fa> Fullscreen
+                  <a href  ng-click="isFullscreen01 = !isFullscreen01">
+                    PROD
                   </a>
                 </li>
-                <li>
-                  <a href tile-control-lightbox>
-                    <fa name="magnet"></fa> Open in Lightbox
-                  </a>
-                </li>
+               
 
               </ul>
 
@@ -223,6 +219,18 @@ text-decoration:none !important;
           </ul>
         </div>
         <!-- /tile header -->
+		<!-- Multi Chart -->
+		
+		
+		
+		
+		
+		<!-- Multi chart Ends -->
+		
+		
+		
+		
+		
 
         <!-- tile widget -->
         <div class="tile-widget bg-greensea" ng-controller="StatisticsChartCtrl">
@@ -269,7 +277,7 @@ text-decoration:none !important;
 
 
               <div class="tile-header dvd dvd-btm">
-                            <h1 class="custom-font"><strong>Recent</strong> Deploys</h1>
+                            <h1 class="custom-font"><strong>Recent</strong> Builds</h1>
 
                         </div>
               <table class="table table-no-border m-0">

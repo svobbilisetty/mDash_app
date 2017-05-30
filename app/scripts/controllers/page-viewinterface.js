@@ -21,7 +21,8 @@
 			url : serverHosturl+"flows"
 		  }).then(function(response) {
 			 // alert(JSON.stringify(response.data));
-			  $scope.flows=response.data
+			  $scope.flows=response.data.result;
+			  $scope.interfaceName = response.data.interfaceName;
 			}, function(response) {
 			  
 		  });

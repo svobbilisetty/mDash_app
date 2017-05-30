@@ -801,7 +801,11 @@ app.get("/flows",function(req,res){
 					{
 					console.log('Found:', result[i].flowname);
 					}
-					res.send(result);
+					data = {
+						'result' : result,
+						'interfaceName' : i_Name
+					}
+					res.send(data);
 				  }
 				  else {
 					
