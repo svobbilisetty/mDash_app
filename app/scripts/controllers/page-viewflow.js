@@ -116,7 +116,80 @@
 		
 		
 	}
-		
+	$scope.rollbackdetails= function(){ 
+    //alert("rollback working");
+        $scope.buildmodal1=true;    
+         $scope.targets = ["--SELECT--", "Rollback", "Decommision"];
+          $scope.target = $scope.targets[0];
+    document.getElementById('id02').style.display='block';        
+         $http({
+    method : "GET",
+    url : serverHosturl+"EnvironmentalParameters?build_env=dev"    
+ }).then(function(response) {
+     // alert(JSON.stringify(response.data));
+     if(response.data=="no_record")
+     {
+            
+          $scope.iibhost = "";
+          $scope.IIBNode = "";
+          $scope.executionGroup = "";
+          $scope.BrokerName = "";
+         $scope.targets = "";
+     }
+     else
+     {
+        
+          $scope.iibhost = response.data[0].iibhost;
+          $scope.IIBNode = response.data[0].IIBNode;
+          $scope.executionGroup = response.data[0].executionGroup;
+          $scope.BrokerName = response.data[0].BrokerName;
+     }
+          
+   });    
+        
+        
+   }; 
+    $scope.close1= function(){  
+       document.getElementById('id02').style.display='none';
+     
+    };
+    $scope.build1 = function(){ 
+    document.getElementById('id02').style.display='none';
+    //    alert("Clicked on Build");     
+            
+          var build_env = "dev"; 
+        
+         var iibhost=$scope.iibhost;
+        
+         var IIBNode=$scope.IIBNode;
+                 
+        var executionGroup=$scope.executionGroup;
+    
+        var BrokerName=$scope.BrokerName;
+        var target=$scope.target;
+        
+            alert("values are..."+iibhost+"  "+IIBNode+"  "+executionGroup+" "+BrokerName+" "+target);
+        
+        $http({
+            method : "GET",
+            url : serverHosturl+"rollbackjob?iibhost="+iibhost+
+            "&IIBNode="+IIBNode+
+            "&executionGroup="+executionGroup+
+            "&BrokerName="+BrokerName+"&target="+target+"&build_env="+build_env
+        }).then(function(response){
+            
+                document.getElementById('id02').style.display='none';
+                alert(response.data);
+                  if(response.data == 'roll_created')
+                 {
+                    alert("rollback job triggerd");
+                 } 
+                 else{
+                     alert("rollback job failed");
+                     }
+                 
+        });
+    }
 	});
 	
  });

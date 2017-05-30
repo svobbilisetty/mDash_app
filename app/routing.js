@@ -1301,3 +1301,102 @@ app.get('/details', function (req, res) {
      console.log(details);
      res.send(details);     
 });
+app.get("/rollbackjob",function(req,res){
+    console.log("this is rollback job");
+    var CentralizedParameters;
+    var EnvironmentalParameters;
+    var build_env = req.query.build_env;
+    var iibhost = req.query.iibhost;
+    var IIBNode = req.query.IIBNode;
+    var executionGroup = req.query.executionGroup;
+    var BrokerName = req.query.BrokerName;
+    var target = req.query.target;
+    var Config_Service;
+         console.log("values are..."+iibhost+"  "+IIBNode+"  "+executionGroup+" "+BrokerName+""+target);
+         MongoClient.connect(config.mongodburl, function(err, db) {
+                if(db){
+                    var collection = db.collection('CentralizedParameters');
+                    if(collection){
+                        collection.find({}).toArray(function (err, result) {
+                          if (err) {
+                            console.log(err);
+                          } else if (result.length) {
+                              console.log(result);
+                             CentralizedParameters=result;
+                              console.log(CentralizedParameters[0].ArtifactoryURL);
+                                                               MongoClient.connect(config.mongodburl, function(err, db) {
+                                        if(db){
+                                            var collection = db.collection('EnvironmentalParameters');
+                                            if(collection){
+                                                collection.find({build_env:build_env}).toArray(function (err, result) {
+                                                  if (err) {
+                                                    console.log(err);
+                                                  } else if (result.length) {
+                                                      
+                                                    console.log(result);
+                                                    EnvironmentalParameters=result;
+                    jenkins.job.get(folder+"/"+flowName+"/Create_Config_Services",({ depth: 2,pretty: 'true'}), function(err, data) {
+                              if (err) throw err;
+                             console.log('job', data.actions[0].parameterDefinitions[5].defaultParameterValue.value);
+                    Config_Service=data.actions[0].parameterDefinitions[5].defaultParameterValue.value;
+                    
+                    jenkins.job.get(folder+"/"+flowName+"/"+flowName+"_Build",({ depth: 2,pretty: 'true'}), function(err, data) {
+                              if (err) throw err;
+                             console.log('job', data.actions[0].parameterDefinitions[9].defaultParameterValue.value);
+                             svnrepo=data.actions[0].parameterDefinitions[11].defaultParameterValue.value; 
+                             
+                svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
+                       console.log( "Head revision=" + revision );
+                       artifactory_number=revision;
+                       
+                       
+                       jenkins.job.build({ name:folder+"/"+flowName+"/"+"Rollback_Decomission", parameters: {  
+            build_env:build_env,
+            username:CentralizedParameters[0].username,
+            password:CentralizedParameters[0].password,
+            artifactory_number:artifactory_number,
+            executionGroup:executionGroup,
+            IIBNode:IIBNode,
+            deployment_path:EnvironmentalParameters[0].deployment_path,
+            iibhost:iibhost,
+            mqsiprofile:EnvironmentalParameters[0].mqsiprofile,
+            ArtifactoryURL : CentralizedParameters[0].ArtifactoryURL,
+            BrokerName:BrokerName,
+            Config_Service:Config_Service,
+            target:target} }, function(err) {
+                                                if (err) console.log(err);
+                                                console.log("rollback job triggered");
+                                                res.send("roll_created");
+                                            });     
+                    })
+                    
+                    })
+                    
+                    })
+                    }else {
+                                                    
+                            console.log('No document(s) found with defined "find" criteria!');
+                         }
+                                                 
+                        })
+                            }    
+                            }
+                            else{
+                                console.log("error is connecting to db");
+                                }
+                            }); 
+                          }
+                          else {
+                            
+                            console.log('No document found with defined "find" criteria!');
+                          }
+                         
+                        })
+                    }    
+                }
+                else{
+                    console.log("error is connecting to db");
+                }
+            });   
+                                            
+});
