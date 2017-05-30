@@ -1,0 +1,246 @@
+
+                <div class="page page-tables-bootstrap">
+
+                    <div class="pageheader">
+
+                        <h2>Roles <span></span></h2>
+
+                        <div class="page-bar">
+
+                            <ul class="page-breadcrumb">
+                                <li>
+                                    <a href="index.html"><i class="fa fa-home"></i> mDash</a>
+                                </li>
+                                <li>
+                                    <a href="#">User Management</a>
+                                </li>
+                                <li>
+                                    <a href="tables-bootstrap.html">Roles</a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <!-- col -->
+                        <div class="col-md-12">
+
+
+                            <!-- tile -->
+                            <section class="tile">
+
+                                <!-- tile header -->
+                                <div class="tile-header dvd dvd-btm">
+                                    <h1 class="custom-font"><strong>Role</strong> Types</h1>
+                                    <ul class="controls">
+                                        <li class="dropdown">
+
+                                            <a role="button" tabindex="0" class="dropdown-toggle settings" data-toggle="dropdown">
+                                                <i class="fa fa-cog"></i>
+                                          
+                                            </a>
+
+                                            <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                                <li>
+                                                    <a role="button" tabindex="0" class="tile-toggle">
+                                                        <span class="minimize"><i class="fa fa-angle-down"></i>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                                        <span class="expand"><i class="fa fa-angle-up"></i>&nbsp;&nbsp;&nbsp;Expand</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a role="button" tabindex="0" class="tile-refresh">
+                                                        <i class="fa fa-refresh"></i> Refresh
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <!-- /tile header -->
+
+                                <!-- tile widget -->
+                                <div class="tile-widget">
+
+                                    <div class="row">
+
+                                        <div class="col-sm-5">
+                                            <select class="input-sm form-control inline w-sm">
+                                                <option value="0">Options</option>
+                                                <option value="1">Approve access</option>
+                                                <option value="2">Decline access</option>
+                                                <option value="3">Delete user</option>
+                                            </select>
+                                            <button class="btn btn-sm btn-default">Apply</button>
+                                        </div>
+
+                                        <div class="col-sm-3"></div>
+
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <input type="text" class="input-sm form-control" placeholder="Search...">
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-sm btn-default" type="button">Go!</button>
+                                                  </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- /tile widget -->
+<div class="row tile-widget">
+
+
+            <div class="col-md-4"> <label>Role Name </label>
+    <input type="text" class="form-control" placeholder="Role Name" id="firstname" name="Full Name">
+               </div>
+
+
+                <!-- /.box -->
+            </div>
+            <div class="row tile-widget">
+            <div class="col-sm-2">
+          <button type="button" class="btn btn-primary col-sm-12">Search</button>
+        </div>
+        <div class="col-sm-2"><a href="user-add.html">
+          <button type="button" class="btn btn-primary col-sm-12">Add</button></a>
+        </div>
+        <div class="col-sm-5" style="margin-top:5px;">
+              <label> Display <select style="width:auto">
+                            <option>10</option>
+                            <option>15</option>
+                            <option>25</option>
+                            <option>50</option>
+                        </select>
+                        Records per page
+                    </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                 <!-- tile body -->
+                                <div class="tile-body p-0" >
+
+                                    <div class="table-responsive" >
+                                        <table class="table mb-0" id="usersList">
+                                            <thead>
+                                            <tr>
+                                                <th style="width:20px;">
+                                                   Edit
+                                                </th>
+
+                                                <th>Role Name</th>
+
+                                                <th >Active/De-Active</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <!-- <tr>
+                                                <td><label class="checkbox checkbox-custom-alt checkbox-custom-sm m-0"><input type="checkbox" class="selectMe"><i></i></label></td>
+
+                                                <td>Otto</td>
+
+                                                <td>
+                                                    <span class="check-toggler checked toggle-class" data-toggle="checked"></span>
+                                                </td>
+
+                                            </tr>
+                                             <tr>
+                                                <td><label class="checkbox checkbox-custom-alt checkbox-custom-sm m-0"><input type="checkbox" class="selectMe"><i></i></label></td>
+
+                                                <td>Otto</td>
+
+                                                <td>
+                                                    <span class="check-toggler checked toggle-class" data-toggle="checked"></span>
+                                                </td>
+
+                                            </tr>
+
+                                                <tr>
+                                                <td><label class="checkbox checkbox-custom-alt checkbox-custom-sm m-0"><input type="checkbox" class="selectMe"><i></i></label></td>
+
+                                                <td>Otto</td>
+
+                                                <td>
+                                                    <span class="check-toggler checked toggle-class" data-toggle="checked"></span>
+                                                </td>
+
+                                            </tr> -->
+											    <tr ng-repeat="x in roles">
+                                                <td><label class="checkbox checkbox-custom-alt checkbox-custom-sm m-0"><input type="checkbox" class="selectMe"><i></i></label></td>
+
+                                                <td>{{x.role_name}}</td>
+
+                                                <td>
+                                                    <span class="check-toggler checked toggle-class" data-toggle="checked"></span>
+                                                </td>
+
+                                            </tr>
+
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+            </div>
+        </div>
+
+                                <!-- /tile body -->
+
+                                <!-- tile footer -->
+                                <div class="tile-footer dvd dvd-top">
+                                    <div class="row">
+
+                                        <div class="col-sm-5 hidden-xs">
+                                            <select class="input-sm form-control w-sm inline">
+                                                <option value="0">Bulk action</option>
+                                                <option value="1">Delete selected</option>
+                                                <option value="2">Archive selected</option>
+                                                <option value="3">Copy selected</option>
+                                            </select>
+                                            <button class="btn btn-sm btn-default">Apply</button>
+                                        </div>
+
+                                        <div class="col-sm-3 text-center">
+                                            <small class="text-muted">showing 20-30 of 50 items</small>
+                                        </div>
+
+                                        <div class="col-sm-4 text-right">
+                                            <ul class="pagination pagination-sm m-0">
+                                                <li><a href><i class="fa fa-chevron-left"></i></a></li>
+                                                <li><a href>1</a></li>
+                                                <li><a href>2</a></li>
+                                                <li><a href>3</a></li>
+                                                <li><a href><i class="fa fa-chevron-right"></i></a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- /tile footer -->
+
+                            </section>
+                            <!-- /tile -->
+
+
+
+
+                        </div>
+                        <!-- /col -->
+                    </div>
+                    <!-- /row -->
+
+
+                </div>

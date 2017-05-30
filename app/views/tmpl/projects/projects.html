@@ -1,0 +1,397 @@
+<div class="page page-dashboard">
+
+  <div class="pageheader">
+
+    <h2>{{page.title}} <span></span></h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> MDash</a>
+        </li>
+        <li>
+          <a ui-sref="app.dashboard">{{page.title}}</a>
+        </li>
+      </ul>
+
+
+
+    </div>
+
+  </div>
+
+
+  <!-- cards row -->
+  <div class="row">
+
+    <!-- col -->
+    <div class="card-container col-lg-4 col-sm-6 col-sm-12">
+      <div class="card">
+        <div class="front bg-greensea">
+
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-xs-4">
+              <i class="fa fa-file-code-o fa-4x"></i>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-xs-8">
+              <p class="text-elg text-strong mb-0" style="margin-top:10px">Dev (100)</p>
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+        </div>
+      </div>
+    </div>
+    <!-- /col -->
+
+    <!-- col -->
+    <div class="card-container col-lg-4 col-sm-6 col-sm-12">
+      <div class="card">
+        <div class="front bg-lightred">
+
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-xs-4">
+            <i class="fa fa-eye fa-4x"></i>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-xs-8">
+              <p class="text-elg text-strong mb-0" style="margin-top:10px">Test (75)</p>
+
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+        </div>
+
+      </div>
+    </div>
+    <!-- /col -->
+
+
+
+    <!-- col -->
+    <div class="card-container col-lg-4 col-sm-6 col-sm-12">
+      <div class="card">
+        <div class="front bg-slategray">
+
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-xs-4">
+              <i class="fa fa-globe fa-4x"></i>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-xs-8">
+              <p class="text-elg text-strong mb-0" style="margin-top:10px">Prod (60)</p>
+
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+        </div>
+
+      </div>
+    </div>
+    <!-- /col -->
+
+  </div>
+  <!-- /row -->
+
+
+
+
+
+
+  <!-- row -->
+  <div class="row">
+
+
+
+    <!-- col -->
+    <div class="col-md-8">
+
+      <!-- tile -->
+      <section class="tile" fullscreen="isFullscreen01">
+
+        <!-- tile header -->
+        <div class="tile-header bg-greensea dvd dvd-btm">
+          <h1 class="custom-font"><strong>Build </strong>History</h1>
+          <ul class="controls">
+            <li ng-controller="DaterangepickerCtrl">
+              <a href="javascript:;" daterangepicker="rangeOptions" date-begin="startDate" date-end="endDate">
+                <span>{{startDate}} - {{endDate}}</span>&nbsp;&nbsp;<i class="fa fa-angle-down"></i>
+              </a>
+            </li>
+            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+              <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+              <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                <li>
+                  <a href tile-control-toggle>
+                    <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                    <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                  </a>
+                </li>
+                <li>
+                  <a href tile-control-refresh ng-click="ajaxFaker()">
+                    <fa name="refresh"></fa> Refresh
+                  </a>
+                </li>
+                <li>
+                  <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                    <fa name="expand"></fa> Fullscreen
+                  </a>
+                </li>
+                <li>
+                  <a href tile-control-lightbox>
+                    <fa name="magnet"></fa> Open in Lightbox
+                  </a>
+                </li>
+
+              </ul>
+
+            </li>
+
+          </ul>
+        </div>
+        <!-- /tile header -->
+
+        <!-- tile widget -->
+        <div class="tile-widget bg-greensea" ng-controller="StatisticsChartCtrl">
+
+          <flot dataset="dataset" options="options" height="240px"></flot>
+
+        </div>
+        <!-- /tile widget -->
+
+
+
+      </section>
+      <!-- /tile -->
+
+    </div>
+    <!-- /col -->
+
+    <!-- col -->
+    <div class="col-md-4">
+
+
+
+      <!-- tile -->
+      <section class="tile" fullscreen="isFullscreen03">
+
+        <!-- tile header -->
+        <div class="tile-header dvd dvd-btm">
+          <h1 class="custom-font"><strong>Server </strong>Load</h1>
+          <ul class="controls">
+            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+              <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+              <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                <li>
+                  <a href tile-control-toggle>
+                    <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                    <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                  </a>
+                </li>
+                <li>
+                  <a href tile-control-refresh ng-click="ajaxFaker()">
+                    <fa name="refresh"></fa> Refresh
+                  </a>
+                </li>
+                <li>
+                  <a href tile-control-fullscreen ng-click="isFullscreen03 = !isFullscreen03">
+                    <fa name="expand"></fa> Fullscreen
+                  </a>
+                </li>
+                <li>
+                  <a href tile-control-lightbox>
+                    <fa name="magnet"></fa> Open in Lightbox
+                  </a>
+                </li>
+
+              </ul>
+
+            </li>
+
+          </ul>
+        </div>
+        <!-- /tile header -->
+
+        <!-- tile widget -->
+        <div class="tile-widget mb-40">
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-md-6">
+              <h4 class="text-light">Jenkins <i class="fa fa-caret-up text-success"></i></h4>
+              <uib-progressbar class="progress-xs not-rounded mb-0" value="20" type="primary"></uib-progressbar>
+              <small>Health: <span class="text-success">Good</span></small>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-md-6">
+              <h4 class="text-light">Artifactory<i class="fa fa-caret-down text-danger"></i></h4>
+              <uib-progressbar class="progress-xs not-rounded mb-0" value="90" type="primary"></uib-progressbar>
+              <small>Health: <span class="text-danger">Bad</span></small>
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+        </div>
+        <!-- /tile widget -->
+
+        <!-- tile body -->
+        <div class="tile-body p-0" ng-controller="RealtimeLoadCtrl" style="height: 133px">
+
+          <rickshaw rickshaw-options="options1"
+                    rickshaw-features="features1"
+                    rickshaw-series="series1">
+          </rickshaw>
+
+        </div>
+        <!-- /tile body -->
+
+      </section>
+      <!-- /tile -->
+
+    </div>
+    <!-- /col -->
+
+
+
+
+
+  </div>
+  <!-- /row -->
+
+  <!-- row -->
+  <div class="row">
+
+
+    <!-- col -->
+    <div class="col-md-12">
+
+      <!-- tile -->
+      <section class="tile" fullscreen="isFullscreen02" ng-controller="BrowseUsageCtrl">
+
+
+
+
+        <!-- tile body -->
+        <div class="tile-body p-0">
+
+          <uib-accordion close-others="oneAtATime">
+            <uib-accordion-group is-open="status.tab1.open" class="panel-transparent">
+              <uib-accordion-heading>
+                <span ng-class="{'text-default lt': !status.tab1.open}"><i class="fa text-sm mr-5" ng-class="{'fa-minus': status.tab1.open, 'fa-plus': !status.tab1.open}"></i> Top 10 Build</span><span class="badge pull-right bg-lightred"></span>
+              </uib-accordion-heading>
+              <table class="table table-no-border m-0">
+                <tbody>
+                  <tr>
+                    <th> Project Name </th>
+                    <th> Date | Time </th>
+                    <th> Result </th>
+                    <th> Environment </th>
+                    <th> By </th>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Chrome</td>
+                    <td>6985</td>
+                    <td><i class="fa fa-caret-up text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Other</td>
+                    <td>2697</td>
+                    <td><i class="fa fa-caret-up text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Safari</td>
+                    <td>3597</td>
+                    <td><i class="fa fa-caret-down text-danger"></i></td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Firefox</td>
+                    <td>2145</td>
+                    <td><i class="fa fa-caret-up text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Internet Explorer</td>
+                    <td>1854</td>
+                    <td><i class="fa fa-caret-down text-danger"></i></td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>Opera</td>
+                    <td>654</td>
+                    <td><i class="fa fa-caret-up text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>Opera</td>
+                    <td>654</td>
+                    <td><i class="fa fa-caret-up text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>Opera</td>
+                    <td>654</td>
+                    <td><i class="fa fa-caret-up text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td>Opera</td>
+                    <td>654</td>
+                    <td><i class="fa fa-caret-up text-success"></i></td>
+                  </tr><tr>
+                    <td>10</td>
+                    <td>Opera</td>
+                    <td>654</td>
+                    <td><i class="fa fa-caret-up text-success"></i></td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </uib-accordion-group>
+
+          </uib-accordion>
+
+        </div>
+        <!-- /tile body -->
+
+      </section>
+      <!-- /tile -->
+
+    </div>
+    <!-- /col -->
+
+  </div>
+  <!-- /row -->
+
+
+
+
+
+
+
+</div>

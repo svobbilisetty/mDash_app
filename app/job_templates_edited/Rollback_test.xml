@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.4.5">
+      <gitLabConnection></gitLabConnection>
+    </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>build_env</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>dev</string>
+              <string>test</string>
+              <string>prod</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>username</name>
+          <description></description>
+          <defaultValue>sviibtst</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>password</name>
+          <description></description>
+          <defaultValue>{AQAAABAAAAAQFWtkOY12kRekTyuxFeM6dX4xhHMtIF7pXCiby2HTsiA=}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>artifactory_number</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Execution_Group</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>MidasHL7_TEST</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>IIBNode</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>CHRISTUS_ENT_DEV_01</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>deployment_path</name>
+          <description></description>
+          <defaultValue>/opt/mqm/bar</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>IIBHost</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>icisr031</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>mqsiprofile</name>
+          <description></description>
+          <defaultValue>. /opt/ibm/mqsi/9.0.0.1/bin/mqsiprofile</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>artifactory_url</name>
+          <description></description>
+          <defaultValue>http://iaasr001:8081/artifactory/Christus</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BrokerName</name>
+          <description></description>
+          <defaultValue>ENT_DEV_01</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Config_Service</name>
+          <description></description>
+          <defaultValue>TCPIPServer_Command</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.SubversionSCM" plugin="subversion@2.7.2">
+    <locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>Remote_SVN_URL/Build</remote>
+        <credentialsId></credentialsId>
+        <local>.</local>
+        <depthOption>infinity</depthOption>
+        <ignoreExternalsOption>true</ignoreExternalsOption>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <excludedRegions></excludedRegions>
+    <includedRegions></includedRegions>
+    <excludedUsers></excludedUsers>
+    <excludedRevprop></excludedRevprop>
+    <excludedCommitMessages></excludedCommitMessages>
+    <workspaceUpdater class="hudson.scm.subversion.UpdateUpdater"/>
+    <ignoreDirPropChanges>false</ignoreDirPropChanges>
+    <filterChangelog>false</filterChangelog>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>(System)</jdk>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>svn export --non-interactive --trust-server-cert Remote_SVN_URL --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_test/Flow_Name
+
+value=$(cut -d/ -f7 &lt;&lt;&lt;&quot;${WORKSPACE}&quot;)
+echo &apos;runmqsc &apos;${BrokerName} &apos;&lt; &apos;${deployment_path}&apos;/&apos;$value&apos;/CreateFlow_TypeQueues.mqsc&apos; &gt; QueueCommands.txt
+echo &apos;runmqsc &apos;${BrokerName} &apos;&lt; &apos;${deployment_path}&apos;/&apos;$value&apos;/CreateFlow_TypeQueues.mqsc&apos; &gt; DelQueueCommands.txt
+echo ${mqsiprofile} &apos;;&apos;${Config_Service}&apos;;mqsireload&apos; ${IIBNode}&apos; -e &apos;${Execution_Group} &gt; ConfigCommands.txt</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>mkdir /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_test/temp
+chmod 757 /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_test/temp</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Ant plugin="ant@1.4">
+      <targets>DelConfigService
+deployBar
+</targets>
+      <antName>(Default)</antName>
+      <buildFile>Undeploy.xml</buildFile>
+      <properties>build_env=${build_env}
+iib.userid=${username}
+iib.userpassword=${password}
+env=${build_env}curdir=${WORKSPACE}
+jenkins_buldnumber=${BUILD_NUMBER}
+jenkins_jobname=${JOB_NAME}
+artifactnum=${artifactory_number}
+execution.group=${Execution_Group}
+iib.node=${IIBNode}
+deployment.path=${deployment_path}
+iib.host=${iibhost}
+artifactory.url=${artifactory_url}</properties>
+    </hudson.tasks.Ant>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.32">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.8"/>
+  </buildWrappers>
+</project>

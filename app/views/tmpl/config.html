@@ -1,0 +1,292 @@
+
+<style>
+.panel.panel-greense > .panel-heading {
+    color: white;
+    background-color: #0d416b;
+    border-color: #0d416b;
+}
+.panel.panel-greense {
+    border-color: #0d416b;
+}
+.panel.panel-gree> .panel-heading {
+    color: #ffffff !important;
+    background-color: #00aae7;
+    border-color: #0d416b;
+	font-weight:300;
+}
+.text-muted {
+    color: #ffffff !important;
+}
+
+</style>            
+			<div class="page page-tables-bootstrap">
+
+                    <div class="pageheader">
+
+                        <h2>mDash Configuration  <span></span></h2>
+
+                        <div class="page-bar">
+
+                            <ul class="page-breadcrumb">
+                                <li>
+                                    <a href="index.html"><i class="fa fa-home"></i> mDash</a>
+                                </li>
+                                <li>
+                                    <a href="#">Configuration</a>
+                                </li>
+                                
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+
+
+<section class="tile" fullscreen="isFullscreen01">
+
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font"><strong>Configuration Parameters</strong> </h1>
+           
+          </div>
+          <!-- /tile header -->
+
+          <!-- tile body -->
+          <div class="tile-body"  >
+
+            <div ng-controller="AccordionDemoCtrl">
+				<uib-accordion close-others="oneAtATime">
+               
+              
+                <uib-accordion-group heading="Centralized Parameters" class="panel-gree" aria-expanded="true" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled"  style="font-weight:bolder">
+                 
+				 <div ng-controller="AccordionDemoCtrl1">
+					 <form  ng-submit="submit()">
+					 <div class="row">
+					 <div class="col-sm-6">
+					  <div class="form-group">
+												<label for="exampleInputEmail1">Username</label>
+										<input type="text" placeholder="username"  name="username" class="form-control" ng-model="username" required>
+											</div>
+					 </div>
+					  <div class="col-sm-6">
+					   <div class="form-group">
+											   <label for="exampleInputEmail1">Password</label>
+										<input type="password" placeholder="password"  name="password" class="form-control underline-input" ng-model="password" required>
+											</div>
+					  </div>
+					 </div>
+					 <div class="row ">
+					 <div class="col-sm-12">
+					 <div class="form-group">
+											   <label for="InputPassword1">Artifactory URL</label>
+										<input type="text" class="form-control underline-input" name="ArtifactoryURL" placeholder="ArtifactoryURL" ng-model="ArtifactoryURL" required>
+											</div>
+					 </div>
+					 </div>
+					  <div class="row">
+					 <div class="col-sm-6">
+					  <div class="form-group">
+												<label for="exampleInputEmail1">Artifactory Username</label>
+										<input type="text" placeholder="ArtifactoryUserName"  name="ArtifactoryUserName" class="form-control underline-input" ng-model="ArtifactoryUserName" required>
+											</div>
+					 </div>
+					  <div class="col-sm-6">
+					   <div class="form-group">
+												<label for="exampleInputEmail1">Artifactory Password</label>
+										<input type="password" placeholder="ArtifactoryPassword"  name="ArtifactoryPassword" class="form-control underline-input" ng-model="ArtifactoryPassword" required>
+											</div>
+					  </div>
+					 </div>
+					  <div class="row">
+					 <div class="col-sm-6">
+					  <div class="form-group">
+											   <label for="exampleInputEmail1">SVN Host</label>
+										<input type="text" placeholder="svnhost"  name="svnhost" class="form-control underline-input" ng-model="svnhost" required>
+											</div>
+					 </div>
+					  <div class="col-sm-6">
+					   <div class="form-group">
+												<label for="exampleInputEmail1">SVN Base URL</label>
+										<input type="text" placeholder="SVNBaseURL"  name="SVNBaseURL" class="form-control underline-input" ng-model="SVNBaseURL" required>
+											</div>
+					  </div>
+					 </div>
+					  <div class="row">
+					 <div class="col-sm-6">
+					  <div class="form-group">
+												 <label for="exampleInputEmail1">SVN Username</label>
+										<input type="text" placeholder="SVNUserName"  name="SVNUserName" class="form-control underline-input" ng-model="SVNUserName" required>
+											</div>
+					 </div>
+					  <div class="col-sm-6">
+					   <div class="form-group">
+											   <label for="exampleInputEmail1">SVN Password</label>
+										<input type="password" placeholder="SVNPassword"  name="SVNPassword" class="form-control underline-input" ng-model="SVNPassword" required>
+											</div>
+					  </div>
+					 </div>
+					
+										   <button type="submit" class="btn btn-blue mb-10 col-sm-1 "><b> Submit </b></button>
+										</form>
+				 </div>
+                </uib-accordion-group>
+				</uib-accordion>
+				<uib-accordion close-others="oneAtATime">
+				 <uib-accordion-group heading="Environmental Parameters" class="panel-greense" style="font-weight:bolder">
+                 <div >
+
+            
+
+             
+
+              <div class="clearfix"></div>
+
+
+              <uib-tabset>
+                <uib-tab heading="DEV">
+				<div ng-controller="EnvController">
+				<form  ng-submit="submit1()" ng-init="build_env='dev'">
+				<div class="row">
+				<div class="col-sm-6">
+				 <div class="form-group">
+                                            <label for="exampleInputEmail1">Toolkit Home</label>
+                                            <input type="text" placeholder="toolkithome"  name="toolkithome" class="form-control underline-input" ng-model="toolkithome" required>
+                                        </div>
+										 <div class="form-group">
+                                            <label for="exampleInputPassword1">IIB Host</label>
+                                           <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required>
+                                        </div>
+										<div class="form-group">
+                                            <label for="exampleInputPassword1">IIB Node</label>
+                                           <input type="text" placeholder="IIBNode"  name="IIBNode" class="form-control underline-input" ng-model="IIBNode" required>
+                                        </div>
+											<div class="form-group">
+                                            <label for="exampleInputPassword1">Execution Group</label>
+                                            <input type="text" placeholder="executionGroup"  name="executionGroup" class="form-control underline-input" ng-model="executionGroup" required>
+                                        </div>
+				</div>
+					<div class="col-sm-6">
+					<div class="form-group">
+                                            <label for="exampleInputPassword1">Deployment Path</label>
+                                            <input type="text" placeholder="deployment_path"  name="deployment_path" class="form-control underline-input" ng-model="deployment_path" required>
+                                        </div>
+										<div class="form-group">
+                                            <label for="exampleInputPassword1">MQSI Profile</label>
+                                           <input type="text" placeholder="mqsiprofile"  name="mqsiprofile" class="form-control underline-input" ng-model="mqsiprofile" required>
+                                        </div>
+										<div class="form-group">
+                                            <label for="exampleInputPassword1">Broker</label>
+                                           <input type="text" placeholder="BrokerName"  name="BrokerName" class="form-control underline-input" ng-model="BrokerName" required>
+                                        </div>
+					</div>
+				</div>
+				
+                                      <button type="submit" class="btn btn-blue mb-10 col-sm-1 "><b> Submit </b></button>
+                                    </form>
+									</div>
+				</uib-tab>
+				 <uib-tab heading="TEST">
+				 <div ng-controller="EnvController">
+				 <form  ng-submit="submit1()" ng-init="build_env='test'">
+				<div class="row">
+				<div class="col-sm-6">
+				 <div class="form-group">
+                                            <label for="exampleInputEmail1">Toolkit Home</label>
+                                            <input type="text" placeholder="toolkithome"  name="toolkithome" class="form-control underline-input" ng-model="toolkithome" required>
+                                        </div>
+										 <div class="form-group">
+                                            <label for="exampleInputPassword1">IIB Host</label>
+                                           <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required>
+                                        </div>
+										<div class="form-group">
+                                            <label for="exampleInputPassword1">IIB Node</label>
+                                           <input type="text" placeholder="IIBNode"  name="IIBNode" class="form-control underline-input" ng-model="IIBNode" required>
+                                        </div>
+											<div class="form-group">
+                                            <label for="exampleInputPassword1">Execution Group</label>
+                                            <input type="text" placeholder="executionGroup"  name="executionGroup" class="form-control underline-input" ng-model="executionGroup" required>
+                                        </div>
+				</div>
+					<div class="col-sm-6">
+					<div class="form-group">
+                                            <label for="exampleInputPassword1">Deployment Path</label>
+                                            <input type="text" placeholder="deployment_path"  name="deployment_path" class="form-control underline-input" ng-model="deployment_path" required>
+                                        </div>
+										<div class="form-group">
+                                            <label for="exampleInputPassword1">MQSI Profile</label>
+                                           <input type="text" placeholder="mqsiprofile"  name="mqsiprofile" class="form-control underline-input" ng-model="mqsiprofile" required>
+                                        </div>
+										<div class="form-group">
+                                            <label for="exampleInputPassword1">Broker</label>
+                                           <input type="text" placeholder="BrokerName"  name="BrokerName" class="form-control underline-input" ng-model="BrokerName" required>
+                                        </div>
+					</div>
+				</div>
+				<input type="hidden" placeholder="build_env"  name="build_env" class="form-control underline-input" ng-model="build_env"  value="test" required>
+                                      <button type="submit" class="btn btn-blue mb-10 col-sm-1 "><b> Submit </b></button>
+                                    </form>
+						</div>			
+				 </uib-tab>
+				  <uib-tab heading="PROD">
+				  <div ng-controller="EnvController">
+				  <form ng-init="build_env='prod'" ng-submit="submit1()">
+				<div class="row">
+				<div class="col-sm-6">
+				 <div class="form-group">
+                                            <label for="exampleInputEmail1">Toolkit Home</label>
+                                            <input type="text" placeholder="toolkithome"  name="toolkithome" class="form-control underline-input" ng-model="toolkithome" required>
+                                        </div>
+										 <div class="form-group">
+                                            <label for="exampleInputPassword1">IIB Host</label>
+                                           <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required>
+                                        </div>
+										<div class="form-group">
+                                            <label for="exampleInputPassword1">IIB Node</label>
+                                           <input type="text" placeholder="IIBNode"  name="IIBNode" class="form-control underline-input" ng-model="IIBNode" required>
+                                        </div>
+											<div class="form-group">
+                                            <label for="exampleInputPassword1">Execution Group</label>
+                                            <input type="text" placeholder="executionGroup"  name="executionGroup" class="form-control underline-input" ng-model="executionGroup" required>
+                                        </div>
+				</div>
+					<div class="col-sm-6">
+					<div class="form-group">
+                                            <label for="exampleInputPassword1">Deployment Path</label>
+                                            <input type="text" placeholder="deployment_path"  name="deployment_path" class="form-control underline-input" ng-model="deployment_path" required>
+                                        </div>
+										<div class="form-group">
+                                            <label for="exampleInputPassword1">MQSI Profile</label>
+                                           <input type="text" placeholder="mqsiprofile"  name="mqsiprofile" class="form-control underline-input" ng-model="mqsiprofile" required>
+                                        </div>
+										<div class="form-group">
+                                            <label for="exampleInputPassword1">Broker</label>
+                                           <input type="text" placeholder="BrokerName"  name="BrokerName" class="form-control underline-input" ng-model="BrokerName" required>
+                                        </div>
+					</div>
+				</div>
+				<input type="hidden" placeholder="build_env"  name="build_env" class="form-control underline-input" ng-model="build_env"  value="prod" required>
+                                      <button type="submit" class="btn btn-blue mb-10 col-sm-1 "><b> Submit </b></button>
+                                    </form>
+								</div>	
+				  </uib-tab>
+                </uib-tabset>
+
+            
+
+             
+
+            </div>
+                </uib-accordion-group>
+               
+              </uib-accordion>
+
+            </div>
+
+          </div>
+          <!-- /tile body -->
+
+        </section>
+
+                </div>

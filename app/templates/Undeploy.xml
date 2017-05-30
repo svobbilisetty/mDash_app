@@ -1,0 +1,142 @@
+<project name="DelConfigServices" default="init">
+	<target name="base">
+		
+		<echo>Action selected for environment: coming from jenkins as parameter: ${env}</echo>
+		<echo>The userId : coming from jenkins as parameter: ${iib.userid}</echo>
+		<echo>The Jenkins current directory where code has been fetched from repository: coming from jenkins as parameter: ${curDir}</echo>
+		<echo>The Jenkins build number: coming from jenkins as parameter: ${jenkins_buldnumber}</echo>
+		<echo>The jenkins job name: coming from jenkins as parameter: ${jenkins_jobname}</echo>		
+		
+		<!-- antDir had been sent as parameter through Jenkins in DTE. But its not needed as it can be placed in the build server too at one location-->
+		<!--<taskdef resource="net/sf/antcontrib/antlib.xml">
+			<classpath>
+				<pathelement location="${antDir}/1.0b3/ant-contrib-1.0b3.jar"/>
+			</classpath>
+		</taskdef>-->
+		<!-- This jar is needed for switch statement, if statements and propertyregex expressions-->
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			 <classpath>
+				<pathelement location="/opt/apache-ant-1.10.1/ant-contrib-1.0b3.jar/ant-contrib-1.0b3.jar/ant-contrib-1.0b3.jar"/>
+			</classpath>
+		</taskdef>
+		<switch value="${action}">
+			<case value="Rollback">
+				<antcall target="DelConfigService"/>
+				<antcall target="deployBar"/>
+			</case>
+			
+			<case value="Decomission">
+				<antcall target="DelConfigService"/>
+			</case>
+			<default>
+				<echo message="Invalid action is selected"/>
+			</default>
+		</switch>
+	</target>   
+	
+	<target name="init" >
+
+		<!-- Directory Initializations-->
+		<echo>Current Directory i.e. Jenkins directory coming as parameter: ${curDir}</echo>
+		
+		<!--<property name="workspaceDir" location="${curDir}/../Projects"/>-->
+		<!--setting this directory to absolute path as I am not fetching code from repository to Jenkins workspace. 
+		The jenkins workspace directory would be present in ${curDir} which we are sending from Jenkins as parameter
+		In normal scenarios, all further directories will be relative to  ${curDir}-->
+		<property name="workspaceDir" location="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_Decomission"/>
+		<property name="ArtifactoryFileDir" location="${workspaceDir}/temp"/>
+		<echo>Project Workspace Directory: ${workspaceDir}</echo>
+		
+	</target>
+ 
+ <!--Target to run Queues using runmqsc-->
+	<target name="Stopmessageflow" depends="init">	
+		<echo message="Stopping Messageflow on ${iib.host}"/>
+			
+		<!--<scp file="${workspaceDir}/messageflow.txt" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}"/> -->
+		
+		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsistopmsgflow ${iib.node} -e ${execution.group} -m Flow_Name"/>
+		
+	  <echo message="Completed deletion of Messageflow on ${iib.host}"/>
+	</target>
+	
+	
+	<echo message="Delete Messageflow on ${iib.host}"/>
+	<target name="Deletemessageflow" depends="Stopmessageflow">	
+		
+		<!--<scp file="${workspaceDir}/messageflow.txt" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}"/>-->
+		
+		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideploy ${iib.node} -e ${execution.group} -d Flow_Name.cmf"/>
+		
+		
+	  <echo message="Completed deletion of Messageflow on ${iib.host}"/>
+	  
+	</target>
+	
+
+	<!--<echo message="Delete Subscription on ${iib.host}"/>
+	<target name="DeleteSubscription" depends="Deletemessageflow">	
+		
+		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};runmqsc ${Qmgrname};delete sub ${Subscription} PURGE"/>
+        
+        	
+	  <echo message="Completed deletion of Subscription on ${iib.host}"/>
+	  
+	</target>-->
+	
+	<!--Target to run Queues using runmqsc-->
+	<target name="DeleteQueues" depends="Deletemessageflow">	
+		<echo message="Delete Queue - DeleteFlow_TypeQueues.mqsc "/>
+			
+		<scp file="${workspaceDir}/DeleteFlow_TypeQueues.mqsc" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}/Flow_Name"/>
+		<scp file="${workspaceDir}/DelQueueCommands.txt" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}/Flow_Name"/>
+		
+		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" commandResource="${workspaceDir}/DelQueueCommands.txt"/>
+		
+	</target>
+	  
+	<echo message="Delete Configurable Services on ${iib.host}"/>
+	
+	<target name="DelConfigService" depends="DeleteQueues">	
+		
+	<!--<scp file="${workspaceDir}/DelConfigCommands.txt" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}"/>-->
+		
+	<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideleteconfigurableservice ${iib.node} -c TCPIPClient -o Flow_Name;mqsireload ${iib.node} -e ${execution.group}"/>
+		
+	  <echo message="Completed deletion of Configurable Services on ${iib.host}"/>
+	</target>
+	
+<echo message="Redploying Configurations and Queues on ${iib.host}"/>
+<target name="all" depends="init">
+     
+	 <ant antfile="ConfigService.xml" target="runConfigService" />
+     
+	<ant antfile="QueueDeploy.xml" target="runQueue" />
+	
+  <echo message="Waiting for 20secs to refresh MQ"/>  
+  <sleep seconds="20"/>
+	 
+</target>
+
+
+
+<echo message="Redploying Bar on ${iib.host}"/>
+<target name="deployBar" depends="all">	
+		<echo message="Deploy Broker Archive file - ${projectName}.bar "/>
+		
+		<echo message="ENV--------------------> ${build_env} "/>
+		
+		<get src="http://iaasr001:8081/artifactory/Christus/${build_env}/Flow_Name_Build.${build_env}/${artifactnum}/Flow_Name_Build.${build_env}-${artifactnum}.bar" dest="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_Decomission/temp"/>
+		
+		
+		<scp file="${ArtifactoryFileDir}/Flow_Name_Build.dev-${artifactnum}.bar" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}/Flow_Name"/>
+		
+
+		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideploy ${iib.node} -e ${execution.group} -a ${deployment.path}/Flow_Name/Flow_Name_Build.dev-${artifactnum}.bar -w 600" failonerror="true"/>
+		<echo message="Completed deployment of Broker Archive file - Flow_Name_Build.dev-${artifactnum}.bar"/>
+		
+		
+</target>
+	
+	
+</project>

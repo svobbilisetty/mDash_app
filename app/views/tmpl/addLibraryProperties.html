@@ -1,0 +1,76 @@
+
+                <div class="page page-tables-bootstrap">
+
+                    <div class="pageheader">
+
+                        <h2>Add new Library URL in SVN <span></span></h2>
+
+                        <div class="page-bar">
+
+                            <ul class="page-breadcrumb">
+                                <li>
+                                    <a href="index.html"><i class="fa fa-home"></i> mDash</a>
+                                </li>
+                                <li>
+                                    <a href="">Add New Library URL in SVN</a>
+                                </li>
+
+                            </ul>
+                            <!--<div class="page-toolbar ng-scope"><a href="javascript:;" ui-sref="app.addinterface" class="btn btn-lightred no-border ng-isolate-scope" > <i class="fa fa-plus"></i>&nbsp;&nbsp;<span class="ng-binding">Add</span> </a> </div>-->
+                        </div>
+
+                    </div>
+				 <div ng-controller="addLibraryProperties">
+                     <!-- row -->
+                    <div class="row">
+                      <!-- col -->
+                      <div class="col-md-12">
+
+                        <!-- tile -->
+                        <section class="tile" fullscreen="isFullscreen02" >
+                          <!-- tile body -->
+                          <div class="tile-body p-0">
+
+
+                               <div class="tile-header dvd dvd-btm">
+                            <h1 class="custom-font"><strong>New Library URL in SVN</strong></h1>
+
+                        </div>
+                                <form name="form" class="form-validation mt-20" novalidate ng-submit="submit()" >
+
+								  <div class="form-group">
+									<label for="urlKey">Library URL Key</label>
+									<label for="urlKey">Library URL value</label>
+								  </div>
+
+								  <div class="form-group">
+									<input type="text" class="form-control underline-input" name="urlKey" placeholder="Library URL Key" ng-model="urlkey" required>
+									<input type="text" placeholder="Library URL Value"  name="urlvalue" class="form-control underline-input" ng-model="urlvalue" required>
+								  </div>
+
+								  <div class="form-group text-left mt-20">
+									<button type="submit" class="btn btn-blue b-0 br-3  mr-6"  ng-disabled='form.$invalid'>Save To Properties</button>
+								  </div>
+
+								</form>
+
+
+                          </div>
+                          <!-- /tile body -->
+
+                        </section>
+                        <!-- /tile -->
+
+                      </div>
+                      <!-- /col -->
+
+                    </div>
+                    <!-- /row -->
+                    <!-- row -->
+                </div>
+
+
+
+
+
+                </div>

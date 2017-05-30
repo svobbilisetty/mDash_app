@@ -1,0 +1,1 @@
+. /opt/ibm/mqsi/9.0.0.1/bin/mqsiprofile;TCPIPServer_Command;mqsireload CHRISTUS_ENT_DEV_01 -e MidasHL7_TEST

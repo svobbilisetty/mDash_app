@@ -1,0 +1,45 @@
+<style>
+
+a{
+text-decoration:none !important;
+}
+
+</style>
+<div class="page page-core page-login" style="background-image:url(../../../images/login.png);background-repeat: no-repeat; background-size:cover;">
+
+  <div class="text-center"><img src="../../../images/logoo.png"></div>
+
+  <div class="container w-420 p-15 bg-white mt-40 text-center">
+
+
+   <div class="bg-slategray lt wrap-reset mb-20 text-center">
+      <h2 class="text-light  m-0"><strong>mDash Log In</strong></h2>
+    </div>
+
+    <form name="form" class="form-validation mt-20" novalidate>
+
+      <div class="form-group">
+        <input type="text" class="form-control underline-input" placeholder="UserName" ng-model="user.username" required>
+      </div>
+
+      <div class="form-group">
+        <input type="password" placeholder="Password" class="form-control underline-input" ng-model="user.password" required>
+      </div>
+
+      <div class="form-group text-left mt-20">
+        <button type="submit" class="btn btn-blue b-0 br-3  mr-6" ng-click="login()" ng-disabled='form.$invalid'>Login</button>
+
+        <a ui-sref="core.forgotpass" class="pull-right mt-10">Forgot Password?</a>
+      </div>
+
+    </form>
+
+    <div class="bg-slategray lt wrap-reset mt-40">
+      <p class="m-0">
+				<a  class="text"> © 2017 Miracle Software Systems , Inc.</a>
+			</p>
+    </div>
+
+  </div>
+
+</div>

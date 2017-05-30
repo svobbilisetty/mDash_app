@@ -1,0 +1,136 @@
+<style>
+.form-control{
+color:#00000 !important;
+
+}
+.panel-title{
+background-color:#0d416b;
+}
+.btn{
+white-space: pre-line;
+}
+</style>
+<div class="page page-tables-bootstrap">
+
+  <div class="pageheader">
+
+    <h2>Add Interface <span></span></h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a href="index.html"><i class="fa fa-home"></i> mDash</a>
+        </li>
+        <li>
+          <a href="#">Interface</a>
+        </li>
+        <li>
+          <a href="">Create New</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <!-- col -->
+    <div class="col-md-12">
+      <!-- tile -->
+      <section class="tile" fullscreen="isFullscreen01">
+
+
+        <!-- tile body -->
+        <div class="tile-body">
+
+          <div ng-controller="AccordionDemoCtrl">
+
+<!--accorian-->
+
+<!--accordian-->
+
+
+            <uib-accordion close-others="oneAtATime">
+
+              <uib-accordion-group class="panel-greensea" is-open="status.isFirstOpen" is-disabled="true" >
+                <uib-accordion-heading>
+                
+                 <input class="form-control underline-input" placeholder="Flow Name" type="text">
+                </uib-accordion-heading>
+           <div ng-controller="AddInterface">
+               <b> <h3>Create Interface Page</h3></b>
+			   <h4 style="color:red" ng-show="create" >{{flow}} Created </h4>
+                <div class="tile-body">
+
+                                    <form role="form" ng-submit="submit()">
+									
+										<div class="form-group col-sm-6">
+                                            <label for="exampleInputEmail1">Interface Name</label>
+                                            <input class="form-control" id="exampleInputEmail1" placeholder="Interface_Name" ng-model="interface_name" >
+											 
+                                        </div>									
+
+                                        <div class="form-group col-sm-6">
+                                            <label for="exampleInputEmail1">Flow Name</label>
+                                            <input class="form-control" id="exampleInputEmail1" placeholder="Flow Name" ng-model="flowname">
+											 <!-- <button type="button" class="btn btn-rounded btn-success btn-sm" ng-click="createfolder()" disabled="true" id="button">Build Folder</button> -->
+                                        </div>
+										
+                                        <div class="form-group col-sm-6">
+                                            <label for="exampleInputPassword1">Remote_SVN_Path</label>
+                                            <input class="form-control" id="exampleInputPassword1" placeholder="Remote_SVN_URL" ng-model="Remote_SVN_Path" ng-blur="enablecf()" >
+											 <!-- <button type="button" class="btn btn-rounded btn-success btn-sm" ng-click="createfolder()" disabled="true" id="button">Build Folder</button> -->
+                                         </div>
+										
+										  <div class="form-group col-sm-6">  
+										
+                                       <!--  <button type="submit" class="btn btn-rounded btn-success btn-sm" >Create Flow</button> -->
+										  </div> 
+										  <div class="form-group col-sm-6">  
+										
+                                      
+										  </div> 
+										
+                                    </form>
+
+                                </div>
+                    <div class="row">
+			<div class="col-sm-10"></div>
+			<div class="col-sm-2">
+			 <button type="button" ng-click="addItem()" class="btn btn-cyan mb-10 pull-right"><i class="fa fa-plus"></i> &nbsp Add Flow</button>
+			</div>
+			</div>
+                </uib-accordion-group>
+				
+				 <div class="tile-body dvd dvd-top">
+
+                                
+								 <button type="button" ng-click="saveInterface()"class="btn btn-cyan mb-10">Save Interface</button>
+
+
+          </div>
+				
+				
+				
+ </div>
+				
+
+          </uib-accordion-group>
+
+             </div> 
+			
+			 
+          </div> 
+          <!-- /tile body -->
+          <!-- accordian bottom -->
+         
+          <!-- /accordian bottom -->
+
+        </section>
+      </section>
+      <!-- /tile -->
+  </div>
+<!-- /col -->
+</div>
+<!-- /row -->
+
+
+</div>

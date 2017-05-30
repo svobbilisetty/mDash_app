@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.4.5">
+      <gitLabConnection></gitLabConnection>
+    </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>username</name>
+          <description></description>
+          <defaultValue>sviibtst</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>password</name>
+          <description></description>
+          <defaultValue>{AQAAABAAAAAQekftu/wUxx51Lgj2UdTLaBtjZmMVFpuu1PgzRjO13qM=}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>iibhost</name>
+          <description></description>
+          <defaultValue>icisr031.echristus.net</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>mqsiprofile</name>
+          <description></description>
+          <defaultValue>. /opt/ibm/mqsi/9.0.0.1/bin/mqsiprofile</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>IIBNode</name>
+          <description></description>
+          <defaultValue>CHRISTUS_ENT_DEV_01</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>executionGroup</name>
+          <description></description>
+          <defaultValue>MidasHL7_TEST</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>svnhost</name>
+          <description></description>
+          <defaultValue>icisr032.echristus.net</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>svnrepo</name>
+          <description></description>
+          <defaultValue>Remote_SVN_URL</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>(System)</jdk>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>mkdir Utility
+echo &apos;username=&apos;${username} &gt; Utility/ExecutionGroup.properties
+echo &apos;password=&apos;${password} &gt;&gt; Utility/ExecutionGroup.properties
+echo &apos;iibhost=&apos;${iibhost} &gt;&gt; Utility/ExecutionGroup.properties
+echo &apos;runProfileCmd=&apos;${mqsiprofile} &gt;&gt; Utility/ExecutionGroup.properties
+echo &apos;IIBNode=&apos;${IIBNode} &gt;&gt; Utility/ExecutionGroup.properties
+echo &apos;executionGroup=&apos;${executionGroup} &gt;&gt; Utility/ExecutionGroup.properties
+
+
+echo &apos;svnhostusername=&apos;${username} &gt; Utility/SVN.properties
+echo &apos;svnhostpassword=&apos;${password} &gt;&gt; Utility/SVN.properties
+echo &apos;svnhost=&apos;${svnhost} &gt;&gt; Utility/SVN.properties
+echo &apos;svnrepo=&apos;${svnrepo} &gt;&gt; Utility/SVN.properties
+value=$(cut -d/ -f7 &lt;&lt;&lt;&quot;${WORKSPACE}&quot;)
+echo &apos;projectname=&apos;$value &gt;&gt; Utility/SVN.properties</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>svn export --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/TCPIPTestCase/Utility --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Library_Detection/Utility
+svn export --non-interactive --trust-server-cert Remote_SVN_URL/Build/libraryURLInSVN.properties --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Library_Detection/Utility
+svn export --non-interactive --trust-server-cert Remote_SVN_URL --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Library_Detection/Flow_Name
+
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Ant plugin="ant@1.4">
+      <targets>libraryDetection</targets>
+      <antName>(Default)</antName>
+      <buildFile>Utility/utilityBuild.xml</buildFile>
+    </hudson.tasks.Ant>
+  </builders>
+  <publishers>
+    <hudson.plugins.textfinder.TextFinderPublisher plugin="text-finder@1.10">
+      <regexp>(Exception)</regexp>
+      <succeedIfFound>false</succeedIfFound>
+      <unstableIfFound>true</unstableIfFound>
+      <alsoCheckConsoleOutput>true</alsoCheckConsoleOutput>
+    </hudson.plugins.textfinder.TextFinderPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.32">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

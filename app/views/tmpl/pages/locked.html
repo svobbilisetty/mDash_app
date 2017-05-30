@@ -1,0 +1,38 @@
+<div class="page page-core page-login" style="background-image:url(../../../images/login.png); background-repeat: no-repeat; background-size:cover;">
+
+  <div class="text-center"><img src="../../../images/logoo.png"></div>
+
+  <div class="container w-420 p-15 bg-white mt-40">
+
+    <div class="bg-slategray lt wrap-reset mb-20 text-center">
+      <h2 class="text-light  m-0">mDash for Christus</h2>
+    </div>
+
+    <div class="media p-15">
+      <div class="pull-left thumb thumb-lg mr-20">
+        <img class="media-object img-circle" src="images/clokam.png" alt="">
+      </div>
+      <div class="media-body">
+
+        <form name="form" class="form-validation" novalidate>
+          <h4 class="media-heading mb-0">Chanakya<strong> Lokam</strong></h4>
+          <div class="form-group mt-10">
+            <input type="password" placeholder="Password" class="form-control underline-input" ng-model="user.password" required>
+          </div>
+          <div class="form-group text-left">
+            <a ui-sref="app.dashboard" class="btn btn-blue b-0 br-2 mr-5 block" ng-disabled='form.$invalid'>Login</a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <div class="bg-slategray lt wrap-reset mt-0 text-center">
+      <p class="m-0">
+				<a ui-sref="core.login">Not you?</a>
+			</p>
+    </div>
+
+  </div>
+
+</div>

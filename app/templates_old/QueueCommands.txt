@@ -1,0 +1,5 @@
+runmqsc ENT_DEV_01 < /opt/mqm/bar/Flow_Name/CreateFlow_TypeQueues.mqsc
+
+
+
+

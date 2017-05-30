@@ -1,0 +1,1 @@
+. /opt/ibm/mqsi/9.0.0.1/bin/mqsiprofile;mqsideleteconfigurableservice CHRISTUS_ENT_DEV_01 -c TCPIPClient -o Flow_Name;mqsireload CHRISTUS_ENT_DEV_01 -e MidasHL7_TEST

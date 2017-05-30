@@ -1,0 +1,830 @@
+<p id="i">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+ <script>
+function fa1(){
+	var para = document.createElement("style");
+var node = document.createTextNode(".color1{color:green !important;}ul.checkout-bar li.visited::before{background:green !important}.checkout-bar li.one:after{background-color:green !important;background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);} ");
+para.appendChild(node);
+var element = document.getElementById("i");
+element.appendChild(para);
+}
+</script>
+
+<script>
+function fa2(){
+	var para = document.createElement("style");
+var node = document.createTextNode(".color2{color:green !important;}ul.checkout-bar li:nth-child(3)::before{background:green !important}.checkout-bar li.two:after{background-color:green !important;background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);} ");
+para.appendChild(node);
+var element = document.getElementById("i");
+element.appendChild(para);
+}
+</script>
+
+<script>
+function fa3(){
+	var para = document.createElement("style");
+var node = document.createTextNode(".color3{color:green !important;}ul.checkout-bar li:nth-child(4)::before{background:green !important}.checkout-bar li.three:after{background-color:green !important;background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);} ");
+para.appendChild(node);
+var element = document.getElementById("i");
+element.appendChild(para);
+}
+</script>
+
+<script>
+function fa4(){
+	var para = document.createElement("style");
+var node = document.createTextNode(".color4{color:green !important;}ul.checkout-bar li:nth-child(5)::before{background:green !important}.checkout-bar li.four:after{background-color:green !important;background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);} ");
+para.appendChild(node);
+var element = document.getElementById("i");
+element.appendChild(para);
+}
+</script>
+
+
+<script>
+function fa5(){
+	var para = document.createElement("style");
+var node = document.createTextNode(".color5{color:green !important;}ul.checkout-bar li:nth-child(6)::before {    background: green !important;}.checkout-bar li.five:after{background-color:green !important;background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);} ");
+para.appendChild(node);
+var element = document.getElementById("i");
+element.appendChild(para);
+}
+
+function fa6(){
+	var para = document.createElement("style");
+var node = document.createTextNode(".color5{color:green !important;}ul.checkout-bar li::after{background-color:green !important;background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);} ");
+para.appendChild(node);
+var element = document.getElementById("i");
+element.appendChild(para);
+}
+
+</script>
+  
+
+</p>
+
+<style>
+/*
+h1{
+font-weight:800 !important;
+}
+@-webkit-keyframes myanimation {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 50%;
+  }
+}
+h1 {
+  text-align: center;
+  font-family: 'PT Sans Caption', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  padding: 20px 0;
+  color: #777;
+}
+
+.checkout-wrap {
+  color: #444;
+  font-family: 'PT Sans Caption', sans-serif;
+  margin: 40px auto;
+  max-width: 1200px;
+  position: relative;
+}
+
+ul.checkout-bar li {
+  color: #ccc;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 20px 14px 80px;
+  position: relative;
+}
+ul.checkout-bar li:before {
+  -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  background: #ddd;
+  border: 2px solid #FFF;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  left: 20px;
+  line-height: 37px;
+  height: 35px;
+  position: absolute;
+  text-align: center;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+  top: 4px;
+  width: 35px;
+  z-index: 999;
+}
+ul.checkout-bar li.mam {
+  color: #8bc53f;
+  font-weight: bold;
+}
+ul.checkout-bar li.mam:before {
+  background: #8bc53f;
+  z-index: 99999;
+}
+ul.checkout-bar li.sam {
+  color: #8bc53f;
+  font-weight: bold;
+}
+ul.checkout-bar li.sam:before {
+  background: #8bc53f;
+  z-index: 99999;
+}
+ul.checkout-bar li.ram {
+  color: #8bc53f;
+  font-weight: bold;
+}
+ul.checkout-bar li.ram:before {
+  background: #8bc53f;
+  z-index: 99999;
+}
+ul.checkout-bar li.tam {
+  color: #8bc53f;
+  font-weight: bold;
+}
+ul.checkout-bar li.tam:before {
+  background: #8bc53f;
+  
+   
+  left:28%;
+  z-index: 99999;
+}
+ul.checkout-bar li.visited {
+  background: #ECECEC;
+  color: #57aed1;
+  z-index: 99999;
+}
+ul.checkout-bar li.visited:before {
+  background: green;
+  z-index: 99999;
+}
+.two:before,.three:before,.four:before,.five:before,.six:before{
+	background-color:#57aed1 !important;
+}
+ul.checkout-bar li:nth-child(1):before {
+  content: "1";
+}
+ul.checkout-bar li:nth-child(2):before {
+  content: "2";
+}
+ul.checkout-bar li:nth-child(3):before {
+  content: "3";
+}
+ul.checkout-bar li:nth-child(4):before {
+  content: "4";
+}
+ul.checkout-bar li:nth-child(5):before {
+  content: "5";
+}
+ul.checkout-bar li:nth-child(6):before {
+  content: "6";
+}
+
+ul.checkout-bar a {
+  color: #57aed1;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media all and (min-width: 800px) {
+  .checkout-bar li.mam:after {
+    -webkit-animation: myanimation 3s 0;
+    background-size: 35px 35px;
+    background-color: #57aed1;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    content: "";
+    height: 15px;
+    width: 100%;
+    left: 50%;
+    position: absolute;
+    top: -50px;
+    z-index: 0;
+  }
+   .checkout-bar li.sam:after {
+    -webkit-animation: myanimation 3s 0;
+    background-size: 35px 35px;
+    background-color: #57aed1;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    content: "";
+    height: 15px;
+    width: 100%;
+	max-width:145px;
+	border-radius:7px;
+    left: 50%;
+    position: absolute;
+    top: -50px;
+    z-index: 0;
+  }
+   .checkout-bar li.ram:after {
+    -webkit-animation: myanimation 3s 0;
+    background-size: 35px 35px;
+    background-color: #57aed1;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    content: "";
+    height: 15px;
+    width: 100%;
+    left: 50%;
+    position: absolute;
+    top: -50px;
+    z-index: 0;
+  }
+   .checkout-bar li.tam:after {
+    -webkit-animation: myanimation 3s 0;
+    background-size: 35px 35px;
+    background-color: #57aed1;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    content: "";
+    height: 15px;
+    width: 100%;
+    left: 50%;
+    position: absolute;
+    top: -50px;
+    z-index: 0;
+  }
+
+  .checkout-wrap {
+    margin: 80px auto;
+  }
+
+  ul.checkout-bar {
+    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    background-size: 35px 35px;
+    background-color: #EcEcEc;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
+    border-radius: 15px;
+    height: 15px;
+    margin: 0 auto;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+  }
+  ul.checkout-bar:before {
+    background-size: 35px 35px;
+    background-color: green;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    content: " ";
+    height: 15px;
+    left: 0;
+    position: absolute;
+    width: 10%;
+  }
+  ul.checkout-bar li {
+    display: inline-block;
+    margin: 50px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 15%;
+  }
+  ul.checkout-bar li:before {
+    height: 45px;
+    left: 40%;
+    line-height: 45px;
+    position: absolute;
+    top: -65px;
+    width: 45px;
+    z-index: 99;
+  }
+  ul.checkout-bar li.visited {
+    background: none;
+  }
+  ul.checkout-bar li.visited:after {
+    background-size: 35px 35px;
+    background-color: #57aed1;
+      -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    content: "";
+    height: 15px;
+    left: 50%;
+    position: absolute;
+    top: -50px;
+    width: 100%;
+    z-index: 99;
+	background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+  }
+}
+*/
+</style>
+<style>
+
+ul.checkout-bar a {
+  color: #57aed1;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+ul.checkout-bar li{
+    margin-left:50px;
+}
+ul.checkout-bar li {
+  color: #ccc;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 20px 14px 80px;
+  position: relative;
+}
+ul.checkout-bar {
+    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    background-size: 35px 35px;
+    background-color: #EcEcEc;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);
+    border-radius: 15px;
+    height: 15px;
+    margin: 0 auto;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+  }
+  ul.checkout-bar li:nth-child(1):before {
+  content: "1";
+  background-color: green;
+}
+ul.checkout-bar li:nth-child(2):before {
+  content: "2";
+  background-color:#57aed1;
+}
+ul.checkout-bar li:nth-child(3):before {
+  content: "3";background-color:#57aed1;
+}
+ul.checkout-bar li:nth-child(4):before {
+  content: "4";background-color:#57aed1;
+}
+ul.checkout-bar li:nth-child(5):before {
+  content: "5";background-color:#57aed1;
+}
+ul.checkout-bar li:nth-child(6):before {
+  content: "6";background-color:#57aed1;
+}
+ul.checkout-bar li:before {
+  -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  background: #ddd;
+  border: 2px solid #FFF;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  left: 20px;
+  line-height: 37px;
+  height: 35px;
+  position: absolute;
+  text-align: center;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+  top: 4px;
+  width: 35px;
+  z-index: 999;
+}
+ .checkout-wrap {
+    margin: 80px auto;
+  }
+  .checkout-wrap {
+  color: #444;
+  font-family: 'PT Sans Caption', sans-serif;
+  margin: 40px auto;
+  max-width: 1200px;
+  position: relative;
+}
+  ul.checkout-bar:before {
+    background-size: 35px 35px;
+    background-color: green;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    content: " ";
+    height: 15px;
+    left: 0;
+    position: absolute;
+    width: 9%;
+  }
+  ul.checkout-bar li {
+    display: inline-block;
+    margin: 50px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 16%;
+  }
+  /*
+  .one {
+    margin: 50px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 16%;
+  }
+  .two {
+    margin: 50px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 16%;
+  }
+  .three {
+    margin: 50px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 16%;
+  }
+  .four {
+    margin: 50px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 16%;
+  }
+  .five {
+    margin: 50px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 16%;
+  }
+  .six {
+   
+    margin: 50px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 16%;
+  }
+  
+  ul.checkout-bar li {
+      display:inline-block;
+  }*/
+   ul.checkout-bar li:before {
+    height: 45px;
+    left: 40%;
+    line-height: 45px;
+    position: absolute;
+    top: -65px;
+    width: 45px;
+    z-index: 99;
+  }
+
+   ul.checkout-bar li:after {
+    background-size: 35px 35px;
+    background-color: #57aed1;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    content: "";
+    height: 15px;
+    left: 50%;
+    position: absolute;
+    top: -50px;
+    width: 100%;
+    z-index: 0;
+  }
+.six:after{
+
+width:65% !important;
+border-radius:15px;
+}
+</style>
+<div class="page page-timeline">
+
+  <!-- page header -->
+  <div class="pageheader">
+
+    <h2>Flow Name<span></span></h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> mDash</a>
+        </li>
+        <li>
+          <a href="javascript:;">Interface</a>
+        </li>
+        <li>
+          <a ui-sref="app.">Interface Name</a>
+        </li>
+        <li>
+          <a ui-sref="app.">Flow Name</a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+  <!-- /page header -->
+ <!-- page content -->
+  <div class="pagecontent">
+  <section class="tile">
+                          <!-- tile header -->
+                          <div class="tile-header dvd dvd-btm">
+                           <center> <h1 class="custom-font"><strong>Progress Bar</h1> </center>
+
+                          </div>
+			
+			
+			 
+<div class="checkout-wrap">
+  <ul class="checkout-bar">
+
+    <li class="visited first one">
+      <a style="color:green" onclick="fa1()">Build <br>Initiated</a>
+    </li>
+    
+    <li class="previous visited two">
+	<a class="color1" onclick="fa2()"> Library<br> Detection</a></li>
+    
+    <li class="active three">
+	<a class="color2" onclick="fa3()">Create<br> Configurable </a></li>
+    
+    <li class="active four">
+	<a class="color3" onclick="fa4()"> Create <br>queue</a></li>
+    
+    <li class="active five">
+	<a class="color4" onclick="fa5()">Deploy <br>      <br></a>
+	</li>
+	
+	<li class="active six">
+	<a class="color5" onclick="fa6()">Build <br>Sucessfull</a>
+	</li>
+      
+  </ul>
+    
+</div>
+
+			
+			
+			
+			
+			
+			
+						  </section>
+						    <br><br><br><br><br><br>
+	<div class="row">
+                    <!-- col -->
+                    <div class="">
+                    <div class="col-sm-6">
+                        <!-- tile -->
+                        <section class="tile">
+                          <!-- tile header -->
+                          <div class="tile-header dvd dvd-btm">
+                            <h1 class="custom-font"><strong>Status </strong>and Operations</h1>
+
+                          </div>
+                          <!-- /tile header -->
+                            <!-- tile body -->
+
+                            <div class="tile-body p-0" >
+                                <div class="table-responsive" style="height:312px;">
+                                  <div class="row">
+
+                                    <div class="col-sm-12">
+                                      <br>
+                                      <div class="col-sm-4">
+                                        <div class="filled bg-slategray">
+                                        <mark class="bg-white">v19.7</mark>
+                                        <h1 class="">Test</h1>
+                                      </div>
+                                      </div>
+                                    <div class="col-sm-4 ">
+                                      <div class="filled bg-slategray">
+                                      <mark class="bg-white">v17.4</mark>
+                                      <h1 class="">Dev</h1>
+                                    </div>
+                                    </div>
+                  											<div class="col-sm-4">
+                                          <div class="filled bg-slategray">
+                                          <mark class="bg-white">v9.2</mark>
+                  											  <h1 class="">Prod</h1>
+                                        </div>
+                  											</div>
+                  									</div>
+									</div>
+
+
+<div class="row"><br>
+  <div class="col-sm-12"><br>
+
+      <div class="btn-group col-sm-4 mb-20">
+                                      <button type="button" class="btn btn-primary">Environment&nbsp;&nbsp;</button>
+                                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                          <span class="caret"></span>
+                                          <span class="sr-only">Toggle Dropdown</span>
+                                      </button>
+                                      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                          <li><a href="#">Test Environment</a></li>
+                                          <li><a href="#">Dev Environment</a></li>
+                                          <li><a href="#">Prod Environment</a></li>
+
+                                      </ul>
+
+    </div>
+
+      <div class="btn-group col-sm-4 mb-20 col-sm-12">
+                                      <button type="button" class="btn btn-primary">Version &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                          <span class="caret"></span>
+                                          <span class="sr-only">Toggle Dropdown</span>
+                                      </button>
+                                      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                          <li><a href="#">v1.3</a></li>
+                                          <li><a href="#">v2.4</a></li>
+                                          <li><a href="#">v3.9</a></li>
+                                          <li><a href="#">v4.1</a></li>
+                                      </ul>
+
+    </div>
+    <div class="col-sm-4">
+      <button type="button" class="btn btn-primary col-sm-12 btn-danger">Promote</button>
+    </div>
+  </div>
+</div>
+<div class="row"><br>
+  <div class="col-sm-12">
+  <div class="col-sm-6">
+      <!-- <select ng-model="selected"  ng-options="o.label for o in options">
+        <option value="">-------</option>
+    </select> --> 
+	 
+	
+    <button type="button" class="btn btn-darkgray mb-10 col-sm-12" ng-click="builddetails()">Build/Deploy</button>
+  </div>
+    <div id="id01" class="w3-modal" ng-show="buildmodal">
+	
+    <div class="w3-modal-content">
+      <div class="w3-container" >
+        <span ng-click="close()" class="w3-button w3-display-topright">&times;</span><br>
+		<br>
+			<div class="form-group col-sm-12">
+				
+				 <div id="build_envDiv" >
+					<!-- <label for="Build Environment">Build Environment</label> -->
+			   <input class="form-group col-sm-12" id="build_env" type="text" ng-model="build_env" style="display: none;"></input>
+				</div> 
+							
+				
+				<div id="Config_ServiceDiv" >
+					<label for="iibhost">IIB Host</label>
+					<input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input>
+				</div>
+
+				<div id="svnrepoDiv" >
+					<label for="IIBNode">IIB Node</label>
+					<input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input>
+				</div>
+
+				<div id="projectnameDiv" >
+					<label for="executionGroup">Execution Group</label>
+					<input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input>
+				</div>
+		
+				<div id="messageflownameDiv" >
+					<label for="BrokerName ">Broker </label>
+					<input class="form-group col-sm-12" id="BrokerName " type="text" ng-model="BrokerName "></input>
+				</div>
+				
+				
+							
+			</div>
+			<div class="form-group col-sm-7">
+			<button type="button" class="btn btn-darkgray mb-10 col-sm-6" ng-click="build()">Build Now</button>
+			</div>
+      </div>
+    </div>
+  </div> 
+ 
+  <div class="col-sm-6">
+    <button type="button" class="btn btn-darkgray mb-10 col-sm-12">Rollback</button>
+  </div>
+</div>
+</div>
+
+</section>
+</div>
+   <div class="col-sm-6 ">
+  <section class="tile">
+
+
+
+                            <style>
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+</style>
+                                <p  style="height:355px;overflow-y:scroll;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
+                                  <font id="console2">
+								  
+								  
+								  </div>
+                                </p></font>
+
+
+                            </div>
+
+</section>
+ </div>
+ </div>
+
+
+
+                                    </div>
+
+
+                    <!-- tile -->
+                    <section class="tile">
+
+                        <!-- tile header -->
+                        <div class="tile-header dvd dvd-btm">
+                            <h1 class="custom-font"><strong>Flow</strong> Status</h1>
+
+                        </div>
+                        <!-- /tile header -->
+
+
+
+
+                        <!-- tile body -->
+
+                        <div class="tile-body p-0" >
+
+                            <div class="table-responsive" style="overflow-y:scroll;height:360px;">
+                                <table class="table mb-0" id="usersList" style="padding-top:30px;padding-bottom:30px;">
+
+                                    <thead>
+                                    <tr>
+                                        <th>#Build</th>
+                                        <th>Commit Date</th>
+                                        <th>Build Date/Time</th>
+                                        <th>By</th>
+                                        <th><center>Flow Status</center></th>
+                                        <th><center>Change Set</center></th>
+                                        <th><center> Logs</center></th>
+										 
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                   	  <tr ng-repeat="x in job">
+										<td>{{x.number}}</td>
+										<td>{{x.changeSet.items[0].date}}</td>
+										<td>{{x.timestamp | date: 'medium' : '+0530'}}</td>
+										<td>{{x.changeSet.items[0].author.fullName}}</td>
+										<td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
+										<span class="{{x.result == 'SUCCESS' ? 'fa fa-square text-success' : ((x.result == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
+							            <td><center><i class="fa fa-eye">{{x.changeSet.items[0].affectedPaths}}</i></center></td>
+										<td> <center><i class="icon-magnifier" ></i></center></td>
+									  </tr>
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+
+                            </section>
+
+							<!--  <script type="text/ng-template" id="buildContent.html">
+                  <div class="modal-header">
+                <h3 class="modal-title custom-font">Flow Log</h3>
+                  </div> 
+               <div class="modal-body" id="mb">
+				
+				<div id="myDiv" class="form-group col-sm-6">
+			
+			    </div>
+			   </div>
+              <div class="modal-footer">
+                <button class="btn btn-default btn-border" ng-click="ok()">Close</button>
+                <button class="btn btn-default btn-border" ng-click="cancel()">Download</button> 
+              </div>  
+			  
+			  
+                             </script>
+ -->
+  <!-- /page content -->
+
+
+
+
+</div>
