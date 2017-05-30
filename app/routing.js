@@ -960,7 +960,7 @@ console.log(req.query.username);
 												setTimeout(function() {
 														executed_job=folder+"/"+flowName+"/"+flowName+"_Build";
 												 res.redirect("/console");
-											}, 8000);
+											}, 10000);
 											}); 
 					   
 			         });   
@@ -1151,7 +1151,7 @@ app.get('/build1', function (req, res) {
 												setTimeout(function() {
 												 executed_job=next_job;
 												 res.redirect("/console");
-											}, 8000);
+											}, 10000);
 											}); 
 											
 											}); 
@@ -1292,3 +1292,12 @@ app.get("/EnvironmentalParameters",function(req,res){
     });    
 });
 
+app.get('/details', function (req, res) {
+     console.log("came details");
+     var details={
+        flowName:flowName,
+        interfaceName:interfaceName        
+     }
+     console.log(details);
+     res.send(details);     
+});

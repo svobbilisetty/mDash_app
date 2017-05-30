@@ -14,7 +14,24 @@
 	var nextbuild_no;
 	$scope.buildmodal=false;
 	var socket;
-	socket = io('http://localhost:9003');
+	 
+	$http({
+		method : "GET",
+		url : "/public/serverHost.json"	
+	}).then(function(response){
+		serverHosturl = response.data.serverHosturl;
+		
+	$http({
+		method : "GET",
+		url : serverHosturl+"details"
+	  }).then(function(response) {
+	   //  alert(JSON.stringify(response.data));
+	  
+		  $scope.Interface_Name=response.data.interfaceName; 
+		  $scope.Flow_Name=response.data.flowName;
+    });
+	
+			socket = io('http://localhost:9003');
 			socket.on('news', function (data) {
 				//alert(JSON.stringify(data));
 				console.log(JSON.stringify(data));
@@ -24,15 +41,7 @@
 				var data1=data.toString().replace(/textFromTag/gim,'');
 				alert(data1); */
 				dataPort.innerHTML=JSON.stringify(data);
-			}); 
-	$http({
-		method : "GET",
-		url : "/public/serverHost.json"	
-	}).then(function(response){
-		serverHosturl = response.data.serverHosturl;
-		
-	
-	   
+			}); 	
 			
 		
 	$scope.builddetails= function(){ 
