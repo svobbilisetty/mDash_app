@@ -10,12 +10,15 @@
  
 	<property name="buildPropertiesDirectory" location="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build"/>
 	<property file="${buildPropertiesDirectory}/build.properties"/>
+	<property name="workspaceDirForDeploy" location="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Deploy"/>
+	<property name="ArtifactoryFileDir" location="${workspaceDirForDeploy}/temp"/>
 
      
    <!-- artifact-properties -->
-    <property name="artifact.group" value="${env}" />
-	<echo>${env}</echo>
-	<property name="artifact.name" value="Flow_Name_Build.${env}" />
+    <property name="artifact.group" value="Raw_bar" />
+	<!--<echo>${env}</echo>-->
+	<property name="artifact.name" value="Flow_Name_Build" />
+	<property name="artifactmodified.name" value="Flow_Name_Build.${env}" />
     <property name="artifact.version" value="${RevisionNo}" />
     <property name="artifact.type" value="bar" />
     <property name="artifact.pom" value="pom.xml" />
@@ -48,6 +51,23 @@
         </artifact:deploy>
     </target>
      
+	 
+	 <target name="init1">
+		<antcall target="clean" />
+		<antcall target="Upload_Env_Arftifacts" />		
+    </target>
+	
+	 <target name="Upload_Env_Arftifacts">
+	 <echo message="ENV--------------------> ${env} "/>
+        <artifact:pom id="tmp.pom" groupid="${env}" artifactid="${artifactmodified.name}" version="${artifact.version}" packaging="${artifact.type}" name="${artifactmodified.name}" />
+        <artifact:writepom pomRefId="tmp.pom" file="${artifact.pom}"/>
+         <artifact:deploy file="${ArtifactoryFileDir}/Flow_Name_Build-${env}.${RevisionNo}.bar">
+            <remoteRepository url="${remote.repo.url}">
+                <authentication username="${remote.repo.username}" password="${remote.repo.password}" />
+            </remoteRepository>
+            <pom file="${artifact.pom}" />            
+        </artifact:deploy>
+   </target>
     <!-- clean-task for deletion of an earlier created temporary pom-file -->
     <target name="clean">
         <delete file="${artifact.pom}" />

@@ -126,14 +126,16 @@
 		
 		<echo message="ENV--------------------> ${build_env} "/>
 		
+		 
 		<get src="http://iaasr001:8081/artifactory/Christus/${build_env}/Flow_Name_Build.${build_env}/${artifactnum}/Flow_Name_Build.${build_env}-${artifactnum}.bar" dest="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_Decomission/temp"/>
 		
 		
-		<scp file="${ArtifactoryFileDir}/Flow_Name_Build.dev-${artifactnum}.bar" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}/Flow_Name"/>
+		
+		<scp file="${ArtifactoryFileDir}/Flow_Name_Build.${build_env}-${artifactnum}.bar" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}/Flow_Name"/>
 		
 
-		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideploy ${iib.node} -e ${execution.group} -a ${deployment.path}/Flow_Name/Flow_Name_Build.dev-${artifactnum}.bar -w 600" failonerror="true"/>
-		<echo message="Completed deployment of Broker Archive file - Flow_Name_Build.dev-${artifactnum}.bar"/>
+		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideploy ${iib.node} -e ${execution.group} -a ${deployment.path}/Flow_Name/Flow_Name_Build.${build_env}-${artifactnum}.bar -w 600" failonerror="true"/>
+		<echo message="Completed deployment of Broker Archive file - Flow_Name_Build-${build_env}.${artifactnum}.bar"/>
 		
 		
 </target>

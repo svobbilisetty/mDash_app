@@ -175,7 +175,9 @@ app.get('/CInterface', function(req, res){
 	/*Changes for Deploy_to_test.xml file*/
     var data = fs.readFileSync(__dirname+'/job_templates/Deploy_to_test.xml', 'utf-8');
     var newValue = data.replace(/Remote_SVN_URL/gim, Remote_SVN_URL);
-    fs.writeFileSync(__dirname+'/job_configfiles/Deploy.xml',newValue, 'utf-8');
+    var newValue1 = newValue.replace(/Flow_Name/gim, flowname);
+    var newValue2 = newValue1.replace(/Flow_Type/gim, folder);
+    fs.writeFileSync(__dirname+'/job_configfiles/Deploy.xml',newValue2, 'utf-8');
     /*Changes for Deploy_to_test.xml file*/
 	
 	/*Changes for Flow_name_Build.xml file*/
@@ -570,7 +572,7 @@ console.log(type);
     /*Changes for testCaseBuild.xml file*/
 	
 		
-	/*Changes for libraryURLInSVN.properties file*/
+	/*Changes for libraryURLInSVN.properties file
     var data = fs.readFileSync(__dirname+'/templates/libraryURLInSVN.properties', 'utf-8');
     fs.writeFileSync('C:\\Ruby23\\files\\Build\\libraryURLInSVN.properties', data, 'utf-8');
     /*Changes for libraryURLInSVN.properties file*/
@@ -921,9 +923,9 @@ console.log(req.query.username);
 				jenkins.job.get(folder+"/"+flowName+"/"+flowName+"_Build",({ depth: 2,pretty: 'true'}), function(err, data) {
 							  if (err) throw err;
 							 console.log('job', data.actions[0].parameterDefinitions[9].defaultParameterValue.value);
-							 projectname=data.actions[0].parameterDefinitions[9].defaultParameterValue.value;
-							 messageflowname=data.actions[0].parameterDefinitions[10].defaultParameterValue.value;
-							 svnrepo=data.actions[0].parameterDefinitions[11].defaultParameterValue.value; 
+							 projectname=data.actions[0].parameterDefinitions[8].defaultParameterValue.value;
+							 messageflowname=data.actions[0].parameterDefinitions[9].defaultParameterValue.value;
+							 svnrepo=data.actions[0].parameterDefinitions[10].defaultParameterValue.value; 
 							  if( data.builds == "")
 												     {
 														 console.log("entered if");
@@ -1048,12 +1050,11 @@ log.on('end', function(end) {
 							 jobdata=data;
 							  console.log('job status'+ data.builds[0].result+" build number  "+data.builds[0].number);
 							// res.send(data);
-							if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE" )
-							//if(data.builds[0].result=="FAILURE")
+							if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
+							//	if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
 							{
 								current_job=uri;
 								console.log(current_job);
-								//if(current_job==folder+"/"+flowName+"/Deploy")
 								if(current_job==folder+"/"+flowName+"/Deploy" || current_job==folder+"/"+flowName+"/"+"Rollback_Decomission")
 								{
 									res.send("JObs Executed")
@@ -1064,6 +1065,11 @@ log.on('end', function(end) {
 								
 								
 							}
+							else
+                            {
+                                console.log(uri+"FAILED");
+                                res.send(uri+"_job_FAILED");
+                            }
 }); 
 
 });    
@@ -1131,7 +1137,9 @@ app.get('/build1', function (req, res) {
 			iibhost: EnvironmentalParameters[0].iibhost,
 			IIBNode:  EnvironmentalParameters[0].IIBNode,
 			executionGroup :EnvironmentalParameters[0].executionGroup,
-			deployment_path:EnvironmentalParameters[0].deployment_path
+			deployment_path:EnvironmentalParameters[0].deployment_path,
+			ArtifactoryUserName : CentralizedParameters[0].ArtifactoryUserName,
+            ArtifactoryPassword : CentralizedParameters[0].ArtifactoryPassword
 		}
 		
 	}

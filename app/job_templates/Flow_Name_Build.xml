@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><project>
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
   <actions/>
-  <description/>
+  <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.4.5">
-      <gitLabConnection/>
+      <gitLabConnection></gitLabConnection>
     </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.ChoiceParameterDefinition>
           <name>build_env</name>
-          <description/>
+          <description></description>
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
               <string>dev</string>
@@ -21,62 +22,52 @@
         </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>username</name>
-          <description/>
+          <description></description>
           <defaultValue>sviibtst</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.PasswordParameterDefinition>
           <name>password</name>
-          <description/>
+          <description></description>
           <defaultValue>{AQAAABAAAAAQZSFuoJp/WUag1gQaMofx2YscYDqJ73Cr8Y8qO+lLpdc=}</defaultValue>
         </hudson.model.PasswordParameterDefinition>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>target</name>
-          <description/>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>Build</string>
-              <string>Build+Deploy</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>toolkithome</name>
-          <description/>
+          <description></description>
           <defaultValue>/opt/IBM/IntegrationToolkit90</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>svnhost</name>
-          <description/>
+          <description></description>
           <defaultValue>icisr032.echristus.net</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>ArtifactoryURL</name>
-          <description/>
+          <description></description>
           <defaultValue>http://iaasr001:8081/artifactory/Christus/</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>ArtifactoryUserName</name>
-          <description/>
+          <description></description>
           <defaultValue>admin</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.PasswordParameterDefinition>
           <name>ArtifactoryPassword</name>
-          <description/>
+          <description></description>
           <defaultValue>{AQAAABAAAAAQYGdzPXWccpmDcjYcZKowOjopisxvIQmgQHd55op6Ldk=}</defaultValue>
         </hudson.model.PasswordParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>projectname</name>
-          <description/>
+          <description></description>
           <defaultValue>Flow_Name,CommonHCP</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>messageflowname</name>
-          <description/>
+          <description></description>
           <defaultValue>Flow_Name/Flow_Name.msgflow</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>svnrepo</name>
-          <description/>
+          <description></description>
           <defaultValue>Remote_SVN_URL</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -92,19 +83,19 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>echo 'toolkit.home='${toolkithome} &gt; build.properties
-echo 'mqsiDir='${mqsiDir} &gt;&gt; build.properties
-echo 'project.name='${projectname} &gt;&gt; build.properties
-echo 'curDir='${WORKSPACE} &gt;&gt; build.properties
-echo 'messageflow.name='${messageflowname} &gt;&gt; build.properties
-echo 'RevisionNo=' &gt;&gt; build.properties
+      <command>echo &apos;toolkit.home=&apos;${toolkithome} &gt; build.properties
+echo &apos;mqsiDir=&apos;${mqsiDir} &gt;&gt; build.properties
+echo &apos;project.name=&apos;${projectname} &gt;&gt; build.properties
+echo &apos;curDir=&apos;${WORKSPACE} &gt;&gt; build.properties
+echo &apos;messageflow.name=&apos;${messageflowname} &gt;&gt; build.properties
+echo &apos;RevisionNo=&apos; &gt;&gt; build.properties
 
 mkdir Utility
-echo 'svnhostusername='${username} &gt; Utility/SVN.properties
-echo 'svnhostpassword='${password} &gt;&gt; Utility/SVN.properties
-echo 'svnhost='${svnhost} &gt;&gt; Utility/SVN.properties
-echo 'svnrepo='${svnrepo} &gt;&gt; Utility/SVN.properties
-echo 'projectname='${projectname} &gt;&gt; Utility/SVN.properties</command>
+echo &apos;svnhostusername=&apos;${username} &gt; Utility/SVN.properties
+echo &apos;svnhostpassword=&apos;${password} &gt;&gt; Utility/SVN.properties
+echo &apos;svnhost=&apos;${svnhost} &gt;&gt; Utility/SVN.properties
+echo &apos;svnrepo=&apos;${svnrepo} &gt;&gt; Utility/SVN.properties
+echo &apos;projectname=&apos;${projectname} &gt;&gt; Utility/SVN.properties</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>svn export --non-interactive --trust-server-cert Remote_SVN_URL/Build --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build
@@ -135,7 +126,7 @@ chmod 757 /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build/barfile
       <buildFile>Utility/utilityBuild.xml</buildFile>
     </hudson.tasks.Ant>
     <hudson.tasks.Ant plugin="ant@1.4">
-      <targets>base</targets>
+      <targets>build</targets>
       <antName>(Default)</antName>
       <properties>action=${target}
 env=${build_env}
@@ -149,20 +140,20 @@ jenkins_jobname=${JOB_NAME}</properties>
       <targets>init</targets>
       <antName>(Default)</antName>
       <buildFile>Artifactory.xml</buildFile>
-      <properties>jenkins_buildnumber=${BUILD_NUMBER}
-jenkins_jobname=${JOB_NAME}
-env=${build_env}
+      <properties>env=${build_env}
 artifactoryURL=${ArtifactoryURL}
 artifactoryUserName=${ArtifactoryUserName}
-artifactoryPassword=${ArtifactoryPassword}</properties>
+artifactoryPassword=${ArtifactoryPassword}
+jenkins_buildnumber=${BUILD_NUMBER}
+jenkins_jobname=${JOB_NAME}</properties>
     </hudson.tasks.Ant>
   </builders>
   <publishers/>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.32">
       <deleteDirs>false</deleteDirs>
-      <cleanupParameter/>
-      <externalDelete/>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.8"/>
   </buildWrappers>

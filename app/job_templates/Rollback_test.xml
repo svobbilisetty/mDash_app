@@ -128,19 +128,21 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>svn export --non-interactive --trust-server-cert Remote_SVN_URL --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_test/Flow_Name
+      <command>svn export --non-interactive --trust-server-cert Remote_SVN_URL --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_Decomission/Flow_Name
 
 value=$(cut -d/ -f7 &lt;&lt;&lt;&quot;${WORKSPACE}&quot;)
 echo &apos;runmqsc &apos;${BrokerName} &apos;&lt; &apos;${deployment_path}&apos;/&apos;$value&apos;/CreateFlow_TypeQueues.mqsc&apos; &gt; QueueCommands.txt
 echo &apos;runmqsc &apos;${BrokerName} &apos;&lt; &apos;${deployment_path}&apos;/&apos;$value&apos;/CreateFlow_TypeQueues.mqsc&apos; &gt; DelQueueCommands.txt
-echo ${mqsiprofile} &apos;;&apos;${Config_Service}&apos;;mqsireload&apos; ${IIBNode}&apos; -e &apos;${executionGroup} &gt; ConfigCommands.txt</command>
+echo ${mqsiprofile} &apos;;&apos;${Config_Service}&apos;;mqsireload&apos; ${IIBNode}&apos; -e &apos;${Execution_Group} &gt; ConfigCommands.txt</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>mkdir /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_Decomission/temp
 chmod 757 /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_Decomission/temp</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Ant plugin="ant@1.4">
-      <targets>base</targets>
+      <targets>DelConfigService
+deployBar
+</targets>
       <antName>(Default)</antName>
       <buildFile>Undeploy.xml</buildFile>
       <properties>action=${target}

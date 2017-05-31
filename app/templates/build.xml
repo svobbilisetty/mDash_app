@@ -14,10 +14,9 @@
 				<pathelement location="/opt/apache-ant-1.10.1/ant-contrib-1.0b3.jar/ant-contrib-1.0b3.jar/ant-contrib-1.0b3.jar"/>
 			</classpath>
 		</taskdef>
-		<switch value="${action}">
+		<!--<switch value="${action}">
 			<case value="Build">
 				<antcall target="build"/>
-				<antcall target="checkBar"/>
 			</case>
 			
 			<case value="Build+Deploy">
@@ -28,7 +27,7 @@
 			<default>
 				<echo message="Invalid action is selected"/>
 			</default>
-		</switch>
+		</switch>-->
 	</target>   
 	
 	<target name="init">
@@ -41,6 +40,7 @@
 		The jenkins workspace directory would be present in ${curDir} which we are sending from Jenkins as parameter
 		In normal scenarios, all further directories will be relative to  ${curDir}-->
 		<property name="workspaceDir" location="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build"/>
+		<property name="workspaceDirForDeploy" location="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Deploy"/>
 		<echo>Project Workspace Directory: ${workspaceDir}</echo>
 		
 		<property name="buildPropertiesDirectory" location="${workspaceDir}"/>
@@ -53,15 +53,15 @@
 		<property name="barOverideFileDir" location="${workspaceDir}/baroverride"/>
 		<echo>Bar override File Directory: ${barOverideFileDir}</echo>
 		
-		<property name="EnvPropertyFileDir" location="${workspaceDir}/EnvironmentProperties"/>
+		<property name="EnvPropertyFileDir" location="${workspaceDirForDeploy}/EnvironmentProperties/Flow_Type/Flow_Name"/>
 		<echo>Environment Property File Directory: ${EnvPropertyFileDir}</echo>
 		
-		<property name="ArtifactoryFileDir" location="${workspaceDir}/temp"/>
+		<property name="ArtifactoryFileDir" location="${workspaceDirForDeploy}/temp"/>
 
 		<property file="${buildPropertiesDirectory}/build.properties"/>
 	</target>
 
-	<target name="build" depends="init">	
+	<target name="build" depends="base,init">	
 
 		<property file="${buildPropertiesDirectory}/build.properties"/>
 		<echo message="Project to be Included List : ${project.name}"/>
@@ -72,52 +72,53 @@
 		<echo message="Project List String In Build Command : ${projectIncluded}"/>
 		<echo message="Message flows String In Build Command : ${messageFlow}"/>
 		<echo message="The mqsicreatebar command is to be executed as follows"/>
-		<echo message="${toolkit.home}/mqsicreatebar -data ${workspaceDir} -b ${barFileDir}/${jenkins_jobname}_${jenkins_buildnumber}.bar -p ${projectIncluded} -o ${messageFlow}"/>
+		<echo message="${toolkit.home}/mqsicreatebar -data ${workspaceDir} -b ${barFileDir}/${jenkins_jobname}bar -p ${projectIncluded} -o ${messageFlow}"/>
 		
 		<exec executable="${toolkit.home}/mqsicreatebar" spawn="false" vmlauncher="false" failonerror="true">
 			<arg value="-data" />
 			<arg value="${workspaceDir}" />
 			<arg value="-b" />
-			<arg value="${barFileDir}/${jenkins_jobname}_${jenkins_buildnumber}.bar" />
+			<arg value="${barFileDir}/${jenkins_jobname}.bar" />
 			<arg value="-p" />
 			<arg line="${projectIncluded}" />			
 			<arg value="-o" />
 			<arg line="${messageFlow}" />
 		</exec>
 		
-		<echo message="The bar ${barFileDir}/${jenkins_jobname}_${jenkins_buildnumber}.bar has been created successfully"/>
+		<echo message="The bar ${barFileDir}/${jenkins_jobname}.bar has been created successfully"/>
 		
 	</target>
 	
 	
 	<!--Target to build the broker archive using mqsiapplybaroverride. It will use BAR file created in Build step and would run override on it-->
 	<target name="modifyBar" depends="init">
-		<echo message="Applying override in Broker Archive file - ${jenkins_jobname}_${jenkins_buildnumber}.bar using ${jenkins_jobname}.${env}.properties"/>
-		<echo message="${toolkit.home}/mqsiapplybaroverride -b ${jenkins_jobname}_${jenkins_buildnumber}.bar -o ${jenkins_jobname}.${env}.bar"/>
+		<echo message="Applying override in Broker Archive file - ${jenkins_jobname}.bar using ${jenkins_jobname}.${env}.properties"/>
+		<echo message="${toolkit.home}/mqsiapplybaroverride -b ${jenkins_jobname}.bar -o ${jenkins_jobname}.${env}.bar"/>
 		
-		<exec executable="${toolkit.home}/mqsiapplybaroverride" failonerror="true" vmlauncher="false">
+		<get src="${artifactoryURL}/Raw_bar/Flow_Name_Build/${RevisionNo}/Flow_Name_Build-${RevisionNo}.bar" dest="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Deploy/temp"/>
+		
+		 <exec executable="${toolkit.home}/mqsiapplybaroverride" failonerror="true" vmlauncher="false">
 			<arg value="-b" />
-			<arg value="${barFileDir}/${jenkins_jobname}_${jenkins_buildnumber}.bar" />
+			<arg value="${workspaceDirForDeploy}/temp/Flow_Name_Build-${RevisionNo}.bar" />
 			<arg value="-o" />
-			<arg value="${barFileDir}/${jenkins_jobname}.${env}.bar" />
+			<arg value="${workspaceDirForDeploy}/temp/Flow_Name_Build-${env}.${RevisionNo}.bar" />
 			<arg value="-p" />
-			<arg line="${EnvPropertyFileDir}/${jenkins_jobname}.${env}.properties" />
+			<arg line="${EnvPropertyFileDir}/Flow_Name_Build.${env}.properties" />
 		</exec>
 	</target>
 	
 	<target name="checkBar" depends="modifyBar">	
      
-	 <echo message="mqsireadbar -b ${barFileDir}/${jenkins_jobname}_${jenkins_buildnumber}.bar  "  />
+	 <echo message="${workspaceDirForDeploy}/temp/Flow_Name_Build-${RevisionNo}.${env}.bar "  />
 	
-	    <exec executable="${toolkit.home}/mqsireadbar" spawn="false" vmlauncher="false" failonerror="true" output="${workspaceDir}/checkbar.txt ">
+	    <exec executable="${toolkit.home}/mqsireadbar" spawn="false" vmlauncher="false" failonerror="true" output="${workspaceDirForDeploy}/checkbar.txt ">
 		
 			<arg value="-b" />
-			<arg value="${barFileDir}/${jenkins_jobname}_${jenkins_buildnumber}.bar"/>
+			<arg value="${workspaceDirForDeploy}/temp/Flow_Name_Build-${RevisionNo}.${env}.bar"/>
 	
 		</exec>	
 	
 	</target>
-	
 	
 	
 	
@@ -127,15 +128,15 @@
 		
 		<!--Run the deployment on the server by getting the ${projectName}.${env}.bar from /home/esbadm/staging/${projectName}/${buildDate} directory -->
 		<!-- For doing remote deployment, first we need to send that file to the broker runtime and then make the deployment. We need extra jar of jsch-0.1.42.jar as well to be placed in lib folder of ant-->
-		<get src="${artifactory.url}/${env}/Flow_Name_Build.${env}/${artifactnum}/Flow_Name_Build.${env}-${artifactnum}.bar" dest="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build/temp"/>
 		
-		
-		<scp file="${ArtifactoryFileDir}/Flow_Name_Build.${env}-${artifactnum}.bar" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}/Flow_Name"/>
+	
+		<scp file="${ArtifactoryFileDir}/Flow_Name_Build-${env}.${RevisionNo}.bar" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}/Flow_Name"/>
 		
 
-		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideploy ${iib.node} -e ${execution.goup} -a ${deployment.path}/Flow_Name/Flow_Name_Build.${env}-${artifactnum}.bar -w 600" failonerror="true"/>
-		<echo message="Completed deployment of Broker Archive file - Flow_Name_Build.${env}-${artifactnum}.bar"/>
+		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideploy ${iib.node} -e ${execution.group} -a ${deployment.path}/Flow_Name/Flow_Name_Build-${env}.${RevisionNo}.bar -w 600" failonerror="true"/>
+		<echo message="Completed deployment of Broker Archive file - Flow_Name_Build-${RevisionNo}.${env}.bar"/>
 		
+		<ant antfile="Artifactory.xml" target="init1" />
 		
 	</target>
 

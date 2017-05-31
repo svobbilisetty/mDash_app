@@ -65,6 +65,16 @@
           <description></description>
           <defaultValue>/opt/mqm/bar</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>ArtifactoryPassword</name>
+          <description></description>
+          <defaultValue>{AQAAABAAAAAQAVvE89G6YL5UfO8l7jdhQYUhyJKZfe5/CjJxd4f1IMM=}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>ArtifactoryUserName</name>
+          <description></description>
+          <defaultValue>admin</defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -95,19 +105,28 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
+    <hudson.tasks.Shell>
+      <command>mkdir /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Deploy/temp
+chmod 757 /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Deploy/temp</command>
+    </hudson.tasks.Shell>
     <hudson.tasks.Ant plugin="ant@1.4">
-      <targets>deployBar</targets>
+      <targets>modifyBar
+deployBar</targets>
       <antName>(Default)</antName>
       <properties>env=${build_env}
-artifactnum=${artifactory_number}
+RevisionNo=${artifactory_number}
 iib.userid=${username}
 iib.userpassword=${password}
-artifactory.url=${ArtifactoryURL}
+artifactoryURL=${ArtifactoryURL}
 mqsiprofile=${mqsiprofile}
 iib.node=${IIBNode}
-execution.goup=${executionGroup}
+execution.group=${executionGroup}
 deployment.path=${deployment_path}
-iib.host=${iibhost}</properties>
+iib.host=${iibhost}
+jenkins_buildnumber=${BUILD_NUMBER}
+jenkins_jobname=${JOB_NAME}
+artifactoryUserName=${ArtifactoryUserName} 
+artifactoryPassword=${ArtifactoryPassword}</properties>
     </hudson.tasks.Ant>
   </builders>
   <publishers/>
