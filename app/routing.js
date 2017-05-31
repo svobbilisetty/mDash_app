@@ -1048,11 +1048,13 @@ log.on('end', function(end) {
 							 jobdata=data;
 							  console.log('job status'+ data.builds[0].result+" build number  "+data.builds[0].number);
 							// res.send(data);
-							if(data.builds[0].result=="FAILURE")
+							if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE" )
+							//if(data.builds[0].result=="FAILURE")
 							{
 								current_job=uri;
 								console.log(current_job);
-								if(current_job==folder+"/"+flowName+"/Deploy")
+								//if(current_job==folder+"/"+flowName+"/Deploy")
+								if(current_job==folder+"/"+flowName+"/Deploy" || current_job==folder+"/"+flowName+"/"+"Rollback_Decomission")
 								{
 									res.send("JObs Executed")
 								}
@@ -1348,9 +1350,19 @@ app.get("/rollbackjob",function(req,res){
                 svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
                        console.log( "Head revision=" + revision );
                        artifactory_number=revision;
+					   jenkins.job.get(folder+"/"+flowName+"/"+"Rollback_Decomission",({ depth: 2,pretty: 'true'}), function(err, data) {
+												  if (err) throw err;
+												  if( data.builds == "")
+												     {
+														 console.log("entered if");
+														 build_no=0;
+													 }
+												  else{
+													  console.log("entered else");
+													  build_no=data.builds[0].number;
+													  } 
                        
-                       
-                       jenkins.job.build({ name:folder+"/"+flowName+"/"+"Rollback_Decomission", parameters: {  
+            jenkins.job.build({ name:folder+"/"+flowName+"/"+"Rollback_Decomission", parameters: {  
             build_env:build_env,
             username:CentralizedParameters[0].username,
             password:CentralizedParameters[0].password,
@@ -1366,8 +1378,12 @@ app.get("/rollbackjob",function(req,res){
             target:target} }, function(err) {
                                                 if (err) console.log(err);
                                                 console.log("rollback job triggered");
-                                                res.send("roll_created");
-                                            });     
+                                                setTimeout(function() {
+												 executed_job=folder+"/"+flowName+"/"+"Rollback_Decomission";
+												 res.redirect("/console");
+											}, 10000);
+                                            }); 
+					   });											
                     })
                     
                     })

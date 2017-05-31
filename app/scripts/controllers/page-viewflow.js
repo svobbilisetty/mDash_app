@@ -119,7 +119,7 @@
 	$scope.rollbackdetails= function(){ 
     //alert("rollback working");
         $scope.buildmodal1=true;    
-         $scope.targets = ["--SELECT--", "Rollback", "Decommision"];
+         $scope.targets = ["Rollback", "Decommision"];
           $scope.target = $scope.targets[0];
     document.getElementById('id02').style.display='block';        
          $http({
