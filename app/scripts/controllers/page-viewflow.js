@@ -29,6 +29,10 @@
 	  
 		  $scope.Interface_Name=response.data.interfaceName; 
 		  $scope.Flow_Name=response.data.flowName;
+		  $window.setInterval(function() {
+			var element = document.getElementById("console2");
+			element.scrollTop = element.scrollHeight;
+			}, 500);
     });
 	
 			socket = io('http://localhost:9003');

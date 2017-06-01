@@ -184,9 +184,7 @@ ul.checkout-bar li:nth-child(4):before {
 ul.checkout-bar li:nth-child(5):before {
   content: "5";
 }
-ul.checkout-bar li:nth-child(6):before {
-  content: "6";
-}
+
 
 ul.checkout-bar a {
   color: #57aed1;
@@ -321,7 +319,7 @@ ul.checkout-bar a {
     box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
     content: "";
     height: 15px;
-    left: 50%;
+    left: 54%;
     position: absolute;
     top: -50px;
     width: 100%;
@@ -329,6 +327,7 @@ ul.checkout-bar a {
 	background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
   }
 }
+
 */
 </style>
 <style>
@@ -382,9 +381,7 @@ ul.checkout-bar li:nth-child(4):before {
 ul.checkout-bar li:nth-child(5):before {
   content: "5";background-color:#57aed1;
 }
-ul.checkout-bar li:nth-child(6):before {
-  content: "6";background-color:#57aed1;
-}
+
 ul.checkout-bar li:before {
   -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
   box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
@@ -433,7 +430,7 @@ ul.checkout-bar li:before {
     margin: 50px 0 0;
     padding: 0;
     text-align: center;
-    width: 16%;
+    width: 19%;
   }
   /*
   .one {
@@ -460,12 +457,7 @@ ul.checkout-bar li:before {
     text-align: center;
     width: 16%;
   }
-  .five {
-    margin: 50px 0 0;
-    padding: 0;
-    text-align: center;
-    width: 16%;
-  }
+ 
   .six {
    
     margin: 50px 0 0;
@@ -496,7 +488,7 @@ ul.checkout-bar li:before {
     box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
     content: "";
     height: 15px;
-    left: 50%;
+    left: 54%;
     position: absolute;
     top: -50px;
     width: 100%;
@@ -536,11 +528,7 @@ border-radius:15px;
  <!-- page content -->
   <div class="pagecontent">
   <section class="tile">
-                          <!-- tile header -->
-                          <!--<div class="tile-header dvd dvd-btm">
-                           <center> <h1 class="custom-font"><strong>Progress Bar</h1> </center>
-
-                          </div>-->
+                        
 			
 			
 			 
@@ -555,22 +543,22 @@ border-radius:15px;
 	<a class="color1" onclick="fa2()"> Library<br> Detection</a></li>
     
     <li class="active three">
-	<a class="color2" onclick="fa3()">Create<br> Configurable </a></li>
+	<a class="color2" onclick="fa3()">Create Config<br> Services</a></li>
     
     <li class="active four">
-	<a class="color3" onclick="fa4()"> Create <br>queue</a></li>
+	<a class="color3" onclick="fa4()"> Create <br>Queue</a></li>
     
-    <li class="active five">
-	<a class="color4" onclick="fa5()">Deploy <br>      <br></a>
-	</li>
+   
 	
 	<li class="active six">
-	<a class="color5" onclick="fa6()">Build <br>Sucessfull</a>
+	<a class="color5" onclick="fa6()">Deploy
+ <br>Automation</a>
 	</li>
       
   </ul>
     
 </div>
+
 
 			
 			
@@ -588,7 +576,7 @@ border-radius:15px;
                         <section class="tile">
                           <!-- tile header -->
                           <div class="tile-header dvd dvd-btm">
-                            <h1 class="custom-font"><strong>Status </strong>and Operations</h1>
+                            <h1 class="custom-font">Status and Operations</h1>
 
                           </div>
                           <!-- /tile header -->
@@ -600,18 +588,19 @@ border-radius:15px;
 
                                     <div class="col-sm-12">
                                       <br>
+									   <div class="col-sm-4 ">
+                                      <div class="filled bg-slategray">
+                                      <mark class="bg-white">v17.4</mark>
+                                      <h1 class="">Dev</h1>
+                                    </div>
+                                    </div>
                                       <div class="col-sm-4">
                                         <div class="filled bg-slategray">
                                         <mark class="bg-white">v19.7</mark>
                                         <h1 class="">Test</h1>
                                       </div>
                                       </div>
-                                    <div class="col-sm-4 ">
-                                      <div class="filled bg-slategray">
-                                      <mark class="bg-white">v17.4</mark>
-                                      <h1 class="">Dev</h1>
-                                    </div>
-                                    </div>
+                                   
                   											<div class="col-sm-4">
                                           <div class="filled bg-slategray">
                                           <mark class="bg-white">v9.2</mark>
@@ -632,8 +621,9 @@ border-radius:15px;
                                           <span class="sr-only">Toggle Dropdown</span>
                                       </button>
                                       <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                          <li><a href="#">Test Environment</a></li>
-                                          <li><a href="#">Dev Environment</a></li>
+                                            <li><a href="#">Dev Environment</a></li>
+										  <li><a href="#">Test Environment</a></li>
+                                        
                                           <li><a href="#">Prod Environment</a></li>
 
                                       </ul>
@@ -773,12 +763,11 @@ border-radius:15px;
                             <style>
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 </style>
-                                <p  style="height:355px;overflow-y:scroll;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
-                                  <font id="console2">
+                                <div id="console2" style="height:355px;overflow-y:scroll;scrollTop:scrollHeight;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
+                                  <font>
 								  
-								  
-								  </div>
-                                </p></font>
+								 </font>
+                                </div>
 
 
                             </div>
@@ -797,7 +786,7 @@ border-radius:15px;
 
                         <!-- tile header -->
                         <div class="tile-header dvd dvd-btm">
-                            <h1 class="custom-font"><strong>Flow</strong> Status</h1>
+                            <h1 class="custom-font">Flow Status</h1>
 
                         </div>
                         <!-- /tile header -->
@@ -818,7 +807,7 @@ border-radius:15px;
                                         <th>Commit Date</th>
                                         <th>Build Date/Time</th>
                                         <th>By</th>
-                                        <th><center>Flow Status</center></th>
+                                        <th><center>Build Status</center></th>
                                         <th><center>Change Set</center></th>
                                         <th><center> Logs</center></th>
 										 

@@ -1353,7 +1353,7 @@ app.get("/rollbackjob",function(req,res){
                     jenkins.job.get(folder+"/"+flowName+"/"+flowName+"_Build",({ depth: 2,pretty: 'true'}), function(err, data) {
                               if (err) throw err;
                              console.log('job', data.actions[0].parameterDefinitions[9].defaultParameterValue.value);
-                             svnrepo=data.actions[0].parameterDefinitions[11].defaultParameterValue.value; 
+                             svnrepo=data.actions[0].parameterDefinitions[10].defaultParameterValue.value; 
                              
                 svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
                        console.log( "Head revision=" + revision );
