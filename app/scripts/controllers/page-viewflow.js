@@ -29,10 +29,10 @@
 	  
 		  $scope.Interface_Name=response.data.interfaceName; 
 		  $scope.Flow_Name=response.data.flowName;
-		  $window.setInterval(function() {
+		 /*  $window.setInterval(function() {
 			var element = document.getElementById("console2");
 			element.scrollTop = element.scrollHeight;
-			}, 2000);
+			}, 2000); */
 	});
 			socket = io('http://localhost:9003');
 			socket.on('news', function (data) {
@@ -44,6 +44,7 @@
 				var data1=data.toString().replace(/textFromTag/gim,'');
 				alert(data1); */
 				dataPort.innerHTML=JSON.stringify(data);
+				 $('.demo').scrollTop($('.demo')[0].scrollHeight);
 			}); 	
 			
 		
