@@ -32,9 +32,8 @@
 		  $window.setInterval(function() {
 			var element = document.getElementById("console2");
 			element.scrollTop = element.scrollHeight;
-			}, 500);
-    });
-	
+			}, 2000);
+	});
 			socket = io('http://localhost:9003');
 			socket.on('news', function (data) {
 				//alert(JSON.stringify(data));
@@ -110,7 +109,7 @@
 		}).then(function(response){
 			
 				document.getElementById('id01').style.display='none';
-				alert(response.data);
+			//	alert(response.data);
 				
 		});
 		
@@ -121,9 +120,10 @@
 		
 	}
 	$scope.rollbackdetails= function(){ 
+	document.getElementById('artifactory_numberDiv').style.display='block';
     //alert("rollback working");
         $scope.buildmodal1=true;    
-         $scope.targets = ["Rollback", "Decommision"];
+         $scope.targets = ["Rollback","Decomission"];
           $scope.target = $scope.targets[0];
     document.getElementById('id02').style.display='block';        
          $http({
@@ -150,7 +150,13 @@
      }
           
    });    
-        
+    $http({
+    method : "GET",
+    url : serverHosturl+"artifactory"	
+  }).then(function(response) {
+	 // alert(JSON.stringify(response.data));
+	  $scope.artifactory_number = response.data.artifactory;  
+  })    
         
    }; 
     $scope.close1= function(){  
@@ -170,30 +176,48 @@
         var executionGroup=$scope.executionGroup;
     
         var BrokerName=$scope.BrokerName;
+		
+		var artifactory_number=$scope.artifactory_number;
+		
         var target=$scope.target;
         
-            alert("values are..."+iibhost+"  "+IIBNode+"  "+executionGroup+" "+BrokerName+" "+target);
+           // alert("values are..."+iibhost+"  "+IIBNode+"  "+executionGroup+" "+BrokerName+"  "+artifactory_number+"  "+target);
         
         $http({
             method : "GET",
             url : serverHosturl+"rollbackjob?iibhost="+iibhost+
             "&IIBNode="+IIBNode+
             "&executionGroup="+executionGroup+
-            "&BrokerName="+BrokerName+"&target="+target+"&build_env="+build_env
+            "&BrokerName="+BrokerName+"&artifactory_number="+artifactory_number+"&target="+target+"&build_env="+build_env
         }).then(function(response){
             
                 document.getElementById('id02').style.display='none';
-                alert(response.data);
+               // alert(response.data);
                   if(response.data == 'roll_created')
                  {
-                    alert("rollback job triggerd");
+                   // alert("rollback job triggerd");
                  } 
                  else{
-                     alert("rollback job failed");
+                    // alert("rollback job failed");
                      }
                  
         });
     }
+	
+	$scope.artifact= function(){
+		//alert("entered  hide");
+		 var target1 = $scope.target;
+		// alert(target1);
+		 if(target1 == "Decomission"){
+			document.getElementById('artifactory_numberDiv').style.display='none';
+		 }
+		 if(target1 == "Rollback"){
+			 document.getElementById('artifactory_numberDiv').style.display='block';
+		 }
+    };
+	
+	
+	
 	});
 	
  });

@@ -1320,7 +1320,9 @@ app.get("/rollbackjob",function(req,res){
     var IIBNode = req.query.IIBNode;
     var executionGroup = req.query.executionGroup;
     var BrokerName = req.query.BrokerName;
+	var artifactory_number=req.query.artifactory_number;
     var target = req.query.target;
+	console.log(target);
     var Config_Service;
          console.log("values are..."+iibhost+"  "+IIBNode+"  "+executionGroup+" "+BrokerName+""+target);
          MongoClient.connect(config.mongodburl, function(err, db) {
@@ -1350,14 +1352,14 @@ app.get("/rollbackjob",function(req,res){
                              console.log('job', data.actions[0].parameterDefinitions[5].defaultParameterValue.value);
                     Config_Service=data.actions[0].parameterDefinitions[5].defaultParameterValue.value;
                     
-                    jenkins.job.get(folder+"/"+flowName+"/"+flowName+"_Build",({ depth: 2,pretty: 'true'}), function(err, data) {
+                   /*  jenkins.job.get(folder+"/"+flowName+"/"+flowName+"_Build",({ depth: 2,pretty: 'true'}), function(err, data) {
                               if (err) throw err;
                              console.log('job', data.actions[0].parameterDefinitions[9].defaultParameterValue.value);
                              svnrepo=data.actions[0].parameterDefinitions[10].defaultParameterValue.value; 
                              
                 svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
                        console.log( "Head revision=" + revision );
-                       artifactory_number=revision;
+                       artifactory_number=revision; */ 	   
 					   jenkins.job.get(folder+"/"+flowName+"/"+"Rollback_Decomission",({ depth: 2,pretty: 'true'}), function(err, data) {
 												  if (err) throw err;
 												  if( data.builds == "")
@@ -1392,9 +1394,9 @@ app.get("/rollbackjob",function(req,res){
 											}, 10000);
                                             }); 
 					   });											
-                    })
+                  // })
                     
-                    })
+                  //  })
                     
                     })
                     }else {
@@ -1424,3 +1426,21 @@ app.get("/rollbackjob",function(req,res){
             });   
                                             
 });
+app.get("/artifactory",function(req,res){
+	
+	jenkins.job.get(folder+"/"+flowName+"/"+flowName+"_Build",({ depth: 2,pretty: 'true'}), function(err, data) {
+                              if (err) throw err;
+                             console.log('job', data.actions[0].parameterDefinitions[10].defaultParameterValue.value);
+                             svnrepo=data.actions[0].parameterDefinitions[10].defaultParameterValue.value; 
+                             
+                svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
+                       console.log( "Head revision=" + revision );
+                     var artifactory =revision;
+					 var data={
+						 artifactory : artifactory
+					 }
+					   res.send(data);
+				})
+	})
+	
+})

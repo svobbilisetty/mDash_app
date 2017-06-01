@@ -738,11 +738,16 @@ border-radius:15px;
 					<input class="form-group col-sm-12" id="BrokerName " type="text" ng-model="BrokerName "></input>
 				</div>
 				
-				<div id="targetDiv">
-					<label for="Target">Target</label>
-					<select ng-model="target" ng-options="x for x in targets">
-					</select>
-				</div>
+				<div id="artifactory_numberDiv" >
+                    <label for="BrokerName">Artifactory_Number </label>
+                    <input class="form-group col-sm-12" id="artifactory_number" type="text" ng-model="artifactory_number"></input>
+                </div>
+                
+                <div id="targetDiv">
+                    <label for="Target">Target</label>
+                    <select ng-model="target" ng-options="x for x in targets" ng-change="artifact()">
+                    </select>
+                </div>
 			</div>
 			<div class="form-group col-sm-7">
 			<button type="button" class="btn btn-darkgray mb-10 col-sm-6" ng-click="build1()">Rollback</button>
@@ -763,7 +768,7 @@ border-radius:15px;
                             <style>
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 </style>
-                                <div id="console2" style="height:355px;overflow-y:scroll;scrollTop:scrollHeight;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
+                                <div id="console2" style="height:355px;overflow-y:scroll;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
                                   <font>
 								  
 								 </font>
