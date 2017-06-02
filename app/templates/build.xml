@@ -95,7 +95,7 @@
 		<echo message="Applying override in Broker Archive file - ${jenkins_jobname}.bar using ${jenkins_jobname}.${env}.properties"/>
 		<echo message="${toolkit.home}/mqsiapplybaroverride -b ${jenkins_jobname}.bar -o ${jenkins_jobname}.${env}.bar"/>
 		
-		<get src="${artifactoryURL}/Raw_bar/Flow_Name_Build/${RevisionNo}/Flow_Name_Build-${RevisionNo}.bar" dest="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Deploy/temp"/>
+		<get src="${artifactoryURL}Raw_bar/Flow_Name_Build/${RevisionNo}/Flow_Name_Build-${RevisionNo}.bar" dest="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Deploy/temp"/>
 		
 		 <exec executable="${toolkit.home}/mqsiapplybaroverride" failonerror="true" vmlauncher="false">
 			<arg value="-b" />
