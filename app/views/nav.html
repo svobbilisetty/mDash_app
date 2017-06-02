@@ -13,6 +13,7 @@ text-decoration:none !important;
         <li ui-sref-active="active"><a ui-sref="app.projects"><fa name="briefcase"></fa> Interfaces</a>
 		  <ul>
             <li ui-sref-active="active"><a ui-sref="app.addinterface"><fa name="caret-right"></fa>Create New</a></li>
+			<li ui-sref-active="active"><a ui-sref="app.editinterface"><fa name="caret-right"></fa>Edit Interface</a></li>
 			 <li ui-sref-active="active"><a ui-sref="app.interfacelist"><fa name="caret-right"></fa>Interface Listing</a></li>
             <li ui-sref-active="active"><a ui-sref="app.viewinterface"><fa name="caret-right"></fa>View Interface</a></li>
            <!--  <li ui-sref-active="active"><a ui-sref="app.viewflow"><fa name="caret-right"></fa>View Flow</a></li> -->
@@ -22,10 +23,22 @@ text-decoration:none !important;
           </ul>
 		</li>
 	
-		<li ui-sref-active="active"><a ui-sref="app.addLibraryProperties"><fa name="book"></fa> Library</a>
+		<li ui-sref-active="active"><a ui-sref=""><fa name="book"></fa> Library</a>
 		  <!--<ul>
 			<li ui-sref-active="active"><a ui-sref="app.addLibraryProperties"><fa name="caret-right"></fa>Library properties</a></li>
 			</ul>-->
+			<ul>
+
+           <li ui-sref-active="active"><a ui-sref="app.addlibrary"><fa name="caret-right"></fa>Create New</a></li>
+            
+
+             <li ui-sref-active="active"><a ui-sref="app.viewlibrary"><fa name="caret-right"></fa>View Library</a></li>
+
+           <li ui-sref-active="active"><a ui-sref="app.viewlibraryjob"><fa name="caret-right"></fa>View Job</a></li>
+		   <li ui-sref-active="active"><a ui-sref="app.addLibraryProperties"><fa name="caret-right"></fa>Library properties</a></li>
+                
+
+         </ul>
 		</li>
 		
 		<li ui-sref-active="active"><a ui-sref="app.configurationsPage"><fa name="gear"></fa> Configurations</a>
@@ -36,7 +49,12 @@ text-decoration:none !important;
 		  
         <li ui-sref-active="active"><a ui-sref="app.pages.usermanagement"><fa name="users"></fa> <span>Teams</span></a>
           <ul>
-            <li ui-sref-active="active"><a ui-sref="app.users"><fa name="caret-right"></fa>Users</a></li>
+            <li ui-sref-active="active"><a ui-sref="app.users"><fa name="caret-right"></fa>Users</a>
+			<ul>
+             <li ui-sref-active="active"><a ui-sref="app.userdetails"><fa name="caret-right"></fa>User Details</a>
+             <li ui-sref-active="active"><a ui-sref="app.deploymentmatrix"><fa name="caret-right"></fa>Deployment Matrix</a>
+            </ul>
+			</li>
             <li ui-sref-active="active"><a ui-sref="app.roles"><fa name="caret-right"></fa>Roles</a></li>
 
 

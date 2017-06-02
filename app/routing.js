@@ -125,11 +125,11 @@ app.post('/serverlogin', function (req, res) {
 
 app.get('/CInterface', function(req, res){
 	console.log("createInterface");
-	 interface_name = req.query.interface_name;
-     flowname = req.query.flowname;	
-	 folder = req.query.folder;
-	 Remote_SVN_URL = req.query.Remote_SVN_URL;
-	 
+	// interface_name = req.query.interface_name;
+  //   flowname = req.query.flowname;	
+	// folder = req.query.folder;
+	// Remote_SVN_URL = req.query.Remote_SVN_URL;
+	 folder=type;
  
 	 console.log(Remote_SVN_URL);
 	
@@ -138,18 +138,18 @@ app.get('/CInterface', function(req, res){
                     console.log(error);
                 }
             }); */	
-	 if (!fs.existsSync(__dirname+'/job_configfiles')){
+	 if (!fs.existsSync('C:\\Ruby23\\files\\job_configfiles')){
 		 console.log("created new folder");
-        fs.mkdirSync(__dirname+'/job_configfiles');        
+        fs.mkdirSync('C:\\Ruby23\\files\\job_configfiles');        
         }	else{
 			console.log("folder exists");
-			rmdirSync(__dirname+'/job_configfiles', function(error){
+			rmdirSync('C:\\Ruby23\\files\\job_configfiles', function(error){
                 if(error){
                     console.log(error);
                 }
             });
 			console.log("folder removed");
-			fs.mkdirSync(__dirname+'/job_configfiles');        
+			fs.mkdirSync('C:\\Ruby23\\files\\job_configfiles');        
 			console.log("Created a new folder after deleting");
 		}
 		if(!(folder == 'Transform')){
@@ -157,7 +157,7 @@ app.get('/CInterface', function(req, res){
 			var data = fs.readFileSync(__dirname+'/job_templates/Create_Config_Services.xml', 'utf-8');
 			var newValue = data.replace(/Remote_SVN_URL/gim, Remote_SVN_URL);
 			var newValue1 = newValue.replace(/TCPIPServer_Command/gim, TCPIPServer_Command);
-			fs.writeFileSync(__dirname+'/job_configfiles/Create_Config_Services.xml',newValue1, 'utf-8');
+			fs.writeFileSync('C:\\Ruby23\\files\\job_configfiles\\Create_Config_Services.xml',newValue1, 'utf-8');
 			/*Changes for Create_config_job.xml file*/
 		}else{
 			console.log("Folder is "+folder+". So, skipped creating this job Create_Config_job");
@@ -169,7 +169,7 @@ app.get('/CInterface', function(req, res){
     var newValue = data.replace(/Remote_SVN_URL/gim, Remote_SVN_URL);
 	var newValue1 = newValue.replace(/Flow_Name/gim, flowname);
 	var newValue2 = newValue1.replace(/Flow_Type/gim, folder);
-    fs.writeFileSync(__dirname+'/job_configfiles/Create_Queues.xml',newValue2, 'utf-8');
+    fs.writeFileSync('C:\\Ruby23\\files\\job_configfiles\\Create_Queues.xml',newValue2, 'utf-8');
     /*Changes for Create_Queues.xml file*/
 	
 	/*Changes for Deploy_to_test.xml file*/
@@ -177,7 +177,7 @@ app.get('/CInterface', function(req, res){
     var newValue = data.replace(/Remote_SVN_URL/gim, Remote_SVN_URL);
     var newValue1 = newValue.replace(/Flow_Name/gim, flowname);
     var newValue2 = newValue1.replace(/Flow_Type/gim, folder);
-    fs.writeFileSync(__dirname+'/job_configfiles/Deploy.xml',newValue2, 'utf-8');
+    fs.writeFileSync('C:\\Ruby23\\files\\job_configfiles\\Deploy.xml',newValue2, 'utf-8');
     /*Changes for Deploy_to_test.xml file*/
 	
 	/*Changes for Flow_name_Build.xml file*/
@@ -185,7 +185,7 @@ app.get('/CInterface', function(req, res){
     var newValue = data.replace(/Remote_SVN_URL/gim, Remote_SVN_URL);
 	var newValue1 = newValue.replace(/Flow_Name/gim, flowname);
 	var newValue2 = newValue1.replace(/Flow_Type/gim, folder);
-    fs.writeFileSync(__dirname+'/job_configfiles/'+flowname+'_Build.xml',newValue2, 'utf-8');
+    fs.writeFileSync('C:\\Ruby23\\files\\job_configfiles\\'+flowname+'_Build.xml',newValue2, 'utf-8');
     /*Changes for Flow_name_Build.xml file*/
 	
 	/*Changes for Library_Detection.xml file*/
@@ -193,7 +193,7 @@ app.get('/CInterface', function(req, res){
     var newValue = data.replace(/Remote_SVN_URL/gim, Remote_SVN_URL);
 	var newValue1 = newValue.replace(/Flow_Name/gim, flowname);
 	var newValue2 = newValue1.replace(/Flow_Type/gim, folder);
-    fs.writeFileSync(__dirname+'/job_configfiles/Library_Detection.xml',newValue2, 'utf-8');
+    fs.writeFileSync('C:\\Ruby23\\files\\job_configfiles\\Library_Detection.xml',newValue2, 'utf-8');
     /*Changes for Library_Detection.xml file*/
 	
 	/*Changes for Rollback_test.xml file*/
@@ -202,11 +202,11 @@ app.get('/CInterface', function(req, res){
     var newValue1 = newValue.replace(/TCPIPServer_Command/gim, TCPIPServer_Command);
     var newValue2 = newValue1.replace(/Flow_Name/gim, flowname);
 	var newValue3 = newValue2.replace(/Flow_Type/gim, folder);
-    fs.writeFileSync(__dirname+'/job_configfiles/Rollback_Decomission.xml',newValue3, 'utf-8');
+    fs.writeFileSync('C:\\Ruby23\\files\\job_configfiles\\Rollback_Decomission.xml',newValue3, 'utf-8');
     /*Changes for Rollback_test.xml file*/
 	
 	
-	 if (fs.existsSync(__dirname+'/job_configfiles/'+flowname+'_Build.xml')){
+	 if (fs.existsSync('C:\\Ruby23\\files\\job_configfiles/'+flowname+'_Build.xml')){
        res.redirect('/createjob');      
     }
 	 
@@ -241,14 +241,16 @@ app.get('/createjob', function (req, res) {
 												jenkins.job.create(folder+"/"+flowname,xml1, function(err){
 												if (err) throw err;
 												console.log("folder2 created");
-																		dir1 = __dirname+"/job_configfiles";
+																		dir1 = "C:\\Ruby23\\files\\job_configfiles";
 					
 					fs.readdir(dir1, function(err, filenames) {
 						if (err) {
 							console.log(err);
 						}
-						
+						if(folder=="Transform"){var  jlength=5;}else{var  jlength=6;}
 						filenames.forEach(function(filename) {
+							jlength--;
+			            console.log(filename);
 							if (err) {
 								console.log(err);
 							}
@@ -276,6 +278,47 @@ app.get('/createjob', function (req, res) {
 																	})
 																   
 																	});
+																		if(jlength<1){
+																	
+										 MongoClient.connect(config.mongodburl, function(err, db) {
+															 if(db){
+																		var collection = db.collection('flows');
+																		
+																		if(collection){
+																			var data = {
+																							"interface_name":interface_name,
+																							"flowname":flowname,
+																							"svn_url": Remote_SVN_URL
+																						}
+																						console.log("Inserting the data -------- "+JSON.stringify(data));
+																						collection.insert(data);
+																	}else
+																	{
+																			console.log("collection not found");
+																			db.createCollection("flows",function(err,res){
+																				console.log(err);
+																				console.log("created collection");
+																			});
+																			var data = {
+																							"interface_name":interface_name,
+																							"flowname":flowname,
+																							"svn_url": Remote_SVN_URL
+																						}
+																						console.log("Inserting the data -------- "+JSON.stringify(data));
+																						collection.insert(data);
+																	}
+																		
+																	}
+															else{console.log("error is connecting to db");}
+													});	
+											
+											setTimeout(function() {
+												console.log("flow created");
+												res.send("created");		
+											}, 5000);
+												
+														
+														}
 						});
 						
 					});
@@ -283,14 +326,16 @@ app.get('/createjob', function (req, res) {
 											}
 											else
 											{
-												dir1 = __dirname+"/job_configfiles";
+												dir1 = "C:\\Ruby23\\files\\job_configfiles";
 					
 					fs.readdir(dir1, function(err, filenames) {
 						if (err) {
 							console.log(err);
 						}
-						
+						if(folder=="Transform"){var  jlength=5;}else{var  jlength=6;}
 						filenames.forEach(function(filename) {
+							jlength--;
+			            console.log(filename);
 							if (err) {
 								console.log(err);
 							}
@@ -318,6 +363,47 @@ app.get('/createjob', function (req, res) {
 																	})
 																   
 																	});
+																		if(jlength<1){
+																	
+										 MongoClient.connect(config.mongodburl, function(err, db) {
+															 if(db){
+																		var collection = db.collection('flows');
+																		
+																		if(collection){
+																			var data = {
+																							"interface_name":interface_name,
+																							"flowname":flowname,
+																							"svn_url": Remote_SVN_URL
+																						}
+																						console.log("Inserting the data -------- "+JSON.stringify(data));
+																						collection.insert(data);
+																	}else
+																	{
+																			console.log("collection not found");
+																			db.createCollection("flows",function(err,res){
+																				console.log(err);
+																				console.log("created collection");
+																			});
+																			var data = {
+																							"interface_name":interface_name,
+																							"flowname":flowname,
+																							"svn_url": Remote_SVN_URL
+																						}
+																						console.log("Inserting the data -------- "+JSON.stringify(data));
+																						collection.insert(data);
+																	}
+																		
+																	}
+															else{console.log("error is connecting to db");}
+													});	
+											
+											setTimeout(function() {
+												console.log("flow created");
+												res.send("created");		
+											}, 5000);
+												
+														
+														}
 						});
 						
 					});
@@ -344,14 +430,16 @@ app.get('/createjob', function (req, res) {
 								jenkins.job.create(folder+"/"+flowname,xml1, function(err){
                                 if (err) throw err;
                                 console.log("folder2 created");
-                                                       dir1 = __dirname+"/job_configfiles";
+                                                       dir1 = "C:\\Ruby23\\files\\job_configfiles";
     
     fs.readdir(dir1, function(err, filenames) {
         if (err) {
             console.log(err);
         }
-        
+     if(folder=="Transform"){var  jlength=5;}else{var  jlength=6;}
         filenames.forEach(function(filename) {
+			jlength--;
+			console.log(filename);
             if (err) {
                 console.log(err);
             }
@@ -366,7 +454,7 @@ app.get('/createjob', function (req, res) {
                                                     if (exists==false)
 							                        {
 														
-														 jenkins.job.create(folder+"/"+flowname+"/"+(filename.substr(0,filename.indexOf("."))),xml2, function(err){
+								 jenkins.job.create(folder+"/"+flowname+"/"+(filename.substr(0,filename.indexOf("."))),xml2, function(err){
                                                         if (err) throw err;
                                                         console.log("job created");
                                                         
@@ -379,6 +467,48 @@ app.get('/createjob', function (req, res) {
 													})
                                                    
                                                     });
+													
+													if(jlength<1){
+																	
+										 MongoClient.connect(config.mongodburl, function(err, db) {
+															 if(db){
+																		var collection = db.collection('flows');
+																		
+																		if(collection){
+																			var data = {
+																							"interface_name":interface_name,
+																							"flowname":flowname,
+																							"svn_url": Remote_SVN_URL
+																						}
+																						console.log("Inserting the data -------- "+JSON.stringify(data));
+																						collection.insert(data);
+																	}else
+																	{
+																			console.log("collection not found");
+																			db.createCollection("flows",function(err,res){
+																				console.log(err);
+																				console.log("created collection");
+																			});
+																			var data = {
+																							"interface_name":interface_name,
+																							"flowname":flowname,
+																							"svn_url": Remote_SVN_URL
+																						}
+																						console.log("Inserting the data -------- "+JSON.stringify(data));
+																						collection.insert(data);
+																	}
+																		
+																	}
+															else{console.log("error is connecting to db");}
+													});	
+											
+											setTimeout(function() {
+												console.log("flow created");
+												res.send("created");		
+											}, 5000);
+												
+														
+														}
         });
         
     });
@@ -386,14 +516,16 @@ app.get('/createjob', function (req, res) {
 							}
 							else
 							{
-								dir1 = __dirname+"/job_configfiles";
+								dir1 = "C:\\Ruby23\\files\\job_configfiles";
     
     fs.readdir(dir1, function(err, filenames) {
         if (err) {
             console.log(err);
         }
-        
+		if(folder=="Transform"){var  jlength=5;}else{var  jlength=6;}    
         filenames.forEach(function(filename) {
+			jlength--;
+			console.log(filename);
             if (err) {
                 console.log(err);
             }
@@ -421,6 +553,47 @@ app.get('/createjob', function (req, res) {
 													})
                                                    
                                                     });
+													if(jlength<1){
+																	
+										 MongoClient.connect(config.mongodburl, function(err, db) {
+															 if(db){
+																		var collection = db.collection('flows');
+																		
+																		if(collection){
+																			var data = {
+																							"interface_name":interface_name,
+																							"flowname":flowname,
+																							"svn_url": Remote_SVN_URL
+																						}
+																						console.log("Inserting the data -------- "+JSON.stringify(data));
+																						collection.insert(data);
+																	}else
+																	{
+																			console.log("collection not found");
+																			db.createCollection("flows",function(err,res){
+																				console.log(err);
+																				console.log("created collection");
+																			});
+																			var data = {
+																							"interface_name":interface_name,
+																							"flowname":flowname,
+																							"svn_url": Remote_SVN_URL
+																						}
+																						console.log("Inserting the data -------- "+JSON.stringify(data));
+																						collection.insert(data);
+																	}
+																		
+																	}
+															else{console.log("error is connecting to db");}
+													});	
+											
+											setTimeout(function() {
+												console.log("flow created");
+												res.send("created");		
+											}, 5000);
+												
+														
+														}
         });
         
     });
@@ -434,45 +607,18 @@ app.get('/createjob', function (req, res) {
 
 
 });
-console.log("flow created");
- MongoClient.connect(config.mongodburl, function(err, db) {
-				 if(db){
-							var collection = db.collection('flows');
-							
-							if(collection){
-								var data = {
-												"interface_name":interface_name,
-												"flowname":flowname
-											}
-											console.log("Inserting the data -------- "+JSON.stringify(data));
-											collection.insert(data);
-						}else
-						{
-								console.log("collection not found");
-								db.createCollection("flows",function(err,res){
-									console.log(err);
-									console.log("created collection");
-								});
-								var data = {
-												"interface_name":interface_name,
-												"flowname":flowname
-											}
-											console.log("Inserting the data -------- "+JSON.stringify(data));
-											collection.insert(data);
-						}
-							
-						}
-				else{console.log("error is connecting to db");}
-		});	
+
 });
-res.send("created");     
+
+//res.send("created");     
 }) ; 
 
 app.get("/createBuildFolder",function(req,res){
     console.log("In Build folder creation");
-  var  flowname = req.query.flowname;
-  var  type = req.query.type;
-  var  Remote_SVN_URL = req.query.Remote_SVN_URL;
+    flowname = req.query.flowname;
+    interface_name = req.query.interface_name;
+   type = req.query.type;
+   Remote_SVN_URL = req.query.Remote_SVN_URL;
   var s_flow = flowname.split("_");
   var Split_Flow = s_flow[0]+'.'+s_flow[1];
 //  var  TCPIPServer_Command = req.query.TCPIPServer_Command;
@@ -613,8 +759,8 @@ console.log(type);
                         console.log( "commit complete" );
                         fs1.removeSync('C:\\Ruby23\\files\\svn_repo');
 						fs1.removeSync('C:\\Ruby23\\files\\Build');
-						res.send("created");
-						
+						//res.send("created");
+						res.redirect('/CInterface');
                     });
                 });
             });
@@ -731,13 +877,16 @@ app.get('/addLibraryProperties', function(req, res){
 
 app.get("/saveInterface",function(req,res){
     var interface_name = req.query.interface_name;
-    
+	var time = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+    var date = new Date().toDateString();
      MongoClient.connect(config.mongodburl, function(err, db) {
         if(db){
             var collection = db.collection('interfaces');
             if(collection){
                 var data = {
-                    "interface_name":interface_name
+                    "interface_name":interface_name,
+					"date": date,
+					"time": time
                 }
                 console.log("Inserting the data -------- "+JSON.stringify(data));
                 collection.insert(data);
@@ -936,7 +1085,35 @@ console.log(req.query.username);
 													  build_no=data.builds[0].number;
 													  } 
 							  console.log('job', projectname);
-							  
+							  if(folder=="Transform")
+							  {
+								  svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
+				       console.log( "Head revision=" + revision );
+					   artifactory_number=revision;
+					    jenkins.job.build({ name: folder+"/"+flowName+"/"+flowName+"_Build", parameters: { build_env: build_env,
+														username:CentralizedParameters[0].username,
+														password :CentralizedParameters[0].password,
+														toolkithome :EnvironmentalParameters[0].toolkithome,
+														svnhost :CentralizedParameters[0].svnhost,
+														ArtifactoryURL:CentralizedParameters[0].ArtifactoryURL,
+														ArtifactoryUserName : CentralizedParameters[0].ArtifactoryUserName,
+														ArtifactoryPassword : CentralizedParameters[0].ArtifactoryPassword,
+														projectname :projectname,
+														messageflowname: messageflowname,
+														svnrepo:svnrepo
+								} }, function(err) {
+												if (err) console.log(err);
+												console.log("build triggered");
+												setTimeout(function() {
+														executed_job=folder+"/"+flowName+"/"+flowName+"_Build";
+												 res.redirect("/console");
+											}, 10000);
+											}); 
+					   
+			         }); 
+							  }
+							  else
+							  {
 							   jenkins.job.get(folder+"/"+flowName+"/Create_Config_Services",({ depth: 2,pretty: 'true'}), function(err, data) {
 							  if (err) throw err;
 							 console.log('job', data.actions[0].parameterDefinitions[5].defaultParameterValue.value);
@@ -970,7 +1147,8 @@ console.log(req.query.username);
 							 
 							 
 							 
-							}); 
+							  }); 
+							  }
 							  
 							  
 							  
@@ -1096,8 +1274,24 @@ app.get('/build1', function (req, res) {
 	}
 	if(current_job==folder+"/"+flowName+"/Library_Detection")
 	{
-		next_job=folder+"/"+flowName+"/Create_Config_Services";
-		params={
+		if(folder=="Transform")
+		{
+			next_job=folder+"/"+flowName+"/Create_Queues";
+			params={
+			build_env :build_env,
+			username:CentralizedParameters[0].username,
+			password:CentralizedParameters[0].password,
+			BrokerName :EnvironmentalParameters[0].BrokerName,
+			deployment_path:EnvironmentalParameters[0].deployment_path,
+			iibhost: EnvironmentalParameters[0].iibhost
+
+		}
+		}
+		else
+		{
+			next_job=folder+"/"+flowName+"/Create_Config_Services";
+			
+			params={
 			build_env:build_env,
 			username:CentralizedParameters[0].username,
 			password :CentralizedParameters[0].password,
@@ -1108,6 +1302,9 @@ app.get('/build1', function (req, res) {
 			IIBNode:  EnvironmentalParameters[0].IIBNode,
 			executionGroup :EnvironmentalParameters[0].executionGroup
 		}
+		}
+		
+		
 		                 
 	}
 	if(current_job==folder+"/"+flowName+"/Create_Config_Services")
@@ -1351,15 +1548,7 @@ app.get("/rollbackjob",function(req,res){
                               if (err) throw err;
                              console.log('job', data.actions[0].parameterDefinitions[5].defaultParameterValue.value);
                     Config_Service=data.actions[0].parameterDefinitions[5].defaultParameterValue.value;
-                    
-                   /*  jenkins.job.get(folder+"/"+flowName+"/"+flowName+"_Build",({ depth: 2,pretty: 'true'}), function(err, data) {
-                              if (err) throw err;
-                             console.log('job', data.actions[0].parameterDefinitions[9].defaultParameterValue.value);
-                             svnrepo=data.actions[0].parameterDefinitions[10].defaultParameterValue.value; 
-                             
-                svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
-                       console.log( "Head revision=" + revision );
-                       artifactory_number=revision; */ 	   
+                       
 					   jenkins.job.get(folder+"/"+flowName+"/"+"Rollback_Decomission",({ depth: 2,pretty: 'true'}), function(err, data) {
 												  if (err) throw err;
 												  if( data.builds == "")
@@ -1443,4 +1632,114 @@ app.get("/artifactory",function(req,res){
 				})
 	})
 	
+});
+
+app.get('/interfaceretrive', function (req, res) {
+   // Prepare output in JSON format
+
+MongoClient.connect(config.mongodburl, function(err, db) {
+  if(!err) {
+    console.log("We are connected");
+ var collection = db.collection('interfaces');
+
+collection.find({},({interface_name:true,_id:false})).toArray(function (err, result) {
+      if (err) {
+        console.log(err);
+      } else if (result.length) {
+          
+        /* for(i=0;i<result.length;i++)
+        {
+        console.log('Found:', result[i].flowname);
+        } */
+        console.log(result);
+        interfaceretrive=result;
+        res.redirect('/flownameretrive');
+      }
+      else {
+        
+      console.log('No document(s) found with defined "find" criteria!');
+      }
+    
+   })
+db.close()
+  }
 })
+});
+app.get('/flownameretrive', function (req, res) {
+   // Prepare output in JSON format
+
+MongoClient.connect(config.mongodburl, function(err, db) {
+  if(!err) {
+    console.log("We are connected");
+ var collection = db.collection('flows');
+
+collection.find({},({flowname:true,_id:false})).toArray(function (err, result) {
+      if (err) {
+        console.log(err);
+      } else if (result.length) {
+          
+        /* for(i=0;i<result.length;i++)
+        {
+        console.log('Found:', result[i].flowname);
+        } */
+        console.log(result);
+        flownameretrive=result;
+        data={
+flownameretrive : flownameretrive,
+interfaceretrive : interfaceretrive
+        }
+        res.send(data);
+      }
+      else {
+        
+      console.log('No document(s) found with defined "find" criteria!');
+      }
+    
+   })
+db.close()
+  }
+})
+});
+app.get('/svnurlretrive', function (req, res) {
+   // Prepare output in JSON format
+ var flowname=req.query.flowname;
+console.log("flowname : "+flowname);
+MongoClient.connect(config.mongodburl, function(err, db) {
+  if(!err) {
+    console.log("We are connected");
+ var collection = db.collection('flows');
+
+collection.find({flowname:flowname},({svn_url:true,_id:false})).toArray(function (err, result) {
+      if (err) {
+        console.log(err);
+      } else if (result.length) {
+          
+        /* for(i=0;i<result.length;i++)
+        {
+        console.log('Found:', result[i].flowname);
+        } */
+        console.log(result);
+        res.send(result);
+      }
+      else {
+        res.send("no_match")
+        console.log('No document(s) found with defined "find" criteria!');
+      }
+    
+   })
+db.close()
+  }
+})
+});
+
+app.get('/AddInterface',function(req,res){
+	console.log("Add Interface app.get");
+	var flowName = req.query.flow_names;
+	var interfaceName = req.query.interface_name;
+	var svnURLs = req.query.Remote_SVN_URLs;
+	var lengthOfFlow = req.query.length;
+	
+	console.log(flowName+"  : "+interfaceName+" : "+svnURLs+" : "+lengthOfFlow);
+	res.send("received");
+	
+});

@@ -610,6 +610,23 @@ var app = angular
       templateUrl: 'views/tmpl/interfacelist.html',
     })
 	
+	.state('app.editinterface', {
+      url: '/editinterface',
+    //  controller: 'MailInboxCtrl',
+      templateUrl: 'views/tmpl/editinterface.html'
+    })
+	
+	.state('app.deploymentmatrix', {
+      url: '/deploymentmatrix',
+     // controller: 'MailInboxCtrl',
+      templateUrl: 'views/tmpl/deploymentmatrix.html'
+    })
+    .state('app.userdetails', {
+      url: '/userdetails',
+     // controller: 'MailInboxCtrl',
+      templateUrl: 'views/tmpl/userdetails.html'
+    })
+	
 	.state('app.viewflow', {
       url: '/viewflow',
       templateUrl: 'views/tmpl/joblist.html',
@@ -630,6 +647,22 @@ var app = angular
       url: '/configurationsPage',
       /* controller: 'AccordionDemoCtrl1', */
       templateUrl: 'views/tmpl/config.html'
+    })
+	
+	.state('app.addlibrary', {
+      url: '/addlibrary',
+     // controller: 'MailInboxCtrl',
+      templateUrl: 'views/tmpl/addlibrary.html'
+    })
+    .state('app.viewlibrary', {
+      url: '/viewlibrary',
+     // controller: 'MailInboxCtrl',
+      templateUrl: 'views/tmpl/viewlibrary.html'
+    })
+    .state('app.viewlibraryjob', {
+      url: '/viewlibraryjob',
+     // controller: 'MailInboxCtrl',
+      templateUrl: 'views/tmpl/viewjob.html'
     })
     //tables
     .state('app.tables', {

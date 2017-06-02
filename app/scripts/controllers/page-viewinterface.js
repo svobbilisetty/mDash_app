@@ -41,6 +41,18 @@
    }; 
 
 		
+	$scope.edit = function(interfaceName){
+		  $state.go('app.editinterface');
+	/* 	alert("InterfaceName : "+$scope.interfaceName);
+		$http({
+			method : "GET",
+			url : serverHosturl+"editInterface"
+		}).then(function(response) {
+			 // alert(JSON.stringify(response.data));
+			  $scope.flows=response.data.result;
+			  $scope.interfaceName = response.data.interfaceName;
+		}); */
+	}
  
  });
  });

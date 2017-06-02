@@ -1,20 +1,21 @@
+ <script src="http://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <style>
-.form-control{
-color:#00000 !important;
 
+.md-padding {
+    padding-left: 0px;
+	padding-top:5px;
 }
-.panel-title{
-background-color:#0d416b;
-}
-.btn{
-white-space: pre-line;
-}
+
+
 </style>
+
 <div class="page page-tables-bootstrap">
 
   <div class="pageheader">
 
-    <h2>Add Interface <span></span></h2>
+    <h2>Create New Interface <span></span></h2>
 
     <div class="page-bar">
 
@@ -31,6 +32,8 @@ white-space: pre-line;
       </ul>
     </div>
   </div>
+  
+   <div ng-controller="AddInterface">
   <div class="row">
     <!-- col -->
     <div class="col-md-12">
@@ -39,98 +42,100 @@ white-space: pre-line;
 
 
         <!-- tile body -->
+		<br>
+		
+		 
         <div class="tile-body">
-
-          <div ng-controller="AccordionDemoCtrl">
-
-<!--accorian-->
-
-<!--accordian-->
+		<div class="form-group"> <label for="inputPassword3" class="col-sm-2 control-label"><b> Interface Name</b></label> <div class="col-sm-4"> <input class="form-control"  id="Interface" placeholder="Interface Name" ng-model="interface_name" > </div> </div>
+		<br>
+		<br>
+          <div >
 
 
-            <uib-accordion close-others="oneAtATime">
+            <div id="raj">
 
-              <uib-accordion-group class="panel-greensea" is-open="status.isFirstOpen" is-disabled="true" >
-                <uib-accordion-heading>
-                
-                 <input class="form-control underline-input" placeholder="Flow Name" type="text">
-                </uib-accordion-heading>
-           <div ng-controller="AddInterface">
-               <b> <h3>Create Interface Page</h3></b>
-			   <h4 style="color:red" ng-show="create" >{{flow}} Created </h4>
-                <div class="tile-body">
+            <div class="tile-body p-0">
 
-                                    <form role="form" ng-submit="submit()">
-									
-										<div class="form-group col-sm-6">
-                                            <label for="exampleInputEmail1">Interface Name</label>
-                                            <input class="form-control" id="exampleInputEmail1" placeholder="Interface_Name" ng-model="interface_name" >
-											 
-                                        </div>									
+	
 
-                                        <div class="form-group col-sm-6">
-                                            <label for="exampleInputEmail1">Flow Name</label>
-                                            <input class="form-control" id="exampleInputEmail1" placeholder="Flow Name" ng-model="flowname">
-											 <!-- <button type="button" class="btn btn-rounded btn-success btn-sm" ng-click="createfolder()" disabled="true" id="button">Build Folder</button> -->
-                                        </div>
+
+   <table class="table" id="svnTable">
+                                        <thead>
+                                        <tr>
+                                            <th width="300px;">Flow Name</th>
+                                            <th>SVN Path for Flow</th>
+                                            <th></th>
+                               
 										
-                                        <div class="form-group col-sm-6">
-                                            <label for="exampleInputPassword1">Remote_SVN_Path</label>
-                                            <input class="form-control" id="exampleInputPassword1" placeholder="Remote_SVN_URL" ng-model="Remote_SVN_Path" ng-blur="enablecf()" >
-											 <!-- <button type="button" class="btn btn-rounded btn-success btn-sm" ng-click="createfolder()" disabled="true" id="button">Build Folder</button> -->
-                                         </div>
+										</tr>
+                                        </thead>
+                                        <tbody id="myList">
+                                        <tr id="hidethis">
+                                            <td>
+											<input class="form-control" placeholder="Flow Name"  name="inputflow1" id="inputflow1" type="text" ng-model="flowname1" ng-keyup="myFunc(1)" >	</td>
+                                            <td>
+											<input class="form-control" placeholder="SVN Path for Flow" id="inputsvn1" type="text" ng-model="Remote_SVN_Path1">
+											</td>
+                                            <td><button onclick="del()" class="btn btn-sm btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">x</button></td>
+										</tr>	
 										
-										  <div class="form-group col-sm-6">  
-										
-                                       <!--  <button type="submit" class="btn btn-rounded btn-success btn-sm" >Create Flow</button> -->
-										  </div> 
-										  <div class="form-group col-sm-6">  
-										
-                                      
-										  </div> 
-										
-                                    </form>
 
-                                </div>
-                    <div class="row">
-			<div class="col-sm-10"></div>
+										
+											
+                                     
+                                     
+                                        
+                                        </tbody>
+                                    </table>
+									<script>
+											function del(rownum){
+										//	document.getElementById("'input"+count+"'").style.visibility="hidden";
+											var row = document.getElementById(rownum);
+	//row.parentElement.removeChild(row); 
+	    row.parentNode.removeChild(row);
+											}
+											
+											</script>
+
+            </div>
+		
+
+	
+	
+		  </div>
+		  
+		   <div id="newLayer"></div>
+		 
+	<br>
+	
+            </div>
+			  <!-- tile body-->
+			<div class="row tile-body">
 			<div class="col-sm-2">
-			 <button type="button" ng-click="addItem()" class="btn btn-cyan mb-10 pull-right"><i class="fa fa-plus"></i> &nbsp Add Flow</button>
+			 <button type="button" ng-click="myFunction1()" id="showAccordian"  return false;" class="btn btn-blue mb-10 col-sm-8 "><i class="fa fa-plus"></i> &nbsp<b> Add Flow</b></button>
 			</div>
+			<div class="col-sm-2">
+			 <button type="button" ng-click="saveInterface()" class="btn btn-cyan mb-10 col-sm-8"><b>Save Interface</b></button>
 			</div>
-                </uib-accordion-group>
-				
-				 <div class="tile-body dvd dvd-top">
-
-                                
-								 <button type="button" ng-click="saveInterface()"class="btn btn-cyan mb-10">Save Interface</button>
-
-
-          </div>
-				
-				
-				
- </div>
-				
-
-          </uib-accordion-group>
-
-             </div> 
 			
-			 
-          </div> 
-          <!-- /tile body -->
-          <!-- accordian bottom -->
-         
-          <!-- /accordian bottom -->
-
+			
+			</div>
+			   
+         <!-- /tile body--> 
+		 </div>
+ 
+        
+        
         </section>
-      </section>
-      <!-- /tile -->
-  </div>
-<!-- /col -->
+     </div>
+  
 </div>
-<!-- /row -->
-
-
 </div>
+</div>
+
+	
+			
+		
+		  
+			
+	
