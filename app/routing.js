@@ -706,7 +706,16 @@ console.log(type);
 		
 	/*Changes for Undeploy file*/
     var data = fs.readFileSync(__dirname+'/templates/Undeploy.xml', 'utf-8');
-    var newValue = data.replace(/Flow_Name/gim, flowname);
+	if(type == 'Receiver'){
+	 Undeploy_Config_Service = '<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideleteconfigurableservice ${iib.node} -c TCPIPServer -o ENT_PS360_ORU_Receiver;mqsireload ${iib.node} -e ${execution.group}"/>';
+  
+		}
+		else if(type == 'Sender'){
+	 Undeploy_Config_Service = '<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideleteconfigurableservice ${iib.node} -c TCPIPClient -o ENT_PS360_ORU_Receiver;mqsireload ${iib.node} -e ${execution.group}"/>';
+		}
+	else{Undeploy_Config_Service="";}
+	var new1 = data.replace(/Undeploy_Config_Service/gim, Undeploy_Config_Service);
+    var newValue = new1.replace(/Flow_Name/gim, flowname);
 	var newValue1 = newValue.replace(/Flow_Type/gim, type);
     fs.writeFileSync('C:\\Ruby23\\files\\Build\\Undeploy.xml', newValue1, 'utf-8');
     /*Changes for Undeploy.txt file*/

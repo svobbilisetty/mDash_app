@@ -101,7 +101,7 @@
 		
 	<!--<scp file="${workspaceDir}/DelConfigCommands.txt" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}"/>-->
 		
-	<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideleteconfigurableservice ${iib.node} -c TCPIPClient -o Flow_Name;mqsireload ${iib.node} -e ${execution.group}"/>
+	Undeploy_Config_Service
 		
 	  <echo message="Completed deletion of Configurable Services on ${iib.host}"/>
 	</target>
