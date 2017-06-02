@@ -1544,12 +1544,52 @@ app.get("/rollbackjob",function(req,res){
                                                       
                                                     console.log(result);
                                                     EnvironmentalParameters=result;
-                    jenkins.job.get(folder+"/"+flowName+"/Create_Config_Services",({ depth: 2,pretty: 'true'}), function(err, data) {
+								if(folder=="Transform")
+													{
+														Config_Service="";
+														jenkins.job.get(folder+"/"+flowName+"/"+"Rollback_Decomission",({ depth: 2,pretty: 'true'}), function(err, data) {
+												  if (err) throw err;
+												  if( data.builds == "")
+												     {
+														 console.log("entered if");
+														 build_no=0;
+													 }
+												  else{
+													  console.log("entered else");
+													  build_no=data.builds[0].number;
+													  } 
+                       
+											jenkins.job.build({ name:folder+"/"+flowName+"/"+"Rollback_Decomission", parameters: {  
+											build_env:build_env,
+											username:CentralizedParameters[0].username,
+											password:CentralizedParameters[0].password,
+											artifactory_number:artifactory_number,
+											executionGroup:executionGroup,
+											IIBNode:IIBNode,
+											deployment_path:EnvironmentalParameters[0].deployment_path,
+											iibhost:iibhost,
+											mqsiprofile:EnvironmentalParameters[0].mqsiprofile,
+											ArtifactoryURL : CentralizedParameters[0].ArtifactoryURL,
+											BrokerName:BrokerName,
+											Config_Service:Config_Service,
+											target:target} }, function(err) {
+																				if (err) console.log(err);
+																				console.log("rollback job triggered");
+																				setTimeout(function() {
+																				 executed_job=folder+"/"+flowName+"/"+"Rollback_Decomission";
+																				 res.redirect("/console");
+																			}, 10000);
+																			}); 
+													   });	
+													}
+													else
+													{
+								jenkins.job.get(folder+"/"+flowName+"/Create_Config_Services",({ depth: 2,pretty: 'true'}), function(err, data) {
                               if (err) throw err;
                              console.log('job', data.actions[0].parameterDefinitions[5].defaultParameterValue.value);
-                    Config_Service=data.actions[0].parameterDefinitions[5].defaultParameterValue.value;
+                           Config_Service=data.actions[0].parameterDefinitions[5].defaultParameterValue.value;
                        
-					   jenkins.job.get(folder+"/"+flowName+"/"+"Rollback_Decomission",({ depth: 2,pretty: 'true'}), function(err, data) {
+					    jenkins.job.get(folder+"/"+flowName+"/"+"Rollback_Decomission",({ depth: 2,pretty: 'true'}), function(err, data) {
 												  if (err) throw err;
 												  if( data.builds == "")
 												     {
@@ -1588,6 +1628,8 @@ app.get("/rollbackjob",function(req,res){
                   //  })
                     
                     })
+													}
+                   
                     }else {
                                                     
                             console.log('No document(s) found with defined "find" criteria!');
