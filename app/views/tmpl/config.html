@@ -139,7 +139,7 @@
 
               <uib-tabset>
                 <uib-tab heading="DEV">
-				<div ng-controller="EnvController">
+				<div ng-controller="EnvController as ctrl">
 				<form  ng-submit="submit1()" ng-init="build_env='dev'">
 				<div class="row">
 				<div class="col-sm-6">
@@ -149,25 +149,25 @@
                                             <input type="text" placeholder="toolkithome"  name="toolkithome" class="form-control underline-input" ng-model="toolkithome" required>
                                         </div>
 										  <div class="form-group">
-				  <!--  <md-content class="md-padding chipsdemoBasicUsage " ng-controller="mtChipsBasicDemoCtrl as ctrl"> -->
+				     <md-content class="md-padding chipsdemoBasicUsage " >
                                          <label >IIB Host</label>
-										 <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required>
-        <!--  <md-chips ng-model="ctrl.fruitNames" readonly="ctrl.readonly"> </md-chips>
-</md-content>  -->                                      
+										 <!-- <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required> -->
+          <md-chips ng-model="ctrl.iibhost" > </md-chips>
+       </md-content>                                     
 									   </div>
 									     <div class="form-group">
-				   <!--  <md-content class="md-padding chipsdemoBasicUsage " ng-controller="mtChipsBasicDemoCtrl as ctrl"> -->
+				    <md-content class="md-padding chipsdemoBasicUsage " > 
                                          <label>IIB Node</label>
-										 <input type="text" placeholder="IIBNode"  name="IIBNode" class="form-control underline-input" ng-model="IIBNode" required>
-         <!-- <md-chips ng-model="ctrl.fruitNames" readonly="ctrl.readonly"> </md-chips>
-</md-content>  -->                                      
+										<!--  <input type="text" placeholder="IIBNode"  name="IIBNode" class="form-control underline-input" ng-model="IIBNode" required> -->
+          <md-chips ng-model="ctrl.IIBNode" > </md-chips>
+</md-content>                                       
 									   </div>
 										 <div class="form-group">
-				    <!-- <md-content class="md-padding chipsdemoBasicUsage " ng-controller="mtChipsBasicDemoCtrl as ctrl"> -->
+				     <md-content class="md-padding chipsdemoBasicUsage " > 
                                          <label >Execution Group</label>
-										 <input type="text" placeholder="executionGroup"  name="executionGroup" class="form-control underline-input" ng-model="executionGroup" required>
-        <!--  <md-chips ng-model="ctrl.fruitNames" readonly="ctrl.readonly"> </md-chips>
-</md-content>  -->                                      
+										<!--  <input type="text" placeholder="executionGroup"  name="executionGroup" class="form-control underline-input" ng-model="executionGroup" required> -->
+         <md-chips ng-model="ctrl.executionGroup" > </md-chips>
+</md-content>                                        
 									   </div>
 											
 				</div>
@@ -191,7 +191,7 @@
 									</div>
 				</uib-tab>
 				 <uib-tab heading="TEST">
-				<div ng-controller="EnvController">
+				<div ng-controller="EnvController as ctrl">
 				<form  ng-submit="submit1()" ng-init="build_env='test'">
 				<div class="row">
 				<div class="col-sm-6">
@@ -200,26 +200,26 @@
                                             <label for="exampleInputEmail1">Toolkit Home</label>
                                             <input type="text" placeholder="toolkithome"  name="toolkithome" class="form-control underline-input" ng-model="toolkithome" required>
                                         </div>
-										  <div class="form-group">
-				  <!--  <md-content class="md-padding chipsdemoBasicUsage " ng-controller="mtChipsBasicDemoCtrl as ctrl"> -->
+										 <div class="form-group">
+				     <md-content class="md-padding chipsdemoBasicUsage " >
                                          <label >IIB Host</label>
-										 <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required>
-        <!--  <md-chips ng-model="ctrl.fruitNames" readonly="ctrl.readonly"> </md-chips>
-</md-content>  -->                                      
+										 <!-- <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required> -->
+          <md-chips ng-model="ctrl.iibhost" > </md-chips>
+       </md-content>                                     
 									   </div>
 									     <div class="form-group">
-				   <!--  <md-content class="md-padding chipsdemoBasicUsage " ng-controller="mtChipsBasicDemoCtrl as ctrl"> -->
+				    <md-content class="md-padding chipsdemoBasicUsage " > 
                                          <label>IIB Node</label>
-										 <input type="text" placeholder="IIBNode"  name="IIBNode" class="form-control underline-input" ng-model="IIBNode" required>
-         <!-- <md-chips ng-model="ctrl.fruitNames" readonly="ctrl.readonly"> </md-chips>
-</md-content>  -->                                      
+										<!--  <input type="text" placeholder="IIBNode"  name="IIBNode" class="form-control underline-input" ng-model="IIBNode" required> -->
+          <md-chips ng-model="ctrl.IIBNode" > </md-chips>
+</md-content>                                       
 									   </div>
 										 <div class="form-group">
-				    <!-- <md-content class="md-padding chipsdemoBasicUsage " ng-controller="mtChipsBasicDemoCtrl as ctrl"> -->
+				     <md-content class="md-padding chipsdemoBasicUsage " > 
                                          <label >Execution Group</label>
-										 <input type="text" placeholder="executionGroup"  name="executionGroup" class="form-control underline-input" ng-model="executionGroup" required>
-        <!--  <md-chips ng-model="ctrl.fruitNames" readonly="ctrl.readonly"> </md-chips>
-</md-content>  -->                                      
+										<!--  <input type="text" placeholder="executionGroup"  name="executionGroup" class="form-control underline-input" ng-model="executionGroup" required> -->
+         <md-chips ng-model="ctrl.executionGroup" > </md-chips>
+</md-content>                                        
 									   </div>
 											
 				</div>
@@ -243,7 +243,7 @@
 									</div>
 				 </uib-tab>
 				  <uib-tab heading="PROD">
-				 <div ng-controller="EnvController">
+				 <div ng-controller="EnvController as ctrl">
 				<form  ng-submit="submit1()" ng-init="build_env='prod'">
 				<div class="row">
 				<div class="col-sm-6">
@@ -253,25 +253,25 @@
                                             <input type="text" placeholder="toolkithome"  name="toolkithome" class="form-control underline-input" ng-model="toolkithome" required>
                                         </div>
 										  <div class="form-group">
-				  <!--  <md-content class="md-padding chipsdemoBasicUsage " ng-controller="mtChipsBasicDemoCtrl as ctrl"> -->
+				     <md-content class="md-padding chipsdemoBasicUsage " >
                                          <label >IIB Host</label>
-										 <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required>
-        <!--  <md-chips ng-model="ctrl.fruitNames" readonly="ctrl.readonly"> </md-chips>
-</md-content>  -->                                      
+										 <!-- <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required> -->
+          <md-chips ng-model="ctrl.iibhost" > </md-chips>
+       </md-content>                                     
 									   </div>
 									     <div class="form-group">
-				   <!--  <md-content class="md-padding chipsdemoBasicUsage " ng-controller="mtChipsBasicDemoCtrl as ctrl"> -->
+				    <md-content class="md-padding chipsdemoBasicUsage " > 
                                          <label>IIB Node</label>
-										 <input type="text" placeholder="IIBNode"  name="IIBNode" class="form-control underline-input" ng-model="IIBNode" required>
-         <!-- <md-chips ng-model="ctrl.fruitNames" readonly="ctrl.readonly"> </md-chips>
-</md-content>  -->                                      
+										<!--  <input type="text" placeholder="IIBNode"  name="IIBNode" class="form-control underline-input" ng-model="IIBNode" required> -->
+          <md-chips ng-model="ctrl.IIBNode" > </md-chips>
+</md-content>                                       
 									   </div>
 										 <div class="form-group">
-				    <!-- <md-content class="md-padding chipsdemoBasicUsage " ng-controller="mtChipsBasicDemoCtrl as ctrl"> -->
+				     <md-content class="md-padding chipsdemoBasicUsage " > 
                                          <label >Execution Group</label>
-										 <input type="text" placeholder="executionGroup"  name="executionGroup" class="form-control underline-input" ng-model="executionGroup" required>
-        <!--  <md-chips ng-model="ctrl.fruitNames" readonly="ctrl.readonly"> </md-chips>
-</md-content>  -->                                      
+										<!--  <input type="text" placeholder="executionGroup"  name="executionGroup" class="form-control underline-input" ng-model="executionGroup" required> -->
+         <md-chips ng-model="ctrl.executionGroup" > </md-chips>
+</md-content>                                        
 									   </div>
 											
 				</div>
