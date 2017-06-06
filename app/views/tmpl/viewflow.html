@@ -679,17 +679,20 @@ border-radius:15px;
 				
 				<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
-					<input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input>
+					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
+					<select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
 				</div>
 
 				<div id="svnrepoDiv" >
 					<label for="IIBNode">IIB Node</label>
-					<input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input>
+					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
+					<select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
 				</div>
 
 				<div id="projectnameDiv" >
 					<label for="executionGroup">Execution Group</label>
-					<input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input>
+					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> -->
+					<select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
 				</div>
 		
 				<div id="messageflownameDiv" >
@@ -720,19 +723,22 @@ border-radius:15px;
 			
 			<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
-					 <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> 
+					<!--  <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input>  -->
+					<select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
 					<!-- <select ng-model="iibhost" ng-options="x for x in iibhost">
 					</select> -->
 				</div>
 
 				<div id="svnrepoDiv" >
 					<label for="IIBNode">IIB Node</label>
-					<input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input>
+					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
+					<select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
 				</div>
 
 				<div id="projectnameDiv">
 					<label for="executionGroup">Execution Group</label>
-					<input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> 
+					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input>  -->
+					<select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
 					<!-- <select ng-model="executionGroup" ng-options="x for x in execs">
 					</select> -->
 				</div>

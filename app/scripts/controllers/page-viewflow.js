@@ -51,6 +51,9 @@
 	$scope.builddetails= function(){ 
 		$scope.buildmodal=true;	
     document.getElementById('id01').style.display='block';		
+	var iibhost1;
+	var IIBNode1;
+	var executionGroup1;
 		 $http({
     method : "GET",
     url : serverHosturl+"EnvironmentalParameters?build_env=dev"	
@@ -66,10 +69,16 @@
 	 }
 	 else
 	 {
+		 iibhost1= (response.data[0].iibhost).split(",");
+		 IIBNode1 = (response.data[0].IIBNode).split(",");
+		 executionGroup1 = (response.data[0].executionGroup).split(",");
 		
-		  $scope.iibhost = response.data[0].iibhost;
-		  $scope.IIBNode = response.data[0].IIBNode;
-		  $scope.executionGroup = response.data[0].executionGroup;
+		  $scope.iibhosts = iibhost1;
+		  $scope.iibhost = $scope.iibhosts[0];
+		  $scope.IIBNodes = IIBNode1;
+		  $scope.IIBNode = $scope.IIBNodes[0];
+		  $scope.executionGroups = executionGroup1;
+		  $scope.executionGroup = $scope.executionGroups[0];
 		  $scope.BrokerName = response.data[0].BrokerName;
 	 }
 	      
@@ -93,14 +102,14 @@
 	     var iibhost=$scope.iibhost;
 		
 		 var IIBNode=$scope.IIBNode;
-		 		
+		 
 		var executionGroup=$scope.executionGroup;
 	
 		var BrokerName=$scope.BrokerName;
 		
 			
 		
-		$http({
+		 $http({
 			method : "GET",
 			url : serverHosturl+"build?build_env=dev"+
 			"&iibhost="+iibhost+
@@ -112,7 +121,7 @@
 				document.getElementById('id01').style.display='none';
 			//	alert(response.data);
 				
-		});
+		}); 
 		
 	
 		
@@ -126,7 +135,10 @@
         $scope.buildmodal1=true;    
          $scope.targets = ["Rollback","Decomission"];
           $scope.target = $scope.targets[0];
-    document.getElementById('id02').style.display='block';        
+    document.getElementById('id02').style.display='block';   
+    var iibhost1;
+	var IIBNode1;
+	var executionGroup1;	
          $http({
     method : "GET",
     url : serverHosturl+"EnvironmentalParameters?build_env=dev"    
@@ -144,9 +156,16 @@
      else
      {
         
-          $scope.iibhost = response.data[0].iibhost;
-          $scope.IIBNode = response.data[0].IIBNode;
-          $scope.executionGroup = response.data[0].executionGroup;
+          iibhost1= (response.data[0].iibhost).split(",");
+		 IIBNode1 = (response.data[0].IIBNode).split(",");
+		 executionGroup1 = (response.data[0].executionGroup).split(",");
+		
+		  $scope.iibhosts = iibhost1;
+		  $scope.iibhost = $scope.iibhosts[0];
+		  $scope.IIBNodes = IIBNode1;
+		  $scope.IIBNode = $scope.IIBNodes[0];
+		  $scope.executionGroups = executionGroup1;
+		  $scope.executionGroup = $scope.executionGroups[0];
           $scope.BrokerName = response.data[0].BrokerName;
      }
           
