@@ -58,7 +58,6 @@
     </target>
 	
 	 <target name="Upload_Env_Arftifacts">
-	 <echo message="ENV--------------------> ${env} "/>
         <artifact:pom id="tmp.pom" groupid="${env}" artifactid="${artifactmodified.name}" version="${artifact.version}" packaging="${artifact.type}" name="${artifactmodified.name}" />
         <artifact:writepom pomRefId="tmp.pom" file="${artifact.pom}"/>
          <artifact:deploy file="${ArtifactoryFileDir}/Flow_Name_Build-${env}.${RevisionNo}.bar">

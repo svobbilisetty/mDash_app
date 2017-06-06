@@ -123,11 +123,7 @@
 <echo message="Redploying Bar on ${iib.host}"/>
 <target name="deployBar" depends="all">	
 		<echo message="Deploy Broker Archive file - ${projectName}.bar "/>
-		
-		<echo message="ENV--------------------> ${build_env} "/>
-		
-		 
-		<get src="http://iaasr001:8081/artifactory/Christus/${build_env}/Flow_Name_Build.${build_env}/${artifactnum}/Flow_Name_Build.${build_env}-${artifactnum}.bar" dest="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_Decomission/temp"/>
+		<get src="${artifactoryURL}/${build_env}/Flow_Name_Build.${build_env}/${artifactnum}/Flow_Name_Build.${build_env}-${artifactnum}.bar" dest="/var/lib/jenkins/workspace/Flow_Type/Flow_Name/Rollback_Decomission/temp"/>
 		
 		
 		

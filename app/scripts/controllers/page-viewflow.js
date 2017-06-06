@@ -43,7 +43,7 @@
 				alert("textFromTag => "+textFromTag);
 				var data1=data.toString().replace(/textFromTag/gim,'');
 				alert(data1); */
-				dataPort.innerHTML=JSON.stringify(data);
+				dataPort.innerHTML=dataPort.innerHTML+JSON.stringify(data);
 				 $('.demo').scrollTop($('.demo')[0].scrollHeight);
 			}); 	
 			

@@ -23,6 +23,7 @@ app.use(body.json());
 
 var fs1 = require('fs-extra'); 
 var svnUltimate = require('node-svn-ultimate');
+var svnUltimate1 = require('svn-info');
 var client;
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -1096,9 +1097,15 @@ console.log(req.query.username);
 							  console.log('job', projectname);
 							  if(folder=="Transform")
 							  {
-								  svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
-				       console.log( "Head revision=" + revision );
-					   artifactory_number=revision;
+								 // svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
+				      // console.log( "Head revision=" + revision );
+					  // artifactory_number=revision;
+					  svnUltimate1(svnrepo, 'HEAD', function(err, info) {
+                          if(err) {
+                            throw err;
+                          }
+                          console.log(info.lastChangedRev);
+                          artifactory_number=info.lastChangedRev;
 					    jenkins.job.build({ name: folder+"/"+flowName+"/"+flowName+"_Build", parameters: { build_env: build_env,
 														username:CentralizedParameters[0].username,
 														password :CentralizedParameters[0].password,
@@ -1128,9 +1135,15 @@ console.log(req.query.username);
 							 console.log('job', data.actions[0].parameterDefinitions[5].defaultParameterValue.value);
 							 Config_Service=data.actions[0].parameterDefinitions[5].defaultParameterValue.value;
 							 
-				svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
-				       console.log( "Head revision=" + revision );
-					   artifactory_number=revision;
+				//svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
+				      // console.log( "Head revision=" + revision );
+					 //  artifactory_number=revision;
+					 svnUltimate1(svnrepo, 'HEAD', function(err, info) {
+                          if(err) {
+                            throw err;
+                          }
+                          console.log(info.lastChangedRev);
+                          artifactory_number=info.lastChangedRev;
 					    jenkins.job.build({ name: folder+"/"+flowName+"/"+flowName+"_Build", parameters: { build_env: build_env,
 														username:CentralizedParameters[0].username,
 														password :CentralizedParameters[0].password,
@@ -1673,9 +1686,15 @@ app.get("/artifactory",function(req,res){
                              console.log('job', data.actions[0].parameterDefinitions[10].defaultParameterValue.value);
                              svnrepo=data.actions[0].parameterDefinitions[10].defaultParameterValue.value; 
                              
-                svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
-                       console.log( "Head revision=" + revision );
-                     var artifactory =revision;
+              //  svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
+                     //  console.log( "Head revision=" + revision );
+                    // var artifactory =revision;
+					svnUltimate1(svnrepo, 'HEAD', function(err, info) {
+                          if(err) {
+                            throw err;
+                          }
+                          console.log(info.lastChangedRev);
+                          artifactory=info.lastChangedRev;
 					 var data={
 						 artifactory : artifactory
 					 }

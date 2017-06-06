@@ -10,21 +10,29 @@
  app.controller('AddInterface', function ($scope, $state,$http,$window,$location,$timeout,$parse) {
 	 //alert("enterd add interface");
 	 var  serverHosturl;
-	 var svnrepohost
+	 var svnrepohost;
 	 var flownames1=[];
 	 var interfacenames=[];
 	 var svnurl;
 	var i;
 	var j;
 	var x;
+	var repo;
 	 $http({
 			method : "GET",
 			url : "/public/serverHost.json"	
 		  }).then(function(response){
 			serverHosturl = response.data.serverHosturl;
-			svnrepohost = response.data.svnrepohost;
+			//svnrepohost = response.data.svnrepohost;
            // alert(serverHosturl); 
-  
+  $http({
+    method : "GET",
+    url : serverHosturl+"CentralizedParameters"
+    }).then(function(response2) {
+		 svnrepohost = response2.data[0].SVNBaseURL;
+		// alert(svnrepohost); 
+	});
+	
       $http({
     method : "GET",
     url : serverHosturl+"interfaceretrive"
@@ -149,6 +157,7 @@ $(document).ready(
 			 
 }
 $scope.myFunc = function(i) {
+	document.getElementById("inputsvn"+i).disabled = false;
 	var text=document.getElementById("inputflow"+i).value;
 	//var text =$scope.flowname;
 	//	alert(text);
@@ -162,7 +171,13 @@ $scope.myFunc = function(i) {
                       $scope.Remote_SVN_Path1="";
                   }
                   else{
-                      $scope.Remote_SVN_Path1=response.data[0].svn_url;
+					  // alert(svnrepohost);
+					  // alert(response.data[0].svn_url);
+                          repo = response.data[0].svn_url.replace(svnrepohost, "");;
+					 // var repo=(response.data[0].svn_url).indexOf(svnrepohost);
+					 // alert(repo);
+					 document.getElementById("inputsvn"+i).disabled = true;
+                      $scope.Remote_SVN_Path1=repo;
                   }
               })
       };
@@ -173,6 +188,7 @@ $scope.myFunc2 = function() {
 //alert(this.id);
 var i=this.id;
 //alert("i: "+i.toSource());	
+    document.getElementById("inputsvn"+i).disabled = false;
 	var text=document.getElementById("inputflow"+i).value;
 	//var text =$scope.flowname;
 		//alert(text);
@@ -187,7 +203,9 @@ var i=this.id;
                       //document.getElementById("inputsvn"+(i)).value="";
                   }
                   else{
-                      document.getElementById("inputsvn"+(i)).value=response.data[0].svn_url;
+					  repo = response.data[0].svn_url.replace(svnrepohost, "");
+					 document.getElementById("inputsvn"+i).disabled = true;
+                      document.getElementById("inputsvn"+(i)).value=repo;
                   }
               })
       };	  
