@@ -2,8 +2,16 @@
 .w-sm, .w-150 {
     width: 200px;
 }
-
+select.input-sm {
+  
+    border: 2px solid #e7eaeb;
+}
+.tabs-dark .nav-tabs > li.active > a, .tabs-dark .nav-tabs > li.active > a:hover, .tabs-dark .nav-tabs > li.active > a:focus {
+    background-color: #2368a0;
+    color: white;
+}
 </style>
+
                 <div class="page page-tables-bootstrap">
 
                     <div class="pageheader">
@@ -39,8 +47,154 @@
                             <section class="tile">
 
                                   <div class="tile-body p-0">
-
-                                    <div class="table-responsive">
+<uib-tabset class="tabs-dark" justified="true" >
+                <uib-tab heading="Deployment Matrix">
+				
+				<table class="table">
+         <thead>
+            <tr>
+              <th>JOBS</th>
+    <th>DEV</th> 
+    <th>TEST</th>
+	<th>PROD</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>Library Deployment </td>
+               <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+                <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+                <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+            </tr>
+            <tr>
+               <td>Create Config Service </td>
+                <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+                <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+                 <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+            </tr>
+            <tr>
+               <td>Create Queue</td>
+                <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+                 <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+                <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+            </tr>
+			 <tr>
+               <td>Deploy</td>
+                <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+                 <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+                 <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+            </tr>
+			 <tr>
+               <td>Test-Automation</td>
+                <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+                 <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+                <td>
+			  <select class="input-sm form-control inline w-sm">
+   <option value="0">Developer </option>
+   <option value="1">Release Manager</option>
+   <option value="2">Developer + Release Manager </option>
+				</select>
+				</td>
+            </tr>
+         </tbody>
+		
+      </table>
+	  <div class="tile-footer ">
+   <div class="row">
+      <div class="col-sm-3">
+         <button type="button" class="btn btn-blue mb-10 col-sm-5"><b> Save </b></button>
+      </div>
+     
+     
+   </div>
+</div>
+				</uib-tab>
+                <uib-tab heading="User Details">
+				 <div class="table-responsive">
                                         <table class="table mb-0" id="usersList">
                                             <thead>
                                             <tr>
@@ -66,7 +220,7 @@
 							<option value="3">Developer + Release Manager </option>
 				</select>
 				</td>
-                                               <td><button type="button" class="btn btn-blue mb-10 col-sm-6 "><b> Save </b></button></td>
+                                               <td><button type="button" class="btn btn-blue mb-10 col-sm-10 "><b> Save </b></button></td>
                                             </tr>
 											 <tr>
                                                 <td>1222</td>
@@ -80,7 +234,7 @@
 							<option value="3">Developer + Release Manager </option>
 				</select>
 				</td>
-                                               <td><button type="button" class="btn btn-blue mb-10 col-sm-6 "><b> Save </b></button></td>
+                                               <td><button type="button" class="btn btn-blue mb-10 col-sm-10 "><b> Save </b></button></td>
                                             </tr>
 											 <tr>
                                                 <td>1223</td>
@@ -94,7 +248,7 @@
 							<option value="3">Developer + Release Manager </option>
 				</select>
 				</td>
-                                               <td><button type="button" class="btn btn-blue mb-10 col-sm-6 "><b> Save </b></button></td>
+                                               <td><button type="button" class="btn btn-blue mb-10 col-sm-10 "><b> Save </b></button></td>
                                             </tr>
                                                <tr>
                                                 <td>1224</td>
@@ -108,12 +262,14 @@
 							<option value="3">Release Manager </option>
 				</select>
 				</td>
-                                               <td><button type="button" class="btn btn-blue mb-10 col-sm-6 "><b> Save </b></button></td>
+                                               <td><button type="button" class="btn btn-blue mb-10 col-sm-10 "><b> Save </b></button></td>
                                             </tr> 
                                             </tbody>
                                         </table>
                                     </div>
-
+				</uib-tab>
+              </uib-tabset>
+  
 
                                 </div>
                                 <!-- /tile body -->

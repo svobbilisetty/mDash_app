@@ -13,6 +13,7 @@
 	var  serverHosturl;
 	var nextbuild_no;
 	$scope.buildmodal=false;
+	$scope.status=false;
 	var socket;
 	 
 	$http({
@@ -35,6 +36,36 @@
 			}, 2000); */
 	});
 			socket = io('http://localhost:9003');
+			 socket.on('progress', function (data) {
+				//alert(data);
+				
+				//alert(data.indexOf('_build'));
+				//alert(data.includes("_build"));
+				
+				if((data.search('_Build'))>0){
+					//alert("Build completed");
+					fa7();
+				}else if((data.search('Library_Detection'))>0){
+					//alert("Library_Detection completed");
+					fa1();
+				}else if((data.search('Create_Config_Services'))>0){
+					//alert("Create_Config_Services1 completed");
+					fa2();
+				}else if((data.search('Create_Queues'))>0){
+					//alert("Create Queues completed");
+					fa3();
+				}else if((data.search('Deploy'))>0){
+					//alert("Deploy completed");
+					fa4();
+									
+											$timeout( function(){ $scope.status=false; }, 3000);
+					 
+				}
+				
+				
+				
+				
+			}); 
 			socket.on('news', function (data) {
 				//alert(JSON.stringify(data));
 				console.log(JSON.stringify(data));
@@ -93,7 +124,7 @@
 	};
 		
 	$scope.build = function(){ 
-	 
+      $scope.status=true;
 	document.getElementById('id01').style.display='none';
 	//	alert("Clicked on Build");     
 			
@@ -185,6 +216,7 @@
     };
     $scope.build1 = function(){ 
     document.getElementById('id02').style.display='none';
+	document.getElementById('console2').innerHTML='';
     //    alert("Clicked on Build");     
             
           var build_env = "dev"; 

@@ -34,9 +34,9 @@ element.appendChild(para);
 </script>
 
 <script>
-function fa4(){
-	var para = document.createElement("style");
-var node = document.createTextNode(".color4{color:green !important;}ul.checkout-bar li:nth-child(5)::before{background:green !important}.checkout-bar li.four:after{background-color:green !important;background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);} ");
+function fa4(){	
+    var para = document.createElement("style");
+var node = document.createTextNode(".six:after{background-color:green !important;}.color5{color:green !important;}ul.checkout-bar li:nth-child(6)::before {    background: green !important;}.checkout-bar li.five:after{background-color:green !important;background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);} .color4{color:green !important;}ul.checkout-bar li:nth-child(5)::before{background:green !important}.checkout-bar li.four:after{background-color:green !important;background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);} ");
 para.appendChild(node);
 var element = document.getElementById("i");
 element.appendChild(para);
@@ -61,12 +61,25 @@ var element = document.getElementById("i");
 element.appendChild(para);
 }
 
+function fa7(){
+    var para = document.createElement("style");
+var node = document.createTextNode("ul.checkout-bar::before{background-color:green !important}.color7{color:green !important;}ul.checkout-bar li:nth-child(1)::before {    background: green !important;}");
+para.appendChild(node);
+var element = document.getElementById("i");
+element.appendChild(para);
+}
 </script>
   
 
 </p>
-
 <style>
+ul.checkout-bar::before {
+    background-size: 35px 35px;
+    background-color: #57aed1 ;
+}
+ul.checkout-bar li:nth-child(1)::before{
+background-color:#57aed1;
+}
 /*
 h1{
 font-weight:800 !important;
@@ -163,10 +176,7 @@ ul.checkout-bar li.visited {
   color: #57aed1;
   z-index: 99999;
 }
-ul.checkout-bar li.visited:before {
-  background: green;
-  z-index: 99999;
-}
+
 .two:before,.three:before,.four:before,.five:before,.six:before{
 	background-color:#57aed1 !important;
 }
@@ -282,7 +292,7 @@ ul.checkout-bar a {
   }
   ul.checkout-bar:before {
     background-size: 35px 35px;
-    background-color: green;
+    background-color: ;
     background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
     background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
     -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
@@ -367,7 +377,7 @@ ul.checkout-bar {
   }
   ul.checkout-bar li:nth-child(1):before {
   content: "1";
-  background-color: green;
+  
 }
 ul.checkout-bar li:nth-child(2):before {
   content: "2";
@@ -414,7 +424,7 @@ ul.checkout-bar li:before {
 }
   ul.checkout-bar:before {
     background-size: 35px 35px;
-    background-color: green;
+    
     background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
     background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
     -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
@@ -536,11 +546,13 @@ border-radius:15px;
 			
 			
 			 
-<div class="checkout-wrap">
-  <ul class="checkout-bar">
+<div class="checkout-wrap" ng-show="status">
+   <br>
+  <ul class="checkout-bar" style="margin-bottom:250px">
 
     <li class="visited first one">
-      <a style="color:green" onclick="fa1()">Build <br>Initiated</a>
+     <!-- <a style="color:green" onclick="fa1()">Build <br>Initiated</a>-->
+	 <a class="color7" onclick="fa1()">Build <br>Initiated</a>
     </li>
     
     <li class="previous visited two">
@@ -560,7 +572,7 @@ border-radius:15px;
 	</li>
       
   </ul>
-    
+    <br><br><br><br><br>
 </div>
 
 
@@ -571,7 +583,7 @@ border-radius:15px;
 			
 			
 						  </section>
-						    <br><br><br><br><br><br>
+						 
 	<div class="row">
                     <!-- col -->
                     <div class="">
@@ -619,9 +631,9 @@ border-radius:15px;
   <div class="col-sm-12"><br>
 
       <div class="btn-group col-sm-4 mb-20">
-                                      <button type="button" class="btn btn-primary">Environment&nbsp;&nbsp;</button>
-                                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                          <span class="caret"></span>
+	  	  <button type="button" class="btn btn-primary dropdown-toggle col-sm-12" data-toggle="dropdown" aria-expanded="true"> Environment <span class="caret"></span> </button>
+                                   
+                                         
                                           <span class="sr-only">Toggle Dropdown</span>
                                       </button>
                                       <ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -635,9 +647,7 @@ border-radius:15px;
     </div>
 
       <div class="btn-group col-sm-4 mb-20 col-sm-12">
-                                      <button type="button" class="btn btn-primary">Version &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                          <span class="caret"></span>
+                                     	  <button type="button" class="btn btn-primary dropdown-toggle col-sm-12" data-toggle="dropdown" aria-expanded="true"> Version <span class="caret"></span> </button>
                                           <span class="sr-only">Toggle Dropdown</span>
                                       </button>
                                       <ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -661,57 +671,59 @@ border-radius:15px;
     </select> --> 
 	 
 	
-    <button type="button" class="btn btn-darkgray mb-10 col-sm-12" ng-click="builddetails()">Build/Deploy</button>
+    <button type="button" class="btn btn-darkgray mb-10 col-sm-12" ng-click="builddetails()">Build and Deploy</button>
   </div>
     <div id="id01" class="w3-modal" ng-show="buildmodal">
 	
     <div class="w3-modal-content">
       <div class="w3-container" >
         <span ng-click="close()" class="w3-button w3-display-topright">&times;</span><br>
-		<br>
-			<div class="form-group col-sm-12">
-				
+	
+			<div class="form-group row">
+				<div class="col-sm-6">
 				 <div id="build_envDiv" >
 					<!-- <label for="Build Environment">Build Environment</label> -->
 			   <input class="form-group col-sm-12" id="build_env" type="text" ng-model="build_env" style="display: none;"></input>
-				</div> 
-							
-				
-				<div id="Config_ServiceDiv" >
-					<label for="iibhost">IIB Host</label>
-					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
-					<select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
-				</div>
-
+				</div> <br>
 				<div id="svnrepoDiv" >
 					<label for="IIBNode">IIB Node</label>
 					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
-					<select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
-				</div>
-
-				<div id="projectnameDiv" >
-					<label for="executionGroup">Execution Group</label>
-					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> -->
-					<select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
-				</div>
-		
+					<br><select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
+				</div><br>
+				
 				<div id="messageflownameDiv" >
 					<label for="BrokerName ">Broker </label>
 					<input class="form-group col-sm-12" id="BrokerName " type="text" ng-model="BrokerName "></input>
 				</div>
+				</div>
+				<div class="col-sm-6">
 				
-				
+				<br><div id="Config_ServiceDiv" >
+					<label for="iibhost">IIB Host</label>
+					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
+					<br><select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
+				</div><br>
+				<div id="projectnameDiv" >
+					<label for="executionGroup">Execution Group</label>
+					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> -->
+					<br><select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
+				</div>
+				</div>
+				</div>
+				<div class="form-group row col-sm-12">
+			<button type="button" class="btn btn-darkgray mb-10 col-sm-3" ng-click="build()">Build Now</button>
+			</div>
+							
+		
 							
 			</div>
-			<div class="form-group col-sm-7">
-			<button type="button" class="btn btn-darkgray mb-10 col-sm-6" ng-click="build()">Build Now</button>
-			</div>
+			
       </div>
     </div>
-  </div> 
+  
  
   <div class="col-sm-6">
-    <button type="button" class="btn btn-darkgray mb-10 col-sm-12" ng-click="rollbackdetails()">Rollback</button>
+    <button type="button" class="btn btn-darkgray mb-10 col-sm-12" ng-click="rollbackdetails()">Rollback and Decomission</button>
   </div>
 	<div id="id02" class="w3-modal" ng-show="buildmodal1">
 	
@@ -719,48 +731,48 @@ border-radius:15px;
       <div class="w3-container" >
         <span ng-click="close1()" class="w3-button w3-display-topright">&times;</span><br>
 		<br>
-			<div class="form-group col-sm-12">
-			
+			<div class="form-group row">
+			<div class="col-sm-6">
 			<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
 					<!--  <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input>  -->
-					<select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
+					<br><select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
 					<!-- <select ng-model="iibhost" ng-options="x for x in iibhost">
 					</select> -->
-				</div>
-
-				<div id="svnrepoDiv" >
-					<label for="IIBNode">IIB Node</label>
-					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
-					<select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
-				</div>
-
+				</div><br>
 				<div id="projectnameDiv">
 					<label for="executionGroup">Execution Group</label>
 					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input>  -->
-					<select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
+					<br><select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
 					<!-- <select ng-model="executionGroup" ng-options="x for x in execs">
 					</select> -->
-				</div>
-		
-				<div id="messageflownameDiv" >
-					<label for="BrokerName">Broker </label>
-					<input class="form-group col-sm-12" id="BrokerName " type="text" ng-model="BrokerName "></input>
-				</div>
+				</div><br>
 				
 				<div id="artifactory_numberDiv" >
                     <label for="BrokerName">Artifactory_Number </label>
-                    <input class="form-group col-sm-12" id="artifactory_number" type="text" ng-model="artifactory_number"></input>
+                   <br> <input class="form-group col-sm-12" id="artifactory_number" type="text" ng-model="artifactory_number"></input>
                 </div>
-                
-                <div id="targetDiv">
+			</div>
+			<div class="col-sm-6">
+			<div id="svnrepoDiv" >
+					<label for="IIBNode">IIB Node</label>
+					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
+					<br><select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
+				</div><br>
+				<div id="messageflownameDiv" >
+					<label for="BrokerName">Broker </label>
+					<br><input class="form-group col-sm-12" id="BrokerName " type="text" ng-model="BrokerName "></input>
+				</div><br>
+				   <div id="targetDiv">
                     <label for="Target">Target</label>
-                    <select ng-model="target" ng-options="x for x in targets" ng-change="artifact()">
+                    <br><select ng-model="target" ng-options="x for x in targets" ng-change="artifact()">
                     </select>
                 </div>
 			</div>
-			<div class="form-group col-sm-7">
-			<button type="button" class="btn btn-darkgray mb-10 col-sm-6" ng-click="build1()">Rollback</button>
+			</div>
+			<div class="form-group row col-sm-12">
+			<button type="button" class="btn btn-darkgray mb-10 col-sm-3" ng-click="build1()">Execute</button>
+			</div>
 			</div>
       </div>
     </div>

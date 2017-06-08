@@ -1,6 +1,33 @@
  <script src="http://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	 <style>
+	 .tabs-dark .nav-tabs > li.active > a, .tabs-dark .nav-tabs > li.active > a:hover, .tabs-dark .nav-tabs > li.active > a:focus {
+    background-color: #2368a0;
+    color: white;
+}
+	 button, select, html, textarea, input {
+    font-family: "Lato", sans-serif;
+}
+input{
+	border: 3px solid #e7eaeb !important;
+}
+input:focus{
+border: 3px solid #22beef !important;
+}
+.md-padding {
+    padding-left: 0px;
+	padding-top:5px;
+}
+
+ border-collapse:collapse;
+ padding:5px;
+}.lost {
+ position:relative;
+ top:-110px;left:115px;
+}
+  
+</style>
 <style>
 
 .md-padding {
@@ -112,10 +139,10 @@
 			  <!-- tile body-->
 			<div class="row tile-body">
 			<div class="col-sm-2">
-			 <button type="button" ng-click="myFunction1()" id="showAccordian"  return false;" class="btn btn-blue mb-10 col-sm-8 "><i class="fa fa-plus"></i> &nbsp<b> Add Flow</b></button>
+			 <button type="button" ng-click="myFunction1()" id="showAccordian"  return false;" class="btn btn-blue mb-10 col-sm-10 "><i class="fa fa-plus"></i> &nbsp<b> Add Flow</b></button>
 			</div>
 			<div class="col-sm-2">
-			 <button type="button" ng-click="saveInterface()" class="btn btn-cyan mb-10 col-sm-8"><b>Save Interface</b></button>
+			 <button type="button" ng-click="saveInterface()" class="btn btn-cyan mb-10 col-sm-10"><b>Save Interface</b></button>
 			</div>
 			
 			

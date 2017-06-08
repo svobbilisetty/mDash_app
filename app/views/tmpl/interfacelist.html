@@ -33,16 +33,16 @@
 
 
                                <div class="tile-header dvd dvd-btm">
-                            <h1 class="custom-font"><strong>Interface</strong> Listing</h1>
+                            <h1 class="custom-font">Interface Listing</h1>
 
                         </div>
                                 <table class="table table-no-border m-0">
                                   <tbody>
                                     <tr>
                                       <th> Interface  Name </th>
-                                      <th> Date </th>
-                                      <th> Time </th>
-                                      <th> <center>Result</center> </th>
+                                      <th> Created Date </th>
+                                     
+                                     
                                       <th> <center>Environment </center></th>
                                       <th> By </th>
                                     </tr>
@@ -79,10 +79,10 @@
                                       <td>Arjun Kanniah</td>
                                     </tr> -->
 									<tr ng-repeat="x in interfaces | orderBy: '-time'">
-									  <td  ng-click="viewflow(x.interface_name)"><font color="#616f77"><span class="tab">{{x.interface_name}}</span></font></td>
-                                      <td>{{x.date}} </td>
-                                      <td>{{x.time}} </td>
-                                      <td><center><i class="fa fa-square text-success"></i></center></td>
+									  <td  ng-click="viewflow(x.interface_name)"><font color="#616f77"><span class="tab"><a style="cursor:default">{{x.interface_name}}</a></span></font></td>
+                                      <td>{{x.date}} {{x.time}} </td>
+                                     
+                                    
                                       <td><center>DEV</center></td>
                                       <td>Arjun Kanniah</td>
                                     </tr>
