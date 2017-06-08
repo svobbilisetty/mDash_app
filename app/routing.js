@@ -888,7 +888,8 @@ app.get('/addLibraryProperties', function(req, res){
 app.get("/saveInterface",function(req,res){
     var interface_name = req.query.interface_name;
 	var time = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
-    var date = new Date().toDateString();
+    var date1 = new Date().toDateString();
+	var date =date1.slice(date1.indexOf(" "),date1.length);
      MongoClient.connect(config.mongodburl, function(err, db) {
         if(db){
             var collection = db.collection('interfaces');
@@ -1223,7 +1224,7 @@ console.log("entered console with nextbuild_no ==> "+nextbuild_no);
 
  
  log.on('data', function(text) {
-    console.log("BEFOR TEXT ****************** "+text)  
+    //console.log("BEFOR TEXT ****************** "+text)  
     var news ='';
      news = text;
     // Send news on the socket
@@ -1253,13 +1254,15 @@ log.on('end', function(end) {
 							if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
 							//	if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
 							{
+								client.emit('progress', uri);
 								current_job=uri;
 								console.log(current_job);
-								if(current_job==folder+"/"+flowName+"/Deploy" || current_job==folder+"/"+flowName+"/"+"Rollback_Decomission")
+								if(current_job==folder+"/"+flowName+"/Deploy" || current_job==folder+"/"+flowName+"/"+"Rollback_Decomission" || current_job=="Test_Suite/Run_Test" || current_job=="Test_Suite/Change_Sender_ConfigService")
 								{
 									res.send("JObs Executed")
 								}
 								else{
+									//res.location("Done");
 									res.redirect('/build1');
 								}
 								
@@ -1267,6 +1270,7 @@ log.on('end', function(end) {
 							}
 							else
                             {
+								//client.emit('progress', 'failed');
                                 console.log(uri+"FAILED");
                                 res.send(uri+"_job_FAILED");
                             }
@@ -1812,4 +1816,75 @@ app.get('/AddInterface',function(req,res){
 	console.log(flowName+"  : "+interfaceName+" : "+svnURLs+" : "+lengthOfFlow);
 	res.send("received");
 	
+});
+app.get('/UpdateConfigServiceName',function(req,res){    
+    var ConfigServiceName = req.query.ConfigServiceName;
+    var SenderHost_IP = req.query.SenderHost_IP;
+    var SenderPort_Num = req.query.SenderPort_Num;
+    var username = req.query.username;
+    var password = req.query.password;
+	
+	
+	 jenkins.job.get("Test_Suite/Change_Sender_ConfigService",({ depth: 2,pretty: 'true'}), function(err, data) {
+												  if (err) throw err;
+												  if( data.builds == "")
+												     {
+														 console.log("entered if");
+														 build_no=0;
+													 }
+												  else{
+													  console.log("entered else");
+													  build_no=data.builds[0].number;
+													  }
+    
+     jenkins.job.build({ name:"Test_Suite/Change_Sender_ConfigService", parameters: {  
+           ConfigServiceName:ConfigServiceName,
+            SenderHost_IP:SenderHost_IP,
+            SenderPort_Num:SenderPort_Num,
+            username:username,
+            password:password
+            } }, function(err) {
+                                          if (err) console.log(err);
+                             console.log("UpdateConfigServiceName job triggered");
+                              setTimeout(function() {
+												 executed_job="Test_Suite/Change_Sender_ConfigService";
+												 res.redirect("/console");
+											}, 10000);
+            
+            })
+			
+	 })
+})
+
+app.get('/RunTest',function(req,res){    
+    var InputData = req.query.InputData;
+    var ReceiverPort = req.query.ReceiverPort;
+    var iibhost = req.query.iibhost;
+    var FlowName = req.query.FlowName;
+    
+	jenkins.job.get("Test_Suite/Run_Test",({ depth: 2,pretty: 'true'}), function(err, data) {
+												  if (err) throw err;
+												  if( data.builds == "")
+												     {
+														 console.log("entered if");
+														 build_no=0;
+													 }
+												  else{
+													  console.log("entered else");
+													  build_no=data.builds[0].number;
+													  }
+     jenkins.job.build({ name:"Test_Suite/Run_Test", parameters: {  
+           InputData:InputData,
+            ReceiverPort:ReceiverPort,
+            iibhost:iibhost,
+            FlowName:FlowName
+            } }, function(err) {
+                                          if (err) console.log(err);
+                             console.log("RunTest job triggered");
+              setTimeout(function() {
+												 executed_job="Test_Suite/Run_Test";
+												 res.redirect("/console");
+											}, 10000);
+            })
+	})
 });

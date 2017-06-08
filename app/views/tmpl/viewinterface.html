@@ -459,11 +459,82 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
                     <input class="form-group col-sm-12" id="username  " type="text" ng-model="username"></input>
                 </div>
 	</div>
-                                        <label class="checkbox checkbox-custom">
-                                            <input checked="" disabled="" type="checkbox"><i></i>
-                                            Check me out
-                                        </label>
-                                        <button type="submit" class="btn btn-rounded btn-success btn-sm">Submit</button>
+            </div>
+            <div class="form-group row col-sm-12">
+            <button type="button" class="btn btn-darkgray mb-10 col-sm-3"  ng-click="change()">Change ConfigService</button>
+            </div>
+      </div>
+    </div>
+  </div>
+                         <div id="id02" class="w3-modal" ng-show="buildmodal1">
+   <div class="w3-modal-content">
+      <div class="w3-container" >
+        <span ng-click="close1()" class="w3-button w3-display-topright">&times;</span><br>
+        <br>
+            <div class="form-group row">
+    <div class="col-sm-6">
+	<div id="InputData   " >
+                    <label for="InputData    ">InputData    </label>
+                    <textarea class="form-group col-sm-12" id="InputData" type="text" ng-model="InputData"></textarea>
+                </div>
+				  <div id="iibhost  " >
+                    <label for="iibhost   ">iibhost   </label>
+                    <input class="form-group col-sm-12" id="iibhost   " type="text" ng-model="iibhost   "></input>
+                </div>
+	</div>
+	 <div class="col-sm-6">
+	  <div id="ReceiverPort  " >
+                    <label for="ReceiverPort   ">ReceiverPort   </label>
+                    <input class="form-group col-sm-12" id="ReceiverPort   " type="text" ng-model="ReceiverPort   "></input>
+                </div>
+				 <div id="FlowName  " >
+                    <label for="FlowName   ">FlowName   </label>
+                    <input class="form-group col-sm-12" id="FlowName   " type="text" ng-model="FlowName   "></input>
+                </div>  
+	 </div>
+            </div>
+            <div class="form-group row col-sm-12">
+            <button type="button" class="btn btn-darkgray mb-10 col-sm-3" ng-click="test()">Run Test </button>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+<div style="margin-top:20px;">
+<!-- <div id="inputlable" style="float:left">
+<label for="male">Input Data</label>
+</div>
+<div id="inputdata" style="float:left">
+<textarea name="comment" form="inputData" rows="10" cols="70" >MSH|^~\&|RAD.NLA^NLA.LIVE^CHRS|NHL||NHL|201705031122||ORM^O01|132363645|P|2.3|||AL|NE
+PID|1|03437216|MD123456|MD12345|ABC^DEF^^^^||19450111|F||||||||||AA0000679844
+PV1|1|I|3S^AA.322^A|ER|||R123EX1^R12NI^PMAN^MD^^^||ABXDE1^AURU^JUA^D PA-C^^^|MED||||PHY|||BE1^BORA^SAI^P MD^^^|IN||MC|||||||||||||||||||NHL||ADM|||201704291736||||||
+AL1|1|DA^^^Allergy|F001900590^No Known Drug Allergies^CODED|||20170429
+ORC|NW|2656808.002|||L|N|||201705031122|DRYG1|||AA.3S|||||NHL
+OBR|1|2656808.002|17-0037326|SP^USGDVA^US GUID VASCULAR ACCESS||20170503||||||||||S345AM1^^PAUL^M^MD^^^||SP^20170503-0013|XA||||||||1^^^20170503^^R||||ITS.RFEICD^T80.1XXA|DRYG1||DRYG1^ABD^123^R^^^|
+OBX|1|CE|ITS.CONALL^Allergic to contrast?||N^No
+OBX|2|TX|ITS.RFEICD^Diagnosis Code:||T80.1XXA
+OBX|3|CE|OETRNSP3^Transport Info||BIV^Bed with IV
+</textarea>
+</div>
+<div style="clear:both"></div>
+</div>
+<div style="margin-top:20px;">
+<label for="male">ReceiverPort</label>
+<input type="text" placeholder="20402" />
+</div>
+<div style="margin-top:20px;">
+<label for="male">iibhost</label>
+<input type="text" placeholder="icisr031.echristus.net" />
+</div>
+<div style="margin-top:20px;">
+<label for="male">Flow Name</label>
+<input type="text" placeholder="SPN_MTPACS_ORM_Receiver" />
+</div> -->
+
+</div>
+                                     
                                     </form>
 
                                 </div>  
@@ -473,8 +544,61 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
                           <!-- /tile body -->
 
                         </section>
+						</div>
+						
+						<div class="col-sm-6">
+						  <section class="tile" fullscreen="isFullscreen02" >
+						  <style>
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+</style>
+                                <div id="console2" class="demo" style="height:150px;overflow-y:scroll;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
+                                  <font>
+								 </font>
+                                </div>
+						  </section>
+						</div>
+						</div>
                         <!-- /tile -->
+<section class="tile" fullscreen="isFullscreen02" ng-controller="BrowseUsageCtrl">
+                          <!-- tile body -->
+                          <div class="tile-body p-0">
+                           <div class="tile-header dvd dvd-btm">
+                            <h1 class="custom-font">Recent Tests</h1>
+                        </div>
+                                <table class="table table-no-border m-0" style="overflow-y:scroll">
+                                  <tbody>
+                                    <tr>
+                                      <th> Flow Name </th>
+									  <th> Job Type </th>
+									 
+                                      <th> Created Date </th>
+                                      <th> <center>Result</center> </th>
+                                      <th> <center>Environment </center></th>
+                                      <th> By </th>
+                                    </tr>
+                                    <tr>
+                                      <td><a ui-sref="app.projectbuild" href="#/app/projectbuild"><font color="#616f77"><span class="tab">CLA_CLIENTMISC_ORM</span></font></a></td>
+                                       <td>Rollback</td>
+									 <td> 3 April 2017,07:44 PM  </td>
+                                      
+                                      <td><center><i class="fa fa-square text-success"></i></center></td>
+                                      <td><center>DEV</center></td>
+                                      <td> Chanakya Lokam</td>
+                                    </tr>
+                                    <tr>
+                                      <td>NLA_FEDMNET_ORM</td>
+									  <td>Rollback</td>
+									  <td> 3 April 2017,07:44 PM </td>
+                                      <td><center><i class="fa fa-square text-success"></i></center></td>
+                                      <td><center>TEST</center></td>
+                                      <td>Chanakya Lokam</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                          </div>
+                          <!-- /tile body -->
 
+                        </section>
                       </div>
                       <!-- /col -->
 
