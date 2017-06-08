@@ -58,7 +58,7 @@
 					//alert("Deploy completed");
 					fa4();
 									
-											$timeout( function(){ $scope.status=false; }, 3000);
+											$timeout( function(){ $scope.status=false; }, 5000);
 					 
 				}
 				

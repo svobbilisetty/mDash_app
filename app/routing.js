@@ -31,6 +31,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+io.on('connection',function(client1){
+		client = client1;
+		console.log("Client connected........");
+	});
+	
 app.post('/serverlogin', function (req, res) {
    console.log("entered login module");  
    response= {
@@ -622,10 +627,27 @@ app.get("/createBuildFolder",function(req,res){
    Remote_SVN_URL = req.query.Remote_SVN_URL;
   var s_flow = flowname.split("_");
   var Split_Flow = s_flow[0]+'.'+s_flow[1];
-//  var  TCPIPServer_Command = req.query.TCPIPServer_Command;
   
-   svnUltimate.commands.checkout( Remote_SVN_URL, 'C:\\Ruby23\\files\\svn_repo', function( err ) {
-	   console.log("check out completed"); 
+//  var  TCPIPServer_Command = req.query.TCPIPServer_Command;
+
+
+MongoClient.connect(config.mongodburl, function(err, db) {
+        if(db){
+            var collection = db.collection('CentralizedParameters');
+            if(collection){
+                collection.find({}).toArray(function (err, result) {
+				  if (err) {
+					console.log(err);
+				  } else if (result.length) {
+					  console.log(result);
+					  svnuser = result[0].SVNUserName;
+					  svnpassword = result[0].SVNPassword;
+				 
+
+
+   svnUltimate.commands.checkout( Remote_SVN_URL, 'C:\\Ruby23\\files\\svn_repo', {username: svnuser,	password: svnpassword},function( err ) {
+	   if(err == null){
+		   console.log("check out completed"); 
 console.log(flowname);
 console.log(type);
     if (!fs.existsSync('C:\\Ruby23\\files\\Build')){
@@ -777,8 +799,26 @@ console.log(type);
         });
 	
 	
-}) ;
-				
+
+	   }else{
+		   console.log(err);
+		   res.send("Authentication Failed");
+	   }
+	   }) ;
+	    }
+				  else {
+					
+					console.log('No document(s) found with defined "find" criteria!');
+				  }
+				 
+				})
+            }    
+        }
+        else{
+            console.log("error is connecting to db");
+        }
+    });   
+		
 });
 
 app.get('/downloadFolder', function(req, res){
@@ -944,6 +984,9 @@ app.get('/viewflow', function (req, res) {
 	 console.log("came viewflow");
 	 interfaceName=req.query.interfaceName;
 	 console.log(interfaceName);
+	/*  io.on('connection',function(client1){
+		client = client1;
+	}); */
 	 res.send("true");	 
 })
 
@@ -988,9 +1031,9 @@ app.get('/viewjob', function (req, res) {
 	 flowName=req.query.flowName;
 	 folder = flowName.split("_").pop();
 	 console.log(flowName);
-	io.on('connection',function(client1){
+	/* io.on('connection',function(client1){
 		client = client1;
-	});
+	}); */
 	 res.send("true");	
 });
 app.get('/flowjobs', function (req, res) {
@@ -1846,10 +1889,11 @@ app.get('/UpdateConfigServiceName',function(req,res){
             } }, function(err) {
                                           if (err) console.log(err);
                              console.log("UpdateConfigServiceName job triggered");
-                              setTimeout(function() {
+							 res.send("UpdateConfigServiceName job triggered");
+                              /* setTimeout(function() {
 												 executed_job="Test_Suite/Change_Sender_ConfigService";
 												 res.redirect("/console");
-											}, 10000);
+											}, 10000); */
             
             })
 			
@@ -1881,10 +1925,11 @@ app.get('/RunTest',function(req,res){
             } }, function(err) {
                                           if (err) console.log(err);
                              console.log("RunTest job triggered");
-              setTimeout(function() {
+							  res.send("RunTest job triggered");
+             /*  setTimeout(function() {
 												 executed_job="Test_Suite/Run_Test";
 												 res.redirect("/console");
-											}, 10000);
+											}, 10000); */
             })
 	})
 });

@@ -225,6 +225,9 @@ var i=this.id;
 								"&type="+last1+
 								"&Remote_SVN_URL="+Remote_SVN_URLs1
 							}).then(function(response){
+								if(response.data == "Authentication Failed"){
+									alert(response.data);
+								}
 								//alert("response: "+response.data);
 								 if (flow_names.length > 0) {   //callback
 									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows)

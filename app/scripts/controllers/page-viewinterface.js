@@ -12,7 +12,8 @@
     $scope.buildmodal=false;
     $scope.buildmodal1=false;
 	var socket;
-     var  serverHosturl;
+     var  serverHosturl;			
+			
      $http({
             method : "GET",
             url : "/public/serverHost.json"    
@@ -20,7 +21,7 @@
             serverHosturl = response.data.serverHosturl;
            // alert(serverHosturl);                
 		   
-		   socket = io('http://localhost:9003');
+		 /*   socket = io('http://localhost:9003');
 		   socket.on('news', function (data) {
 				//alert(JSON.stringify(data));
 				console.log(JSON.stringify(data));
@@ -29,9 +30,9 @@
 				alert("textFromTag => "+textFromTag);
 				var data1=data.toString().replace(/textFromTag/gim,'');
 				alert(data1); */
-				dataPort.innerHTML=dataPort.innerHTML+JSON.stringify(data);
+				/*dataPort.innerHTML=dataPort.innerHTML+JSON.stringify(data);
 				 $('.demo').scrollTop($('.demo')[0].scrollHeight);
-			});   
+			});  */  
 		   
 	   
 		   

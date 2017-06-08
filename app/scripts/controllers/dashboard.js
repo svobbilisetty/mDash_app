@@ -62,7 +62,7 @@ app
 
       data: [[1,15],[2,40],[3,35],[4,39],[5,42],[6,50],[7,46]],
 
-      label: 'Failures',
+      label: 'Failure',
 
       points: {
 
@@ -89,7 +89,7 @@ app
       data: [[1,50],[2,80],[3,90],[4,85],[5,99],[6,125],[7,114]]  , 
 		
 			
-      label: 'Success',
+      label: 'Success ',
 	  
       bars: {
 
@@ -198,7 +198,7 @@ app
 
       tooltipOpts: {
 
-       content:'<div class="morris-default-style" >'+'<div class="morris-hover-row-label"><font weight="1">Builds</font ></div>'+'<div class="morris-hover-point" >Success : %x</div><div class="morris-hover-point" style="color: #FF0066"> Failures : %y</div></div>',
+       content:'<div class="morris-default-style" >'+'<div class="morris-hover-row-label"><font weight="1">Builds</font ></div>'+'<div class="morris-hover-point" >Success : %x</div><div class="morris-hover-point" style="color: #FF0066"> Failure : %y</div></div>',
 
         defaultTheme: true,
 
@@ -308,7 +308,25 @@ app
 
   })
 
+.controller('DashboardTeamMembers',function($scope){
+	
+	 $scope.teams = [
 
+      
+
+      {label: 'srinivas', value: 20, color: '#2fbbe8'},
+
+      {label: 'rajiv', value: 15, color: '#72cae7'},
+
+      {label: 'mounika', value: 5, color: '#d9544f'},
+
+      
+
+      {label: 'deepika', value: 25, color: '#1693A5'}
+
+    ];
+	
+})
 
   .controller('BrowseUsageCtrl', function ($scope) {
 

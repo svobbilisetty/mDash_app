@@ -1,9 +1,9 @@
 <style>
 input{
-	border: 2px solid #e7eaeb !important;
+	border: 3px solid #e7eaeb !important;
 }
 input:focus{
-border: 2px solid #22beef !important;
+border: 3px solid #22beef !important;
 }
 .md-padding {
     padding-left: 0px;
@@ -19,6 +19,9 @@ border: 2px solid #22beef !important;
   .form-control.underline-input {
    
     padding-left: 13px; }
+	 button, select, html, textarea, input {
+    font-family: "Lato", sans-serif;
+}
 </style>
 <style>
 .tabs-dark .nav-tabs > li.active > a, .tabs-dark .nav-tabs > li.active > a:hover, .tabs-dark .nav-tabs > li.active > a:focus {
@@ -225,7 +228,7 @@ border: 2px solid #22beef !important;
                                             <label for="exampleInputEmail1">Toolkit Home</label>
                                             <input type="text" placeholder="toolkithome"  name="toolkithome" class="form-control underline-input" ng-model="toolkithome" required>
                                         </div>
-										 <div class="form-group">
+										  <div >
 				     <md-content class="md-padding chipsdemoBasicUsage " >
                                          <label >IIB Host</label>
 										 <!-- <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required> -->
@@ -268,7 +271,7 @@ border: 2px solid #22beef !important;
 									</div>
 				 </uib-tab>
 				  <uib-tab heading="PROD">
-				 <div ng-controller="EnvController as ctrl">
+				<div ng-controller="EnvController as ctrl">
 				<form  ng-submit="submit1()" ng-init="build_env='prod'">
 				<div class="row">
 				<div class="col-sm-6">
@@ -277,7 +280,7 @@ border: 2px solid #22beef !important;
                                             <label for="exampleInputEmail1">Toolkit Home</label>
                                             <input type="text" placeholder="toolkithome"  name="toolkithome" class="form-control underline-input" ng-model="toolkithome" required>
                                         </div>
-										  <div class="form-group">
+										  <div >
 				     <md-content class="md-padding chipsdemoBasicUsage " >
                                          <label >IIB Host</label>
 										 <!-- <input type="text" placeholder="iibhost"  name="iibhost" class="form-control underline-input" ng-model="iibhost" required> -->

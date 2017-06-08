@@ -3,6 +3,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js" integrity="sha256-fiM0lX3OYzf0FfLBeLqFuCokh+rf1VhI/eanPbzldUM=" crossorigin="anonymous"></script>
+<style>
+.hover-close:hover{
+   color: #ffffff;
+}
+
+.w3-btn, .w3-button {
+ padding: 15px 16px;
+}
+
+.w3-teal, .w3-hover-teal:hover {
+ color: #fff !important;
+background-color: #0d416b !important;
+ margin-left:-17px;
+
+}
+.w3-button:hover {
+    background-color: #0d416b !important;
+}
+</style>
  <script>
 function fa1(){
 	var para = document.createElement("style");
@@ -677,14 +696,25 @@ border-radius:15px;
 	
     <div class="w3-modal-content">
       <div class="w3-container" >
-        <span ng-click="close()" class="w3-button w3-display-topright">&times;</span><br>
+	  
+	  <header class="w3-container w3-teal">
+
+       <span onclick="document.getElementById('id01').style.display='none'"
+
+       class="w3-button w3-display-topright" >&times;</span>
+
+       <h2><br></h2>
+
+     </header>
+
+        <span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
 	
 			<div class="form-group row">
 				<div class="col-sm-6">
 				 <div id="build_envDiv" >
 					<!-- <label for="Build Environment">Build Environment</label> -->
 			   <input class="form-group col-sm-12" id="build_env" type="text" ng-model="build_env" style="display: none;"></input>
-				</div> <br>
+				</div> 
 				<div id="svnrepoDiv" >
 					<label for="IIBNode">IIB Node</label>
 					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
@@ -698,7 +728,7 @@ border-radius:15px;
 				</div>
 				<div class="col-sm-6">
 				
-				<br><div id="Config_ServiceDiv" >
+				<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
 					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
 					<br><select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
@@ -711,7 +741,7 @@ border-radius:15px;
 				</div>
 				</div>
 				<div class="form-group row col-sm-12">
-			<button type="button" class="btn btn-darkgray mb-10 col-sm-3" ng-click="build()">Build Now</button>
+			<button type="button" class="btn mb-10 col-sm-3" ng-click="build()" style="background-color:#0d416b;color:#ffffff">Build Now</button>
 			</div>
 							
 		
@@ -729,8 +759,17 @@ border-radius:15px;
 	
     <div class="w3-modal-content">
       <div class="w3-container" >
-        <span ng-click="close1()" class="w3-button w3-display-topright">&times;</span><br>
-		<br>
+	    <header class="w3-container w3-teal">
+
+       <span onclick="document.getElementById('id01').style.display='none'"
+
+       class="w3-button w3-display-topright" >&times;</span>
+
+       <h2><br></h2>
+
+     </header>
+        <span ng-click="close1()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
+
 			<div class="form-group row">
 			<div class="col-sm-6">
 			<div id="Config_ServiceDiv" >
@@ -771,7 +810,7 @@ border-radius:15px;
 			</div>
 			</div>
 			<div class="form-group row col-sm-12">
-			<button type="button" class="btn btn-darkgray mb-10 col-sm-3" ng-click="build1()">Execute</button>
+			<button type="button" class="btn mb-10 col-sm-3" ng-click="build1()" style="background-color:#0d416b;color:#ffffff;">Execute</button>
 			</div>
 			</div>
       </div>
