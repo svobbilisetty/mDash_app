@@ -25,6 +25,7 @@ var fs1 = require('fs-extra');
 var svnUltimate = require('node-svn-ultimate');
 var svnUltimate1 = require('svn-info');
 var client;
+var loginuser;
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -83,6 +84,7 @@ app.post('/serverlogin', function (req, res) {
 														role=result1[0].role_name
 														if(role=="admin")
 														{
+															loginuser = uname;
 															res.send("admin");
 														}
 														else
@@ -93,7 +95,8 @@ app.post('/serverlogin', function (req, res) {
 															}
 															else
 															{
-															  res.send("user");
+																loginuser = uname;
+																res.send("user");
 															}
 															
 														}
@@ -1860,7 +1863,8 @@ app.get('/AddInterface',function(req,res){
 	res.send("received");
 	
 });
-app.get('/UpdateConfigServiceName',function(req,res){    
+app.get('/UpdateConfigServiceName',function(req,res){  
+console.log("Login User"+loginuser);  
     var ConfigServiceName = req.query.ConfigServiceName;
     var SenderHost_IP = req.query.SenderHost_IP;
     var SenderPort_Num = req.query.SenderPort_Num;
@@ -1896,7 +1900,7 @@ app.get('/UpdateConfigServiceName',function(req,res){
             SenderPort_Num:SenderPort_Num,
             username:username,
             password:password,
-			svnusername:svnusername,
+			svnusername:loginuser,
 			svnpassword:svnpassword
             } }, function(err) {
                                           if (err) console.log(err);
