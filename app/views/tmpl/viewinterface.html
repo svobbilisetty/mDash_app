@@ -325,8 +325,9 @@ background-color: #0d416b !important;
             <div class="form-group row">
     <div class="col-sm-6">
 	 <div id="ConfigServiceName " >
-                    <label for="ConfigServiceName  ">ConfigServiceName  </label>
-                    <input class="form-group col-sm-12" id="ConfigServiceName" type="text" ng-model="ConfigServiceName"></input>
+                    <label for="ConfigServiceName  ">Flow Name  </label>
+                    <!--<input class="form-group col-sm-12" id="ConfigServiceName" type="text" ng-model="ConfigServiceName"></input>-->
+					<select ng-model="ConfigServiceName" ng-options="x for x in flowNames_Test"></select>
                 </div>
 				 <div id="SenderPort_Num " >
                     <label for="SenderPort_Num  ">Sender Port_Number  </label>
@@ -335,19 +336,20 @@ background-color: #0d416b !important;
 				   
                
                
-                <div id="password " >
-                    <label for="password  ">Password  </label>
-                    <input class="form-group col-sm-12" id="password  " type="text" ng-model="password"></input>
-                </div>
+                
 	</div>
 	<div class="col-sm-6">
 	<div id="SenderHost_IP " >
                     <label for="SenderHost_IP  ">Sender Host_IP  </label>
                     <input class="form-group col-sm-12" id="SenderHost_IP  " type="text" ng-model="SenderHost_IP"></input>
                 </div>
-				 <div id="username " >
+				<!--  <div id="username " >
                     <label for="username  ">Username  </label>
                     <input class="form-group col-sm-12" id="username  " type="text" ng-model="username"></input>
+                </div> -->
+				<div id="password " >
+                    <label for="password  ">SVN Password  </label>
+                    <input class="form-group col-sm-12" id="password  " type="text" ng-model="password"></input>
                 </div>
 	</div>
             </div>

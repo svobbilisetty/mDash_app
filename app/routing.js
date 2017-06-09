@@ -1287,7 +1287,7 @@ log.on('error', function(err) {
 });
 
 log.on('end', function(end) {
- console.log('end');
+//client.emit('progress', uri);
 // socket.emit('end', end);
  jenkins.job.get(uri,({ depth: 2,pretty: 'true'}), function(err, data) {
 							  if (err) throw err;
@@ -1864,9 +1864,19 @@ app.get('/UpdateConfigServiceName',function(req,res){
     var ConfigServiceName = req.query.ConfigServiceName;
     var SenderHost_IP = req.query.SenderHost_IP;
     var SenderPort_Num = req.query.SenderPort_Num;
-    var username = req.query.username;
-    var password = req.query.password;
-	
+    var svnpassword = req.query.svnpassword;
+	//need to get the svnusername from session that means who logged in
+	MongoClient.connect(config.mongodburl, function(err, db) {
+        if(db){
+            var collection = db.collection('CentralizedParameters');
+            if(collection){
+                collection.find({}).toArray(function (err, result) {
+				  if (err) {
+					console.log(err);
+				  } else if (result.length) {
+					  console.log(result);
+					username = result[0].username;	
+		            password = result[0].password;
 	
 	 jenkins.job.get("Test_Suite/Change_Sender_ConfigService",({ depth: 2,pretty: 'true'}), function(err, data) {
 												  if (err) throw err;
@@ -1885,7 +1895,9 @@ app.get('/UpdateConfigServiceName',function(req,res){
             SenderHost_IP:SenderHost_IP,
             SenderPort_Num:SenderPort_Num,
             username:username,
-            password:password
+            password:password,
+			svnusername:svnusername,
+			svnpassword:svnpassword
             } }, function(err) {
                                           if (err) console.log(err);
                              console.log("UpdateConfigServiceName job triggered");
@@ -1898,6 +1910,20 @@ app.get('/UpdateConfigServiceName',function(req,res){
             })
 			
 	 })
+	 
+	 }
+				  else {
+					
+					console.log('No document(s) found with defined "find" criteria!');
+				  }
+				 
+				})
+            }    
+        }
+        else{
+            console.log("error is connecting to db");
+        }
+    });   
 })
 
 app.get('/RunTest',function(req,res){    
@@ -1933,3 +1959,18 @@ app.get('/RunTest',function(req,res){
             })
 	})
 });
+/* app.get('/test',function(req,res){    
+
+fs.readFile(__dirname+'/Change_Sender_ConfigService.xml','UTF-8', function(err, data) {
+       if (err) {
+           throw err;
+       }
+       xml = data;
+jenkins.job.create("Test_Suite/Change_Sender_ConfigService",xml, function(err){
+                                                                        if (err) throw err;
+                                                                        console.log("job created");
+                                                                        
+                                                                    });
+})
+                                                                    
+}) */

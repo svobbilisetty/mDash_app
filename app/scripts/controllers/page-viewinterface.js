@@ -42,6 +42,22 @@
           }).then(function(response) {
              // alert(JSON.stringify(response.data));
               $scope.flows=response.data.result;
+			  //$scope.flowNames_Test=response.data.result;
+			 var string=[];
+			  for (var ik=0; ik <response.data.result.length;ik++){
+				  alert("response of sender ==> "+response.data.result[ik].flowname.indexOf('Sender'));
+				  if(response.data.result[ik].flowname.indexOf('Sender') != -1)
+					  string[ik] = response.data.result[ik].flowname;
+				
+			  }
+			 // alert(string);
+			  
+			  $scope.flowNames_Test=string;
+			  $scope.ConfigServiceName = $scope.flowNames_Test[0];
+			  
+			 			  //var string = JSON.stringify(response.data.result);
+			  //var array = string.split(',');
+			  //alert(array);
               $scope.interfaceName = response.data.interfaceName;
             }, function(response) {
               
@@ -91,18 +107,18 @@
     document.getElementById('id01').style.display='none';
     //    alert("Clicked on Build");     
             var ConfigServiceName = $scope.ConfigServiceName;
+			//alert(ConfigServiceName);
             var SenderHost_IP = $scope.SenderHost_IP
             var SenderPort_Num = $scope.SenderPort_Num
-            var username = $scope.username
-            var password = $scope.password
+            //var username = $scope.username
+            var svnpassword = $scope.password
            // alert($scope.ConfigServiceName);
              $http({
             method : "GET",
             url : serverHosturl+"UpdateConfigServiceName?ConfigServiceName="+ConfigServiceName+
             "&SenderHost_IP="+SenderHost_IP+
             "&SenderPort_Num="+SenderPort_Num+
-            "&username="+username+
-            "&password="+password 
+            "&svnpassword="+svnpassword 
         }).then(function(response){
             
                 
