@@ -84,6 +84,7 @@
 
 		 $scope.saveInterface = function()
 		 {
+			 btnm();
 			// alert("enterd saveInterface")
 				var interface_name = $scope.interface_name;
 				 var no_rows = document.getElementById("svnTable").rows.length;
@@ -238,14 +239,19 @@ var i=this.id;
                                 method : "GET",
                                 url : serverHosturl+"saveInterface?interface_name="+interface_name
                             }).then(function(response){
-                                $state.go('app.dashboard');
+                                $state.go('app.interfacelist');
                             });
 								 }
 							}); 
 		 }
 	  
 	  
-	  
+function btnm(){
+    document.getElementById('btns').style.display="block";
+    document.getElementById('load').innerHTML="loading";
+    document.getElementById('load').style.fontWeight="bold";
+    document.getElementById("showAccordian").disabled = true;
+}	  
 	  
  
  });

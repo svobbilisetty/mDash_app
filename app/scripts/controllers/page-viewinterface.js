@@ -45,7 +45,7 @@
 			  //$scope.flowNames_Test=response.data.result;
 			 var string=[];
 			  for (var ik=0; ik <response.data.result.length;ik++){
-				  alert("response of sender ==> "+response.data.result[ik].flowname.indexOf('Sender'));
+				 // alert("response of sender ==> "+response.data.result[ik].flowname.indexOf('Sender'));
 				  if(response.data.result[ik].flowname.indexOf('Sender') != -1)
 					  string[ik] = response.data.result[ik].flowname;
 				

@@ -124,7 +124,11 @@
 	};
 		
 	$scope.build = function(){ 
-      $scope.status=true;
+	btnm();
+	document.getElementById("roll").disabled = true;
+	document.getElementById("promote").disabled = true;
+	
+	$scope.status=true;
 	document.getElementById('id01').style.display='none';
 	//	alert("Clicked on Build");     
 			
@@ -149,7 +153,20 @@
 			"&BrokerName="+BrokerName 
 		}).then(function(response){
 			
-				document.getElementById('id01').style.display='none';
+			if((response.data.search('Job_FAILED'))>0){
+                $timeout( function(){ $scope.status=false; }, 3000);
+                document.getElementById('btns').style.display="none";
+                document.getElementById('load').innerHTML="Build and Deploy";
+                document.getElementById("roll").disabled = false;
+                document.getElementById("promote").disabled = false; 
+             }
+             else
+             {
+                 document.getElementById('btns').style.display="none";
+                document.getElementById('load').innerHTML="Build and Deploy";
+                document.getElementById("roll").disabled = false;
+                document.getElementById("promote").disabled = false;
+             }
 			//	alert(response.data);
 				
 		}); 
@@ -215,8 +232,12 @@
      
     };
     $scope.build1 = function(){ 
+	btnm1();
     document.getElementById('id02').style.display='none';
-	document.getElementById('console2').innerHTML='';
+    document.getElementById('console2').innerHTML='';
+    document.getElementById("deploy").disabled = true;
+    document.getElementById("promote").disabled = true;
+	
     //    alert("Clicked on Build");     
             
           var build_env = "dev"; 
@@ -242,14 +263,22 @@
             "&executionGroup="+executionGroup+
             "&BrokerName="+BrokerName+"&artifactory_number="+artifactory_number+"&target="+target+"&build_env="+build_env
         }).then(function(response){
-            
-                document.getElementById('id02').style.display='none';
+			
+			document.getElementById('id02').style.display='none';
                // alert(response.data);
                   if(response.data == 'roll_created')
                  {
+                     document.getElementById('btns1').style.display="none";
+                     document.getElementById('load1').innerHTML="Rollback and Decomission";
+                     document.getElementById("deploy").disabled = false;
+                     document.getElementById("promote").disabled = false;
                    // alert("rollback job triggerd");
-                 } 
+                 }
                  else{
+                     document.getElementById('btns1').style.display="none";
+                     document.getElementById('load1').innerHTML="Rollback and Decomission";
+                     document.getElementById("deploy").disabled = false;
+                     document.getElementById("promote").disabled = false;
                     // alert("rollback job failed");
                      }
                  
@@ -269,6 +298,16 @@
     };
 	
 	
+	function btnm(){
+    document.getElementById('btns').style.display="block";
+    document.getElementById('load').innerHTML="Build in Progress";
+    
+}
+function btnm1(){
+    document.getElementById('btns1').style.display="block";
+    document.getElementById('load1').innerHTML="Rollback in progress";
+    
+}
 	
 	});
 	
