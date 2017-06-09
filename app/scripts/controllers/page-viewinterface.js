@@ -43,17 +43,32 @@
              // alert(JSON.stringify(response.data));
               $scope.flows=response.data.result;
 			  //$scope.flowNames_Test=response.data.result;
-			 var string=[];
+			 var senderString=[];
+			 var runString=[];
+			 var counter=0;
 			  for (var ik=0; ik <response.data.result.length;ik++){
 				 // alert("response of sender ==> "+response.data.result[ik].flowname.indexOf('Sender'));
-				  if(response.data.result[ik].flowname.indexOf('Sender') != -1)
-					  string[ik] = response.data.result[ik].flowname;
-				
+				  if(response.data.result[ik].flowname.indexOf('Sender') != -1){
+					  senderString[counter] = response.data.result[ik].flowname;
+					  counter++;
+				  }  
+			  }
+			  counter=0;
+			   for (var ik=0; ik <response.data.result.length;ik++){
+				 // alert("response of sender ==> "+response.data.result[ik].flowname.indexOf('Sender'));
+				  if(response.data.result[ik].flowname.indexOf('Receiver') != -1){
+					  runString[counter] = response.data.result[ik].flowname;
+					  counter++;
+				  }  
 			  }
 			 // alert(string);
 			  
-			  $scope.flowNames_Test=string;
+			  $scope.flowNames_Test=senderString;
 			  $scope.ConfigServiceName = $scope.flowNames_Test[0];
+			  
+			  $scope.flowNames_Run=runString;
+			  $scope.FlowName = $scope.flowNames_Run[0];
+			  
 			  
 			 			  //var string = JSON.stringify(response.data.result);
 			  //var array = string.split(',');
@@ -148,13 +163,15 @@
             var ReceiverPort = $scope.ReceiverPort
             var iibhost = $scope.iibhost
             var FlowName = $scope.FlowName
+			var svnpassword = $scope.password
             
              $http({
             method : "GET",
             url : serverHosturl+"RunTest?InputData="+InputData+
             "&ReceiverPort="+ReceiverPort+
             "&iibhost="+iibhost+
-            "&FlowName="+FlowName
+            "&FlowName="+FlowName+
+			"&svnpassword="+svnpassword
         }).then(function(response){
             
                alert(response.data);

@@ -349,7 +349,7 @@ background-color: #0d416b !important;
                 </div> -->
 				<div id="password " >
                     <label for="password  ">SVN Password  </label>
-                    <input class="form-group col-sm-12" id="password  " type="text" ng-model="password"></input>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="password"></input>
                 </div>
 	</div>
             </div>
@@ -389,8 +389,13 @@ background-color: #0d416b !important;
                 </div>
 				 <div id="FlowName  " >
                     <label for="FlowName   ">Flow Name   </label>
-                    <input class="form-group col-sm-12" id="FlowName   " type="text" ng-model="FlowName   "></input>
+                   <!-- <input class="form-group col-sm-12" id="FlowName   " type="text" ng-model="FlowName   "></input>-->
+				   <select ng-model="FlowName" ng-options="x for x in flowNames_Run"></select>
                 </div>  
+				<div id="password">
+		<label for="password">SVN Password</label>
+		<input class="form-group col-sm-12" id="password" type="password" ng-model="password"></input>
+	 </div>
 	 </div>
             </div>
             <div class="form-group row col-sm-12">
