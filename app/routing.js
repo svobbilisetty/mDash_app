@@ -1869,6 +1869,10 @@ console.log("Login User"+loginuser);
     var SenderHost_IP = req.query.SenderHost_IP;
     var SenderPort_Num = req.query.SenderPort_Num;
     var svnpassword = req.query.svnpassword;
+	var IIBNode = req.query.IIBNode
+	var iibhost = req.query.iibhost
+	var executionGroup = req.query.executionGroup
+	var mqsiprofile = req.query.mqsiprofile
 	//need to get the svnusername from session that means who logged in
 	MongoClient.connect(config.mongodburl, function(err, db) {
         if(db){
@@ -1901,7 +1905,11 @@ console.log("Login User"+loginuser);
             username:username,
             password:password,
 			svnusername:loginuser,
-			svnpassword:svnpassword
+			svnpassword:svnpassword,
+			IIBNode : IIBNode,
+	        iibhost : iibhost,
+	        executionGroup : executionGroup,
+	        mqsiprofile : mqsiprofile
             } }, function(err) {
                                           if (err) console.log(err);
                              console.log("UpdateConfigServiceName job triggered");

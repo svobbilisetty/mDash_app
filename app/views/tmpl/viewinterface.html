@@ -324,7 +324,12 @@ background-color: #0d416b !important;
         <br>
             <div class="form-group row">
     <div class="col-sm-6">
-	 <div id="ConfigServiceName " >
+	            <div id="env" >
+					<label for="env">Environment</label>
+					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
+					<br><select ng-model="env" ng-options="x for x in envs" ng-change="fieldspop()"></select>
+				</div>
+	          <div id="ConfigServiceName " >
                     <label for="ConfigServiceName  ">Flow Name  </label>
                     <!--<input class="form-group col-sm-12" id="ConfigServiceName" type="text" ng-model="ConfigServiceName"></input>-->
 					<select ng-model="ConfigServiceName" ng-options="x for x in flowNames_Test"></select>
@@ -333,8 +338,16 @@ background-color: #0d416b !important;
                     <label for="SenderPort_Num  ">Sender Port_Number  </label>
                     <input class="form-group col-sm-12" id="SenderPort_Num" type="text" ng-model="SenderPort_Num"></input>
                 </div>
-				   
-               
+				<div id="IIBNode" >
+					<label for="IIBNode">IIB Node</label>
+					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
+					<br><select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
+				</div>
+               <div id="projectnameDiv" >
+					<label for="executionGroup">Execution Group</label>
+					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> -->
+					<br><select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
+				</div>
                
                 
 	</div>
@@ -350,6 +363,15 @@ background-color: #0d416b !important;
 				<div id="password " >
                     <label for="password  ">SVN Password  </label>
                     <input class="form-group col-sm-12" id="password  " type="password" ng-model="password"></input>
+                </div>
+				<div id="Config_ServiceDiv" >
+					<label for="iibhost">IIB Host</label>
+					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
+					<br><select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
+				</div>
+				<div id="mqsiprofile " >
+                    <label for="mqsiprofile  ">mqsiprofile  </label>
+                    <input class="form-group col-sm-12" id="mqsiprofile  " type="text" ng-model="mqsiprofile"></input>
                 </div>
 	</div>
             </div>

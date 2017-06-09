@@ -34,7 +34,9 @@
 				 $('.demo').scrollTop($('.demo')[0].scrollHeight);
 			});  */  
 		   
-	   
+	   var build_env=["dev","test","prod"];
+	   $scope.envs=build_env;
+	   $scope.env=$scope.envs[0];
 		   
         $http({
             method : "GET",
@@ -109,7 +111,44 @@
     
     $scope.ChangeSenderConfigService= function(){ 
         $scope.buildmodal=true;    
-   document.getElementById('id01').style.display='block';                
+   document.getElementById('id01').style.display='block';   
+ var iibhost1;
+	var IIBNode1;
+	var executionGroup1;
+  var build_env=$scope.env;
+	
+	$http({
+    method : "GET",
+    url : serverHosturl+"EnvironmentalParameters?build_env="+build_env	
+  }).then(function(response) {
+     // alert(JSON.stringify(response.data));
+	 if(response.data=="no_record")
+	 {
+			
+		 $scope.iibhost = "";
+		 $scope.IIBNode = "";
+		 $scope.executionGroup = "";
+		 $scope.mqsiprofile = "";
+	 }
+	 else
+	 {
+		 iibhost1= (response.data[0].iibhost).split(",");
+		 IIBNode1 = (response.data[0].IIBNode).split(",");
+		 executionGroup1 = (response.data[0].executionGroup).split(",");
+		 
+		 
+		   $scope.IIBNodes=IIBNode1;
+	       $scope.IIBNode=$scope.IIBNodes[0];
+		   $scope.iibhosts=iibhost1;
+	       $scope.iibhost=$scope.iibhosts[0];
+	       $scope.executionGroups=executionGroup1;
+	       $scope.executionGroup=$scope.executionGroups[0];
+	       $scope.mqsiprofile = response.data[0].mqsiprofile;
+	 }
+	      
+    });   	 
+
+  
    }; 
     
     $scope.close= function(){  
@@ -127,13 +166,21 @@
             var SenderPort_Num = $scope.SenderPort_Num
             //var username = $scope.username
             var svnpassword = $scope.password
+			var IIBNode = $scope.IIBNode
+			var iibhost = $scope.iibhost
+		    var executionGroup = $scope.executionGroup
+			var mqsiprofile = $scope.mqsiprofile
            // alert($scope.ConfigServiceName);
              $http({
             method : "GET",
             url : serverHosturl+"UpdateConfigServiceName?ConfigServiceName="+ConfigServiceName+
             "&SenderHost_IP="+SenderHost_IP+
             "&SenderPort_Num="+SenderPort_Num+
-            "&svnpassword="+svnpassword 
+            "&svnpassword="+svnpassword+
+			"&IIBNode="+IIBNode+
+			"&iibhost="+iibhost+
+			"&executionGroup="+executionGroup+
+			"&mqsiprofile="+mqsiprofile
         }).then(function(response){
             
                 
@@ -179,6 +226,44 @@
         }); 
     
     }
+$scope.fieldspop = function(){
+	 var iibhost1;
+	var IIBNode1;
+	var executionGroup1;
+  var build_env=$scope.env;
+	
+	$http({
+    method : "GET",
+    url : serverHosturl+"EnvironmentalParameters?build_env="+build_env	
+  }).then(function(response) {
+     // alert(JSON.stringify(response.data));
+	 if(response.data=="no_record")
+	 {
+			
+		 $scope.iibhost = "";
+		 $scope.IIBNode = "";
+		 $scope.executionGroup = "";
+		 $scope.mqsiprofile = "";
+	 }
+	 else
+	 {
+		 iibhost1= (response.data[0].iibhost).split(",");
+		 IIBNode1 = (response.data[0].IIBNode).split(",");
+		 executionGroup1 = (response.data[0].executionGroup).split(",");
+		
+		 
+		   $scope.IIBNodes=IIBNode1;
+	       $scope.IIBNode=$scope.IIBNodes[0];
+		   $scope.iibhosts=iibhost1;
+	       $scope.iibhost=$scope.iibhosts[0];
+	       $scope.executionGroups=executionGroup1;
+	       $scope.executionGroup=$scope.executionGroups[0];
+	       $scope.mqsiprofile = response.data[0].mqsiprofile;
+	 }
+	      
+    });   	
+	
+}
 
 });
  });
