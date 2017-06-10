@@ -60,28 +60,20 @@
           <description></description>
           <defaultValue>MidasHL7_TEST</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>svnusername</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>svnpassword</name>
+          <description></description>
+          <defaultValue>{AQAAABAAAAAQE8GbhsXC2L4eQ+W2Z9ZtDfROj/3PUX3Wkp09JXlbH2o=}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
-  <scm class="hudson.scm.SubversionSCM" plugin="subversion@2.7.2">
-    <locations>
-      <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>Remote_SVN_URL/Build</remote>
-        <credentialsId></credentialsId>
-        <local>.</local>
-        <depthOption>infinity</depthOption>
-        <ignoreExternalsOption>true</ignoreExternalsOption>
-      </hudson.scm.SubversionSCM_-ModuleLocation>
-    </locations>
-    <excludedRegions></excludedRegions>
-    <includedRegions></includedRegions>
-    <excludedUsers></excludedUsers>
-    <excludedRevprop></excludedRevprop>
-    <excludedCommitMessages></excludedCommitMessages>
-    <workspaceUpdater class="hudson.scm.subversion.UpdateUpdater"/>
-    <ignoreDirPropChanges>false</ignoreDirPropChanges>
-    <filterChangelog>false</filterChangelog>
-  </scm>
+  <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -90,6 +82,9 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
+    <hudson.tasks.Shell>
+      <command>svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Remote_SVN_URL/Build --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Create_Config_Services</command>
+    </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>echo ${mqsiprofile} &apos;;&apos;${Config_Service}&apos;;mqsireload&apos; ${IIBNode}&apos; -e &apos;${executionGroup} &gt; ConfigCommands.txt</command>
     </hudson.tasks.Shell>

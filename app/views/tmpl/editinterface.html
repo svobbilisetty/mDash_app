@@ -1,6 +1,20 @@
-
-<style>
-
+ <script src="http://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	 <style>
+	 .tabs-dark .nav-tabs > li.active > a, .tabs-dark .nav-tabs > li.active > a:hover, .tabs-dark .nav-tabs > li.active > a:focus {
+    background-color: #2368a0;
+    color: white;
+}
+	 button, select, html, textarea, input {
+    font-family: "Lato", sans-serif;
+}
+input{
+	border: 3px solid #e7eaeb !important;
+}
+input:focus{
+border: 3px solid #22beef !important;
+}
 .md-padding {
     padding-left: 0px;
 	padding-top:5px;
@@ -15,44 +29,14 @@
   
 </style>
 <style>
-#snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    margin-right:-30px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 80%;
-    top: 70px;
-    font-size: 17px;
+
+.md-padding {
+    padding-left: 0px;
+	padding-top:5px;
 }
 
-#snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
 
-@-webkit-keyframes fadein {
-    from {top: 0; opacity: 0;} 
-    to {top: 70px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {top: 0; opacity: 0;} 
-    to {top: 70px; opacity: 1;}
-}
 </style>
-</head>
-<body>
-
-
-
-
 
 <div class="page page-tables-bootstrap">
 
@@ -76,7 +60,7 @@
     </div>
   </div>
   
-  
+   <div ng-controller="EditInterface">
   <div class="row">
     <!-- col -->
     <div class="col-md-12">
@@ -89,39 +73,24 @@
 		
 		 
         <div class="tile-body">
-		<div class="form-group"> <label for="inputPassword3" class="col-sm-2 control-label"><b> Interface Name</b></label> <div class="col-sm-4"> <input class="form-control" id="inputPassword3" placeholder="Interface Name" > </div> </div>
-		<br>
-		<br>
-          <div ng-controller="AccordionDemoCtrl">
+		<div class="form-group">
+<div class="form-group "> <label for="inputPassword3" class="col-sm-4 control-label"><b> Interface Name</b></label>  <br><br><span class="col-sm-6"><input class="form-control col-sm-6"  id="Interface" placeholder="Interface Name" ng-model="interface_name" ></span> </div>
+		
+          <div >
 
 
-            <div id="">
+            <div id="raj">
 
             <div class="tile-body p-0">
 
+	
 
-<script>
-var count=1;
-function myFunction() {
-
-	 var x = document.getElementById("svnTable").rows.length; 
-	 
-    var node = document.createElement("tr");
-	node.setAttribute("id","trId"+x);
-
-	node.innerHTML="<td id='input"+x+"'><input class='form-control' placeholder='Flow Name' type='text'>	</td><td><input class='form-control' placeholder='SVN Path for Flow' id='input01' type='text'></td>   <td><button class='btn btn-sm btn-danger' ng-click='rate = 0' ng-disabled='isReadonly' onclick='del("+x+")'>x</button></td>"
-
-    document.getElementById("myList").appendChild(node);
-count++;
-}
-
-</script>
 
    <table class="table" id="svnTable">
                                         <thead>
                                         <tr>
-                                            <th width="300px;">Flow Name</th>
-                                            <th>SVN  Flow Path</th>
+                                            <th width="300px;"><br>Flow Name</th>
+                                            <th>SVN Path for Flow</th>
                                             <th></th>
                                
 										
@@ -130,9 +99,9 @@ count++;
                                         <tbody id="myList">
                                         <tr id="hidethis">
                                             <td>
-											<input class="form-control" placeholder="Flow Name" id="input01" type="text">	</td>
+											<input class="form-control" placeholder="Flow Name"  name="inputflow1" id="inputflow1" type="text" ng-model="flowname1">	</td>
                                             <td>
-											<input class="form-control" placeholder="SVN  Flow Path" id="input01" type="text">
+											<input class="form-control" placeholder="SVN Path for Flow" id="inputsvn1" type="text" ng-model="Remote_SVN_Path1">
 											</td>
                                             <td><button onclick="del()" class="btn btn-sm btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">x</button></td>
 										</tr>	
@@ -148,10 +117,11 @@ count++;
 									<script>
 											function del(rownum){
 										//	document.getElementById("'input"+count+"'").style.visibility="hidden";
-											var row = document.getElementById('trId'+rownum);
+											var row = document.getElementById(rownum);
 	//row.parentElement.removeChild(row); 
 	    row.parentNode.removeChild(row);
 											}
+											
 											</script>
 
             </div>
@@ -161,7 +131,7 @@ count++;
 	
 		  </div>
 		  
-		
+		   <div id="newLayer"></div>
 		 
 	<br>
 	
@@ -169,31 +139,27 @@ count++;
 			  <!-- tile body-->
 			<div class="row tile-body">
 			<div class="col-sm-2">
-			 <button type="button" ng-click="addItem()" id="showAccordian" onclick="myFunction()"; return false;" class="btn btn-blue mb-10 col-sm-12 "><i class="fa fa-plus"></i> &nbsp<b> Add Flow</b></button>
+			 <button type="button" ng-click="myFunction1()" id="showAccordian"  return false;" class="btn btn-blue mb-10 col-sm-10 "><i class="fa fa-plus"></i> &nbsp<b> Add Flow</b></button>
+			</div>
+			<div class="col-sm-2">
+			<!-- <button type="button" ng-click="saveInterface()" class="btn btn-cyan mb-10 col-sm-10"><b>Save Interface</b></button>-->
+			<button ng-click="saveInterface()"  class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 col-sm-12" activate-button="loading"><i id="btns" style="display:none;" class="fa fa-refresh fa-spin"></i><span id="load" style="position:relative;left:-10px;"><b>Edit Interface</b></span></button>
 			</div>
 			
-			<div class="col-sm-2">
-			<button onclick="btnm()"  class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 col-sm-12" activate-button="loading"><i id="btns" style="display:none;" class="fa fa-refresh fa-spin"></i><span id="load"style="position:relative;left:-15px;"><b>Save Interface</b></span></button>
+			
 			</div>
 			   
          <!-- /tile body--> 
 		 </div>
+ 
+        
         
         </section>
-		
      </div>
   
 </div>
-
 </div>
-
-<script>
-function btnm(){
-    document.getElementById('btns').style.display="block";
-	document.getElementById('load').innerHTML="loading";
-	document.getElementById('load').style.fontWeight="bold";
-}
-</script>
+</div>
 
 	
 			

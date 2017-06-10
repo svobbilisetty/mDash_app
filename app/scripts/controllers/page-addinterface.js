@@ -87,6 +87,7 @@
 			 btnm();
 			// alert("enterd saveInterface")
 				var interface_name = $scope.interface_name;
+				var svnpassword = $scope.svnpassword;
 				 var no_rows = document.getElementById("svnTable").rows.length;
 				// alert(no_rows);
 				var no_flows=no_rows-1;
@@ -119,7 +120,7 @@
 								alert("flows created and interface saved")
 							}); 
 				*/
-				buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows);
+				buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword);
 				
 		 }
 		 
@@ -174,7 +175,7 @@ $scope.myFunc = function(i) {
                   else{
 					  // alert(svnrepohost);
 					  // alert(response.data[0].svn_url);
-                          repo = response.data[0].svn_url.replace(svnrepohost, "");;
+                          repo = response.data[0].svn_url.replace(svnrepohost, "");
 					 // var repo=(response.data[0].svn_url).indexOf(svnrepohost);
 					 // alert(repo);
 					 document.getElementById("inputsvn"+i).disabled = true;
@@ -214,7 +215,7 @@ var i=this.id;
 	  
 	  
 	  
-	   function buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows){
+	   function buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword){
 					var flow_names1 = flow_names.shift();
 					var last1=last.shift();
 					var Remote_SVN_URLs1 = Remote_SVN_URLs.shift();
@@ -224,14 +225,15 @@ var i=this.id;
 								url : serverHosturl+"createBuildFolder?interface_name="+interface_name+
 								"&flowname="+flow_names1+
 								"&type="+last1+
-								"&Remote_SVN_URL="+Remote_SVN_URLs1
+								"&Remote_SVN_URL="+Remote_SVN_URLs1+
+								"&svnpassword="+svnpassword
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
 									alert(response.data);
 								}
 								//alert("response: "+response.data);
 								 if (flow_names.length > 0) {   //callback
-									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows)
+									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword)
 								 }
 								 else
 								 {

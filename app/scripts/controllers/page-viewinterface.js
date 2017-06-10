@@ -95,16 +95,15 @@
 
         
     $scope.edit = function(interfaceName){
-          $state.go('app.editinterface');
-    /*     alert("InterfaceName : "+$scope.interfaceName);
-        $http({
+         // $state.go('app.editinterface');
+     //  alert("InterfaceName : "+interfaceName);
+         $http({
             method : "GET",
-            url : serverHosturl+"editInterface"
+            url : serverHosturl+"editInterface?editInterfaceName="+interfaceName
         }).then(function(response) {
              // alert(JSON.stringify(response.data));
-              $scope.flows=response.data.result;
-              $scope.interfaceName = response.data.interfaceName;
-        }); */
+             $state.go('app.editinterface');
+        });
     }
     
     

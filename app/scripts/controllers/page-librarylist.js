@@ -11,7 +11,7 @@
 	 
 	// Library Add pop-up - START
 	$scope.addLibrary = function(){
-		//alert("enterd addLibrarylist");
+		alert("enterd addLibrarylist");
 		
 		$scope.buildmodal=true;    
 		document.getElementById('id01').style.display='block';

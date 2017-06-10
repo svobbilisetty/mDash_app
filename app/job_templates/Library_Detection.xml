@@ -49,6 +49,16 @@
           <description></description>
           <defaultValue>Remote_SVN_URL</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>svnusername</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>svnpassword</name>
+          <description></description>
+          <defaultValue>{AQAAABAAAAAQVRR7XuHbpmC5Au0gBuxfpq/9XFChtOqZacAs24jMV7I=}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -76,11 +86,13 @@ echo &apos;svnhostpassword=&apos;${password} &gt;&gt; Utility/SVN.properties
 echo &apos;svnhost=&apos;${svnhost} &gt;&gt; Utility/SVN.properties
 echo &apos;svnrepo=&apos;${svnrepo} &gt;&gt; Utility/SVN.properties
 value=$(cut -d/ -f7 &lt;&lt;&lt;&quot;${WORKSPACE}&quot;)
-echo &apos;projectname=&apos;$value &gt;&gt; Utility/SVN.properties</command>
+echo &apos;projectname=&apos;$value &gt;&gt; Utility/SVN.properties
+echo &apos;svnusername=&apos;${svnusername} &gt;&gt; Utility/SVN.properties
+echo &apos;svnpassword=&apos;${svnpassword} &gt;&gt; Utility/SVN.properties</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>svn export --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/TCPIPTestCase/Utility --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Library_Detection/Utility
-svn export --non-interactive --trust-server-cert Remote_SVN_URL --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Library_Detection/Flow_Name
+      <command>svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/TCPIPTestCase/Utility --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Library_Detection/Utility
+svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Remote_SVN_URL --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Library_Detection/Flow_Name
 
 </command>
     </hudson.tasks.Shell>

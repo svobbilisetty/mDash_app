@@ -45,6 +45,16 @@
           <description></description>
           <defaultValue>icisr031</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>svnusername</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>svnpassword</name>
+          <description></description>
+          <defaultValue>{AQAAABAAAAAQMIY2osy/cVNurXqJks6O0jC6ar6+C9x4hfYe9TwUfwU=}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -58,8 +68,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>svn export --non-interactive --trust-server-cert Remote_SVN_URL/Build --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Create_Queues
-               svn export --non-interactive --trust-server-cert Remote_SVN_URL --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Create_Queues/Flow_Name</command>
+      <command>svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Remote_SVN_URL/Build --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Create_Queues
+svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Remote_SVN_URL --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Create_Queues/Flow_Name</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>value=$(cut -d/ -f7 &lt;&lt;&lt;&quot;${WORKSPACE}&quot;)

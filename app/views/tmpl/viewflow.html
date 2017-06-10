@@ -732,7 +732,11 @@ border-radius:15px;
 					<label for="executionGroup">Execution Group</label>
 					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> -->
 					<br><select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
-				</div>
+				</div><br>
+				<div id="password " >
+                    <label for="password  ">SVN Password  </label>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
+                </div>
 				</div>
 				</div>
 				<div class="form-group row col-sm-12">
@@ -801,6 +805,10 @@ border-radius:15px;
                     <label for="Target">Target</label>
                     <br><select ng-model="target" ng-options="x for x in targets" ng-change="artifact()">
                     </select>
+                </div><br>
+				<div id="password " >
+                    <label for="password  ">SVN Password  </label>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
                 </div>
 			</div>
 			</div>

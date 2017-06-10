@@ -75,28 +75,20 @@
           <description></description>
           <defaultValue>admin</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>svnusername</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>svnpassword</name>
+          <description></description>
+          <defaultValue>{AQAAABAAAAAQoMt+88SLV4MoSFHcVifIWErOz2Tt2lHZOeck2iVVOyo=}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
-  <scm class="hudson.scm.SubversionSCM" plugin="subversion@2.7.2">
-    <locations>
-      <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>Remote_SVN_URL/Build</remote>
-        <credentialsId></credentialsId>
-        <local>.</local>
-        <depthOption>infinity</depthOption>
-        <ignoreExternalsOption>true</ignoreExternalsOption>
-      </hudson.scm.SubversionSCM_-ModuleLocation>
-    </locations>
-    <excludedRegions></excludedRegions>
-    <includedRegions></includedRegions>
-    <excludedUsers></excludedUsers>
-    <excludedRevprop></excludedRevprop>
-    <excludedCommitMessages></excludedCommitMessages>
-    <workspaceUpdater class="hudson.scm.subversion.UpdateUpdater"/>
-    <ignoreDirPropChanges>false</ignoreDirPropChanges>
-    <filterChangelog>false</filterChangelog>
-  </scm>
+  <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -105,6 +97,9 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
+    <hudson.tasks.Shell>
+      <command>svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Remote_SVN_URL/Build --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Deploy</command>
+    </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>mkdir /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Deploy/temp
 chmod 757 /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Deploy/temp</command>
