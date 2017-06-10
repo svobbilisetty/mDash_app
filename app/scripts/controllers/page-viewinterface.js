@@ -125,9 +125,9 @@
 	 if(response.data=="no_record")
 	 {
 			
-		 $scope.iibhost = "";
-		 $scope.IIBNode = "";
-		 $scope.executionGroup = "";
+		 $scope.iibhosts = "";
+		 $scope.IIBNodes = "";
+		 $scope.executionGroups = "";
 		// $scope.mqsiprofile = "";
 	 }
 	 else
@@ -240,10 +240,10 @@ $scope.fieldspop = function(){
 	 if(response.data=="no_record")
 	 {
 			
-		 $scope.iibhost = "";
-		 $scope.IIBNode = "";
-		 $scope.executionGroup = "";
-		 $scope.mqsiprofile = "";
+		 $scope.iibhosts = "";
+		 $scope.IIBNodes = "";
+		 $scope.executionGroups = "";
+		 //$scope.mqsiprofile = "";
 	 }
 	 else
 	 {
@@ -258,7 +258,7 @@ $scope.fieldspop = function(){
 	       $scope.iibhost=$scope.iibhosts[0];
 	       $scope.executionGroups=executionGroup1;
 	       $scope.executionGroup=$scope.executionGroups[0];
-	       $scope.mqsiprofile = response.data[0].mqsiprofile;
+	       mqsiprofile = response.data[0].mqsiprofile;
 	 }
 	      
     });   	
