@@ -12,8 +12,8 @@
     $scope.buildmodal=false;
     $scope.buildmodal1=false;
 	var socket;
-     var  serverHosturl;			
-			
+    var  serverHosturl;			
+	var mqsiprofile;	
      $http({
             method : "GET",
             url : "/public/serverHost.json"    
@@ -128,7 +128,7 @@
 		 $scope.iibhost = "";
 		 $scope.IIBNode = "";
 		 $scope.executionGroup = "";
-		 $scope.mqsiprofile = "";
+		// $scope.mqsiprofile = "";
 	 }
 	 else
 	 {
@@ -143,7 +143,7 @@
 	       $scope.iibhost=$scope.iibhosts[0];
 	       $scope.executionGroups=executionGroup1;
 	       $scope.executionGroup=$scope.executionGroups[0];
-	       $scope.mqsiprofile = response.data[0].mqsiprofile;
+	       mqsiprofile = response.data[0].mqsiprofile;
 	 }
 	      
     });   	 
@@ -169,7 +169,7 @@
 			var IIBNode = $scope.IIBNode
 			var iibhost = $scope.iibhost
 		    var executionGroup = $scope.executionGroup
-			var mqsiprofile = $scope.mqsiprofile
+			var mqsiprofile = mqsiprofile
            // alert($scope.ConfigServiceName);
              $http({
             method : "GET",

@@ -332,7 +332,7 @@ background-color: #0d416b !important;
 	          <div id="ConfigServiceName " >
                     <label for="ConfigServiceName  ">Flow Name  </label>
                     <!--<input class="form-group col-sm-12" id="ConfigServiceName" type="text" ng-model="ConfigServiceName"></input>-->
-					<select ng-model="ConfigServiceName" ng-options="x for x in flowNames_Test"></select>
+					<br><select ng-model="ConfigServiceName" ng-options="x for x in flowNames_Test"></select>
                 </div>
 				 <div id="SenderPort_Num " >
                     <label for="SenderPort_Num  ">Sender Port_Number  </label>
@@ -343,11 +343,7 @@ background-color: #0d416b !important;
 					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
 					<br><select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
 				</div>
-               <div id="projectnameDiv" >
-					<label for="executionGroup">Execution Group</label>
-					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> -->
-					<br><select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
-				</div>
+              
                
                 
 	</div>
@@ -369,10 +365,11 @@ background-color: #0d416b !important;
 					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
 					<br><select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
 				</div>
-				<div id="mqsiprofile " >
-                    <label for="mqsiprofile  ">mqsiprofile  </label>
-                    <input class="form-group col-sm-12" id="mqsiprofile  " type="text" ng-model="mqsiprofile"></input>
-                </div>
+				 <div id="projectnameDiv" >
+					<label for="executionGroup">Execution Group</label>
+					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> -->
+					<br><select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
+				</div>
 	</div>
             </div>
             <div class="form-group row col-sm-12">
