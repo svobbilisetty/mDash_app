@@ -1,0 +1,123 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+html, body {
+    font-family: "Lato",sans-serif !important;
+  
+}
+.w3-btn, .w3-button {
+ padding: 10px 16px;
+}
+
+.w3-teal, .w3-hover-teal:hover {
+ color: #fff !important;
+background-color: #0d416b !important;
+ margin-left:-17px;
+
+}
+.w3-button:hover {
+    background-color: #0d416b !important;
+}
+</style>
+
+                <div class="page page-tables-bootstrap">
+
+                    <div class="pageheader">
+
+                        <h2>Library Listing <span></span></h2>
+
+                        <div class="page-bar">
+
+                            <ul class="page-breadcrumb">
+                                <li>
+                                    <a href="index.html"><i class="fa fa-home"></i> mDash</a>
+                                </li>
+                                <li>
+                                    <a href="#">Library List</a>
+                                </li>
+
+                            </ul>
+                            <div class="page-toolbar ng-scope"><a ng-click="addLibrary()"  class="btn btn-lightred no-border ng-isolate-scope" > <i class="fa fa-plus"></i>&nbsp;&nbsp;<span class="ng-binding">Add</span> </a> </div>
+                        </div>
+
+                    </div>
+
+                     <!-- row -->
+                    <div class="row">
+                      <!-- col -->
+                      <div class="col-md-12">
+
+                        <!-- tile -->
+                        <section class="tile" fullscreen="isFullscreen02">
+                          <!-- tile body -->
+                          <div class="tile-body p-0">
+
+
+                               <div class="tile-header dvd dvd-btm">
+                            <h1 class="custom-font">Library Listing</h1>
+
+                        </div>
+                                <table class="table table-no-border m-0">
+                                  <tbody>
+                                    <tr>
+                                      <th> Library  Name </th>
+                                      <th> Created Date </th>
+                                     <th> Last Updated </th>
+                                     
+                                      <th>Environment</th>
+                                      <th> By </th>
+                                    </tr>
+                                  </tbody>
+                                </table>
+
+
+                          </div>
+                          <!-- /tile body -->
+
+                        </section>
+                        <!-- /tile -->
+
+                      </div>
+                      <!-- /col -->
+
+                    </div>
+                    <!-- /row -->
+                    <!-- row -->
+<!-- Pop-up for add Library - START -->
+					<div id="id01" class="w3-modal" ng-show="buildmodal">
+    
+					<div class="w3-modal-content">
+					  <div class="w3-container" >
+					  
+					  <header class="w3-container w3-teal">
+					   <span onclick="document.getElementById('id01').style.display='none'"
+
+					   class="w3-button w3-display-topright" >&times;</span>
+
+					   <h4><b>Add New Library</b></h4>
+					 </header>
+
+						<span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span>
+						<br>
+							<div class="form-group row">
+					<div class="col-sm-6">
+					<div id="ConfigServiceName">
+						<label for="ConfigServiceName  "><b>Library Name</b></label><br>
+						<input class="form-group col-sm-12" id="ConfigServiceName" type="text" ng-model="ConfigServiceName"></input>
+					</div>
+					<div id="SenderPort_Num " style="position:relative;top:-6px;">
+					 <br>
+						<label for="SenderPort_Num"><b>Library URL</b></label>
+						<input class="form-group col-sm-12" id="SenderPort_Num" type="text" ng-model="SenderPort_Num"></input>
+					</div>
+					
+							<div class="form-group row col-sm-12">
+							<button type="button" class="btn btn-darkgray mb-10 col-sm-6"  ng-click="change()" style="background-color:#0d416b";><b>Add Library</b></button>
+							</div>
+					  </div>
+					</div>
+				  </div>
+<!-- Pop-up for add Library - END -->
+
+
+
+                </div>

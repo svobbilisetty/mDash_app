@@ -599,6 +599,11 @@ var app = angular
 	  controller: 'viewinterface',
       templateUrl: 'views/tmpl/viewinterface.html',
     })
+	.state('app.viewlibrary', {
+      url: '/viewlibrary',
+	  controller: 'viewlibrary',
+      templateUrl: 'views/tmpl/viewlibrary.html',
+    })
 	.state('app.viewjob', {
       url: '/viewjob',
 	  controller: 'viewjob',
@@ -648,17 +653,22 @@ var app = angular
       /* controller: 'AccordionDemoCtrl1', */
       templateUrl: 'views/tmpl/config.html'
     })
+	.state('app.libraryList', {
+      url: '/libraryList',
+      controller: 'librarylist',
+      templateUrl: 'views/tmpl/libraryList.html'
+    })
 	
 	.state('app.addlibrary', {
       url: '/addlibrary',
      // controller: 'MailInboxCtrl',
       templateUrl: 'views/tmpl/addlibrary.html'
     })
-    .state('app.viewlibrary', {
+    /* .state('app.viewlibrary', {
       url: '/viewlibrary',
      // controller: 'MailInboxCtrl',
       templateUrl: 'views/tmpl/viewlibrary.html'
-    })
+    }) */
     .state('app.viewlibraryjob', {
       url: '/viewlibraryjob',
      // controller: 'MailInboxCtrl',
