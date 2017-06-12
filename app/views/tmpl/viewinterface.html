@@ -71,73 +71,12 @@ background-color: #0d416b !important;
                                       <th> <center>Environment </center></th>
 
                                     </tr>
-                                    <!-- <tr  >
-                                      <td ><a  ui-sref="app.projectbuild"><font color="#616f77"><span class="tab">CLA_CLIENTMISC_ORM</span></font></a></td>
-                                      <td> 3 April 2017  </td>
-                                      <td> 08:04 PM </td>
-                                      <td><center><i class="fa fa-square text-success"></i></center></td>
-                                      <td><center>DEV</center></td>
-
-                                    </tr>
-                                    <tr >
-                                      <td >NLA_FEDMNET_ORM</td>
-                                      <td> 4 April 2017 </td>
-                                      <td> 07:44 PM </td>
-                                      <td><center><i class="fa fa-square text-success"></i></center></td>
-                                      <td><center>TEST</center></td>
-
-                                    </tr>
-                                    <tr>
-                                      <td>SETX_DWH_ADT</td>
-                                      <td> 7 April 2017 </td>
-                                      <td> 06:14 PM</td>
-                                      <td><center><i class="fa fa-square text-danger"></i><center></td>
-                                      <td><center>PROD</center></td>
-
-                                    </tr>
-                                    <tr>
-                                      <td>SETX_DWH_ADT</td>
-                                      <td> 7 April 2017 </td>
-                                      <td> 06:14 PM</td>
-                                      <td><center><i class="fa fa-square text-danger"></i><center></td>
-                                      <td><center>PROD</center></td>
-
-                                    </tr><tr>
-                                      <td>SETX_DWH_ADT</td>
-                                      <td> 7 April 2017 </td>
-                                      <td> 06:14 PM</td>
-                                      <td><center><i class="fa fa-square text-danger"></i><center></td>
-                                      <td><center>PROD</center></td>
-
-                                    </tr>
-                                    <tr>
-                                      <td>SETX_DWH_ADT</td>
-                                      <td> 7 April 2017 </td>
-                                      <td> 06:14 PM</td>
-                                      <td><center><i class="fa fa-square text-danger"></i><center></td>
-                                      <td><center>PROD</center></td>
-
-                                    </tr><tr>
-                                      <td>SETX_DWH_ADT</td>
-                                      <td> 7 April 2017 </td>
-                                      <td> 06:14 PM</td>
-                                      <td><center><i class="fa fa-square text-danger"></i><center></td>
-                                      <td><center>PROD</center></td>
-
-                                    </tr>
-                                    <tr>
-                                      <td>SETX_DWH_ADT</td>
-                                      <td> 7 April 2017 </td>
-                                      <td> 06:14 PM</td>
-                                      <td><center><i class="fa fa-square text-danger"></i><center></td>
-                                      <td><center>PROD</center></td>
-
-                                    </tr> -->
+                                    
 									<tr ng-repeat="x in flows">
 									  <td  ng-click="flow(x.flowname)"><font color="#616f77"><span class="tab"><a style="color:#2368a0 ";>{{x.flowname}}</a></span></font></td>
-                                       <td> 7 April 2017 - 06:14 PM </td>
+                                       <td> {{x.createdDate || ''}} - {{x.createdtime || ''}}</td>
                                      <!--  <td> 06:14 PM</td> -->
-                                      <td><center><i class="fa fa-square text-danger"></i><center></td>
+                                      <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus}}<center></td>
                                       <td><center>PROD</center></td>
                                     </tr>
 
@@ -179,7 +118,7 @@ background-color: #0d416b !important;
                                   <!-- col -->
                                   <div class="col-lg-4 text-center">
                                     <div easypiechart options="easypiechart.options" percent="easypiechart.percent" class="easypiechart" style="width: 140px; height: 140px;">
-                                      <p class="text-uppercase text-elg mt-20 mb-0" style="line-height: 100px;"><strong class="text-white">4/4</strong></p>
+                                      <p class="text-uppercase text-elg mt-20 mb-0" style="line-height: 100px;"><strong class="text-white">{{successcount}}/{{flowcount}}</strong></p>
                                       <br>
                                     <p class="text-uppercase text-elg mt-20 mb-0"><strong class="text-white">Dev</strong> </p>
                                    <!--  <p class="text-light">v3.2 - April 11th,2017</p> -->
@@ -225,7 +164,7 @@ background-color: #0d416b !important;
                       <div class="col-md-12">
 
                         <!-- tile -->
-                        <section class="tile" fullscreen="isFullscreen02" ng-controller="BrowseUsageCtrl">
+                        <section class="tile" fullscreen="isFullscreen02">
                           <!-- tile body -->
                           <div class="tile-body p-0">
 
@@ -242,11 +181,21 @@ background-color: #0d416b !important;
 									  <th> Last Updated </th>
                                       <th> Created Date </th>
                                      
-                                      <th> <center>Result</center> </th>
-                                      <th> <center>Environment </center></th>
-                                      <th> By </th>
+                                      <th>Result</th>
+                                      <th>Environment</th>
+                                      <th>Executed By </th>
                                     </tr>
-                                    <tr>
+									<tr ng-repeat="x in flowslog">
+									  <td  ng-click="flow(x.flowname)"><font color="#616f77"><span class="tab"><a style="color:#2368a0 ";>{{x.flowname}}</a></span></font></td>
+									   <td>{{x.Jobtype}}</td>
+									    <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
+                                       <td> {{x.createdDate || ''}} - {{x.createdtime || ''}}</td>
+                                     <!--  <td> 06:14 PM</td> -->
+                                      <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus || ""}}<center></td>
+                                      <td>{{x.Environment}}</td>
+									   <td>{{x.By}}</td>
+                                    </tr>
+                                   <!--  <tr>
                                       <td><a ui-sref="app.projectbuild" href="#/app/projectbuild"><font color="#616f77"><span class="tab">CLA_CLIENTMISC_ORM</span></font></a></td>
                                        <td>Rollback</td>
 									  <td> 3 April 2017 - 07:44 PM  </td>
@@ -264,7 +213,7 @@ background-color: #0d416b !important;
                                       <td><center><i class="fa fa-square text-success"></i></center></td>
                                       <td><center>TEST</center></td>
                                       <td>Chanakya Lokam</td>
-                                    </tr>
+                                    </tr> -->
 
                                   </tbody>
                                 </table>
@@ -475,7 +424,7 @@ OBX|3|CE|OETRNSP3^Transport Info||BIV^Bed with IV
 						  <style>
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 </style>
-                                <div id="console2" class="demo" style="height:150px;overflow-y:scroll;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
+                                <div id="console3" class="demo" style="height:150px;overflow-y:scroll;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
                                   <font>
 								 </font>
                                 </div>
@@ -483,7 +432,7 @@ OBX|3|CE|OETRNSP3^Transport Info||BIV^Bed with IV
 						</div>
 						</div>
                         <!-- /tile -->
-<section class="tile" fullscreen="isFullscreen02" ng-controller="BrowseUsageCtrl">
+<section class="tile" fullscreen="isFullscreen02">
                           <!-- tile body -->
                           <div class="tile-body p-0">
                            <div class="tile-header dvd dvd-btm">
@@ -492,37 +441,27 @@ OBX|3|CE|OETRNSP3^Transport Info||BIV^Bed with IV
                                 <table class="table table-no-border m-0" style="overflow-y:scroll">
                                   <tbody>
                                     <tr>
-                                      <th> Flow Name </th>
-									  <th> Job Type </th>
+                              
+                                      <th> Execution Date </th>
+                                      <th> Environment</th>
+                                      <th> Executed By </th>
+                                      <th> <center>Result</center></th>
+                                    </tr>
+                                   <tr ng-repeat="x in testlog">
 									 
-                                      <th> Created Date </th>
-                                      <th> <center>Result</center> </th>
-                                      <th> <center>Environment </center></th>
-                                      <th> By </th>
+									    <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
+                                       <td>{{x.Environment}}</td>
+									   <td>{{x.By}}</td>
+                                       <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus || ""}}<center></td>
+                                     
                                     </tr>
-                                    <tr>
-                                      <td><a ui-sref="app.projectbuild" href="#/app/projectbuild"><font color="#616f77"><span class="tab">CLA_CLIENTMISC_ORM</span></font></a></td>
-                                       <td>Rollback</td>
-									 <td> 3 April 2017 - 07:44 PM  </td>
-                                      
-                                      <td><center><i class="fa fa-square text-success"></i></center></td>
-                                      <td><center>DEV</center></td>
-                                      <td> Chanakya Lokam</td>
-                                    </tr>
-                                    <tr>
-                                      <td>NLA_FEDMNET_ORM</td>
-									  <td>Rollback</td>
-									  <td> 3 April 2017 - 07:44 PM </td>
-                                      <td><center><i class="fa fa-square text-success"></i></center></td>
-                                      <td><center>TEST</center></td>
-                                      <td>Chanakya Lokam</td>
-                                    </tr>
-                                  </tbody>
+                                    
+                                 </tbody>
                                 </table>
                           </div>
                           <!-- /tile body -->
 
-                        </section>
+                       </section>
                       </div>
                       <!-- /col -->
 

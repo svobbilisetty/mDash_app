@@ -220,8 +220,23 @@ app
 
 
 
-  .controller('ActualStatisticsCtrl',function($scope){
-
+  .controller('ActualStatisticsCtrl',function($scope,$http,$window,$location){
+	//alert("Here");
+	var  serverHosturl;
+	$http({
+		method : "GET",
+		url : "/public/serverHost.json"    
+    }).then(function(response){
+		serverHosturl = response.data.serverHosturl;
+		//alert(serverHosturl);
+		
+		$http({
+            method : "GET",
+            url : serverHosturl+"getdevflowscount"
+        }).then(function(response) {
+			  $scope.dev_flows_count = response.data.flowsCount;
+		});
+	});
     $scope.easypiechart = {
 
       percent: 100,
@@ -328,9 +343,14 @@ app
 	
 })
 
-  .controller('BrowseUsageCtrl', function ($scope) {
+  .controller('BrowseUsageCtrl', function ($scope, $http, $window, $location ) {
 
-
+     $http({
+            method : "GET",
+            url : "/public/serverHost.json"    
+          }).then(function(response){
+            var serverHosturl = response.data.serverHosturl;
+		
 
     $scope.donutData = [
 
@@ -352,7 +372,13 @@ app
 
     $scope.oneAtATime = true;
 
-
+	 $http({
+            method : "GET",
+            url : serverHosturl+"dashboardrecentjobs"
+          }).then(function(response) {
+			//  alert(JSON.stringify(response.data));
+			  $scope.flowslog=response.data;
+		  });
 
     $scope.status = {
 
@@ -378,7 +404,7 @@ app
 
     };
 
-
+	});
 
   })
 

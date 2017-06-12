@@ -78,17 +78,13 @@
                                       <td><center>DEV</center></td>
                                       <td>Arjun Kanniah</td>
                                     </tr> -->
-									<tr ng-repeat="x in interfaces | orderBy: '-time'">
-									  <td  ng-click="viewflow(x.interface_name)"><font color="#616f77"><span class="tab"><a style="cursor:default">{{x.interface_name}}</a></span></font></td>
-                                      <td>{{x.date}} - {{x.time}} </td>
-                                     <td>{{x.date}} - {{x.time}} </td>
-                                    
-                                      <td><center>DEV</center></td>
-                                      <td>Arjun Kanniah</td>
+									<tr ng-repeat="x in interfaces | orderBy: '-updatedDate' | orderBy: '-updatedTime'">
+										<td  ng-click="viewflow(x.interface_name)"><font color="#616f77"><span class="tab"><a style="cursor:default">{{x.interface_name}}</a></span></font></td>
+										<td>{{x.createdDate || ''}} - {{x.createdtime || ''}} </td>
+										<td>{{x.updatedDate || ''}} - {{x.updatedTime || ''}} </td>
+										<td><center>DEV</center></td>
+										<td>Arjun Kanniah</td>
                                     </tr>
-
-
-
                                   </tbody>
                                 </table>
 

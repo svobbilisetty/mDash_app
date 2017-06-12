@@ -62,7 +62,7 @@ text-decoration:none !important;
                   <div easypiechart options="easypiechart.options" percent="easypiechart.percent" class="easypiechart" style="width: 140px; height: 140px;">
                     <p class="text-uppercase text-elg mt-20 mb-0" style="line-height: 100px;"><strong class="text-black">DEV</strong></p>
                   <br> <p class="text-light">&nbsp;</p>
-				   <p class="text-uppercase text-elg mt-10 mb-0"><strong class="text-blue"><font color="#0d416b">8,213 </font></strong></p><br>
+				   <p class="text-uppercase text-elg mt-10 mb-0"><strong class="text-blue"><font color="#0d416b">{{dev_flows_count}} </font></strong></p><br>
                  
 
                 </div>
@@ -128,13 +128,13 @@ text-decoration:none !important;
           <div class="row">
             <!-- col -->
             <div class="col-md-6">
-              <h4 class="text-light">Jenkins  <i class="fa fa-caret-up text-success"></i></h4>
+              <h4 class="text-light">DevOps  <i class="fa fa-caret-up text-success"></i></h4>
               <uib-progressbar class="progress-xs not-rounded mb-0" value="20" type="primary"></uib-progressbar>
             </div>
             <!-- /col -->
             <!-- col -->
             <div class="col-md-6">
-              <h4 class="text-light">Artifactory  <i class="fa fa-caret-down text-danger"></i></h4>
+              <h4 class="text-light"> mDash   <i class="fa fa-caret-down text-danger"></i></h4>
               <uib-progressbar class="progress-xs not-rounded mb-0" value="90" type="primary"></uib-progressbar>
             </div>
             <!-- /col -->
@@ -286,7 +286,7 @@ document.getElementById("names2").style.backgroundColor="transparent";
               </ul>
 
             </li>
-          
+			
 		  
 		   <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
 
@@ -389,93 +389,22 @@ document.getElementById("names2").style.backgroundColor="transparent";
               <table class="table table-no-border m-0">
                 <tbody>
                   <tr>
-                    <th> Interface Name </th>
-                    <th> Date </th>
-                    <th> Time </th>
-                    <th> <center>Result</center> </th>
-                    <th> <center>Environment </center></th>
-                    <th> By </th>
+                    <th> Flow Name </th>
+                    <th>  Job Date </th>
+                    <th>Result</th>
+                    <th>Environment</th>
+                    <th>Executed By</th>
                   </tr>
-                  <tr  >
-                    <td ><a  ui-sref="app.projectbuild"><font color="#616f77"><span class="tab">CLA_CLIENTMISC_ORM</span></font></a></td>
-                    <td> 3 April 2017  </td>
-                    <td> 08:04 PM </td>
-                    <td><center><i class="fa fa-square text-success"></i></center></td>
-                    <td><center>DEV</center></td>
-                    <td> Chanakya Lokam</td>
-                  </tr>
-                  <tr >
-                    <td >NLA_FEDMNET_ORM</td>
-                    <td> 4 April 2017 </td>
-                    <td> 07:44 PM </td>
-                    <td><center><i class="fa fa-square text-success"></i></center></td>
-                    <td><center>TEST</center></td>
-                    <td>Chanakya Lokam</td>
-                  </tr>
-                  <tr>
-                    <td>SETX_DWH_ADT</td>
-                    <td> 7 April 2017 </td>
-                    <td> 06:14 PM</td>
-                    <td><center><i class="fa fa-square text-danger"></i><center></td>
-                    <td><center>PROD</center></td>
-                    <td>Siva Kusampudi</td>
-                  </tr>
-                  <tr>
-                    <td>MGM_LOADEYTX_SET</td>
-                    <td>10 April 2017 </td>
-                    <td> 04:46 PM </td>
-                    <td><center><i class="fa fa-square text-success"></i></center></td>
-                    <td><center>DEV</center></td>
-                    <td>Arjun Kanniah</td>
-                  </tr>
-                  <tr>
-                    <td>TIS_QUST_ORM</td>
-                    <td>13 April 2017 </td>
-                    <td> 07:32 AM </td>
-                    <td><center><i class="fa fa-square text-danger"></i><center></td>
-                    <td><center>DEV</center></td>
-                    <td>Deepika Rangoori</td>
-                  </tr>
-                  <tr>
-                    <td>LMT_CLIENTPRD_ORM</td>
-                    <td>14 April 2017</td>
-                    <td> 06:06 AM </td>
-                    <td><center><i class="fa fa-square text-success"></i></center></td>
-                    <td><center>TEST</center></td>
-                    <td>Siva Kusampudi</td>
-                  </tr>
-                  <tr>
-                    <td>TIS_QUST_ORM</td>
-                    <td>17 April 2017 </td>
-                    <td> 04:22 AM </td>
-                    <td><center><i class="fa fa-square text-success"></i></center></td>
-                    <td><center>TEST</center></td>
-                    <td>Chanakya Lokam</td>
-                  </tr>
-                  <tr>
-                    <td>GIF_GODNIS_BLM</td>
-                    <td>18 April 2017 </td>
-                    <td> 02:58 AM </td>
-                    <td><center><i class="fa fa-square text-success"></i></center></td>
-                    <td><center>DEV</center></td>
-                    <td>Arjun Kanniah</td>
-                  </tr>
-                  <tr>
-                    <td>NBA_CNET_ORM</td>
-                    <td>19 April 2017 </td>
-                    <td> 02:38 AM </td>
-                    <td><center><i class="fa fa-square text-success"></i></center></td>
-                    <td><center>PROD</center></td>
-                    <td>Chanakya Lokam</td>
-                  </tr><tr>
-                    <td>WTX_NMYC_OEM</td>
-                    <td>20 April 2017 </td>
-                    <td> 12:58 AM </td>
-                    <td><center><i class="fa fa-square text-success"></i></center></td>
-                    <td><center>PROD</center></td>
-                    <td>Chanakya Lokam</td>
-                  </tr>
-
+                  
+				  <tr ng-repeat="x in flowslog  | orderBy: '-updatedDate' | orderBy: '-updatedTime'">
+					  <td  ng-click="flow(x.flowname)"><font color="#616f77"><span class="tab"><a style="color:#2368a0 ";>{{x.flowname}}</a></span></font></td>
+					  <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
+					  <td><i class="fa fa-square text-danger"></i>{{x.flowstatus}}</td>
+					  <td>{{x.Environment}}</td>
+					  <td>{{x.By}}</td>
+					</tr>
+				  
+     
                 </tbody>
               </table>
 

@@ -14,26 +14,15 @@
 	var socket;
     var  serverHosturl;			
 	var mqsiprofile;	
+	var i_name;
+	
      $http({
             method : "GET",
             url : "/public/serverHost.json"    
           }).then(function(response){
             serverHosturl = response.data.serverHosturl;
            // alert(serverHosturl);                
-		   
-		 /*   socket = io('http://localhost:9003');
-		   socket.on('news', function (data) {
-				//alert(JSON.stringify(data));
-				console.log(JSON.stringify(data));
-				var dataPort = document.getElementById("console2");
-				/* var textFromTag = dataPort.innerHTML;
-				alert("textFromTag => "+textFromTag);
-				var data1=data.toString().replace(/textFromTag/gim,'');
-				alert(data1); */
-				/*dataPort.innerHTML=dataPort.innerHTML+JSON.stringify(data);
-				 $('.demo').scrollTop($('.demo')[0].scrollHeight);
-			});  */  
-		   
+		  
 	   var build_env=["dev","test","prod"];
 	   $scope.envs=build_env;
 	   $scope.env=$scope.envs[0];
@@ -76,9 +65,31 @@
 			  //var array = string.split(',');
 			  //alert(array);
               $scope.interfaceName = response.data.interfaceName;
-            }, function(response) {
-              
-          });
+			  i_name=response.data.interfaceName;
+			  $http({
+            method : "GET",
+            url : serverHosturl+"recentjobs?interfacename="+response.data.interfaceName
+          }).then(function(response) {
+			//  alert(JSON.stringify(response.data));
+			  $scope.flowslog=response.data;
+		  });
+		   $http({
+            method : "GET",
+            url : serverHosturl+"recenttestjobs?interfacename="+response.data.interfaceName
+          }).then(function(response) {
+			 //alert(JSON.stringify(response.data));
+			  $scope.testlog=response.data;
+		  });
+		  $http({
+            method : "GET",
+            url : serverHosturl+"getinterfaceflowscount?interfacename="+response.data.interfaceName
+          }).then(function(response) {
+			 //alert(JSON.stringify(response.data));
+			  $scope.successcount=response.data.successcount;
+			  $scope.flowcount=response.data.flowsCount;
+		  });
+	  
+            });
     
     $scope.flow= function(flowname){  
     //alert(flowname);
@@ -179,11 +190,19 @@
 			"&IIBNode="+IIBNode+
 			"&iibhost="+iibhost+
 			"&executionGroup="+executionGroup+
-			"&mqsiprofile="+mqsiprofile
+			"&mqsiprofile="+mqsiprofile+
+			"&i_name="+i_name
         }).then(function(response){
             
                 
-            alert(response.data);
+            //alert(response.data);
+			 $http({
+            method : "GET",
+            url : serverHosturl+"recenttestjobs?interfacename="+i_name
+          }).then(function(response) {
+			 //alert(JSON.stringify(response.data));
+			  $scope.testlog=response.data;
+		  });
                 
         }); 
           
@@ -192,6 +211,7 @@
     $scope.runtest= function(){ 
         $scope.buildmodal1=true;    
    document.getElementById('id02').style.display='block';                
+   document.getElementById('console3').innerHTML='';
    }; 
     
     $scope.close1= function(){  
@@ -217,10 +237,19 @@
             "&ReceiverPort="+ReceiverPort+
             "&iibhost="+iibhost+
             "&FlowName="+FlowName+
-			"&svnpassword="+svnpassword
+			"&svnpassword="+svnpassword+
+			"&i_name="+i_name
         }).then(function(response){
             
-               alert(response.data);
+              // alert(response.data);
+			    $http({
+            method : "GET",
+            url : serverHosturl+"recenttestjobs?interfacename="+i_name
+          }).then(function(response) {
+			 //alert(JSON.stringify(response.data));
+			  $scope.testlog=response.data;
+		  });
+			   
                 
         }); 
     
@@ -263,6 +292,18 @@ $scope.fieldspop = function(){
     });   	
 	
 }
+ socket = io('http://localhost:9003');
+	socket.on('news', function (data) {
+				//alert(JSON.stringify(data));
+				console.log(JSON.stringify(data));
+				var dataPort = document.getElementById("console3");
+				/* var textFromTag = dataPort.innerHTML;
+				alert("textFromTag => "+textFromTag);
+				var data1=data.toString().replace(/textFromTag/gim,'');
+				alert(data1); */
+				dataPort.innerHTML=dataPort.innerHTML+JSON.stringify(data);
+				 $('.demo').scrollTop($('.demo')[0].scrollHeight);
+			});
 
 });
  });

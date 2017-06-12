@@ -22,6 +22,20 @@
 	}).then(function(response){
 		serverHosturl = response.data.serverHosturl;
 		
+		$scope.viewflow= function(interfaceName){  
+	//alert("in view page ==> "+interfaceName);
+    $http({
+    method : "GET",
+    url : serverHosturl+"viewflow?interfaceName="+interfaceName
+    }).then(function(response) {
+     $state.go('app.viewinterface');
+      }, function(response) {
+     
+    });
+     
+   }; 
+   
+		
 	$http({
 		method : "GET",
 		url : serverHosturl+"details"
@@ -76,7 +90,7 @@
 				alert(data1); */
 				dataPort.innerHTML=dataPort.innerHTML+JSON.stringify(data);
 				 $('.demo').scrollTop($('.demo')[0].scrollHeight);
-			}); 	
+			}); 	 
 			
 		
 	$scope.builddetails= function(){ 
@@ -164,6 +178,7 @@
              }
              else
              {
+				 $timeout( function(){ $scope.status=false; }, 3000);
                  document.getElementById('btns').style.display="none";
                 document.getElementById('load').innerHTML="Build and Deploy";
                 document.getElementById("roll").disabled = false;
@@ -301,6 +316,7 @@
 			 document.getElementById('artifactory_numberDiv').style.display='block';
 		 }
     };
+		
 	
 	
 	function btnm(){

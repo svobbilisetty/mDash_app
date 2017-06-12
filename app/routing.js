@@ -267,54 +267,74 @@ app.get('/createjob', function (req, res) {
 							}
 							
 						  fs.readFile(dir1+'/'+filename,'UTF-8', function(err, data) {
-																		if (err) {
-																		throw err;
-																	}
-																 var xml2 = data;
-																	//console.log(xml2);
-																	jenkins.job.exists(folder+"/"+flowname+"/"+(filename.substr(0,filename.indexOf("."))), function(err, exists) {
-																	if (exists==false)
-																	{
-																		
-																		 jenkins.job.create(folder+"/"+flowname+"/"+(filename.substr(0,filename.indexOf("."))),xml2, function(err){
-																		if (err) throw err;
-																		console.log("job created");
-																		
-																	});
-																	}
-																	else
-																	{
-																		console.log("Job Exists");
-																	}
-																	})
-																   
-																	});
-																		if(jlength<1){
-																	
-										 MongoClient.connect(config.mongodburl, function(err, db) {
-															 if(db){
-																		var collection = db.collection('flows');
-																		
-																		if(collection){
-																			var data = {
-																							"interface_name":interface_name,
-																							"flowname":flowname,
-																							"svn_url": Remote_SVN_URL
-																						}
-																						console.log("Inserting the data -------- "+JSON.stringify(data));
-																						collection.insert(data);
-																	}else
-																	{
-																			console.log("collection not found");
-																			db.createCollection("flows",function(err,res){
-																				console.log(err);
-																				console.log("created collection");
-																			});
-																			var data = {
-																							"interface_name":interface_name,
-																							"flowname":flowname,
-																							"svn_url": Remote_SVN_URL
-																						}
+										if (err) {
+										throw err;
+									}
+								 var xml2 = data;
+									//console.log(xml2);
+									jenkins.job.exists(folder+"/"+flowname+"/"+(filename.substr(0,filename.indexOf("."))), function(err, exists) {
+									if (exists==false)
+									{
+										
+										 jenkins.job.create(folder+"/"+flowname+"/"+(filename.substr(0,filename.indexOf("."))),xml2, function(err){
+										if (err) throw err;
+										console.log("job created");
+										
+									});
+									}
+									else
+									{
+										console.log("Job Exists");
+									}
+									})
+								   
+									});
+										if(jlength<1){
+									
+		 MongoClient.connect(config.mongodburl, function(err, db) {
+							 if(db){
+										var collection = db.collection('flows');
+										
+										if(collection){
+											var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+											var createdate1 = new Date().toDateString();
+											var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+											
+											var data = {
+															"interface_name":interface_name,
+															"flowname":flowname,
+															"svn_url": Remote_SVN_URL,
+															"createdDate": createDate,
+															"createdtime": createTime,
+															"updatedDate":"",
+															"updatedTime":"",
+															"Environment":"dev",
+															"By":loginuser
+														}
+														console.log("Inserting the data -------- "+JSON.stringify(data));
+														collection.insert(data);
+									}else
+									{
+											console.log("collection not found");
+											db.createCollection("flows",function(err,res){
+												console.log(err);
+												console.log("created collection");
+											});
+											var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+											var createdate1 = new Date().toDateString();
+											var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+											
+											var data = {
+															"interface_name":interface_name,
+															"flowname":flowname,
+															"svn_url": Remote_SVN_URL,
+															"createdDate": createDate,
+															"createdtime": createTime,
+															"updatedDate":"",
+															"updatedTime":"",
+															"Environment":"dev",
+															"By":loginuser
+														}
 																						console.log("Inserting the data -------- "+JSON.stringify(data));
 																						collection.insert(data);
 																	}
@@ -381,10 +401,19 @@ app.get('/createjob', function (req, res) {
 																		var collection = db.collection('flows');
 																		
 																		if(collection){
+																			var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+																			var createdate1 = new Date().toDateString();
+																			var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+																			
 																			var data = {
 																							"interface_name":interface_name,
 																							"flowname":flowname,
-																							"svn_url": Remote_SVN_URL
+																							"svn_url": Remote_SVN_URL,
+																							"createdDate": createDate,
+																							"createdtime": createTime,
+																							"updatedTime":"",
+															"Environment":"dev",
+															"By":loginuser
 																						}
 																						console.log("Inserting the data -------- "+JSON.stringify(data));
 																						collection.insert(data);
@@ -395,10 +424,20 @@ app.get('/createjob', function (req, res) {
 																				console.log(err);
 																				console.log("created collection");
 																			});
+																			var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+																			var createdate1 = new Date().toDateString();
+																			var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+																			
 																			var data = {
 																							"interface_name":interface_name,
 																							"flowname":flowname,
-																							"svn_url": Remote_SVN_URL
+																							"svn_url": Remote_SVN_URL,
+																							"createdDate": createDate,
+																							"createdtime": createTime,
+																							"updatedDate":"",
+																							"updatedTime":"",
+															"Environment":"dev",
+															"By":loginuser
 																						}
 																						console.log("Inserting the data -------- "+JSON.stringify(data));
 																						collection.insert(data);
@@ -486,10 +525,20 @@ app.get('/createjob', function (req, res) {
 																		var collection = db.collection('flows');
 																		
 																		if(collection){
+																			var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+																			var createdate1 = new Date().toDateString();
+																			var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+																			
 																			var data = {
 																							"interface_name":interface_name,
 																							"flowname":flowname,
-																							"svn_url": Remote_SVN_URL
+																							"svn_url": Remote_SVN_URL,
+																							"createdDate": createDate,
+																							"createdtime": createTime,
+																							"updatedDate":"",
+																							"updatedTime":"",
+															"Environment":"dev",
+															"By":loginuser
 																						}
 																						console.log("Inserting the data -------- "+JSON.stringify(data));
 																						collection.insert(data);
@@ -500,10 +549,20 @@ app.get('/createjob', function (req, res) {
 																				console.log(err);
 																				console.log("created collection");
 																			});
+																			var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+																			var createdate1 = new Date().toDateString();
+																			var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+																			
 																			var data = {
 																							"interface_name":interface_name,
 																							"flowname":flowname,
-																							"svn_url": Remote_SVN_URL
+																							"svn_url": Remote_SVN_URL,
+																							"createdDate": createDate,
+																							"createdtime": createTime,
+																							"updatedDate":"",
+																							"updatedTime":"",
+															"Environment":"dev",
+															"By":loginuser
 																						}
 																						console.log("Inserting the data -------- "+JSON.stringify(data));
 																						collection.insert(data);
@@ -571,10 +630,20 @@ app.get('/createjob', function (req, res) {
 																		var collection = db.collection('flows');
 																		
 																		if(collection){
+																			var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+																			var createdate1 = new Date().toDateString();
+																			var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+																			
 																			var data = {
 																							"interface_name":interface_name,
 																							"flowname":flowname,
-																							"svn_url": Remote_SVN_URL
+																							"svn_url": Remote_SVN_URL,
+																							"createdDate": createDate,
+																							"createdtime": createTime,
+																							"updatedDate":"",
+																							"updatedTime":"",
+															"Environment":"dev",
+															"By":loginuser
 																						}
 																						console.log("Inserting the data -------- "+JSON.stringify(data));
 																						collection.insert(data);
@@ -585,10 +654,20 @@ app.get('/createjob', function (req, res) {
 																				console.log(err);
 																				console.log("created collection");
 																			});
+																			var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+																			var createdate1 = new Date().toDateString();
+																			var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+																			
 																			var data = {
 																							"interface_name":interface_name,
 																							"flowname":flowname,
-																							"svn_url": Remote_SVN_URL
+																							"svn_url": Remote_SVN_URL,
+																							"createdDate": createDate,
+																							"createdtime": createTime,
+																							"updatedDate":"",
+																							"updatedTime":"",
+															"Environment":"dev",
+															"By":loginuser
 																						}
 																						console.log("Inserting the data -------- "+JSON.stringify(data));
 																						collection.insert(data);
@@ -933,18 +1012,25 @@ app.get('/addLibraryProperties', function(req, res){
 
 app.get("/saveInterface",function(req,res){
     var interface_name = req.query.interface_name;
-	var time = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
-    var date1 = new Date().toDateString();
-	var date =date1.slice(date1.indexOf(" "),date1.length);
+	var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+	var createdate1 = new Date().toDateString();
+	var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+
+	
      MongoClient.connect(config.mongodburl, function(err, db) {
         if(db){
             var collection = db.collection('interfaces');
             if(collection){
                 var data = {
                     "interface_name":interface_name,
-					"date": date,
-					"time": time
+					"createdDate": createDate,
+					"createdtime": createTime,
+					"updatedDate":"",
+					"updatedTime":"",
+					"Environment":"dev",
+					"By":loginuser
                 }
+				
                 console.log("Inserting the data -------- "+JSON.stringify(data));
                 collection.insert(data);
             }    
@@ -1307,13 +1393,128 @@ log.on('end', function(end) {
 							  console.log('job status'+ data.builds[0].result+" build number  "+data.builds[0].number);
 							// res.send(data);
 							if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
-							//	if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
+                                                //if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
 							{
 								client.emit('progress', uri);
 								current_job=uri;
 								console.log(current_job);
-								if(current_job==folder+"/"+flowName+"/Deploy" || current_job==folder+"/"+flowName+"/"+"Rollback_Decomission" || current_job=="Test_Suite/Run_Test" || current_job=="Test_Suite/Change_Sender_ConfigService")
+								if( current_job=="Test_Suite/Run_Test" || current_job=="Test_Suite/Change_Sender_ConfigService"){
+									var jobtype1;
+									if ((current_job.search('Run_Test'))>0){
+					               //alert("Build completed");
+					                jobtype1="RunTest";
+									console.log(jobtype1);
+				                   }
+								   else if((current_job.search('Change_Sender_ConfigService'))>0){
+					               //alert("Build completed");
+					                jobtype1="ChangeSenderConfigService";
+									console.log(jobtype1);
+				                   }
+								   var updatedTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+									var updatedDate1 = new Date().toDateString();
+									var updatedDate =updatedDate1.slice(updatedDate1.indexOf(" "),updatedDate1.length);
+									 MongoClient.connect(config.mongodburl, function(err, db) {
+										if(db){
+											var runtest = db.collection('runtest');
+													log=
+												                   	{
+														                                    "interface_name":interface1,
+																							"updatedDate":updatedDate,
+																							"updatedTime":updatedTime,
+															                                "Environment":"dev",
+															                                "By":loginuser,
+																							"Jobtype":jobtype1,
+																							"flowstatus":'SUCCESS'
+													}
+													runtest.insert(log);
+													
+												var collection = db.collection('interfaces');
+												if(collection){
+													
+													var myquery = { "interface_name":interface1 };
+													var newvalues = { "updatedDate":"","updatedTime":updatedTime };	
+													console.log("Update data -------- "+JSON.stringify(myquery)+"     ---- "+JSON.stringify(newvalues));
+													collection.update({interface_name:interface1},{$set:{updatedDate:updatedDate,updatedTime:updatedTime}},function(err, res){
+														if (err) throw console.log(err);
+														console.log(res.result.nModified + " record updated");
+													});
+												}  
+																					
+										}
+										else{
+											console.log("error is connecting to db");
+										}
+									});
+								   
+								   res.send("JOb Executed")
+								   
+								}
+								else if(current_job==folder+"/"+flowName+"/Deploy" || current_job==folder+"/"+flowName+"/"+"Rollback_Decomission")
 								{
+									if((current_job.search('Deploy'))>0){
+					               //alert("Build completed");
+					                jobtype="Deploy";
+				                   }
+								   else if((current_job.search('Rollback_Decomission'))>0){
+					               //alert("Build completed");
+					                jobtype="Rollback";
+				                   }
+								  
+								
+									// If here, update flows collection last update to current timestamp and status to SUCCESS.
+									// Also, update Interface collection last update to current timestamp
+									var updatedTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+									var updatedDate1 = new Date().toDateString();
+									var updatedDate =updatedDate1.slice(updatedDate1.indexOf(" "),updatedDate1.length);
+									var interface_name_update;
+									 MongoClient.connect(config.mongodburl, function(err, db) {
+										if(db){
+											var flowCollection = db.collection('flows');
+											var flowlogs= db.collection('flowslog');
+											//flowCollection.find({flowname:flowName},({interface_name:true,_id:false})).toArray(function
+											flowCollection.find({flowname:flowName}).toArray(function 
+											(err, result) {
+												interface_name_update = result[0].interface_name;
+												console.log("interface_name_update =====> "+interface_name_update);
+												flowCollection.update({flowname:flowName},{$set:{updatedDate:updatedDate,updatedTime:updatedTime,flowstatus:'SUCCESS'}},function(err, res){
+														if (err) throw console.log(err);
+														console.log(res.result.nModified + " record updated");
+													});
+													console.log("date"+result[0].createdDate+"time"+result[0].createdtime);
+													log=
+													{
+														                                    "interface_name":result[0].interface_name,
+																							"flowname":result[0].flowname,
+																							"svn_url": result[0].svn_url,
+																							"createdDate": result[0].createdDate,
+																							"createdtime": result[0].createdtime,
+																							"updatedDate":updatedDate,
+																							"updatedTime":updatedTime,
+															                                "Environment":"dev",
+															                                "By":loginuser,
+																							"Jobtype":jobtype,
+																							"flowstatus":'SUCCESS'
+													}
+													flowlogs.insert(log);
+													
+												var collection = db.collection('interfaces');
+												if(collection){
+													
+													var myquery = { "interface_name":interface_name_update };
+													var newvalues = { "updatedDate":"","updatedTime":updatedTime };	
+													console.log("Update data -------- "+JSON.stringify(myquery)+"     ---- "+JSON.stringify(newvalues));
+													collection.update({interface_name:interface_name_update},{$set:{updatedDate:updatedDate,updatedTime:updatedTime}},function(err, res){
+														if (err) throw console.log(err);
+														console.log(res.result.nModified + " record updated");
+													});
+												}  
+											});											
+										}
+										else{
+											console.log("error is connecting to db");
+										}
+									});
+									
 									res.send("JObs Executed")
 								}
 								else{
@@ -1325,7 +1526,127 @@ log.on('end', function(end) {
 							}
 							else
                             {
-								//client.emit('progress', 'failed');
+								
+									// If here, update flows collection last update to current timestamp and status to SUCCESS.
+									// Also, update Interface collection last update to current timestamp
+								current_job=uri;
+								//console.log(current_job);
+								if( current_job=="Test_Suite/Run_Test" || current_job=="Test_Suite/Change_Sender_ConfigService"){
+									if((current_job.search('Test_Suite/Run_Test'))>0){
+					               //alert("Build completed");
+					                jobtype1="RunTest";
+				                   }
+								   else if((current_job.search('Change_Sender_ConfigService'))>0){
+					               //alert("Build completed");
+					                jobtype1="ChangeSenderConfigService";
+				                   }
+								   var updatedTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+									var updatedDate1 = new Date().toDateString();
+									var updatedDate =updatedDate1.slice(updatedDate1.indexOf(" "),updatedDate1.length);
+									 MongoClient.connect(config.mongodburl, function(err, db) {
+										if(db){
+											var runtest = db.collection('runtest');
+													log=
+												                   	{
+														                                    "interface_name":interface1,
+																							"updatedDate":updatedDate,
+																							"updatedTime":updatedTime,
+															                                "Environment":"dev",
+															                                "By":loginuser,
+																							"Jobtype":jobtype1,
+																							"flowstatus":'FAILURE'
+													}
+													runtest.insert(log);
+													
+												var collection = db.collection('interfaces');
+												if(collection){
+													
+													var myquery = { "interface_name":interface1 };
+													var newvalues = { "updatedDate":"","updatedTime":updatedTime };	
+													console.log("Update data -------- "+JSON.stringify(myquery)+"     ---- "+JSON.stringify(newvalues));
+													collection.update({interface_name:interface1},{$set:{updatedDate:updatedDate,updatedTime:updatedTime}},function(err, res){
+														if (err) throw console.log(err);
+														console.log(res.result.nModified + " record updated");
+													});
+												}  
+																					
+										}
+										else{
+											console.log("error is connecting to db");
+										}
+									});
+								   
+								   
+								   
+								}
+								else if(current_job==folder+"/"+flowName+"/Deploy" || current_job==folder+"/"+flowName+"/"+"Rollback_Decomission")
+								{
+									if((current_job.search('Deploy'))>0){
+					               //alert("Build completed");
+					                jobtype="Deploy";
+				                   }
+								   else if((current_job.search('Rollback_Decomission'))>0){
+					               //alert("Build completed");
+					                jobtype="Rollback";
+				                   }
+								  
+								
+									// If here, update flows collection last update to current timestamp and status to SUCCESS.
+									// Also, update Interface collection last update to current timestamp
+									var updatedTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+									var updatedDate1 = new Date().toDateString();
+									var updatedDate =updatedDate1.slice(updatedDate1.indexOf(" "),updatedDate1.length);
+									var interface_name_update;
+									 MongoClient.connect(config.mongodburl, function(err, db) {
+										if(db){
+											var flowCollection = db.collection('flows');
+											var flowlogs= db.collection('flowslog');
+											//flowCollection.find({flowname:flowName},({interface_name:true,_id:false})).toArray(function
+											flowCollection.find({flowname:flowName}).toArray(function 
+											(err, result) {
+												interface_name_update = result[0].interface_name;
+												console.log("interface_name_update =====> "+interface_name_update);
+												flowCollection.update({flowname:flowName},{$set:{updatedDate:updatedDate,updatedTime:updatedTime,flowstatus:'SUCCESS'}},function(err, res){
+														if (err) throw console.log(err);
+														console.log(res.result.nModified + " record updated");
+													});
+													console.log("date"+result[0].createdDate+"time"+result[0].createdtime);
+													log=
+													{
+														                                    "interface_name":result[0].interface_name,
+																							"flowname":result[0].flowname,
+																							"svn_url": result[0].svn_url,
+																							"createdDate": result[0].createdDate,
+																							"createdtime": result[0].createdtime,
+																							"updatedDate":updatedDate,
+																							"updatedTime":updatedTime,
+															                                "Environment":"dev",
+															                                "By":loginuser,
+																							"Jobtype":jobtype,
+																							"flowstatus":'FAILURE'
+													}
+													flowlogs.insert(log);
+													
+												var collection = db.collection('interfaces');
+												if(collection){
+													
+													var myquery = { "interface_name":interface_name_update };
+													var newvalues = { "updatedDate":"","updatedTime":updatedTime };	
+													console.log("Update data -------- "+JSON.stringify(myquery)+"     ---- "+JSON.stringify(newvalues));
+													collection.update({interface_name:interface_name_update},{$set:{updatedDate:updatedDate,updatedTime:updatedTime}},function(err, res){
+														if (err) throw console.log(err);
+														console.log(res.result.nModified + " record updated");
+													});
+												}  
+											});											
+										}
+										else{
+											console.log("error is connecting to db");
+										}
+									});
+									
+									
+								}
                                 console.log(uri+"FAILED");
                                 res.send(uri+"_job_FAILED");
                             }
@@ -1899,6 +2220,7 @@ console.log("Login User"+loginuser);
 	var iibhost = req.query.iibhost
 	var executionGroup = req.query.executionGroup
 	var mqsiprofile = req.query.mqsiprofile
+	  interface1 = req.query.i_name;
 	//need to get the svnusername from session that means who logged in
 	MongoClient.connect(config.mongodburl, function(err, db) {
         if(db){
@@ -1939,11 +2261,11 @@ console.log("Login User"+loginuser);
             } }, function(err) {
                                           if (err) console.log(err);
                              console.log("UpdateConfigServiceName job triggered");
-							 res.send("UpdateConfigServiceName job triggered");
-                              /* setTimeout(function() {
+							 //res.send("UpdateConfigServiceName job triggered");
+                               setTimeout(function() {
 												 executed_job="Test_Suite/Change_Sender_ConfigService";
 												 res.redirect("/console");
-											}, 10000); */
+											}, 10000); 
             
             })
 			
@@ -1969,7 +2291,7 @@ app.get('/RunTest',function(req,res){
     var ReceiverPort = req.query.ReceiverPort;
     var iibhost = req.query.iibhost;
     var FlowName = req.query.FlowName;
-    
+     interface1 = req.query.i_name;
 	jenkins.job.get("Test_Suite/Run_Test",({ depth: 2,pretty: 'true'}), function(err, data) {
 												  if (err) throw err;
 												  if( data.builds == "")
@@ -1989,11 +2311,11 @@ app.get('/RunTest',function(req,res){
             } }, function(err) {
                                           if (err) console.log(err);
                              console.log("RunTest job triggered");
-							  res.send("RunTest job triggered");
-             /*  setTimeout(function() {
+							  //res.send("RunTest job triggered");
+											setTimeout(function() {
 												 executed_job="Test_Suite/Run_Test";
 												 res.redirect("/console");
-											}, 10000); */
+											}, 10000); 
             })
 	})
 });
@@ -2065,7 +2387,7 @@ app.get('/deleteflow',function(req,res){
     });
 	
 })
-/* app.get('/test',function(req,res){    
+/*app.get('/test',function(req,res){    
 
 fs.readFile(__dirname+'/Change_Sender_ConfigService.xml','UTF-8', function(err, data) {
        if (err) {
@@ -2079,4 +2401,123 @@ jenkins.job.create("Test_Suite/Change_Sender_ConfigService",xml, function(err){
                                                                     });
 })
                                                                     
-}) */
+})*/ 
+app.get('/getdevflowscount',function(req,res){
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('flows');
+			if(collection){
+				collection.find().toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					//console.log(result.length);
+					data = {
+						'flowsCount' : result.length
+					};
+					res.send(data);
+					}
+				});
+			}
+		}
+	});
+});
+app.get('/recentjobs',function(req,res){
+	var interface_name= req.query.interfacename;
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('flowslog');
+			if(collection){
+				collection.find({interface_name : interface_name}).toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					console.log(result[0].flowname);
+					/* data = {
+						'flowsCount' : result.length
+					}; */
+					res.send(result);
+					}
+				});
+			}
+		}
+	});
+});
+app.get('/dashboardrecentjobs',function(req,res){
+	console.log('Helo dash jobs');
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('flowslog');
+			if(collection){
+				collection.find().toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					console.log(result[0].flowname);
+					/* data = {
+						'flowsCount' : result.length
+					}; */
+					res.send(result);
+					}
+				});
+			}
+		}
+	});
+});
+app.get('/recenttestjobs',function(req,res){
+	console.log("recenttestjobs");
+	var interface_name= req.query.interfacename;
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('runtest');
+			if(collection){
+				collection.find({interface_name : interface_name}).toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					console.log(result[0].interface_name);
+					/* data = {
+						'flowsCount' : result.length
+					}; */
+					res.send(result);
+					}
+				});
+			}
+		}
+	});
+});
+app.get('/getinterfaceflowscount',function(req,res){
+	var interface2 = req.query.interfacename;
+	var successcount=0;
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('flows');
+			if(collection){
+				collection.find({interface_name : interface2}).toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					  for(var i=0; i<result.length;i++)
+					  {
+						  if(result[i].flowstatus=='SUCCESS')
+						  {
+							  successcount++;
+						  }
+					  }
+					//console.log(result.length);
+					data = {
+						'successcount' : successcount,
+						'flowsCount' : result.length
+					};
+					res.send(data);
+					}
+				});
+			}
+		}
+	});
+});
