@@ -1393,9 +1393,8 @@ log.on('end', function(end) {
 							 jobdata=data;
 							  console.log('job status'+ data.builds[0].result+" build number  "+data.builds[0].number);
 							// res.send(data);
-							//if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
-								if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
-							{
+								if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
+								//	if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")							{
 								client.emit('progress', uri);
 								current_job=uri;
 								console.log(current_job);
