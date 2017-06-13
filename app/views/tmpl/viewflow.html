@@ -911,7 +911,7 @@ border-radius:15px;
 										<td>{{x.timestamp | date: 'medium' : '+0530'}}</td>
 										<td>{{x.changeSet.items[0].author.fullName}}</td>
 										<td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
-										<span class="{{x.result == 'SUCCESS' ? 'fa fa-square text-success' : ((x.result == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
+										<span class="{{x.result == 'SUCCESS' ? 'fa fa-square text-success' : ((x.result == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-primary'))}}"></span></td>
 							            <td><center><i class="fa fa-eye">{{x.changeSet.items[0].affectedPaths}}</i></center></td>
 										<td> <center><i class="icon-magnifier" ></i></center></td>
 									  </tr>

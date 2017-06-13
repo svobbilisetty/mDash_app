@@ -244,7 +244,7 @@ var i=this.id;
 								 }
 								 else
 								 {
-									 alert("flow edited");
+									// alert("flow edited");
 									 document.getElementById('btns').style.display="none";
                                      document.getElementById('load').innerHTML="Edit Interface";
 									 document.getElementById('load').style.fontWeight="bold";
@@ -262,7 +262,7 @@ var i=this.id;
                   else{
 					  repo = response.data[0].svn_url.replace(svnrepohost, "");
 					  var repo1= Remote_SVN_URLs1.replace(svnrepohost, "");
-					  alert(repo+"===="+repo1);
+				//	  alert(repo+"===="+repo1);
 					   if(repo1==repo)
 					   {
 						   alert("entered exist flow");
@@ -296,7 +296,7 @@ var i=this.id;
 								"&type="+last1+
 								"&Remote_SVN_URL="+Remote_SVN_URLs1
                             }).then(function(response){
-                                alert(response.data);
+                                //alert(response.data);
 								if(response.data=="deleted")
 								{
 									 $http({
@@ -315,7 +315,7 @@ var i=this.id;
 								 }
 								 else
 								 {
-									 alert("flow edited")
+									// alert("flow edited")
 									  document.getElementById('btns').style.display="none";
                                      document.getElementById('load').innerHTML="Edit Interface";
 									 document.getElementById('load').style.fontWeight="bold";

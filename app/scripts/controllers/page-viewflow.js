@@ -145,7 +145,7 @@
 	
 	$scope.status=true;
 	
-		alert("Clicked on Build");     
+		//alert("Clicked on Build");     
 			
 		 /* var build_env = "dev"; */
 	    
@@ -256,7 +256,7 @@
     document.getElementById("deploy").disabled = true;
     //document.getElementById("promote").disabled = true;
 	
-       alert("Clicked on Build");     
+     //  alert("Clicked on Build");     
             
           var build_env = "dev"; 
         

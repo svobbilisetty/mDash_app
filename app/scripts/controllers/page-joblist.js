@@ -8,7 +8,7 @@
 * Controller of the minovateApp
 */
  app.controller('viewflow', function ($scope, $state,$http,$window,$location) {
-	 alert("enterd viewflow");
+	// alert("enterd viewflow");
 	 var  serverHosturl;
 	 $http({
 			method : "GET",
@@ -27,7 +27,7 @@
 		  });
 	
 	$scope.job= function(jobname){  
-	alert(jobname);
+	//alert(jobname);
     $http({
     method : "GET",
     url : serverHosturl+"jobdetail?jobName="+jobname

@@ -19,7 +19,7 @@ app
     // alert(hostName+":"+port+":"+serverHosturl);
      $scope.login = function() {
    
-    alert("enterd login")
+   // alert("enterd login")
      var username = $scope.user.username;
      var password = $scope.user.password;
     

@@ -8,14 +8,14 @@
 * Controller of the minovateApp
 */
  app.controller('configurationsPage', function ($scope, $state,$http,$window,$location) {
-	 alert("enterd configurationsPage");
+	// alert("enterd configurationsPage");
 	 var  serverHosturl;
 	 $http({
 			method : "GET",
 			url : "/public/serverHost.json"	
 		  }).then(function(response){
 			serverHosturl = response.data.serverHosturl;
-           alert(serverHosturl);				
+        //   alert(serverHosturl);				
 
    /* $scope.selected = function()
    {
@@ -70,9 +70,9 @@
    
   $scope.submit = function() 
     {
-		alert("enterd submit of cen");
-		alert($scope.username);
-		alert($scope.password);
+		//alert("enterd submit of cen");
+		//alert($scope.username);
+		//alert($scope.password);
   var  username = $scope.username;	
   var  password = $scope.password;
   var  ArtifactoryURL = $scope.ArtifactoryURL;
@@ -103,7 +103,7 @@
    } ;
     $scope.submit1 = function() 
     {
-		alert("enterd submit of env")
+		//alert("enterd submit of env")
   var  build_env = $scope.build_env;
   var  toolkithome = $scope.toolkithome;
   var  iibhost = $scope.iibhost;
@@ -124,7 +124,7 @@
 	"&BrokerName="+BrokerName+
 	"&mqsiprofile="+mqsiprofile		
   }).then(function(response) {
-      alert(response.data);
+     // alert(response.data);
     });
 
    } 
@@ -133,14 +133,14 @@
  });
  });
  app.controller('AccordionDemoCtrl1', function ($scope, $state,$http,$window,$location) {
-   alert("enterd configurationsPage");
+  // alert("enterd configurationsPage");
 	 var  serverHosturl;
 	 $http({
 			method : "GET",
 			url : "/public/serverHost.json"	
 		  }).then(function(response){
 			serverHosturl = response.data.serverHosturl;
-           alert(serverHosturl);	
+      //     alert(serverHosturl);	
 
 
   $scope.oneAtATime = true;
@@ -171,9 +171,9 @@
 	
 	$scope.submit = function() 
     {
-		alert("enterd submit of cen");
-		alert(document.getElementById("");
-		alert($scope.password);
+		//alert("enterd submit of cen");
+		//alert(document.getElementById("");
+		//alert($scope.password);
 		
   var  username = $scope.username;	
   var  password = $scope.password;

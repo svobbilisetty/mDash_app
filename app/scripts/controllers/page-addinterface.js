@@ -229,7 +229,7 @@ var i=this.id;
 								"&svnpassword="+svnpassword
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
-									alert(response.data);
+									//alert(response.data);
 								}
 								//alert("response: "+response.data);
 								 if (flow_names.length > 0) {   //callback

@@ -172,7 +172,7 @@
     document.getElementById('id01').style.display='none';
     //    alert("Clicked on Build");     
             var ConfigServiceName = $scope.ConfigServiceName;
-			alert(mqsiprofile);
+			//alert(mqsiprofile);
             var SenderHost_IP = $scope.SenderHost_IP
             var SenderPort_Num = $scope.SenderPort_Num
             //var username = $scope.username
