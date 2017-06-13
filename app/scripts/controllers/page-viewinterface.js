@@ -23,6 +23,7 @@
             serverHosturl = response.data.serverHosturl;
            // alert(serverHosturl);                
 		  
+		   
 	   var build_env=["dev","test","prod"];
 	   $scope.envs=build_env;
 	   $scope.env=$scope.envs[0];
@@ -171,7 +172,7 @@
     document.getElementById('id01').style.display='none';
     //    alert("Clicked on Build");     
             var ConfigServiceName = $scope.ConfigServiceName;
-			//alert(ConfigServiceName);
+			alert(mqsiprofile);
             var SenderHost_IP = $scope.SenderHost_IP
             var SenderPort_Num = $scope.SenderPort_Num
             //var username = $scope.username
@@ -179,7 +180,7 @@
 			var IIBNode = $scope.IIBNode
 			var iibhost = $scope.iibhost
 		    var executionGroup = $scope.executionGroup
-			var mqsiprofile = mqsiprofile
+			//var mqsiprofile = mqsiprofile
            // alert($scope.ConfigServiceName);
              $http({
             method : "GET",

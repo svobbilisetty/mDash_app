@@ -1,0 +1,103 @@
+<project name="BrokerDeploy" default="init">
+	<target name="base">
+		<echo>The userId : coming from jenkins as parameter: ${iib.userid}</echo>
+		<!--<echo>The password :coming from jenkins as parameter: ${iib.userpassword}</echo>-->
+		<echo>The Jenkins current directory where code has been fetched from repository: coming from jenkins as parameter: ${curDir}</echo>
+		<echo>The Jenkins build number: coming from jenkins as parameter: ${jenkins_buildnumber}</echo>
+		<echo>The jenkins job name: coming from jenkins as parameter: ${jenkins_jobname}</echo>		
+		
+		<!-- This jar is needed for switch statement, if statements and propertyregex expressions-->
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			 <classpath>
+				<pathelement location="/opt/apache-ant-1.10.1/ant-contrib-1.0b3.jar/ant-contrib-1.0b3.jar/ant-contrib-1.0b3.jar"/>
+			</classpath>
+		</taskdef>
+		<antcall target="build"/>
+		<!--<switch value="${action}">
+			<case value="Build">
+				<antcall target="build"/>
+			</case>
+			
+			<case value="Build+Deploy">
+				<antcall target="build"/>
+				<antcall target="deployBar"/>
+			</case>
+			<default>
+				<echo message="Invalid action is selected"/>
+			</default>
+		</switch>-->
+	</target>   
+	
+	<target name="init">
+
+		<!-- Directory Initializations-->
+		<!--<echo>Current Directory i.e. Jenkins directory coming as parameter </echo>-->
+		
+		<!--<property name="workspaceDir" location="${curDir}/../Projects"/>-->
+		<!--setting this directory to absolute path as I am not fetching code from repository to Jenkins workspace. 
+		The jenkins workspace directory would be present in ${curDir} which we are sending from Jenkins as parameter
+		In normal scenarios, all further directories will be relative to  ${curDir}-->
+		<property name="workspaceDir" location="/var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build"/>
+		<property name="workspaceDirForDeploy" location="/var/lib/jenkins/workspace/LibraryManagement/Library_Name/Deploy_Library_Name"/>
+		<echo>Project Workspace Directory: ${workspaceDir}</echo>
+		
+		<property name="buildPropertiesDirectory" location="${workspaceDir}"/>
+		<echo>buildPropertiesDirectory Directory: ${buildPropertiesDirectory}</echo>
+		<echo>Project Workspace Directory: ${workspaceDir}</echo>
+		
+		<property name="barFileDir" location="${workspaceDir}/barfile"/>
+		<echo>Bar(package) File Directory: ${barFileDir}</echo>
+		
+		<property name="barOverideFileDir" location="${workspaceDir}/baroverride"/>
+		<echo>Bar override File Directory: ${barOverideFileDir}</echo>
+		
+		<property name="EnvPropertyFileDir" location="${workspaceDir}/EnvironmentProperties"/>
+		<echo>Environment Property File Directory: ${EnvPropertyFileDir}</echo>
+		
+		<property name="ArtifactoryFileDir" location="${workspaceDir}/temp"/>
+
+		<property file="${buildPropertiesDirectory}/build.properties"/>
+	</target>
+
+	<target name="build" depends="init">	
+
+		<property file="${buildPropertiesDirectory}/build.properties"/>
+		<echo message="Project to be Included List : ${project.name}"/>
+		<property name="projectIncluded" value="${project.name}"/>
+		<echo message="Project List String In Build Command : ${projectIncluded}"/>
+		<echo message="The mqsicreatebar command is to be executed as follows"/>
+		<echo message="${toolkit.home}/mqsicreatebar -data ${workspaceDir} -b ${barFileDir}/${jenkins_jobname}_${jenkins_buildnumber}.bar -l ${projectIncluded}"/>
+		<exec executable="${toolkit.home}/mqsicreatebar" spawn="false" vmlauncher="false" failonerror="true">
+			<arg value="-data" />
+			<arg value="${workspaceDir}" />
+			<arg value="-b" />
+			<arg value="${barFileDir}/${jenkins_jobname}.Lib.bar" />
+			<arg value="-l" />
+			<arg line="${projectIncluded}" />
+		</exec>
+		<echo message="The bar ${barFileDir}/${jenkins_jobname}.Lib.bar has been created successfully"/>
+		
+	</target>
+	
+	<target name="deployBar" depends="init">	
+		<echo message="Deploy Broker Archive file - ${projectName}.bar "/>
+		<!--<echo message="${mqsiDir}/mqsideploy ${brokerName} -e ${execution_group} -a /home/esbadm/staging/${projectName}/${buildDate}/${projectName}.${env}.bar"/> -->
+		
+		<!--Run the deployment on the server by getting the ${projectName}.${env}.bar from /home/esbadm/staging/${projectName}/${buildDate} directory -->
+		<!-- For doing remote deployment, first we need to send that file to the broker runtime and then make the deployment. We need extra jar of jsch-0.1.42.jar as well to be placed in lib folder of ant-->
+		<!--<get src="http://iaasr001:8081/artifactory/Christus/Lib/Library_Name_Build.Lib/${artifactnum}/Library_Name_Build.Lib-${artifactnum}.bar" dest="/var/lib/jenkins/workspace/LibraryManagement/Library_Name/Deploy_Library_Name/temp"/> -->
+		
+		<get src="${artifactory.url}/Lib/Library_Name_Build.Lib/${artifactnum}/Library_Name_Build.Lib-${artifactnum}.bar" dest="/var/lib/jenkins/workspace/LibraryManagement/Library_Name/Deploy_Library_Name/temp"/>
+		
+		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command= "mkdir -p ${deployment.path}/Library_Name"/>
+		
+		<scp file="${workspaceDirForDeploy}/temp/Library_Name_Build.Lib-${artifactnum}.bar" trust="true" todir="${iib.userid}:${iib.userpassword}@${iib.host}:${deployment.path}/Library_Name"/>
+		
+
+		<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideploy ${iib.node} -e ${execution.goup} -a ${deployment.path}/Library_Name/Library_Name_Build.Lib-${artifactnum}.bar -w 600" failonerror="true"/>
+		<echo message="Completed deployment of Broker Archive file - Library_Name_Build.Lib-${artifactnum}.bar"/>
+		
+		
+	</target>
+
+	</project>

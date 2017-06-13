@@ -6,6 +6,6 @@
 	"dbname" : "mdash1",
 	"mongodburl" : "mongodb://localhost:27017/mdash1",
 	"serverHosturl" : "http://localhost:9003/",
-	"jenkinurl" : "http://allu:allu@localhost:8080",
-	"svnrepohost" : "file:///E:/SVN_repository/branches/mDash/"
+	"jenkinurl" : "http://admin:admin@mssintegration1.miraclesoft.com:8080",
+	"svnrepohost" : "file:///C:/svnRepo/branches/mdash/"
 }

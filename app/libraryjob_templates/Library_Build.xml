@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.4.5">
+      <gitLabConnection></gitLabConnection>
+    </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>username</name>
+          <description></description>
+          <defaultValue>sviibtst</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>password</name>
+          <description></description>
+          <defaultValue>{AQAAABAAAAAQEAqTkJiS8O7UF+xRNCOT/JAKMajrL3Cywg42IvNYcFc=}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>toolkithome</name>
+          <description></description>
+          <defaultValue>/opt/IBM/IntegrationToolkit90</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>projectname</name>
+          <description></description>
+          <defaultValue>Library_Name</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>svnhost</name>
+          <description></description>
+          <defaultValue>icisr032.echristus.net</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>svnrepo</name>
+          <description></description>
+          <defaultValue>Library_URL</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>ArtifactoryURL</name>
+          <description></description>
+          <defaultValue>http://iaasr001:8081/artifactory/Christus/</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>ArtifactoryUserName</name>
+          <description></description>
+          <defaultValue>admin</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>ArtifactoryPassword</name>
+          <description></description>
+          <defaultValue>{AQAAABAAAAAQqHsv1Z9puZzr9Bt7yIdmnF1PKou3bke47Jwdsc35SBM=}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>svnusername</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>svnpassword</name>
+          <description></description>
+          <defaultValue>{AQAAABAAAAAQddppf+knO+T9XioNx+Y+GKo4zsMKjUuKa1exTblVqls=}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>(System)</jdk>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>echo &apos;toolkit.home=&apos;${toolkithome} &gt; build.properties
+echo &apos;mqsiDir=&apos;${mqsiDir} &gt;&gt; build.properties
+echo &apos;project.name=&apos;${projectname} &gt;&gt; build.properties
+echo &apos;curDir=&apos;${WORKSPACE} &gt;&gt; build.properties
+echo &apos;RevisionNo=&apos; &gt;&gt; build.properties
+
+mkdir Utility
+echo &apos;svnhostusername=&apos;${username} &gt; Utility/SVN.properties
+echo &apos;svnhostpassword=&apos;${password} &gt;&gt; Utility/SVN.properties
+echo &apos;svnhost=&apos;${svnhost} &gt;&gt; Utility/SVN.properties
+echo &apos;svnrepo=&apos;${svnrepo} &gt;&gt; Utility/SVN.properties
+echo &apos;projectname=&apos;${projectname} &gt;&gt; Utility/SVN.properties
+echo &apos;svnusername=&apos;${svnusername} &gt;&gt; Utility/SVN.properties
+echo &apos;svnpassword=&apos;${svnpassword} &gt;&gt; Utility/SVN.properties</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Library_URL/Build --force /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build
+svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Library_URL --force /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/Library_Name
+svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/wsdl --force /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build
+svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/TCPIPTestCase/Utility --force /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/Utility
+rm -rf /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/Library_Name/Build</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>mkdir /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/barfile
+chmod 757 /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/barfile
+
+mkdir /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/barfile/LibraryManagement
+chmod 757 /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/barfile/LibraryManagement
+
+mkdir /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/barfile/LibraryManagement/Library_Name
+chmod 757 /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/barfile/LibraryManagement/Library_Name</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Ant plugin="ant@1.4">
+      <targets>getSVNRevisionNo</targets>
+      <antName>(Default)</antName>
+      <buildFile>Utility/utilityBuild.xml</buildFile>
+    </hudson.tasks.Ant>
+    <hudson.tasks.Ant plugin="ant@1.4">
+      <targets>base</targets>
+      <antName>(Default)</antName>
+      <buildFile>LibraryBuild.xml</buildFile>
+      <properties>curDir=${WORKSPACE}
+iib.userid=${username}
+iib.userpassword=${password}
+jenkins_buildnumber=${BUILD_NUMBER}
+jenkins_jobname=${JOB_NAME}
+artifactoryURL=${ArtifactoryURL}
+artifactoryUserName=${ArtifactoryUserName}
+artifactoryPassword=${ArtifactoryPassword}</properties>
+    </hudson.tasks.Ant>
+    <hudson.tasks.Ant plugin="ant@1.4">
+      <targets>init</targets>
+      <antName>(Default)</antName>
+      <buildFile>LibArtifactory.xml</buildFile>
+      <properties>jenkins_buildnumber=${BUILD_NUMBER}
+jenkins_jobname=${JOB_NAME}
+env=Lib
+artifactoryURL=${ArtifactoryURL}
+artifactoryUserName=${ArtifactoryUserName}
+artifactoryPassword=${ArtifactoryPassword}</properties>
+    </hudson.tasks.Ant>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.32">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

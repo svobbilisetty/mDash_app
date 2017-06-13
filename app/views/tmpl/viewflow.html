@@ -4,10 +4,15 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js" integrity="sha256-fiM0lX3OYzf0FfLBeLqFuCokh+rf1VhI/eanPbzldUM=" crossorigin="anonymous"></script>
 <style>
-.w3-btn, .w3-button {
- padding: 15px 16px;
+.w3-btn{
+ padding: 10px 15px;
 }
 
+.w3-button {
+ font-size: 16px;
+ line-height: 1.6;
+ padding: 8px 15px;
+}
 .w3-teal, .w3-hover-teal:hover {
  color: #fff !important;
 background-color: #0d416b !important;
@@ -534,7 +539,7 @@ border-radius:15px;
   <!-- page header -->
   <div class="pageheader">
 
-    <h2>Flow Name<span></span></h2>
+    <h2>{{Flow_Name}}<span></span></h2>
 
     <div class="page-bar">
 
@@ -554,6 +559,52 @@ border-radius:15px;
 
   </div>
   <!-- /page header -->
+  
+  <!-- 	progress-bar -->
+	
+<!-- 	<div class="checkout-wrap">
+  <ul class="checkout-bar">
+
+    <li class="visited first one">
+      <a style="color:green" onclick="fa1()">Build <br>Initiated</a>
+    </li>
+    
+    <li class="previous visited two">
+	<a class="color1" onclick="fa2()"> Library<br> Detection</a></li>
+    
+    <li class="active four">
+	<a class="color3" onclick="fa4()"> Create <br>Queue</a></li>
+	
+	<li class="active six">
+	<a class="color5" onclick="fa6()">Deploy
+ <br>Automation</a>
+	</li>
+      
+  </ul>
+</div> -->
+
+<!-- 	progress-bar -->
+	
+<!-- 	<div class="checkout-wrap">
+  <ul class="checkout-bar">
+
+    <li class="visited first one">
+      <a style="color:green" onclick="fa1()">Build <br>Initiated</a>
+    </li>
+    
+    <li class="previous visited two">
+	<a class="color1" onclick="fa2()"> Library<br> Detection</a></li>
+    
+    <li class="active four">
+	<a class="color3" onclick="fa4()"> Create <br>Queue</a></li>
+	
+	<li class="active six">
+	<a class="color5" onclick="fa6()">Deploy
+ <br>Automation</a>
+	</li>
+      
+  </ul>
+</div> -->
  <!-- page content -->
   <div class="pagecontent">
   <section class="tile">
@@ -643,43 +694,8 @@ border-radius:15px;
 
 
 <div class="row"><br>
-  <div class="col-sm-12"><br>
-
-      <div class="btn-group col-sm-4 mb-20">
-	  	  <button type="button" class="btn btn-primary dropdown-toggle col-sm-12" data-toggle="dropdown" aria-expanded="true"> Environment <span class="caret"></span> </button>
-                                   
-                                         
-                                          <span class="sr-only">Toggle Dropdown</span>
-                                      </button>
-                                      <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                            <li><a href="#">Dev Environment</a></li>
-										  <li><a href="#">Test Environment</a></li>
-                                        
-                                          <li><a href="#">Prod Environment</a></li>
-
-                                      </ul>
-
-    </div>
-
-      <div class="btn-group col-sm-4 mb-20 col-sm-12">
-                                     	  <button type="button" class="btn btn-primary dropdown-toggle col-sm-12" data-toggle="dropdown" aria-expanded="true"> Version <span class="caret"></span> </button>
-                                          <span class="sr-only">Toggle Dropdown</span>
-                                      </button>
-                                      <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                          <li><a href="#">v1.3</a></li>
-                                          <li><a href="#">v2.4</a></li>
-                                          <li><a href="#">v3.9</a></li>
-                                          <li><a href="#">v4.1</a></li>
-                                      </ul>
-
-    </div>
-    <div class="col-sm-4">
-      <button type="button" class="btn btn-primary col-sm-12 btn-danger" id="promote">Promote</button>
-    </div>
-  </div>
-</div>
-<div class="row"><br>
   <div class="col-sm-12">
+  <br>
   <div class="col-sm-6">
       <!-- <select ng-model="selected"  ng-options="o.label for o in options">
         <option value="">-------</option>
@@ -687,7 +703,7 @@ border-radius:15px;
 	 
 	
     <!--<button type="button" class="btn btn-darkgray mb-10 col-sm-12" ng-click="builddetails()">Build and Deploy</button>-->
-	<button ng-click="builddetails()"  class="btn btn-darkgray mb-10 col-sm-12" activate-button="loading" id="deploy"><i id="btns" style="display:none;position:relative;left:-5px;" class="fa fa-refresh fa-spin"></i><span id="load">Build and Deploy</span></button>
+	<button style="font-weight:900" ng-click="builddetails()"  class="btn btn-blue mb-10 col-sm-12" activate-button="loading" id="deploy"><i id="btns" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load">Build and Deploy</span></button>
   </div>
     <div id="id01" class="w3-modal" ng-show="buildmodal">
 	
@@ -699,7 +715,7 @@ border-radius:15px;
 
        class="w3-button w3-display-topright" >&times;</span>
 
-       <h2><br></h2>
+       <h4 style="font-weight:900;color:#ffffff;">Build Now</h4>
      </header>
 
         <span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
@@ -713,34 +729,37 @@ border-radius:15px;
 				<div id="svnrepoDiv" >
 					<label for="IIBNode">IIB Node</label>
 					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
-					<br><select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
+					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
 				</div><br>
 				
 				<div id="messageflownameDiv" >
 					<label for="BrokerName ">Broker </label>
 					<input class="form-group col-sm-12" id="BrokerName " type="text" ng-model="BrokerName "></input>
 				</div>
+				<div id="password " >
+                    <label for="password  ">SVN Password  </label>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
+                </div>
 				</div>
 				<div class="col-sm-6">
 				
 				<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
 					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
-					<br><select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
+					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="iibhost" ng-options="x for x in iibhosts" readonly></select>
 				</div><br>
+
 				<div id="projectnameDiv" >
 					<label for="executionGroup">Execution Group</label>
 					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> -->
-					<br><select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
+					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
 				</div><br>
-				<div id="password " >
-                    <label for="password  ">SVN Password  </label>
-                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
-                </div>
+				
 				</div>
 				</div>
 				<div class="form-group row col-sm-12">
-			<button type="button" class="btn mb-10 col-sm-3" ng-click="build()" style="background-color:#0d416b;color:#ffffff">Build Now</button>
+				
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="build()">Build Now</button>
 			</div>
 							
 		
@@ -750,9 +769,12 @@ border-radius:15px;
       </div>
     </div>
   
+<!--   <div class="col-sm-3">
+      <button type="button" style="font-weight:900" class="btn btn-primary col-sm-12 btn-danger" id="promote">Promote</button>
+    </div> -->
  
   <div class="col-sm-6">
-    <button ng-click="rollbackdetails()"  class="btn btn-darkgray mb-10 col-sm-12" activate-button="loading" id="roll"><i id="btns1" style="display:none;" style="position:relative;left:-5px;" class="fa fa-refresh fa-spin"></i><span id="load1">Rollback and Decomission</span></button>
+    <button style="background-color:#00aae7;color:#ffffff;font-weight:900" ng-click="rollbackdetails()"  class="btn btn mb-10 col-sm-12" activate-button="loading" id="roll"><i id="btns1" style="display:none;" style="position:relative;left:-5px;" class="fa fa-refresh fa-spin"></i><span id="load1">Rollback and Decomission</span></button>
   </div>
 	<div id="id02" class="w3-modal" ng-show="buildmodal1">
 	
@@ -764,7 +786,7 @@ border-radius:15px;
 
        class="w3-button w3-display-topright" >&times;</span>
 
-       <h2><br></h2>
+       <h4 style="font-weight:900;color:#ffffff;">Rollback and Decommission</h4>
 
      </header>
         <span ng-click="close1()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
@@ -774,28 +796,32 @@ border-radius:15px;
 			<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
 					<!--  <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input>  -->
-					<br><select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
+					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="iibhost" ng-options="x for x in iibhosts"></select>
 					<!-- <select ng-model="iibhost" ng-options="x for x in iibhost">
 					</select> -->
 				</div><br>
 				<div id="projectnameDiv">
 					<label for="executionGroup">Execution Group</label>
 					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input>  -->
-					<br><select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
+					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
 					<!-- <select ng-model="executionGroup" ng-options="x for x in execs">
 					</select> -->
 				</div><br>
 				
 				<div id="artifactory_numberDiv" >
-                    <label for="BrokerName">Artifactory_Number </label>
+                    <label for="BrokerName">Bar Version</label>
                    <br> <input class="form-group col-sm-12" id="artifactory_number" type="text" ng-model="artifactory_number"></input>
+                </div>
+				<div id="password " >
+                    <label for="password  ">SVN Password  </label>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
                 </div>
 			</div>
 			<div class="col-sm-6">
 			<div id="svnrepoDiv" >
 					<label for="IIBNode">IIB Node</label>
 					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
-					<br><select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
+					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
 				</div><br>
 				<div id="messageflownameDiv" >
 					<label for="BrokerName">Broker </label>
@@ -803,17 +829,15 @@ border-radius:15px;
 				</div><br>
 				   <div id="targetDiv">
                     <label for="Target">Target</label>
-                    <br><select ng-model="target" ng-options="x for x in targets" ng-change="artifact()">
+                    <br><select style="padding:3px;" class="form-group col-sm-12" ng-model="target" ng-options="x for x in targets" ng-change="artifact()">
                     </select>
-                </div><br>
-				<div id="password " >
-                    <label for="password  ">SVN Password  </label>
-                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
                 </div>
+				<br>
+				
 			</div>
 			</div>
 			<div class="form-group row col-sm-12">
-			<button type="button" class="btn mb-10 col-sm-3" ng-click="build1()" style="background-color:#0d416b;color:#ffffff;">Execute</button>
+			<button type="button" class="btn mb-10 col-sm-3" ng-click="build1()" style="background-color:#0d416b;color:#ffffff;font-weight:900">Execute</button>
 			</div>
 			</div>
       </div>
@@ -833,9 +857,7 @@ border-radius:15px;
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 </style>
                                 <div id="console2" class="demo" style="height:355px;overflow-y:scroll;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
-                                  <font>
-								  
-								 </font>
+                                 <h5 style="font-weight:900">Jenkins Job Execution Log</h5>
                                 </div>
 
 

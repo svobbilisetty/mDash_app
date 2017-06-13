@@ -599,10 +599,10 @@ var app = angular
 	  controller: 'viewinterface',
       templateUrl: 'views/tmpl/viewinterface.html',
     })
-	.state('app.viewlibrary', {
-      url: '/viewlibrary',
-	  controller: 'viewlibrary',
-      templateUrl: 'views/tmpl/viewlibrary.html',
+	.state('app.viewlibrary1', {
+      url: '/viewlibrary1',
+	  controller: 'viewlibrary1',
+      templateUrl: 'views/tmpl/viewlibrary1.html',
     })
 	.state('app.viewjob', {
       url: '/viewjob',

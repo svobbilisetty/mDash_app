@@ -90,7 +90,7 @@
 				alert(data1); */
 				dataPort.innerHTML=dataPort.innerHTML+JSON.stringify(data);
 				 $('.demo').scrollTop($('.demo')[0].scrollHeight);
-			}); 	 
+			}); 	
 			
 		
 	$scope.builddetails= function(){ 
@@ -138,13 +138,14 @@
 	};
 		
 	$scope.build = function(){ 
+	document.getElementById('id01').style.display='none';
 	btnm();
 	document.getElementById("roll").disabled = true;
-	document.getElementById("promote").disabled = true;
+	//document.getElementById("promote").disabled = true;
 	
 	$scope.status=true;
-	document.getElementById('id01').style.display='none';
-	//	alert("Clicked on Build");     
+	
+		alert("Clicked on Build");     
 			
 		 /* var build_env = "dev"; */
 	    
@@ -174,7 +175,7 @@
                 document.getElementById('btns').style.display="none";
                 document.getElementById('load').innerHTML="Build and Deploy";
                 document.getElementById("roll").disabled = false;
-                document.getElementById("promote").disabled = false; 
+              //  document.getElementById("promote").disabled = false; 
              }
              else
              {
@@ -182,7 +183,7 @@
                  document.getElementById('btns').style.display="none";
                 document.getElementById('load').innerHTML="Build and Deploy";
                 document.getElementById("roll").disabled = false;
-                document.getElementById("promote").disabled = false;
+               // document.getElementById("promote").disabled = false;
              }
 			//	alert(response.data);
 				
@@ -253,9 +254,9 @@
     document.getElementById('id02').style.display='none';
     document.getElementById('console2').innerHTML='';
     document.getElementById("deploy").disabled = true;
-    document.getElementById("promote").disabled = true;
+    //document.getElementById("promote").disabled = true;
 	
-    //    alert("Clicked on Build");     
+       alert("Clicked on Build");     
             
           var build_env = "dev"; 
         
@@ -291,14 +292,14 @@
                      document.getElementById('btns1').style.display="none";
                      document.getElementById('load1').innerHTML="Rollback and Decomission";
                      document.getElementById("deploy").disabled = false;
-                     document.getElementById("promote").disabled = false;
+                    // document.getElementById("promote").disabled = false;
                    // alert("rollback job triggerd");
                  }
                  else{
                      document.getElementById('btns1').style.display="none";
                      document.getElementById('load1').innerHTML="Rollback and Decomission";
                      document.getElementById("deploy").disabled = false;
-                     document.getElementById("promote").disabled = false;
+                   //  document.getElementById("promote").disabled = false;
                     // alert("rollback job failed");
                      }
                  
@@ -316,17 +317,15 @@
 			 document.getElementById('artifactory_numberDiv').style.display='block';
 		 }
     };
-		
 	
 	
 	function btnm(){
-    document.getElementById('btns').style.display="block";
-    document.getElementById('load').innerHTML="Build in Progress";
-    
+    document.getElementById('btns').style.display="inline-flex";
+    document.getElementById('load').innerHTML="&nbsp&nbsp;Job in Progress";  
 }
 function btnm1(){
-    document.getElementById('btns1').style.display="block";
-    document.getElementById('load1').innerHTML="Rollback in progress";
+    document.getElementById('btns1').style.display="inline-flex";
+    document.getElementById('load1').innerHTML="&nbsp;Rollback in progress";
     
 }
 	

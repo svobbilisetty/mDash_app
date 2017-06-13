@@ -41,6 +41,13 @@ background-color: #0d416b !important;
 
                     </div>
 
+				
+
+
+
+					
+					
+					
                      <!-- row -->
                     <div class="row">
                       <!-- col -->
@@ -66,6 +73,15 @@ background-color: #0d416b !important;
                                       <th>Environment</th>
                                       <th> By </th>
                                     </tr>
+									<tr ng-repeat="x in librarylist | orderBy: '-updatedDate' | orderBy: '-updatedTime'">
+										<td  ng-click="viewlibrary(x.url_key)"><font color="#616f77"><span class="tab"><a style="cursor:default">{{x.url_key}}</a></span></font></td>
+										<td>{{x.createdDate || ''}} - {{x.createdtime || ''}} </td>
+										<td>{{x.updatedDate || ''}} - {{x.updatedTime || ''}} </td>
+										<td>{{x.Environment | uppercase}}</td>
+										<td>{{x.By}}</td>
+                                    </tr>
+									
+									
                                   </tbody>
                                 </table>
 
@@ -83,39 +99,51 @@ background-color: #0d416b !important;
                     <!-- /row -->
                     <!-- row -->
 <!-- Pop-up for add Library - START -->
-					<div id="id01" class="w3-modal" ng-show="buildmodal">
-    
-					<div class="w3-modal-content">
-					  <div class="w3-container" >
-					  
-					  <header class="w3-container w3-teal">
-					   <span onclick="document.getElementById('id01').style.display='none'"
+					  <div id="id01" class="w3-modal" ng-show="buildmodal">
+	
+    <div class="w3-modal-content">
+      <div class="w3-container" >
+	  
+	  <header class="w3-container w3-teal">
+       <span onclick="document.getElementById('id01').style.display='none'"
 
-					   class="w3-button w3-display-topright" >&times;</span>
+       class="w3-button w3-display-topright" >&times;</span>
 
-					   <h4><b>Add New Library</b></h4>
-					 </header>
+        <h4><b>Add New Library</b></h4>
+     </header>
 
-						<span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span>
-						<br>
-							<div class="form-group row">
-					<div class="col-sm-6">
-					<div id="ConfigServiceName">
-						<label for="ConfigServiceName  "><b>Library Name</b></label><br>
-						<input class="form-group col-sm-12" id="ConfigServiceName" type="text" ng-model="ConfigServiceName"></input>
+        <span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
+	
+			<div class="form-group row">
+				<div class="col-sm-6">
+				<div id="ConfigServiceName">
+						 <br><label for="ConfigServiceName"><b>Library Name</b></label><br>
+						<input class="form-group col-sm-12" id="ConfigServiceName" type="text" ng-model="LibraryName"></input>
 					</div>
-					<div id="SenderPort_Num " style="position:relative;top:-6px;">
+					<div id="SenderPort_Num ">
 					 <br>
 						<label for="SenderPort_Num"><b>Library URL</b></label>
-						<input class="form-group col-sm-12" id="SenderPort_Num" type="text" ng-model="SenderPort_Num"></input>
+						<br><input class="form-group col-sm-12" id="SenderPort_Num" type="text" ng-model="LibraryURL"></input>
 					</div>
-					
-							<div class="form-group row col-sm-12">
-							<button type="button" class="btn btn-darkgray mb-10 col-sm-6"  ng-click="change()" style="background-color:#0d416b";><b>Add Library</b></button>
+					<div id="SenderPort_Num ">
+					 <br>
+						<label for="SenderPort_Num"><b>SVN Password</b></label>
+						<br><input class="form-group col-sm-12" id="svnpassword" type="password" ng-model="svnpassword"></input>
+					</div>
+				
+				</div>
+				
+				</div>
+				<div class="form-group row col-sm-12">
+							<button type="button" class="btn btn-darkgray mb-10 col-sm-6"  ng-click="AddLibrary()" style="background-color:#0d416b";><b>Add Library</b></button>
 							</div>
-					  </div>
-					</div>
-				  </div>
+							
+		
+							
+			</div>
+			
+      </div>
+    </div>
 <!-- Pop-up for add Library - END -->
 
 

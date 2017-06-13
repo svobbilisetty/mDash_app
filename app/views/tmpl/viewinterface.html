@@ -7,10 +7,15 @@ html, body {
     font-family: "Lato",sans-serif !important;
   
 }
-.w3-btn, .w3-button {
- padding: 15px 16px;
+.w3-btn{
+ padding: 10px 15px;
 }
 
+.w3-button {
+ font-size: 16px;
+ line-height: 1.6;
+ padding: 8px 15px;
+}
 .w3-teal, .w3-hover-teal:hover {
  color: #fff !important;
 background-color: #0d416b !important;
@@ -76,8 +81,9 @@ background-color: #0d416b !important;
 									  <td  ng-click="flow(x.flowname)"><font color="#616f77"><span class="tab"><a style="color:#2368a0 ";>{{x.flowname}}</a></span></font></td>
                                        <td> {{x.createdDate || ''}} - {{x.createdtime || ''}}</td>
                                      <!--  <td> 06:14 PM</td> -->
-                                      <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus}}<center></td>
-                                      <td><center>PROD</center></td>
+                                     <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
+										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
+                                      <td><center>{{x.Environment  | uppercase}}</center></td>
                                     </tr>
 
 
@@ -166,7 +172,7 @@ background-color: #0d416b !important;
                         <!-- tile -->
                         <section class="tile" fullscreen="isFullscreen02">
                           <!-- tile body -->
-                          <div class="tile-body p-0">
+                          <div class="tile-body p-0" style="height:445px;overflow-y:scroll;">
 
                            <div class="tile-header dvd dvd-btm">
                             <h1 class="custom-font">Recent Jobs</h1>
@@ -178,42 +184,22 @@ background-color: #0d416b !important;
                                     <tr>
                                       <th> Flow Name </th>
 									  <th> Job Type </th>
-									  <th> Last Updated </th>
-                                      <th> Created Date </th>
-                                     
-                                      <th>Result</th>
-                                      <th>Environment</th>
-                                      <th>Executed By </th>
+									  <th> Execution Date</th>
+                                      <th> <center>Result</center> </th>
+                                      <th> <center>Environment </center></th>
+                                      <th> By </th>
                                     </tr>
-									<tr ng-repeat="x in flowslog">
+									<tr ng-repeat="x in flowslog | orderBy: '-updatedDate' | orderBy: '-updatedTime'">
 									  <td  ng-click="flow(x.flowname)"><font color="#616f77"><span class="tab"><a style="color:#2368a0 ";>{{x.flowname}}</a></span></font></td>
 									   <td>{{x.Jobtype}}</td>
-									    <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
-                                       <td> {{x.createdDate || ''}} - {{x.createdtime || ''}}</td>
+									  <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
                                      <!--  <td> 06:14 PM</td> -->
-                                      <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus || ""}}<center></td>
-                                      <td>{{x.Environment}}</td>
+                                     <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
+										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
+                                      <td><center>{{x.Environment  | uppercase}}</center></td>
 									   <td>{{x.By}}</td>
                                     </tr>
-                                   <!--  <tr>
-                                      <td><a ui-sref="app.projectbuild" href="#/app/projectbuild"><font color="#616f77"><span class="tab">CLA_CLIENTMISC_ORM</span></font></a></td>
-                                       <td>Rollback</td>
-									  <td> 3 April 2017 - 07:44 PM  </td>
-									 <td> 3 April 2017 - 07:44 PM  </td>
-                                      
-                                      <td><center><i class="fa fa-square text-success"></i></center></td>
-                                      <td><center>DEV</center></td>
-                                      <td> Chanakya Lokam</td>
-                                    </tr>
-                                    <tr>
-                                      <td>NLA_FEDMNET_ORM</td>
-									  <td>Rollback</td>
-                                      <td> 4 April 2017 - 07:44 PM </td>
-									  <td> 3 April 2017 - 07:44 PM </td>
-                                      <td><center><i class="fa fa-square text-success"></i></center></td>
-                                      <td><center>TEST</center></td>
-                                      <td>Chanakya Lokam</td>
-                                    </tr> -->
+                                  
 
                                   </tbody>
                                 </table>
@@ -249,11 +235,11 @@ background-color: #0d416b !important;
                                     <form role="form" class="ng-pristine ng-valid">
 <div class="row">
 <br>
-			<div class="col-sm-4">
+			<div class="col-sm-5">
 			 <button type="button"   ng-click="ChangeSenderConfigService()" class="btn btn-blue mb-10 col-sm-12 "><b> Update Sender Config</b></button>
 			</div>
 			<div class="col-sm-4">
-			<button type="button"  ng-click="runtest()" class="btn btn-blue mb-10 col-sm-12 "><b> Run Test</b></button>
+			<button type="button" style="font-weight:900" ng-click="runtest()" class="btn btn-danger mb-10 col-sm-12 ">Run Test</button>
 			</div>
 			</div>
 <div id="id01" class="w3-modal" ng-show="buildmodal">
@@ -266,7 +252,7 @@ background-color: #0d416b !important;
 
        class="w3-button w3-display-topright" >&times;</span>
 
-       <h2><br></h2>
+       <h4><b>Change Configuration Service</b></h4>
      </header>
 
         <span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span>
@@ -276,21 +262,23 @@ background-color: #0d416b !important;
 	            <div id="env" >
 					<label for="env">Environment</label>
 					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
-					<br><select ng-model="env" ng-options="x for x in envs" ng-change="fieldspop()"></select>
+					<br><select class="form-group col-sm-12" style="padding:3px;" ng-model="env" ng-options="x for x in envs" ng-change="fieldspop()"></select>
 				</div>
 	          <div id="ConfigServiceName " >
-                    <label for="ConfigServiceName  ">Flow Name  </label>
+			         <br>
+                    <label for="ConfigServiceName">Flow Name  </label>
                     <!--<input class="form-group col-sm-12" id="ConfigServiceName" type="text" ng-model="ConfigServiceName"></input>-->
-					<br><select ng-model="ConfigServiceName" ng-options="x for x in flowNames_Test"></select>
+					<br><select class="form-group col-sm-12" style="padding:3px;" ng-model="ConfigServiceName" ng-options="x for x in flowNames_Test"></select>
                 </div>
 				 <div id="SenderPort_Num " >
+				 <br>
                     <label for="SenderPort_Num  ">Sender Port Number  </label>
                     <input class="form-group col-sm-12" id="SenderPort_Num" type="text" ng-model="SenderPort_Num"></input>
                 </div>
 				<div id="IIBNode" >
 					<label for="IIBNode">IIB Node</label>
 					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
-					<br><select ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
+					<br><select class="form-group col-sm-12" style="padding:3px;" ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
 				</div>
               
                
@@ -312,17 +300,18 @@ background-color: #0d416b !important;
 				<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
 					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
-					<br><select ng-model="iibhost" ng-options="x for x in iibhosts"></select>
+					<br><select class="form-group col-sm-12" style="padding:3px;" ng-model="iibhost" ng-options="x for x in iibhosts"></select>
 				</div>
 				 <div id="projectnameDiv" >
+				 <br>
 					<label for="executionGroup">Execution Group</label>
 					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> -->
-					<br><select ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
+					<br><select class="form-group col-sm-12" style="padding:3px;" ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
 				</div>
 	</div>
             </div>
             <div class="form-group row col-sm-12">
-            <button type="button" class="btn btn-darkgray mb-10 col-sm-3"  ng-click="change()" style="background-color:#0d416b";>Change ConfigService</button>
+            <button type="button" class="btn btn-darkgray mb-10 col-sm-3"  ng-click="change()" style="background-color:#0d416b;font-weight:900;">Change Configuration Service</button>
             </div>
       </div>
     </div>
@@ -335,9 +324,9 @@ background-color: #0d416b !important;
 
        class="w3-button w3-display-topright" >&times;</span>
 
-       <h2><br></h2>
+       <h4 style="font-weight:900;color:#ffffff;">Run Test</h4>
      </header>
-        <span ng-click="close1()" class="w3-button w3-display-topright">&times;</span><br>
+        <span ng-click="close1()" class="w3-button w3-display-topright" style="color:#ffffff !important">&times;</span><br>
         
             <div class="form-group row">
     <div class="col-sm-6">
@@ -347,27 +336,30 @@ background-color: #0d416b !important;
                 </div>
 				  <div id="iibhost  " >
                     <label for="iibhost   ">IIB Host   </label>
-                    <input class="form-group col-sm-12" id="iibhost   " type="text" ng-model="iibhost   "></input>
+                    <input class="form-group col-sm-12" style="padding:2px;" id="iibhost   " type="text" ng-model="iibhost   "></input>
                 </div>
+						<div id="password">
+		<label for="password">SVN Password</label>
+		<input class="form-group col-sm-12" id="password" type="password" ng-model="password"></input>
+	 </div>
 	</div>
 	 <div class="col-sm-6">
 	  <div id="ReceiverPort  " >
                     <label for="ReceiverPort   ">Receiver Port   </label>
                     <input class="form-group col-sm-12" id="ReceiverPort   " type="text" ng-model="ReceiverPort   "></input>
                 </div>
-				 <div id="FlowName  " >
-                    <label for="FlowName   ">Flow Name   </label>
+				<br><br><br>
+				 <div id="FlowName  " style="position:relative;top:13px;">
+                    <label for="FlowName">Flow Name   </label>
+					<br>
                    <!-- <input class="form-group col-sm-12" id="FlowName   " type="text" ng-model="FlowName   "></input>-->
-				   <select ng-model="FlowName" ng-options="x for x in flowNames_Run"></select>
+				   <select class="col-sm-12" style="padding:3px;" ng-model="FlowName" ng-options="x for x in flowNames_Run"></select>
                 </div>  
-				<div id="password">
-		<label for="password">SVN Password</label>
-		<input class="form-group col-sm-12" id="password" type="password" ng-model="password"></input>
-	 </div>
+		
 	 </div>
             </div>
             <div class="form-group row col-sm-12">
-            <button type="button" class="btn btn-darkgray mb-10 col-sm-3" ng-click="test()" style="background-color:#0d416b;">Run Test </button>
+            <button type="button"  class="btn btn-darkgray mb-10 col-sm-3" ng-click="test()" style="background-color:#0d416b;font-weight:900;">Run Test </button>
             </div>
       </div>
     </div>
@@ -441,27 +433,28 @@ OBX|3|CE|OETRNSP3^Transport Info||BIV^Bed with IV
                                 <table class="table table-no-border m-0" style="overflow-y:scroll">
                                   <tbody>
                                     <tr>
-                              
+                               
                                       <th> Execution Date </th>
                                       <th> Environment</th>
-                                      <th> Executed By </th>
+									  <th> Executed By </th>
                                       <th> <center>Result</center></th>
                                     </tr>
-                                   <tr ng-repeat="x in testlog">
+                                   <tr ng-repeat="x in testlog | orderBy: '-updatedDate' | orderBy: '-updatedTime'">
 									 
 									    <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
-                                       <td>{{x.Environment}}</td>
+                                       <td>{{x.Environment  | uppercase}}</td>
 									   <td>{{x.By}}</td>
-                                       <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus || ""}}<center></td>
-                                     
+                                      <!--  <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus || ""}}</center></td> -->
+                                     <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
+										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
                                     </tr>
-                                    
-                                 </tbody>
+									
+                                  </tbody>
                                 </table>
                           </div>
                           <!-- /tile body -->
 
-                       </section>
+                        </section>
                       </div>
                       <!-- /col -->
 

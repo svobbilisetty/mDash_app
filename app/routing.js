@@ -26,6 +26,7 @@ var svnUltimate = require('node-svn-ultimate');
 var svnUltimate1 = require('svn-info');
 var client;
 var loginuser;
+var libname;
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -267,34 +268,34 @@ app.get('/createjob', function (req, res) {
 							}
 							
 						  fs.readFile(dir1+'/'+filename,'UTF-8', function(err, data) {
-										if (err) {
-										throw err;
-									}
-								 var xml2 = data;
-									//console.log(xml2);
-									jenkins.job.exists(folder+"/"+flowname+"/"+(filename.substr(0,filename.indexOf("."))), function(err, exists) {
-									if (exists==false)
-									{
-										
-										 jenkins.job.create(folder+"/"+flowname+"/"+(filename.substr(0,filename.indexOf("."))),xml2, function(err){
-										if (err) throw err;
-										console.log("job created");
-										
-									});
-									}
-									else
-									{
-										console.log("Job Exists");
-									}
-									})
-								   
-									});
-										if(jlength<1){
-									
-		 MongoClient.connect(config.mongodburl, function(err, db) {
-							 if(db){
-										var collection = db.collection('flows');
-										
+																		if (err) {
+																		throw err;
+																	}
+																 var xml2 = data;
+																	//console.log(xml2);
+																	jenkins.job.exists(folder+"/"+flowname+"/"+(filename.substr(0,filename.indexOf("."))), function(err, exists) {
+																	if (exists==false)
+																	{
+																		
+																		 jenkins.job.create(folder+"/"+flowname+"/"+(filename.substr(0,filename.indexOf("."))),xml2, function(err){
+																		if (err) throw err;
+																		console.log("job created");
+																		
+																	});
+																	}
+																	else
+																	{
+																		console.log("Job Exists");
+																	}
+																	})
+																   
+																	});
+																		if(jlength<1){
+																	
+										 MongoClient.connect(config.mongodburl, function(err, db) {
+															 if(db){
+																		var collection = db.collection('flows');
+																		
 										if(collection){
 											var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
 											var createdate1 = new Date().toDateString();
@@ -1392,8 +1393,8 @@ log.on('end', function(end) {
 							 jobdata=data;
 							  console.log('job status'+ data.builds[0].result+" build number  "+data.builds[0].number);
 							// res.send(data);
-							if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
-                                                //if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
+							//if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
+								if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
 							{
 								client.emit('progress', uri);
 								current_job=uri;
@@ -2307,7 +2308,9 @@ app.get('/RunTest',function(req,res){
            InputData:InputData,
             ReceiverPort:ReceiverPort,
             iibhost:iibhost,
-            FlowName:FlowName
+            FlowName:FlowName,
+			svnusername:loginuser,
+			svnpassword:svnpassword
             } }, function(err) {
                                           if (err) console.log(err);
                              console.log("RunTest job triggered");
@@ -2520,4 +2523,566 @@ app.get('/getinterfaceflowscount',function(req,res){
 			}
 		}
 	});
+});
+
+app.get('/createLibraryBuildFolder',function(req,res){
+console.log("In libBuild folder creation");
+    Library_Name = req.query.Library_Name;
+    Library_URL = req.query.Library_URL;
+    var svnpassword = req.query.svnpassword;
+
+ 
+   svnUltimate.commands.checkout( Library_URL, 'C:\\Ruby23\\files\\libsvn_repo', {username: loginuser,	password: svnpassword},function( err ) {
+	   if(err == null){
+		   console.log("check out completed"); 
+console.log(Library_Name);
+console.log(Library_URL);
+    if (!fs.existsSync('C:\\Ruby23\\files\\LibBuild')){
+        fs.mkdirSync('C:\\Ruby23\\files\\LibBuild');        
+    }
+	
+
+	/*Changes for LibArtifactory.xml file*/
+    var data = fs.readFileSync(__dirname+'/librarytemplates/LibArtifactory.xml', 'utf-8');
+    var newValue = data.replace(/Library_Name/gim, Library_Name);
+    fs.writeFileSync('C:\\Ruby23\\files\\LibBuild\\LibArtifactory.xml',newValue, 'utf-8');
+    /*Changes for LibArtifactory.xml file*/
+    
+    /*Changes for LibraryBuild.xml file*/
+     var data = fs.readFileSync(__dirname+'/librarytemplates/LibraryBuild.xml', 'utf-8');
+    var newValue = data.replace(/Library_Name/gim, Library_Name);
+    fs.writeFileSync('C:\\Ruby23\\files\\LibBuild\\LibraryBuild.xml', newValue, 'utf-8');
+    /*Changes for LibraryBuild.xml file*/
+    
+  
+
+   
+	fs1.copySync('C:\\Ruby23\\files\\LibBuild', 'C:\\Ruby23\\files\\libsvn_repo\\Build', { overwrite: true });
+	svnUltimate.commands.add('C:\\Ruby23\\files\\libsvn_repo\\Build',function( err ) {
+            svnUltimate.commands.update('C:\\Ruby23\\files\\libsvn_repo',function(err){
+                svnUltimate.commands.cleanup('C:\\Ruby23\\files\\libsvn_repo',function(err){
+                    svnUltimate.commands.commit('C:\\Ruby23\\files\\libsvn_repo','-q',function(err){
+                        console.log( "commit complete" );
+                        fs1.removeSync('C:\\Ruby23\\files\\libsvn_repo');
+						fs1.removeSync('C:\\Ruby23\\files\\LibBuild');
+						//res.send("created");
+						res.redirect('/libInterface');
+                    });
+                });
+            });
+        });
+	
+	
+
+	   }else{
+		   console.log(err);
+		   res.send("Authentication Failed");
+	   }
+	   }) ;
+	    
+
+})
+
+
+
+app.get('/libInterface',function(req,res){
+console.log("libcreateInterface");
+console.log(Library_Name);
+		
+	 if (!fs.existsSync('C:\\Ruby23\\files\\libjob_configfiles')){
+		 console.log("created new folder");
+        fs.mkdirSync('C:\\Ruby23\\files\\libjob_configfiles');        
+        }	else{
+			console.log("folder exists");
+			rmdirSync('C:\\Ruby23\\files\\libjob_configfiles', function(error){
+                if(error){
+                    console.log(error);
+                }
+            });
+			console.log("folder removed");
+			fs.mkdirSync('C:\\Ruby23\\files\\libjob_configfiles');        
+			console.log("Created a new folder after deleting");
+		}
+		
+	/*Changes for Library_Deploy.xml file*/
+    var data = fs.readFileSync(__dirname+'/libraryjob_templates/Library_Deploy.xml', 'utf-8');
+    var newValue = data.replace(/Library_URL/gim, Library_URL);
+	var newValue1 = newValue.replace(/Library_Name/gim, Library_Name);
+    fs.writeFileSync('C:\\Ruby23\\files\\libjob_configfiles\\Deploy_'+Library_Name+'.xml',newValue1, 'utf-8');
+    /*Changes for Library_Deploy.xml file*/
+	
+	/*Changes for Library_Build.xml file*/
+    var data = fs.readFileSync(__dirname+'/libraryjob_templates/Library_Build.xml', 'utf-8');
+    var newValue = data.replace(/Library_URL/gim, Library_URL);
+	var newValue1 = newValue.replace(/Library_Name/gim, Library_Name);
+    fs.writeFileSync('C:\\Ruby23\\files\\libjob_configfiles\\'+Library_Name+'_Build.xml',newValue1, 'utf-8');
+    /*Changes for Library_Build.xml file*/
+	
+	
+	
+	 if (fs.existsSync('C:\\Ruby23\\files\\libjob_configfiles\\'+Library_Name+'_Build.xml')){
+       res.redirect('/createlibjob'); 
+//res.send("jobfiles created")	   
+    }
+	
+});
+
+app.get('/createlibjob',function(req,res){
+	console.log("entered createlibjob");   
+ fs.readFile(__dirname+'/configfolder.xml','UTF-8', function(err, data) {
+	   if (err) {
+		   throw err;
+	   }
+	   xml = data;
+	    jenkins.job.exists("LibraryManagement", function(err, exists) {
+		    if (exists==false)
+			{
+				console.log("LibraryManagement need to create");
+				jenkins.job.create("LibraryManagement",xml, function(err){
+				if (err) throw err;
+				console.log("LibraryManagement created");
+				
+					fs.readFile(__dirname+'/configfolder.xml','UTF-8', function(err, data) {
+					if (err) {throw err;}
+					 xml1 = data;
+						jenkins.job.exists("LibraryManagement/"+Library_Name, function(err, exists) {
+							if (exists==false)
+							{
+								jenkins.job.create("LibraryManagement/"+Library_Name,xml1, function(err){
+								if (err) throw err;
+								console.log("LibraryManagement/"+Library_Name+" created");
+								dir1 = "C:\\Ruby23\\files\\libjob_configfiles";				  
+									fs.readdir(dir1, function(err, filenames) {
+									if (err) {console.log(err);}
+									var  jlength=2;		
+										filenames.forEach(function(filename) {
+											jlength--;
+											console.log(filename);
+											if (err) {console.log(err);}
+												fs.readFile(dir1+'/'+filename,'UTF-8', function(err, data) {
+												if (err) {throw err;}
+												var xml2 = data;
+													jenkins.job.exists("LibraryManagement/"+Library_Name+"/"+(filename.substr(0,filename.indexOf("."))), function(err, exists) {
+														if (exists==false)
+														{
+															jenkins.job.create("LibraryManagement/"+Library_Name+"/"+(filename.substr(0,filename.indexOf("."))),xml2, function(err){
+															if (err) throw err;
+															console.log("job created");
+																			
+															});
+														}
+														else
+														{
+															console.log("Job Exists");
+														}
+													})
+																		
+																	 
+												})
+											if(jlength<1)
+											{
+												var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+											    var createdate1 = new Date().toDateString();
+											    var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+												
+												
+												MongoClient.connect(config.mongodburl, function(err, db) {
+													if(db){
+														var collection = db.collection('svn_library_urls_list');
+																			
+														if(collection){
+															var data = {
+																"url_key":Library_Name,
+																"url_value":Library_URL,
+																"createdDate": createDate,
+																"createdtime": createTime,
+																"updatedDate":"",
+																"updatedTime":"",
+																"Environment":"dev",
+																"By":loginuser
+																								
+															}
+															console.log("Inserting the data -------- "+JSON.stringify(data));
+															collection.insert(data);
+														}else
+														{
+															console.log("collection not found");
+															db.createCollection("svn_library_urls_list",function(err,res){
+																console.log(err);
+																console.log("created collection");
+															});
+															var data = {
+																	"url_key":Library_Name,
+																	"url_value":Library_URL,
+																	"createdDate": createDate,
+																	"createdtime": createTime,
+																	"updatedDate":"",
+																	"updatedTime":"",
+																	"Environment":"dev",
+																	"By":loginuser
+															}
+															console.log("Inserting the data -------- "+JSON.stringify(data));
+															collection.insert(data);
+														}
+																			
+													}
+													else{console.log("error is connecting to db");}
+												});	
+												setTimeout(function() {
+													console.log("library created");
+													res.send("created");		
+												}, 5000);
+											
+											}
+										
+										})
+									
+									})			  
+								})
+							}
+							else
+							{
+								dir1 = "C:\\Ruby23\\files\\libjob_configfiles";
+								fs.readdir(dir1, function(err, filenames) {
+								if (err) {console.log(err);}
+								var  jlength=2;		
+									filenames.forEach(function(filename) {
+										jlength--;
+									    console.log(filename);
+										if (err) {console.log(err);}
+											fs.readFile(dir1+'/'+filename,'UTF-8', function(err, data) {
+											if (err) {throw err;}
+											var xml2 = data;
+												jenkins.job.exists("LibraryManagement/"+Library_Name+"/"+(filename.substr(0,filename.indexOf("."))), function(err, exists) {
+													if (exists==false)
+													{
+														jenkins.job.create("LibraryManagement/"+Library_Name+"/"+(filename.substr(0,filename.indexOf("."))),xml2, function(err){
+														if (err) throw err;
+														console.log("job created");
+																		
+														});
+													}
+													else
+													{
+													    console.log("Job Exists");
+													}
+												})
+																	
+																 
+											})
+										if(jlength<1)
+										{
+											var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+											var createdate1 = new Date().toDateString();
+											var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+											MongoClient.connect(config.mongodburl, function(err, db) {
+												if(db){
+													var collection = db.collection('svn_library_urls_list');
+																		
+													if(collection){
+														var data = {
+															"url_key":Library_Name,
+																"url_value":Library_URL,
+																"createdDate": createDate,
+																"createdtime": createTime,
+																"updatedDate":"",
+																"updatedTime":"",
+																"Environment":"dev",
+																"By":loginuser
+																							
+														}
+														console.log("Inserting the data -------- "+JSON.stringify(data));
+														collection.insert(data);
+													}else
+													{
+														console.log("collection not found");
+														db.createCollection("svn_library_urls_list",function(err,res){
+															console.log(err);
+															console.log("created collection");
+														});
+														var data = {
+																"url_key":Library_Name,
+																"url_value":Library_URL,
+																"createdDate": createDate,
+																"createdtime": createTime,
+																"updatedDate":"",
+																"updatedTime":"",
+																"Environment":"dev",
+																"By":loginuser
+														}
+														console.log("Inserting the data -------- "+JSON.stringify(data));
+														collection.insert(data);
+													}
+																		
+												}
+												else{console.log("error is connecting to db");}
+											});	
+											setTimeout(function() {
+												console.log("library created");
+												res.send("created");		
+											}, 5000);
+										
+										}
+										
+									})
+									
+									
+								})
+							}
+					 
+						})
+					 
+					})
+											    
+												 
+				
+				})
+						  
+						  
+						  
+						  
+						  
+						  
+			}
+					
+			else
+			{
+			 
+			console.log("LibraryManagement folder exist");
+			fs.readFile(__dirname+'/configfolder.xml','UTF-8', function(err, data) {
+			if (err) {throw err;}
+			xml1 = data;
+				jenkins.job.exists("LibraryManagement/"+Library_Name, function(err, exists) {
+							if (exists==false)
+							{
+								jenkins.job.create("LibraryManagement/"+Library_Name,xml1, function(err){
+								if (err) throw err;
+								console.log("LibraryManagement/"+Library_Name+" created");
+								dir1 = "C:\\Ruby23\\files\\libjob_configfiles";				  
+									fs.readdir(dir1, function(err, filenames) {
+									if (err) {console.log(err);}
+									var  jlength=2;		
+										filenames.forEach(function(filename) {
+											jlength--;
+											console.log(filename);
+											if (err) {console.log(err);}
+												fs.readFile(dir1+'/'+filename,'UTF-8', function(err, data) {
+												if (err) {throw err;}
+												var xml2 = data;
+													jenkins.job.exists("LibraryManagement/"+Library_Name+"/"+(filename.substr(0,filename.indexOf("."))), function(err, exists) {
+														if (exists==false)
+														{
+															jenkins.job.create("LibraryManagement/"+Library_Name+"/"+(filename.substr(0,filename.indexOf("."))),xml2, function(err){
+															if (err) throw err;
+															console.log("job created");
+																			
+															});
+														}
+														else
+														{
+															console.log("Job Exists");
+														}
+													})
+																		
+																	 
+												})
+											if(jlength<1)
+											{
+												var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+											var createdate1 = new Date().toDateString();
+											var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+												MongoClient.connect(config.mongodburl, function(err, db) {
+													if(db){
+														var collection = db.collection('svn_library_urls_list');
+																			
+														if(collection){
+															var data = {
+																"url_key":Library_Name,
+																"url_value":Library_URL,
+																"createdDate": createDate,
+																"createdtime": createTime,
+																"updatedDate":"",
+																"updatedTime":"",
+																"Environment":"dev",
+																"By":loginuser
+																								
+															}
+															console.log("Inserting the data -------- "+JSON.stringify(data));
+															collection.insert(data);
+														}else
+														{
+															console.log("collection not found");
+															db.createCollection("svn_library_urls_list",function(err,res){
+																console.log(err);
+																console.log("created collection");
+															});
+															var data = {
+																	"url_key":Library_Name,
+																"url_value":Library_URL,
+																"createdDate": createDate,
+																"createdtime": createTime,
+																"updatedDate":"",
+																"updatedTime":"",
+																"Environment":"dev",
+																"By":loginuser
+															}
+															console.log("Inserting the data -------- "+JSON.stringify(data));
+															collection.insert(data);
+														}
+																			
+													}
+													else{console.log("error is connecting to db");}
+												});	
+												setTimeout(function() {
+													console.log("library created");
+													res.send("created");		
+												}, 5000);
+											
+											}
+										
+										})
+									
+									})			  
+								})
+							}
+							else
+							{
+								dir1 = "C:\\Ruby23\\files\\libjob_configfiles";
+								fs.readdir(dir1, function(err, filenames) {
+								if (err) {console.log(err);}
+								var  jlength=2;		
+									filenames.forEach(function(filename) {
+										jlength--;
+									    console.log(filename);
+										if (err) {console.log(err);}
+											fs.readFile(dir1+'/'+filename,'UTF-8', function(err, data) {
+											if (err) {throw err;}
+											var xml2 = data;
+												jenkins.job.exists("LibraryManagement/"+Library_Name+"/"+(filename.substr(0,filename.indexOf("."))), function(err, exists) {
+													if (exists==false)
+													{
+														jenkins.job.create("LibraryManagement/"+Library_Name+"/"+(filename.substr(0,filename.indexOf("."))),xml2, function(err){
+														if (err) throw err;
+														console.log("job created");
+																		
+														});
+													}
+													else
+													{
+													    console.log("Job Exists");
+													}
+												})
+																	
+																 
+											})
+										if(jlength<1)
+										{
+											var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+											var createdate1 = new Date().toDateString();
+											var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+											MongoClient.connect(config.mongodburl, function(err, db) {
+												if(db){
+													var collection = db.collection('svn_library_urls_list');
+																		
+													if(collection){
+														var data = {
+															"url_key":Library_Name,
+																"url_value":Library_URL,
+																"createdDate": createDate,
+																"createdtime": createTime,
+																"updatedDate":"",
+																"updatedTime":"",
+																"Environment":"dev",
+																"By":loginuser
+																							
+														}
+														console.log("Inserting the data -------- "+JSON.stringify(data));
+														collection.insert(data);
+													}else
+													{
+														console.log("collection not found");
+														db.createCollection("svn_library_urls_list",function(err,res){
+															console.log(err);
+															console.log("created collection");
+														});
+														var data = {
+																"url_key":Library_Name,
+																"url_value":Library_URL,
+																"createdDate": createDate,
+																"createdtime": createTime,
+																"updatedDate":"",
+																"updatedTime":"",
+																"Environment":"dev",
+																"By":loginuser
+														}
+														console.log("Inserting the data -------- "+JSON.stringify(data));
+														collection.insert(data);
+													}
+																		
+												}
+												else{console.log("error is connecting to db");}
+											});	
+											setTimeout(function() {
+												console.log("library created");
+												res.send("created");		
+											}, 5000);
+										
+										}
+										
+									})
+									
+									
+								})
+							}
+					 
+				})		 
+					 
+					 
+			})
+		 
+			}
+						
+						
+		})
+	})
+});
+
+
+app.get("/librarylist",function(req,res){   
+     MongoClient.connect(config.mongodburl, function(err, db) {
+        if(db){
+            var collection = db.collection('svn_library_urls_list');
+            if(collection){
+                collection.find().toArray(function (err, result) {
+				  if (err) {
+					console.log(err);
+				  } else if (result.length) {
+					  
+					for(i=0;i<result.length;i++)
+					{
+					console.log('Found:', result[i].interface_name);
+					}
+					res.send(result);
+				  }
+				  else {
+					
+					console.log('No document(s) found with defined "find" criteria!');
+				  }
+				 
+				})
+            }    
+        }
+        else{
+            console.log("error is connecting to db");
+        }
+    });    
+});
+
+app.get('/viewLibrarypage',function(req,res){
+	libname = req.query.Library_Name;
+	res.send('nameReceived');
+});
+app.get('/getLibName',function(req,res){
+	console.log('Requested Libname ==> '+libname);
+	res.send(libname);
 });
