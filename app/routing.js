@@ -1216,7 +1216,7 @@ console.log(password);
 												collection.find({build_env:build_env}).toArray(function (err, result) {
 												  if (err) {
 													console.log(err);
-												  } else if (result.length) {
+												  } else{
 													  
 													console.log(result);
 													EnvironmentalParameters=result;
