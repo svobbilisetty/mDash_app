@@ -157,7 +157,7 @@
 	
 		var BrokerName=$scope.BrokerName;
 		
-		var svnpassword=$scope.svnpassword;
+		//var svnpassword=$scope.svnpassword;
 			
 		
 		 $http({
@@ -166,8 +166,8 @@
 			"&iibhost="+iibhost+
 			"&IIBNode="+IIBNode+
 			"&executionGroup="+executionGroup+
-			"&BrokerName="+BrokerName+ 
-			"&svnpassword="+svnpassword
+			"&BrokerName="+BrokerName
+			//"&svnpassword="+svnpassword
 		}).then(function(response){
 			
 			if((response.data.search('Job_FAILED'))>0){
@@ -272,7 +272,7 @@
 		
         var target=$scope.target;
 		 
-		var svnpassword=$scope.svnpassword;
+		//var svnpassword=$scope.svnpassword;
         
            // alert("values are..."+iibhost+"  "+IIBNode+"  "+executionGroup+" "+BrokerName+"  "+artifactory_number+"  "+target);
         
@@ -281,7 +281,7 @@
             url : serverHosturl+"rollbackjob?iibhost="+iibhost+
             "&IIBNode="+IIBNode+
             "&executionGroup="+executionGroup+
-            "&BrokerName="+BrokerName+"&artifactory_number="+artifactory_number+"&target="+target+"&build_env="+build_env+"&svnpassword="+svnpassword
+            "&BrokerName="+BrokerName+"&artifactory_number="+artifactory_number+"&target="+target+"&build_env="+build_env
 			
         }).then(function(response){
 			

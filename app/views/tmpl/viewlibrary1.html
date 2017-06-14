@@ -87,33 +87,58 @@ element.appendChild(para);
             </ul>
             <!-- ui-sref="app.editinterface" -->
             <div class="page-toolbar ng-scope">
-                <a ng-click="editLibrary()" class="btn btn-lightred no-border ng-isolate-scope" ng-click="edit()"> <i class="fa fa-edit"></i>&nbsp;&nbsp;<span class="ng-binding">Edit</span> </a>
+                <a ng-click="editLibrary()" class="btn btn-lightred no-border ng-isolate-scope" > <i class="fa fa-edit"></i>&nbsp;&nbsp;<span class="ng-binding">Edit</span> </a>
             </div>
         </div>
     </div>
 	
-<!-- 	progress-bar -->
+<!-- Pop-up for edit Library - START -->
+					  <div id="id01" class="w3-modal" ng-show="buildmodal">
 	
-<!-- 	<div class="checkout-wrap">
-  <ul class="checkout-bar">
+    <div class="w3-modal-content">
+      <div class="w3-container" >
+	  
+	  <header class="w3-container w3-teal">
+       <span onclick="document.getElementById('id01').style.display='none'"
 
-    <li class="visited first one">
-      <a style="color:green" onclick="fa1()">Build <br>Initiated</a>
-    </li>
-    
-    <li class="previous visited two">
-	<a class="color1" onclick="fa2()"> Library<br> Detection</a></li>
-    
-    <li class="active four">
-	<a class="color3" onclick="fa4()"> Create <br>Queue</a></li>
+       class="w3-button w3-display-topright" >&times;</span>
+
+        <h4><b>Add New Library</b></h4>
+     </header>
+
+        <span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
 	
-	<li class="active six">
-	<a class="color5" onclick="fa6()">Deploy
- <br>Automation</a>
-	</li>
-      
-  </ul>
-</div> -->
+			<div class="form-group row">
+				<div class="col-sm-6">
+				<div id="ConfigServiceName">
+						 <br><label for="ConfigServiceName"><b>Library Name</b></label><br>
+						<input class="form-group col-sm-12" id="ConfigServiceName" type="text" ng-model="LibraryName"></input>
+					</div>
+					<div id="SenderPort_Num ">
+					 <br>
+						<label for="SenderPort_Num"><b>Library URL</b></label>
+						<br><input class="form-group col-sm-12" id="SenderPort_Num" type="text" ng-model="LibraryURL"></input>
+					</div>
+					<div id="SenderPort_Num ">
+					 <br>
+						<label for="SenderPort_Num"><b>SVN Password</b></label>
+						<br><input class="form-group col-sm-12" id="svnpassword" type="password" ng-model="svnpassword"></input>
+					</div>
+				
+				</div>
+				
+				</div>
+				<div class="form-group row col-sm-12">
+							<button type="button" class="btn btn-darkgray mb-10 col-sm-6"  ng-click="EditLib()" style="background-color:#0d416b";><b>Edit Library</b></button>
+							</div>
+							
+		
+							
+			</div>
+			
+      </div>
+    </div>
+<!-- Pop-up for edit Library - END -->
 	
 	
 <div class="row ">
@@ -133,21 +158,21 @@ element.appendChild(para);
                                             <mark class="bg-white">v17.4</mark>
                                             <h1 class="">Dev</h1>
                                         </div><br><br>
-										<button style="font-weight:900;background-color:#2368a0;color:#ffffff;" ng-click="builddetails()" class="btn  mb-10 col-sm-12" activate-button="loading" id="deploy"><i id="btns" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load">Build </span></button>
-										 <div id="id01" class="w3-modal" ng-show="buildmodal">
+										<button style="font-weight:900;background-color:#2368a0;color:#ffffff;" ng-click="builddetails()" class="btn  mb-10 col-sm-12" activate-button="loading" id="build"><i id="btns" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load">Build </span></button>
+<div id="id02" class="w3-modal" ng-show="buildmodal1">
 	
-    <div class="w3-modal-content">
+    <div class="w3-modal-content" >
       <div class="w3-container" >
 	  
 	  <header class="w3-container w3-teal">
-       <span onclick="document.getElementById('id01').style.display='none'"
+       <span onclick="document.getElementById('id02').style.display='none'"
 
        class="w3-button w3-display-topright" >&times;</span>
 
        <h4 style="font-weight:900;color:#ffffff;">Build Now</h4>
      </header>
 
-        <span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
+        <span ng-click="close2()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
 	
 			<div class="form-group row">
 				<div class="col-sm-6">
@@ -165,10 +190,10 @@ element.appendChild(para);
 					<label for="BrokerName ">Broker </label>
 					<input class="form-group col-sm-12" id="BrokerName " type="text" ng-model="BrokerName "></input>
 				</div>
-				<div id="password " >
+				<!-- <div id="password " >
                     <label for="password  ">SVN Password  </label>
                     <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
-                </div>
+                </div> -->
 				</div>
 				<div class="col-sm-6">
 				
@@ -203,62 +228,62 @@ element.appendChild(para);
                                             <mark class="bg-white">v19.7</mark>
                                             <h1 class="">Test</h1>
                                         </div><br><br>
-										<button style="font-weight:900;background-color:#00aae7;color:#ffffff;" ng-click="builddetails()" class="btn  mb-10 col-sm-12" activate-button="loading" id="deploy"><i id="btns" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load">Deploy</span></button>
-										 <div id="id01" class="w3-modal" ng-show="buildmodal">
+										<button style="font-weight:900;background-color:#00aae7;color:#ffffff;" ng-click="deploydetails()" class="btn  mb-10 col-sm-12" activate-button="loading" id="deploy"><i id="btns" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load">Deploy</span></button>
+	<div id="id03" class="w3-modal" ng-show="buildmodal2">
 	
     <div class="w3-modal-content">
       <div class="w3-container" >
 	  
 	  <header class="w3-container w3-teal">
-       <span onclick="document.getElementById('id01').style.display='none'"
+       <span onclick="document.getElementById('id03').style.display='none'"
 
        class="w3-button w3-display-topright" >&times;</span>
 
-       <h4 style="font-weight:900;color:#ffffff;">Build Now</h4>
+       <h4 style="font-weight:900;color:#ffffff;">Deploy</h4>
      </header>
 
-        <span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
+        <span ng-click="close3()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
 	
 			<div class="form-group row">
 				<div class="col-sm-6">
 				 <div id="build_envDiv" >
 					<!-- <label for="Build Environment">Build Environment</label> -->
-			   <input class="form-group col-sm-12" id="build_env" type="text" ng-model="build_env" style="display: none;"></input>
+			   <input class="form-group col-sm-12" id="build_env_d" type="text" ng-model="build_env_d" style="display: none;"></input>
 				</div> 
 				<div id="svnrepoDiv" >
 					<label for="IIBNode">IIB Node</label>
 					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
-					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
+					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="IIBNode_d" ng-options="x for x in IIBNodes_d"></select>
 				</div><br>
 				
 				<div id="messageflownameDiv" >
 					<label for="BrokerName ">Broker </label>
-					<input class="form-group col-sm-12" id="BrokerName " type="text" ng-model="BrokerName "></input>
+					<input class="form-group col-sm-12" id="BrokerName_d " type="text" ng-model="BrokerName_d "></input>
 				</div>
-				<div id="password " >
+				<!-- <div id="password " >
                     <label for="password  ">SVN Password  </label>
-                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
-                </div>
+                    <input class="form-group col-sm-12" id="password_d  " type="password" ng-model="svnpassword_d"></input>
+                </div> -->
 				</div>
 				<div class="col-sm-6">
 				
 				<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
 					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
-					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="iibhost" ng-options="x for x in iibhosts" readonly></select>
+					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="iibhost_d" ng-options="x for x in iibhosts_d" readonly></select>
 				</div><br>
 
 				<div id="projectnameDiv" >
 					<label for="executionGroup">Execution Group</label>
 					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input> -->
-					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
+					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="executionGroup_d" ng-options="x for x in executionGroups_d"></select>
 				</div><br>
 				
 				</div>
 				</div>
 				<div class="form-group row col-sm-12">
 				
-			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="build()">Build Now</button>
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="deploy()">Deploy</button>
 			</div>
 							
 		
@@ -274,21 +299,21 @@ element.appendChild(para);
                                             <mark class="bg-white">v9.2</mark>
                                             <h1 class="">Prod</h1>
                                         </div><br><br>
-										<button style="font-weight:900;background-color:#0d416b;color:#ffffff;" ng-click="builddetails()" class="btn  mb-10 col-sm-12" activate-button="loading" id="deploy"><i id="btns" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load">Roll Back</span></button>
-										 <div id="id01" class="w3-modal" ng-show="buildmodal">
+										<button style="font-weight:900;background-color:#0d416b;color:#ffffff;" ng-click="rollbackdetails()" class="btn  mb-10 col-sm-12" activate-button="loading" id="rollback"><i id="btns" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load">Roll Back</span></button>
+	<div id="id04" class="w3-modal" ng-show="buildmodal3">
 	
     <div class="w3-modal-content">
       <div class="w3-container" >
 	  
 	  <header class="w3-container w3-teal">
-       <span onclick="document.getElementById('id01').style.display='none'"
+       <span onclick="document.getElementById('id04').style.display='none'"
 
        class="w3-button w3-display-topright" >&times;</span>
 
-       <h4 style="font-weight:900;color:#ffffff;">Build Now</h4>
+       <h4 style="font-weight:900;color:#ffffff;">Roll Back</h4>
      </header>
 
-        <span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
+        <span ng-click="close4()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
 	
 			<div class="form-group row">
 				<div class="col-sm-6">
@@ -329,7 +354,7 @@ element.appendChild(para);
 				</div>
 				<div class="form-group row col-sm-12">
 				
-			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="build()">Build Now</button>
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="rollback()">Roll Back</button>
 			</div>
 							
 		
@@ -351,8 +376,8 @@ element.appendChild(para);
                         <style>
                             @import url('https://fonts.googleapis.com/css?family=Inconsolata');
                         </style>
-                        <div id="console2" class="demo" style="height:355px;overflow-y:scroll;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
-                            <h5 style="font-weight:900">Jenkins Job Execution Log</h5>
+                        <div id="console3" class="demo" style="height:355px;overflow-y:scroll;background-color:#232527;color:#ffffff;padding: 10px 10px;font-family:Inconsolata;">
+                            <h5 style="font-weight:900">Library Job Execution Log</h5>
                         </div>
 	</section>
 </div>
@@ -374,12 +399,25 @@ element.appendChild(para);
                             <tbody>
                                 <tr>
                                     <th>Library Name</th>
+									<th> Job Type </th>
                                     <th>Created Date</th>
                                     <th>Last Updated</th>
                                     <th>Deploy Status</th>
                                     <th>Environment</th>
                                     <th>By</th>
                                 </tr>
+								<tr ng-repeat="x in librarylog |  orderBy: '-updatedDate' && orderBy: '-updatedTime'">
+									      <td>{{x.url_key}}</td>
+										   <td>{{x.Jobtype}}</td>
+										   <td> {{x.createdDate || ''}} - {{x.createdtime || ''}}</td>
+									    <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
+										 <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
+										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
+                                       <td>{{x.Environment}}</td>
+									   <td>{{x.By}}</td>
+                                      <!--  <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus || ""}}</center></td> -->
+                                    
+                                    </tr>
                             </tbody>
                         </table>
                     </section>

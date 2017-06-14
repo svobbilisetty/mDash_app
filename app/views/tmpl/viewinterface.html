@@ -82,8 +82,8 @@ background-color: #0d416b !important;
                                        <td> {{x.createdDate || ''}} - {{x.createdtime || ''}}</td>
                                      <!--  <td> 06:14 PM</td> -->
                                      <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
-										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
-                                      <td><center>{{x.Environment  | uppercase}}</center></td>
+										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-primary'))}}"></span></td>
+                                      <td><center>{{x.Environment | uppercase}}</center></td>
                                     </tr>
 
 
@@ -189,17 +189,35 @@ background-color: #0d416b !important;
                                       <th> <center>Environment </center></th>
                                       <th> By </th>
                                     </tr>
-									<tr ng-repeat="x in flowslog | orderBy: '-updatedDate' | orderBy: '-updatedTime'">
+									<tr ng-repeat="x in flowslog |  orderBy: '-updatedDate' && orderBy: '-updatedTime'">
 									  <td  ng-click="flow(x.flowname)"><font color="#616f77"><span class="tab"><a style="color:#2368a0 ";>{{x.flowname}}</a></span></font></td>
 									   <td>{{x.Jobtype}}</td>
 									  <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
                                      <!--  <td> 06:14 PM</td> -->
                                      <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
 										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
-                                      <td><center>{{x.Environment  | uppercase}}</center></td>
+                                      <td><center>{{x.Environment | uppercase}}</center></td>
 									   <td>{{x.By}}</td>
                                     </tr>
-                                  
+                                   <!--  <tr>
+                                      <td><a ui-sref="app.projectbuild" href="#/app/projectbuild"><font color="#616f77"><span class="tab">CLA_CLIENTMISC_ORM</span></font></a></td>
+                                       <td>Rollback</td>
+									  <td> 3 April 2017 - 07:44 PM  </td>
+									 <td> 3 April 2017 - 07:44 PM  </td>
+                                      
+                                      <td><center><i class="fa fa-square text-success"></i></center></td>
+                                      <td><center>DEV</center></td>
+                                      <td> Chanakya Lokam</td>
+                                    </tr>
+                                    <tr>
+                                      <td>NLA_FEDMNET_ORM</td>
+									  <td>Rollback</td>
+                                      <td> 4 April 2017 - 07:44 PM </td>
+									  <td> 3 April 2017 - 07:44 PM </td>
+                                      <td><center><i class="fa fa-square text-success"></i></center></td>
+                                      <td><center>TEST</center></td>
+                                      <td>Chanakya Lokam</td>
+                                    </tr> -->
 
                                   </tbody>
                                 </table>
@@ -293,10 +311,10 @@ background-color: #0d416b !important;
                     <label for="username  ">Username  </label>
                     <input class="form-group col-sm-12" id="username  " type="text" ng-model="username"></input>
                 </div> -->
-				<div id="password " >
+				<!-- <div id="password " >
                     <label for="password  ">SVN Password  </label>
                     <input class="form-group col-sm-12" id="password  " type="password" ng-model="password"></input>
-                </div>
+                </div> -->
 				<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
 					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
@@ -338,10 +356,10 @@ background-color: #0d416b !important;
                     <label for="iibhost   ">IIB Host   </label>
                     <input class="form-group col-sm-12" style="padding:2px;" id="iibhost   " type="text" ng-model="iibhost   "></input>
                 </div>
-						<div id="password">
+						<!-- <div id="password">
 		<label for="password">SVN Password</label>
 		<input class="form-group col-sm-12" id="password" type="password" ng-model="password"></input>
-	 </div>
+	 </div> -->
 	</div>
 	 <div class="col-sm-6">
 	  <div id="ReceiverPort  " >
@@ -439,10 +457,10 @@ OBX|3|CE|OETRNSP3^Transport Info||BIV^Bed with IV
 									  <th> Executed By </th>
                                       <th> <center>Result</center></th>
                                     </tr>
-                                   <tr ng-repeat="x in testlog | orderBy: '-updatedDate' | orderBy: '-updatedTime'">
+                                   <tr ng-repeat="x in testlog |  orderBy: '-updatedDate' && orderBy: '-updatedTime'">
 									 
 									    <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
-                                       <td>{{x.Environment  | uppercase}}</td>
+                                       <td>{{x.Environment | uppercase}}</td>
 									   <td>{{x.By}}</td>
                                       <!--  <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus || ""}}</center></td> -->
                                      <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->

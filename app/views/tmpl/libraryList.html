@@ -73,7 +73,7 @@ background-color: #0d416b !important;
                                       <th>Environment</th>
                                       <th> By </th>
                                     </tr>
-									<tr ng-repeat="x in librarylist | orderBy: '-updatedDate' | orderBy: '-updatedTime'">
+									<tr ng-repeat="x in librarylist |  orderBy: '-updatedDate' && orderBy: '-updatedTime'">
 										<td  ng-click="viewlibrary(x.url_key)"><font color="#616f77"><span class="tab"><a style="cursor:default">{{x.url_key}}</a></span></font></td>
 										<td>{{x.createdDate || ''}} - {{x.createdtime || ''}} </td>
 										<td>{{x.updatedDate || ''}} - {{x.updatedTime || ''}} </td>

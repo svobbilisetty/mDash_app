@@ -9,7 +9,7 @@
 */
  app.controller('librarylist', function ($scope, $state,$http,$window,$location) {
 	  var  serverHosturl;
-	 //alert("enterd addLibrarylist");
+	// alert("enterd addLibrarylist");
 	  $http({
 			method : "GET",
 			url : "/public/serverHost.json"	
@@ -65,7 +65,6 @@
 	  
 	};
 	// Library Add pop-up - END
-	
 	//View Library redirection - START
 		$scope.viewlibrary = function(libname){
 		//	alert(libname);

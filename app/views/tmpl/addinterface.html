@@ -1,7 +1,27 @@
  <script src="http://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	 <style>
+		.w3-btn{
+		 padding: 10px 15px;
+		}
+
+		.w3-button {
+		 font-size: 16px;
+		 line-height: 1.6;
+		 padding: 8px 15px;
+		}
+		.w3-teal, .w3-hover-teal:hover {
+		 color: #fff !important;
+		background-color: #0d416b !important;
+		 margin-left:-17px;
+
+		}
+		.w3-button:hover {
+			background-color: #0d416b !important;
+		}
+
 	 .tabs-dark .nav-tabs > li.active > a, .tabs-dark .nav-tabs > li.active > a:hover, .tabs-dark .nav-tabs > li.active > a:focus {
     background-color: #2368a0;
     color: white;
@@ -75,7 +95,7 @@ border: 3px solid #22beef !important;
         <div class="tile-body">
 		<div class="form-group">
 <div class="form-group "> <label for="inputPassword3" class="col-sm-4 control-label"><b> Interface Name</b></label>  <br><br><span class="col-sm-6"><input class="form-control col-sm-6"  id="Interface" placeholder="Interface Name" ng-model="interface_name" ></span> </div><br><br>
-<div class="form-group "><label for="inputPassword3" class="col-sm-5 control-label"><b>SVN Password</b></label><br><br><span class="col-sm-6"><input  type="password" class="form-control col-sm-6"  id="svnpassword" placeholder="SVN Password" ng-model="svnpassword" ></span> </div>
+<!--<div class="form-group "><label for="inputPassword3" class="col-sm-5 control-label"><b>SVN Password</b></label><br><br><span class="col-sm-6"><input  type="password" class="form-control col-sm-6"  id="svnpassword" placeholder="SVN Password" ng-model="svnpassword" ></span> </div>-->
 		
           <div >
 
@@ -144,9 +164,52 @@ border: 3px solid #22beef !important;
 			</div>
 			<div class="col-sm-2">
 			<!-- <button type="button" ng-click="saveInterface()" class="btn btn-cyan mb-10 col-sm-10"><b>Save Interface</b></button>-->
-			<button ng-click="saveInterface()"  class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 col-sm-12" activate-button="loading"><i id="btns" style="display:none;" class="fa fa-refresh fa-spin"></i><span id="load" style="position:relative;left:-13px;"><span style="font-weight: 900">Save Interface</span></button>
+			<button ng-click="saveInterface1()"  class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 col-sm-12" activate-button="loading"><i id="btns" style="display:none;" class="fa fa-refresh fa-spin"></i><span id="load" style="position:relative;left:-13px;"><span style="font-weight: 900">Save Interface</span></button>
 			</div>
 			
+			<div id="id01" class="w3-modal" ng-show="buildmodal">
+	
+    <div class="w3-modal-content">
+      <div class="w3-container" >
+	  
+	  <header class="w3-container w3-teal">
+       <span onclick="document.getElementById('id01').style.display='none'"
+
+       class="w3-button w3-display-topright" >&times;</span>
+
+       <h4 style="font-weight:900;color:#ffffff;">Please Authenticate yourself!!!</h4>
+     </header>
+
+        <span ng-click="close()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
+	
+			<div class="form-group row">
+				<div class="col-sm-6">
+				 <div id="build_envDiv" >
+					<!-- <label for="Build Environment">Build Environment</label> -->
+			   <input class="form-group col-sm-12" id="build_env" type="text" ng-model="build_env" style="display: none;"></input>
+				</div> 
+				
+				
+				
+				<div id="password " >
+                    <label for="password  ">SVN Password  </label>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
+                </div>
+				</div>
+				
+				</div>
+				<div class="form-group row col-sm-12">
+				
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="save()">Create Interface</button>
+			</div>
+							
+		
+							
+			</div>
+			
+      </div>
+    </div>
+	
 			
 			</div>
 			   

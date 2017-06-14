@@ -10,6 +10,7 @@
  app.controller('AddInterface', function ($scope, $state,$http,$window,$location,$timeout,$parse) {
 	 //alert("enterd add interface");
 	 var  serverHosturl;
+	$scope.buildmodal=false;
 	 var svnrepohost;
 	 var flownames1=[];
 	 var interfacenames=[];
@@ -81,13 +82,29 @@
 	  
  
 
-
-		 $scope.saveInterface = function()
+		 $scope.saveInterface1 = function()
 		 {
+				$scope.buildmodal=true;	
+				document.getElementById('id01').style.display='block';
+				//alert($scope.svnpassword);
+				//$scope.saveInterface();
+		 }
+		 $scope.save = function(){
+			 	//alert($scope.svnpassword);
+				$scope.saveInterface($scope.svnpassword);
+		 }
+		 $scope.close= function(){  
+       document.getElementById('id01').style.display='none';
+     
+    };
+		 $scope.saveInterface = function(svnpassword)
+		 {
+			 $scope.close();
 			 btnm();
 			// alert("enterd saveInterface")
 				var interface_name = $scope.interface_name;
-				var svnpassword = $scope.svnpassword;
+				//var svnpassword = $scope.svnpassword;
+				alert($scope.svnpassword);
 				 var no_rows = document.getElementById("svnTable").rows.length;
 				// alert(no_rows);
 				var no_flows=no_rows-1;
@@ -230,9 +247,10 @@ var i=this.id;
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
 									alert(response.data);
+									$state.go('app.interfacelist');
 								}
 								//alert("response: "+response.data);
-								 if (flow_names.length > 0) {   //callback
+								 else if (flow_names.length > 0) {   //callback
 									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword)
 								 }
 								 else

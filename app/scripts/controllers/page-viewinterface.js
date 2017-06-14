@@ -176,7 +176,7 @@
             var SenderHost_IP = $scope.SenderHost_IP
             var SenderPort_Num = $scope.SenderPort_Num
             //var username = $scope.username
-            var svnpassword = $scope.password
+            //var svnpassword = $scope.password
 			var IIBNode = $scope.IIBNode
 			var iibhost = $scope.iibhost
 		    var executionGroup = $scope.executionGroup
@@ -187,7 +187,7 @@
             url : serverHosturl+"UpdateConfigServiceName?ConfigServiceName="+ConfigServiceName+
             "&SenderHost_IP="+SenderHost_IP+
             "&SenderPort_Num="+SenderPort_Num+
-            "&svnpassword="+svnpassword+
+          //  "&svnpassword="+svnpassword+
 			"&IIBNode="+IIBNode+
 			"&iibhost="+iibhost+
 			"&executionGroup="+executionGroup+
@@ -230,7 +230,7 @@
             var ReceiverPort = $scope.ReceiverPort
             var iibhost = $scope.iibhost
             var FlowName = $scope.FlowName
-			var svnpassword = $scope.password
+		//	var svnpassword = $scope.password
             
              $http({
             method : "GET",
@@ -238,7 +238,7 @@
             "&ReceiverPort="+ReceiverPort+
             "&iibhost="+iibhost+
             "&FlowName="+FlowName+
-			"&svnpassword="+svnpassword+
+			//"&svnpassword="+svnpassword+
 			"&i_name="+i_name
         }).then(function(response){
             

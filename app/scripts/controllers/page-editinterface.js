@@ -93,13 +93,29 @@
   }
 );
 	  }); 
-	
+	$scope.saveInterface1 = function()
+		 {
+				$scope.buildmodal=true;	
+				document.getElementById('id01').style.display='block';
+				//alert($scope.svnpassword);
+				//$scope.saveInterface();
+		 }
+		 $scope.save = function(){
+			 	//alert($scope.svnpassword);
+				$scope.saveInterface($scope.svnpassword);
+		 }
+		 $scope.close= function(){  
+       document.getElementById('id01').style.display='none';
+     
+    };
 	
 	
 	
  
-		 $scope.saveInterface = function()
+		 $scope.saveInterface = function(svnpassword)
 		 {
+			  $scope.close();
+			  alert($scope.svnpassword);
 			 btnm();
 			// alert("enterd saveInterface")
 				var interface_name = $scope.interface_name;
@@ -123,7 +139,7 @@
                    //alert(flow_names)	;	
 					//alert(last)	;	
 					//alert(Remote_SVN_URLs)	;
-				buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows);
+				buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword);
 				
 		 }
 		 
@@ -216,7 +232,7 @@ var i=this.id;
 	  
 	  
 	  
-	   function buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows){
+	   function buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword){
 					var flow_names1 = flow_names.shift();
 					var last1=last.shift();
 					var Remote_SVN_URLs1 = Remote_SVN_URLs.shift();
@@ -227,20 +243,21 @@ var i=this.id;
 				  }).then(function(response) {
 					   if(response.data=="no_match")
                   {
-					  alert("entered new flow");
+					 // alert("entered new flow");
 					 $http({
 								method : "GET",
 								url : serverHosturl+"createBuildFolder?interface_name="+interface_name+
 								"&flowname="+flow_names1+
 								"&type="+last1+
-								"&Remote_SVN_URL="+Remote_SVN_URLs1
+								"&Remote_SVN_URL="+Remote_SVN_URLs1+
+								"&svnpassword="+svnpassword
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
 									alert(response.data);
 								}
 								//alert("response: "+response.data);
 								 if (flow_names.length > 0) {   //callback
-									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows)
+									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword)
 								 }
 								 else
 								 {
@@ -267,7 +284,7 @@ var i=this.id;
 					   {
 						   alert("entered exist flow");
 						   if (flow_names.length > 0) {   //callback
-									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows)
+									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword)
 								 }
 								 else
 								 {
@@ -294,7 +311,8 @@ var i=this.id;
                                 url : serverHosturl+"deleteflow?interface_name="+interface_name+
 								"&flowname="+flow_names1+
 								"&type="+last1+
-								"&Remote_SVN_URL="+Remote_SVN_URLs1
+								"&Remote_SVN_URL="+Remote_SVN_URLs1+
+								"&svnpassword="+svnpassword
                             }).then(function(response){
                                 alert(response.data);
 								if(response.data=="deleted")
@@ -304,14 +322,15 @@ var i=this.id;
 								url : serverHosturl+"createBuildFolder?interface_name="+interface_name+
 								"&flowname="+flow_names1+
 								"&type="+last1+
-								"&Remote_SVN_URL="+Remote_SVN_URLs1
+								"&Remote_SVN_URL="+Remote_SVN_URLs1+
+								"&svnpassword="+svnpassword
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
 									alert(response.data);
 								}
 								//alert("response: "+response.data);
 								 if (flow_names.length > 0) {   //callback
-									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows)
+									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword)
 								 }
 								 else
 								 {

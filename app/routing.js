@@ -26,7 +26,6 @@ var svnUltimate = require('node-svn-ultimate');
 var svnUltimate1 = require('svn-info');
 var client;
 var loginuser;
-var libname;
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -86,6 +85,7 @@ app.post('/serverlogin', function (req, res) {
 														if(role=="admin")
 														{
 															loginuser = uname;
+															password = password;
 															res.send("admin");
 														}
 														else
@@ -97,6 +97,7 @@ app.post('/serverlogin', function (req, res) {
 															else
 															{
 																loginuser = uname;
+																password = password;
 																res.send("user");
 															}
 															
@@ -1183,7 +1184,8 @@ app.use(body.json());
 app.get('/build', function (req, res) {
 	data={};
    console.log("entered build"); 
-console.log(req.query.username);
+console.log(loginuser);
+console.log(password);
          build_env = req.query.build_env;
          console.log(build_env); 
 	     iibhost=req.query.iibhost;
@@ -1194,7 +1196,7 @@ console.log(req.query.username);
 		
 		BrokerName=req.query.BrokerName;
 		
-		svnpassword=req.query.svnpassword;
+		//svnpassword=req.query.svnpassword;
       
 					MongoClient.connect(config.mongodburl, function(err, db) {
 				if(db){
@@ -1257,7 +1259,7 @@ console.log(req.query.username);
 														messageflowname: messageflowname,
 														svnrepo:svnrepo,
 														svnusername:loginuser,
-														svnpassword:svnpassword
+														svnpassword:password
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("build triggered");
@@ -1297,7 +1299,7 @@ console.log(req.query.username);
 														messageflowname: messageflowname,
 														svnrepo:svnrepo,
 														svnusername:loginuser,
-														svnpassword:svnpassword
+														svnpassword:password
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("build triggered");
@@ -1353,6 +1355,9 @@ console.log(req.query.username);
 
 app.get('/console', function (req, res) {  
 nextbuild_no=build_no+1;  
+var Library_Name = req.query.Library_Name;
+console.log(Library_Name);
+if(Library_Name!=null){folder="";flowName=""}
 console.log("entered console with nextbuild_no ==> "+nextbuild_no);
    var uri=executed_job;
    console.log("uri : "+uri);
@@ -1393,8 +1398,8 @@ log.on('end', function(end) {
 							 jobdata=data;
 							  console.log('job status'+ data.builds[0].result+" build number  "+data.builds[0].number);
 							// res.send(data);
-							//if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
-								if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
+							if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
+							//	if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
 							{
 								client.emit('progress', uri);
 								current_job=uri;
@@ -1518,9 +1523,65 @@ log.on('end', function(end) {
 									
 									res.send("JObs Executed")
 								}
+								else if( current_job=="LibraryManagement/"+Library_Name+"/"+Library_Name+"_Build" || current_job=="LibraryManagement/"+Library_Name+"/"+"Deploy_"+Library_Name)
+								{
+									var jobtype2;
+									if ((current_job.search('_Build'))>0){
+					               //alert("Build completed");
+					                jobtype2="Build";
+									console.log(jobtype2);
+				                   }
+								   else if((current_job.search('Deploy_'))>0){
+					               //alert("Build completed");
+					                jobtype2="Deploy";
+									console.log(jobtype2);
+				                   }
+								  
+								
+									// If here, update flows collection last update to current timestamp and status to SUCCESS.
+									// Also, update Interface collection last update to current timestamp
+									var updatedTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+									var updatedDate1 = new Date().toDateString();
+									var updatedDate =updatedDate1.slice(updatedDate1.indexOf(" "),updatedDate1.length);
+									 MongoClient.connect(config.mongodburl, function(err, db) {
+										if(db){
+											var svn_library_urls_list = db.collection('svn_library_urls_list');
+											var librarylog= db.collection('librarylog');
+											svn_library_urls_list.find({url_key:Library_Name}).toArray(function 
+											(err, result) {
+												
+												
+												svn_library_urls_list.update({url_key:Library_Name},{$set:{updatedDate:updatedDate,updatedTime:updatedTime,flowstatus:'SUCCESS'}},function(err, res){
+														if (err) throw console.log(err);
+														console.log(res.result.nModified + " record updated");
+													});
+												//	console.log("date"+result[0].createdDate+"time"+result[0].createdtime);
+													log=
+													{
+														            "url_key":Library_Name,
+																	"url_value":result[0].url_value,
+																	"createdDate": result[0].createdDate,
+																	"createdtime": result[0].createdtime,
+																	"updatedDate":updatedDate,
+																	"flowstatus":"SUCCESS",
+																	"Jobtype":jobtype2,
+																	"updatedTime":updatedTime,
+																	"Environment":result[0].Environment,
+																	"By":loginuser
+													}
+													librarylog.insert(log);
+													
+												 
+											});											
+										}
+										})
+										res.send("JOb Executed")
+										}
+								
+								
 								else{
 									//res.location("Done");
-									res.redirect('/build1');
+									res.redirect('/build1?folder='+folder+'&flowName='+flowName);
 								}
 								
 								
@@ -1648,6 +1709,60 @@ log.on('end', function(end) {
 									
 									
 								}
+								else if( current_job=="LibraryManagement/"+Library_Name+"/"+Library_Name+"_Build" || current_job=="LibraryManagement/"+Library_Name+"/"+"Deploy_"+Library_Name)
+								{
+									var jobtype2;
+									if ((current_job.search('_Build'))>0){
+					               //alert("Build completed");
+					                jobtype2="Build";
+									console.log(jobtype2);
+				                   }
+								   else if((current_job.search('Deploy_'))>0){
+					               //alert("Build completed");
+					                jobtype2="Deploy";
+									console.log(jobtype2);
+				                   }
+								  
+								
+									// If here, update flows collection last update to current timestamp and status to SUCCESS.
+									// Also, update Interface collection last update to current timestamp
+									var updatedTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+									var updatedDate1 = new Date().toDateString();
+									var updatedDate =updatedDate1.slice(updatedDate1.indexOf(" "),updatedDate1.length);
+									 MongoClient.connect(config.mongodburl, function(err, db) {
+										if(db){
+											var svn_library_urls_list = db.collection('svn_library_urls_list');
+											var librarylog= db.collection('librarylog');
+											svn_library_urls_list.find({url_key:Library_Name}).toArray(function 
+											(err, result) {
+												
+												
+												svn_library_urls_list.update({url_key:Library_Name},{$set:{updatedDate:updatedDate,updatedTime:updatedTime,flowstatus:'SUCCESS'}},function(err, res){
+														if (err) throw console.log(err);
+														console.log(res.result.nModified + " record updated");
+													});
+												//	console.log("date"+result[0].createdDate+"time"+result[0].createdtime);
+													log=
+													{
+														            "url_key":Library_Name,
+																	"url_value":result[0].url_value,
+																	"createdDate": result[0].createdDate,
+																	"createdtime": result[0].createdtime,
+																	"updatedDate":updatedDate,
+																	"flowstatus":"SUCCESS",
+																	"updatedTime":updatedTime,
+																	"Environment":result[0].Environment,
+																	"By":loginuser
+													}
+													librarylog.insert(log);
+													
+												 
+											});											
+										}
+										})
+										
+										}
+								
                                 console.log(uri+"FAILED");
                                 res.send(uri+"_job_FAILED");
                             }
@@ -1658,7 +1773,10 @@ log.on('end', function(end) {
 });
 
 app.get('/build1', function (req, res) {
-	
+	console.log(current_job);
+	folder=req.query.folder;
+	flowName= req.query.flowName;
+	console.log(folder+"---------"+flowName);
 	if(current_job==folder+"/"+flowName+"/"+flowName+"_Build")
 	{
 		next_job=folder+"/"+flowName+"/Library_Detection";
@@ -1672,7 +1790,7 @@ app.get('/build1', function (req, res) {
 			svnhost:CentralizedParameters[0].svnhost,
 			svnrepo:svnrepo,
 			svnusername:loginuser,
-		    svnpassword:svnpassword
+		    svnpassword:password
 
 		       }
 			   
@@ -1690,7 +1808,7 @@ app.get('/build1', function (req, res) {
 			deployment_path:EnvironmentalParameters[0].deployment_path,
 			iibhost: EnvironmentalParameters[0].iibhost,
 			svnusername:loginuser,
-		    svnpassword:svnpassword
+		    svnpassword:password
 
 		}
 		}
@@ -1709,7 +1827,7 @@ app.get('/build1', function (req, res) {
 			IIBNode:  EnvironmentalParameters[0].IIBNode,
 			executionGroup :EnvironmentalParameters[0].executionGroup,
 			svnusername:loginuser,
-		    svnpassword:svnpassword
+		    svnpassword:password
 		}
 		}
 		
@@ -1727,7 +1845,7 @@ app.get('/build1', function (req, res) {
 			deployment_path:EnvironmentalParameters[0].deployment_path,
 			iibhost: EnvironmentalParameters[0].iibhost,
 			svnusername:loginuser,
-		    svnpassword:svnpassword
+		    svnpassword:password
 
 		}
 		
@@ -1749,7 +1867,7 @@ app.get('/build1', function (req, res) {
 			ArtifactoryUserName : CentralizedParameters[0].ArtifactoryUserName,
             ArtifactoryPassword : CentralizedParameters[0].ArtifactoryPassword,
 			svnusername:loginuser,
-		    svnpassword:svnpassword
+		    svnpassword:password
 		}
 		
 	}
@@ -1809,14 +1927,17 @@ app.get("/SaveCentralizedParameters",function(req,res){
                 }
 				collection.remove();
                 console.log("Inserting the data -------- "+JSON.stringify(data));
-                collection.insert(data);
+					setTimeout(function() {
+					collection.insert(data);													 
+					}, 3000);
+               res.send("CentralizedParameters_saved");
             }    
         }
         else{
             console.log("error is connecting to db");
         }
     });    
-    res.send("CentralizedParameters_saved");
+    
 });
 
 app.get("/SaveEnvironmentalParameters",function(req,res){
@@ -1847,14 +1968,16 @@ app.get("/SaveEnvironmentalParameters",function(req,res){
                 }
 				collection.remove({ "build_env":build_env});
                 console.log("Inserting the data -------- "+JSON.stringify(data));
-                collection.insert(data);
+                setTimeout(function() {
+					collection.insert(data);						
+					}, 3000);
+					 res.send("EnvironmentalParameters_saved");
             }    
         }
         else{
             console.log("error is connecting to db");
         }
     });    
-    res.send("EnvironmentalParameters_saved");
 });
 
 app.get("/CentralizedParameters",function(req,res){  
@@ -1932,7 +2055,7 @@ app.get("/rollbackjob",function(req,res){
     var BrokerName = req.query.BrokerName;
 	var artifactory_number=req.query.artifactory_number;
     var target = req.query.target;
-	var svnpassword = req.query.svnpassword;
+	//var svnpassword = req.query.svnpassword;
 	console.log(target);
     var Config_Service;
          console.log("values are..."+iibhost+"  "+IIBNode+"  "+executionGroup+" "+BrokerName+""+target);
@@ -1988,7 +2111,7 @@ app.get("/rollbackjob",function(req,res){
 											Config_Service:Config_Service,
 											target:target,
 											svnusername:loginuser,
-		                                    svnpassword:svnpassword
+		                                    svnpassword:password
 											
 											} }, function(err) {
 																				if (err) console.log(err);
@@ -2034,7 +2157,7 @@ app.get("/rollbackjob",function(req,res){
             Config_Service:Config_Service,
             target:target,
 			svnusername:loginuser,
-		    svnpassword:svnpassword} }, function(err) {
+		    svnpassword:password} }, function(err) {
                                                 if (err) console.log(err);
                                                 console.log("rollback job triggered");
                                                 setTimeout(function() {
@@ -2216,7 +2339,7 @@ console.log("Login User"+loginuser);
     var ConfigServiceName = req.query.ConfigServiceName;
     var SenderHost_IP = req.query.SenderHost_IP;
     var SenderPort_Num = req.query.SenderPort_Num;
-    var svnpassword = req.query.svnpassword;
+   // var svnpassword = req.query.svnpassword;
 	var IIBNode = req.query.IIBNode
 	var iibhost = req.query.iibhost
 	var executionGroup = req.query.executionGroup
@@ -2254,7 +2377,7 @@ console.log("Login User"+loginuser);
             username:username,
             password:password,
 			svnusername:loginuser,
-			svnpassword:svnpassword,
+			svnpassword:password,
 			IIBNode : IIBNode,
 	        iibhost : iibhost,
 	        executionGroup : executionGroup,
@@ -2310,7 +2433,7 @@ app.get('/RunTest',function(req,res){
             iibhost:iibhost,
             FlowName:FlowName,
 			svnusername:loginuser,
-			svnpassword:svnpassword
+			svnpassword:password
             } }, function(err) {
                                           if (err) console.log(err);
                              console.log("RunTest job triggered");
@@ -2698,6 +2821,7 @@ app.get('/createlibjob',function(req,res){
 																"createdtime": createTime,
 																"updatedDate":"",
 																"updatedTime":"",
+																"flowstatus":"",
 																"Environment":"dev",
 																"By":loginuser
 																								
@@ -2717,6 +2841,7 @@ app.get('/createlibjob',function(req,res){
 																	"createdDate": createDate,
 																	"createdtime": createTime,
 																	"updatedDate":"",
+																	"flowstatus":"",
 																	"updatedTime":"",
 																	"Environment":"dev",
 																	"By":loginuser
@@ -2787,6 +2912,7 @@ app.get('/createlibjob',function(req,res){
 																"createdtime": createTime,
 																"updatedDate":"",
 																"updatedTime":"",
+																"flowstatus":"",
 																"Environment":"dev",
 																"By":loginuser
 																							
@@ -2807,6 +2933,7 @@ app.get('/createlibjob',function(req,res){
 																"createdtime": createTime,
 																"updatedDate":"",
 																"updatedTime":"",
+																"flowstatus":"",
 																"Environment":"dev",
 																"By":loginuser
 														}
@@ -2903,6 +3030,7 @@ app.get('/createlibjob',function(req,res){
 																"createdtime": createTime,
 																"updatedDate":"",
 																"updatedTime":"",
+																"flowstatus":"",
 																"Environment":"dev",
 																"By":loginuser
 																								
@@ -2923,6 +3051,7 @@ app.get('/createlibjob',function(req,res){
 																"createdtime": createTime,
 																"updatedDate":"",
 																"updatedTime":"",
+																"flowstatus":"",
 																"Environment":"dev",
 																"By":loginuser
 															}
@@ -2992,6 +3121,7 @@ app.get('/createlibjob',function(req,res){
 																"createdtime": createTime,
 																"updatedDate":"",
 																"updatedTime":"",
+																"flowstatus":"",
 																"Environment":"dev",
 																"By":loginuser
 																							
@@ -3012,6 +3142,7 @@ app.get('/createlibjob',function(req,res){
 																"createdtime": createTime,
 																"updatedDate":"",
 																"updatedTime":"",
+																"flowstatus":"",
 																"Environment":"dev",
 																"By":loginuser
 														}
@@ -3078,11 +3209,272 @@ app.get("/librarylist",function(req,res){
     });    
 });
 
+
+app.get("/libbuild",function(req,res){
+	
+data={};
+   console.log("entered build"); 
+         build_env = req.query.build_env;
+         console.log(build_env); 
+	     iibhost=req.query.iibhost;
+
+		 IIBNode=req.query.IIBNode;
+
+		 executionGroup=req.query.executionGroup;
+		
+		BrokerName=req.query.BrokerName;
+		
+	//	svnpassword=req.query.svnpassword;
+      
+			MongoClient.connect(config.mongodburl, function(err, db) {
+				if(db){
+					var collection = db.collection('CentralizedParameters');
+					if(collection){
+						collection.find({}).toArray(function (err, result) {
+						  if (err) {
+							console.log(err);
+						  } else if (result.length) {
+							  console.log(result);
+							  CentralizedParameters=result;
+							  console.log(CentralizedParameters[0].ArtifactoryURL);
+							  var collection1 = db.collection('EnvironmentalParameters');
+							  collection1.find({build_env:build_env}).toArray(function (err, result1) {
+												  if (err) {
+													console.log(err);
+												  } else if (result1.length) {
+													  
+													console.log(result1);
+													EnvironmentalParameters=result1;
+													jenkins.job.get("LibraryManagement/"+Library_Name+"/"+Library_Name+"_Build",({ depth: 2,pretty: 'true'}), function(err, data) {
+							                          if (err) throw err;
+							
+													projectname=data.actions[0].parameterDefinitions[3].defaultParameterValue.value;
+													svnrepo=data.actions[0].parameterDefinitions[5].defaultParameterValue.value; 
+													if( data.builds == "")
+												     {
+														 console.log("entered if");
+														 build_no=0;
+													 }
+													else{
+													  console.log("entered else");
+													  build_no=data.builds[0].number;
+													  } 
+													  
+													 jenkins.job.build({ name: "LibraryManagement/"+Library_Name+"/"+Library_Name+"_Build", parameters: {      		build_env:build_env,
+														username:CentralizedParameters[0].username,
+														password :CentralizedParameters[0].password,
+														toolkithome :EnvironmentalParameters[0].toolkithome,
+														svnhost :CentralizedParameters[0].svnhost,
+														ArtifactoryURL:CentralizedParameters[0].ArtifactoryURL,
+														ArtifactoryUserName : CentralizedParameters[0].ArtifactoryUserName,
+														ArtifactoryPassword : CentralizedParameters[0].ArtifactoryPassword,
+														projectname :projectname,
+														svnrepo:svnrepo,
+														svnusername:loginuser,
+														svnpassword:password
+								} }, function(err) {
+												if (err) console.log(err);
+												console.log("build triggered");
+												setTimeout(function() {
+														executed_job="LibraryManagement/"+Library_Name+"/"+Library_Name+"_Build";
+												 res.redirect("/console?Library_Name="+Library_Name);
+											}, 10000); 
+											//res.send("triggered");
+											});  
+													  
+													  
+													  
+													  
+													  
+													})
+													
+													
+													}
+													else {
+							
+														console.log('No document(s) found with defined "find" criteria!');
+														}
+				
+								})
+				
+				
+							}
+							else {
+							
+							console.log('No document(s) found with defined "find" criteria!');
+						  }
+				
+						})
+				
+					}
+				
+				}
+				else{
+					console.log("error is connecting to db");
+				}
+			
+            })
+			
+
+})
+
 app.get('/viewLibrarypage',function(req,res){
-	libname = req.query.Library_Name;
-	res.send('nameReceived');
+	Library_Name = req.query.Library_Name;
+MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('svn_library_urls_list');
+			if(collection){
+				collection.find({url_key : Library_Name}).toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  Library_URL = result[0].url_value;
+					console.log(Library_URL);
+					res.send('nameReceived');
+					}
+				});
+			}
+		}
+	});
+
 });
 app.get('/getLibName',function(req,res){
-	console.log('Requested Libname ==> '+libname);
-	res.send(libname);
+	console.log('Requested Libname ==> '+Library_Name);
+	res.send(Library_Name);
+});
+
+app.get("/libdeploy",function(req,res){
+	//data={};
+   console.log("entered deploy"); 
+         build_env = req.query.build_env;
+         console.log(build_env); 
+	     iibhost=req.query.iibhost;
+
+		 IIBNode=req.query.IIBNode;
+
+		 executionGroup=req.query.executionGroup;
+		
+		BrokerName=req.query.BrokerName;
+		
+	//	svnpassword=req.query.svnpassword;
+      
+			MongoClient.connect(config.mongodburl, function(err, db) {
+				if(db){
+					var collection = db.collection('CentralizedParameters');
+					if(collection){
+						collection.find({}).toArray(function (err, result) {
+						  if (err) {
+							console.log(err);
+						  } else if (result.length) {
+							  console.log(result);
+							  CentralizedParameters=result;
+							  console.log(CentralizedParameters[0].ArtifactoryURL);
+							  var collection1 = db.collection('EnvironmentalParameters');
+							  collection1.find({build_env:build_env}).toArray(function (err, result1) {
+												  if (err) {
+													console.log(err);
+												  } else if (result1.length) {
+													  
+													console.log(result1);
+													EnvironmentalParameters=result1;
+													
+													jenkins.job.get("LibraryManagement/"+Library_Name+"/"+"Deploy_"+Library_Name,({ depth: 2,pretty: 'true'}), function(err, data) {
+							                          if (err) throw err;
+												
+													if( data.builds == "")
+												     {
+														 console.log("entered if");
+														 build_no=0;
+													 }
+													else{
+													  console.log("entered else");
+													  build_no=data.builds[0].number;
+													  } 
+													  svnUltimate1(Library_URL, 'HEAD', function(err, info) {
+													  if(err) {throw err; }
+										
+													  console.log(info.lastChangedRev);
+													  artifactory_number=info.lastChangedRev; 
+													 jenkins.job.build({ name: "LibraryManagement/"+Library_Name+"/"+"Deploy_"+Library_Name, parameters: {        
+													        build_env:build_env,
+															username:CentralizedParameters[0].username,
+															password:CentralizedParameters[0].password,
+															artifactory_number:artifactory_number,
+															ArtifactoryURL : CentralizedParameters[0].ArtifactoryURL,
+															mqsiprofile:EnvironmentalParameters[0].mqsiprofile,
+															iibhost: EnvironmentalParameters[0].iibhost,
+															IIBNode:  EnvironmentalParameters[0].IIBNode,
+															executionGroup :EnvironmentalParameters[0].executionGroup,
+															deployment_path:EnvironmentalParameters[0].deployment_path,
+															ArtifactoryUserName : CentralizedParameters[0].ArtifactoryUserName,
+															ArtifactoryPassword : CentralizedParameters[0].ArtifactoryPassword,
+															svnusername:loginuser,
+															svnpassword:password
+								} }, function(err) {
+												if (err) console.log(err);
+												console.log("deploy triggered");
+												//res.send("triggered");
+												 setTimeout(function() {
+														executed_job="LibraryManagement/"+Library_Name+"/"+"Deploy_"+Library_Name;
+												 res.redirect("/console?Library_Name="+Library_Name);
+											}, 10000);
+											});   
+													  
+													})  
+													  
+													  
+													  
+													})
+													
+													
+													}
+													else {
+							
+														console.log('No document(s) found with defined "find" criteria!');
+														}
+				
+								})
+				
+				
+							}
+							else {
+							
+							console.log('No document(s) found with defined "find" criteria!');
+						  }
+				
+						})
+				
+					}
+				
+				}
+				else{
+					console.log("error is connecting to db");
+				}
+			
+            })
+			
+	
+})
+app.get('/recentlibjobs',function(req,res){
+	console.log("recentlibjobs");
+	var url_key= req.query.url_key;
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('librarylog');
+			if(collection){
+				collection.find({url_key : url_key}).toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					console.log(result[0].url_key);
+					/* data = {
+						'flowsCount' : result.length
+					}; */
+					res.send(result);
+					}
+				});
+			}
+		}
+	});
 });

@@ -617,7 +617,7 @@ var app = angular
 	
 	.state('app.editinterface', {
       url: '/editinterface',
-    //  controller: 'MailInboxCtrl',
+      controller: 'EditInterface',
       templateUrl: 'views/tmpl/editinterface.html'
     })
 	
