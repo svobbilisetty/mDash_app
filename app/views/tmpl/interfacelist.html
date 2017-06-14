@@ -46,7 +46,6 @@
                                       <th><center>Environment</center></th>
                                       <th> By </th>
                                     </tr>
-<<<<<<< HEAD
                                    <!--  <tr  >
                                       <td ><a  ui-sref="app.projectbuild"><font color="#616f77"><span class="tab">CLA_CLIENTMISC_ORM</span></font></a></td>
                                       <td> 3 April 2017  </td>
@@ -80,10 +79,6 @@
                                       <td>Arjun Kanniah</td>
                                     </tr> -->
 									<tr ng-repeat="x in interfaces |  orderBy: '-updatedDate' && orderBy: '-updatedTime'">
-=======
-                                  
-									<tr ng-repeat="x in interfaces | orderBy: '-updatedDate'">
->>>>>>> 2944d104ffa305cbc428547bb14bc455e53357b8
 										<td  ng-click="viewflow(x.interface_name)"><font color="#616f77"><span class="tab"><a style="cursor:default">{{x.interface_name}}</a></span></font></td>
 										<td>{{x.createdDate || ''}} - {{x.createdtime || ''}} </td>
 										<td>{{x.updatedDate || ''}} - {{x.updatedTime || ''}} </td>
