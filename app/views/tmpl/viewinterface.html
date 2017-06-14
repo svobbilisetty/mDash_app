@@ -83,7 +83,11 @@ background-color: #0d416b !important;
                                      <!--  <td> 06:14 PM</td> -->
                                      <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
 										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-primary'))}}"></span></td>
+<<<<<<< HEAD
                                       <td><center>{{x.Environment | uppercase}}</center></td>
+=======
+                                      <td><center>{{x.Environment  | uppercase}}</center></td>
+>>>>>>> 2944d104ffa305cbc428547bb14bc455e53357b8
                                     </tr>
 
 
@@ -195,8 +199,13 @@ background-color: #0d416b !important;
 									  <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
                                      <!--  <td> 06:14 PM</td> -->
                                      <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
+<<<<<<< HEAD
 										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
                                       <td><center>{{x.Environment | uppercase}}</center></td>
+=======
+										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-primary'))}}"></span></td>
+                                      <td><center>{{x.Environment  | uppercase}}</center></td>
+>>>>>>> 2944d104ffa305cbc428547bb14bc455e53357b8
 									   <td>{{x.By}}</td>
                                     </tr>
                                    <!--  <tr>
@@ -457,14 +466,18 @@ OBX|3|CE|OETRNSP3^Transport Info||BIV^Bed with IV
 									  <th> Executed By </th>
                                       <th> <center>Result</center></th>
                                     </tr>
+<<<<<<< HEAD
                                    <tr ng-repeat="x in testlog |  orderBy: '-updatedDate' && orderBy: '-updatedTime'">
+=======
+                                   <tr ng-repeat="x in testlog | orderBy: '-updatedDate'">
+>>>>>>> 2944d104ffa305cbc428547bb14bc455e53357b8
 									 
 									    <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
                                        <td>{{x.Environment | uppercase}}</td>
 									   <td>{{x.By}}</td>
                                       <!--  <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus || ""}}</center></td> -->
                                      <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
-										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
+										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-primary'))}}"></span></td>
                                     </tr>
 									
                                   </tbody>

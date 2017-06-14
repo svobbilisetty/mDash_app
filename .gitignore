@@ -1,0 +1,7 @@
+
+app/routing.js
+app/scripts/controllers/page-addinterface.js
+app/scripts/controllers/page-header.js
+app/views/tmpl/dashboard.html
+app/views/tmpl/interfacelist.html
+app/views/tmpl/viewinterface.html

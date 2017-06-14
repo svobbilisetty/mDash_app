@@ -402,8 +402,13 @@ document.getElementById("names2").style.backgroundColor="transparent";
 					  <td  ng-click="flow(x.flowname)"><font color="#616f77"><span class="tab"><a style="color:#2368a0 ";>{{x.flowname}}</a></span></font></td>
 					  <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
 					 <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
+<<<<<<< HEAD
 										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
 					  <td><center>{{x.Environment | uppercase}}</center></td>
+=======
+										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-primary'))}}"></span></td>
+					  <td><center>{{x.Environment  | uppercase}}</center></td>
+>>>>>>> 2944d104ffa305cbc428547bb14bc455e53357b8
 					  <td>{{x.By}}</td>
 					</tr>
 

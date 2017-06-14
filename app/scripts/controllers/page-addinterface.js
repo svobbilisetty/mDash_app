@@ -246,8 +246,12 @@ var i=this.id;
 								"&svnpassword="+svnpassword
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
+<<<<<<< HEAD
 									alert(response.data);
 									$state.go('app.interfacelist');
+=======
+									//alert(response.data);
+>>>>>>> 2944d104ffa305cbc428547bb14bc455e53357b8
 								}
 								//alert("response: "+response.data);
 								 else if (flow_names.length > 0) {   //callback

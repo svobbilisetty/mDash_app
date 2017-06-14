@@ -32,7 +32,7 @@
     url : serverHosturl+"addLibraryProperties?urlkey="+urlkey+
 	"&urlvalue="+urlvalue
   }).then(function(response) {
-      alert(response.data);
+     // alert(response.data);
 	 $scope.urlkey="";	
      $scope.urlvalue="";
     }, function(response) {
