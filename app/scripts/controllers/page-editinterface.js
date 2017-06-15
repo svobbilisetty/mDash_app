@@ -236,7 +236,7 @@ var i=this.id;
 					var flow_names1 = flow_names.shift();
 					var last1=last.shift();
 					var Remote_SVN_URLs1 = Remote_SVN_URLs.shift();
-					alert("flow_names -> "+flow_names1);
+					//alert("flow_names -> "+flow_names1);
 						$http({
 					method : "GET",
 					url : serverHosturl+"svnurlretrive?flowname="+flow_names1
@@ -261,7 +261,7 @@ var i=this.id;
 								 }
 								 else
 								 {
-									 alert("flow edited");
+									alert("Flow edited successfully")
 									 document.getElementById('btns').style.display="none";
                                      document.getElementById('load').innerHTML="Edit Interface";
 									 document.getElementById('load').style.fontWeight="bold";
@@ -279,16 +279,16 @@ var i=this.id;
                   else{
 					  repo = response.data[0].svn_url.replace(svnrepohost, "");
 					  var repo1= Remote_SVN_URLs1.replace(svnrepohost, "");
-					  alert(repo+"===="+repo1);
+					//  alert(repo+"===="+repo1);
 					   if(repo1==repo)
 					   {
-						   alert("entered exist flow");
+						  // alert("entered exist flow");
 						   if (flow_names.length > 0) {   //callback
 									buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword)
 								 }
 								 else
 								 {
-									 alert("flow edited")
+									 alert("Flow edited successfully")
 									  document.getElementById('btns').style.display="none";
                                      document.getElementById('load').innerHTML="Edit Interface";
 									 document.getElementById('load').style.fontWeight="bold";
@@ -305,7 +305,7 @@ var i=this.id;
 					   }
 					   else
 					   {
-						    alert("entered exist flow with new svn");
+						  //  alert("entered exist flow with new svn");
 						   $http({
                                 method : "GET",
                                 url : serverHosturl+"deleteflow?interface_name="+interface_name+
@@ -334,7 +334,7 @@ var i=this.id;
 								 }
 								 else
 								 {
-									 alert("flow edited")
+									 alert("Flow edited sucessfully")
 									  document.getElementById('btns').style.display="none";
                                      document.getElementById('load').innerHTML="Edit Interface";
 									 document.getElementById('load').style.fontWeight="bold";
