@@ -382,7 +382,7 @@ app
             url : serverHosturl+"dashboardrecentjobs"
           }).then(function(response) {
 			//  alert(JSON.stringify(response.data));
-			alert(response.data.length);
+			//alert(response.data.length);
 			if(response.data.length > 0){
 				$scope.flowslog=response.data;
 			}else{

@@ -17,6 +17,7 @@
 	var socket;
 	 var interfacename1;
 	 var flowname1;
+	 var type;
 	$http({
 		method : "GET",
 		url : "/public/serverHost.json"	
@@ -49,6 +50,7 @@
 		  $scope.Flow_Name=response.data.flowName;
 		  interfacename1=response.data.interfaceName;
 		  flowname1=response.data.flowName;
+		  type=flowname1.split("_").pop();
 		 /*  $window.setInterval(function() {
 			var element = document.getElementById("console2");
 			element.scrollTop = element.scrollHeight;
@@ -64,18 +66,22 @@
 				if((data.search('_Build'))>0){
 					//alert("Build completed");
 					fa7();
+					fa4p()
 				}else if((data.search('Library_Detection'))>0){
 					//alert("Library_Detection completed");
 					fa1();
+					fa1p()
 				}else if((data.search('Create_Config_Services'))>0){
 					//alert("Create_Config_Services1 completed");
 					fa2();
 				}else if((data.search('Create_Queues'))>0){
 					//alert("Create Queues completed");
 					fa3();
+					fa2p()
 				}else if((data.search('Deploy'))>0){
 					//alert("Deploy completed");
 					fa4();
+					fa3p()
 									
 											$timeout( function(){ $scope.status=false; }, 5000);
 					 
@@ -148,8 +154,13 @@
 	btnm();
 	document.getElementById("roll").disabled = true;
 	//document.getElementById("promote").disabled = true;
+	fa7reset();
+	fa1reset();
+	fa2reset();
+	fa3reset();
+	fa4reset();
+	if(type=="Transform"){$scope.transformstatus=true;}else{$scope.status=true;}
 	
-	$scope.status=true;
 	
 		//alert("Clicked on Build");     
 			

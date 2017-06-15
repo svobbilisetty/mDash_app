@@ -59,6 +59,9 @@
 		  $scope.SVNBaseURL = response.data[0].SVNBaseURL;
 		  $scope.SVNUserName = response.data[0].SVNUserName;
 		  $scope.SVNPassword = response.data[0].SVNPassword;
+		  $scope.JavaUtilitySVNPath = response.data[0].JavaUtilitySVNPath;
+          $scope.SVNLibraryRootPath = response.data[0].SVNLibraryRootPath;
+          $scope.WSDLSVNPath = response.data[0].WSDLSVNPath;
 	  
     })
 	
@@ -76,7 +79,9 @@
   var  SVNBaseURL = $scope.SVNBaseURL;
   var  SVNUserName = $scope.SVNUserName;
   var  SVNPassword = $scope.SVNPassword;
- 
+  var  JavaUtilitySVNPath=$scope.JavaUtilitySVNPath;
+  var  SVNLibraryRootPath=$scope.SVNLibraryRootPath;
+  var  WSDLSVNPath=$scope.WSDLSVNPath;
   
 		   
      $http({
@@ -89,7 +94,10 @@
 	"&svnhost="+svnhost+
 	"&SVNBaseURL="+SVNBaseURL+
 	"&SVNUserName="+SVNUserName+
-	"&SVNPassword="+SVNPassword	
+	"&SVNPassword="+SVNPassword+
+    "&JavaUtilitySVNPath="+JavaUtilitySVNPath+
+    "&SVNLibraryRootPath="+SVNLibraryRootPath+
+    "&WSDLSVNPath="+WSDLSVNPath	
   }).then(function(response) {
       alert(response.data);
     }); 

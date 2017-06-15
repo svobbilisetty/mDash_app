@@ -112,9 +112,9 @@ echo &apos;svnpassword=&apos;${svnpassword} &gt;&gt; Utility/SVN.properties</com
     <hudson.tasks.Shell>
       <command>svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Remote_SVN_URL/Build --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build
 svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Remote_SVN_URL --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build/Flow_Name
-svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/libs --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build
-svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/wsdl --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build
-svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/TCPIPTestCase/Utility --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build/Utility
+svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert SVN_Library_Root_Path --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build
+svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert WSDL_SVN_Path --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build
+svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Java_Utility_SVN_Path --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Flow_Name_Build/Utility
 </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
