@@ -800,9 +800,10 @@ border-radius:15px;
 	
 			<div class="form-group row">
 				<div class="col-sm-6">
-				 <div id="build_envDiv" >
-					<!--  <label for="Build Environment">Build Environment</label>
-			   <input class="form-group col-sm-12" id="build_env" type="text" ng-model="build_env" ></input> -->
+				  <div id="env" >
+					<label for="env">Environment</label>
+					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
+					<br><select class="form-group col-sm-12" style="padding:3px;" ng-model="env" ng-options="x for x in envs" ng-change="fieldspop()"></select>
 				</div> 
 				<div id="svnrepoDiv" >
 					<label for="IIBNode">IIB Node</label>
@@ -837,7 +838,7 @@ border-radius:15px;
 				</div>
 				<div class="form-group row col-sm-12">
 				
-			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="build()">Build Now</button>
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" id="promote" class="btn mb-10 col-sm-3" ng-click="build()">Build Now</button>
 			</div>
 							
 		
@@ -871,17 +872,22 @@ border-radius:15px;
 
 			<div class="form-group row">
 			<div class="col-sm-6">
+			 <div id="env" >
+					<label for="env">Environment</label>
+					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
+					<br><select class="form-group col-sm-12" style="padding:3px;" ng-model="env" ng-options="x for x in envs" ng-change="changepopup()"></select>
+				</div> 
 			<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
-					<!--  <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input>  -->
-					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="iibhost" ng-options="x for x in iibhosts"></select>
+					  <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost" ></input>  
+					<!-- <br><select style="padding:3px;" class="form-group col-sm-12" ng-model="iibhost" ng-options="x for x in iibhosts"></select> -->
 					<!-- <select ng-model="iibhost" ng-options="x for x in iibhost">
 					</select> -->
 				</div><br>
 				<div id="projectnameDiv">
 					<label for="executionGroup">Execution Group</label>
-					<!-- <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup"></input>  -->
-					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="executionGroup" ng-options="x for x in executionGroups"></select>
+					 <input class="form-group col-sm-12" id="executionGroup" type="text" ng-model="executionGroup" ></input>  
+					<!-- <br><select style="padding:3px;" class="form-group col-sm-12" ng-model="executionGroup" ng-options="x for x in executionGroups"></select> -->
 					<!-- <select ng-model="executionGroup" ng-options="x for x in execs">
 					</select> -->
 				</div><br>
@@ -897,13 +903,13 @@ border-radius:15px;
 			</div>
 			<div class="col-sm-6">
 			<div id="svnrepoDiv" >
-					<label for="IIBNode">IIB Node</label>
-					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
-					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
+					<label for="IIBNode">IIB Node</label><br>
+					 <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode" ></input> 
+					<!-- <select style="padding:3px;" class="form-group col-sm-12" ng-model="IIBNode" ng-options="x for x in IIBNodes"></select> -->
 				</div><br>
 				<div id="messageflownameDiv" >
 					<label for="BrokerName">Broker </label>
-					<br><input class="form-group col-sm-12" id="BrokerName " type="text" ng-model="BrokerName "></input>
+					<br><input class="form-group col-sm-12" id="BrokerName1" type="text" ng-model="BrokerName " ></input>
 				</div><br>
 				   <div id="targetDiv">
                     <label for="Target">Target</label>
@@ -915,7 +921,7 @@ border-radius:15px;
 			</div>
 			</div>
 			<div class="form-group row col-sm-12">
-			<button type="button" class="btn mb-10 col-sm-3" ng-click="build1()" style="background-color:#0d416b;color:#ffffff;font-weight:900">Execute</button>
+			<button type="button" class="btn mb-10 col-sm-3" ng-click="build1()"  id="execute"style="background-color:#0d416b;color:#ffffff;font-weight:900">Execute</button>
 			</div>
 			</div>
       </div>

@@ -323,28 +323,33 @@ app
 
   })
 
-.controller('DashboardTeamMembers',function($scope){
+.controller('DashboardTeamMembers',function($scope, $http, $window, $location){
 	
-	 $scope.teams = [
-
-      
-
-      {label: 'srinivas', value: 20, color: '#2fbbe8'},
-
-      {label: 'rajiv', value: 15, color: '#72cae7'},
-
-      {label: 'mounika', value: 5, color: '#d9544f'},
-
-      
-
-      {label: 'deepika', value: 25, color: '#1693A5'}
-
-    ];
+	$http({
+		method : "GET",
+		url : "/public/serverHost.json"	
+	}).then(function(response){
+		
+		var serverHosturl = response.data.serverHosturl;
 	
+		$http({
+			method : "GET",
+			url : serverHosturl+"getUsers"
+		}).then(function(response2) {
+			//alert(response2.data[0].uname);
+			$scope.username = response2.data;
+		
+		});
+		
+		$scope.hello = function(uname1){
+			alert("Username => "+uname1);
+		}
+		
+	});
 })
 
   .controller('BrowseUsageCtrl', function ($scope, $http, $window, $location ) {
-
+		$scope.recentFlowId=true;
      $http({
             method : "GET",
             url : "/public/serverHost.json"    
@@ -377,7 +382,14 @@ app
             url : serverHosturl+"dashboardrecentjobs"
           }).then(function(response) {
 			//  alert(JSON.stringify(response.data));
-			  $scope.flowslog=response.data;
+			alert(response.data.length);
+			if(response.data.length > 0){
+				$scope.flowslog=response.data;
+			}else{
+				$scope.recentFlowId = false;
+			}
+			
+			  
 		  });
 
     $scope.status = {

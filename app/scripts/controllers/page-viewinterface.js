@@ -11,6 +11,8 @@
     // alert("enterd viewinterface");
     $scope.buildmodal=false;
     $scope.buildmodal1=false;
+	$scope.recentFlowsId=true;
+     $scope.recentTestsId=true;
 	var socket;
     var  serverHosturl;			
 	var mqsiprofile;	
@@ -71,21 +73,31 @@
             method : "GET",
             url : serverHosturl+"recentjobs?interfacename="+response.data.interfaceName
           }).then(function(response) {
-			//  alert(JSON.stringify(response.data));
-			  $scope.flowslog=response.data;
+			// alert(JSON.stringify(response.data));
+			 if(response.data.length>0){
+                 $scope.flowslog=response.data;
+              }else{
+                  $scope.recentFlowsId=false;
+              }
 		  });
 		   $http({
             method : "GET",
             url : serverHosturl+"recenttestjobs?interfacename="+response.data.interfaceName
           }).then(function(response) {
 			 //alert(JSON.stringify(response.data));
-			  $scope.testlog=response.data;
+			 if(response.data.length>0){
+				 //alert("data");
+                $scope.testlog=response.data;
+            }else{
+				// alert(" no data");
+                $scope.recentTestsId=false;
+            }
 		  });
 		  $http({
             method : "GET",
             url : serverHosturl+"getinterfaceflowscount?interfacename="+response.data.interfaceName
           }).then(function(response) {
-			 //alert(JSON.stringify(response.data));
+			// alert(JSON.stringify(response.data));
 			  $scope.successcount=response.data.successcount;
 			  $scope.flowcount=response.data.flowsCount;
 		  });

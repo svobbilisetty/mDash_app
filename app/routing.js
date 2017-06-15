@@ -1396,7 +1396,7 @@ log.on('end', function(end) {
  jenkins.job.get(uri,({ depth: 2,pretty: 'true'}), function(err, data) {
 							  if (err) throw err;
 							 jobdata=data;
-							  console.log('job status'+ data.builds[0].result+" build number  "+data.builds[0].number);
+							  console.log('job status'+ data.builds[0]+" build number  "+data.builds[0].number);
 							// res.send(data);
 							if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
 								//if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
@@ -1496,10 +1496,15 @@ log.on('end', function(end) {
 																							"createdtime": result[0].createdtime,
 																							"updatedDate":updatedDate,
 																							"updatedTime":updatedTime,
-															                                "Environment":"dev",
+															                                "Environment":build_env,
 															                                "By":loginuser,
 																							"Jobtype":jobtype,
-																							"flowstatus":'SUCCESS'
+																							"flowstatus":'SUCCESS',
+																							"iibhost":iibhost,
+																							"IIBNode":IIBNode,
+																							"executionGroup":executionGroup,
+																							"BrokerName":BrokerName
+																							
 													}
 													flowlogs.insert(log);
 													
@@ -1682,10 +1687,14 @@ log.on('end', function(end) {
 																							"createdtime": result[0].createdtime,
 																							"updatedDate":updatedDate,
 																							"updatedTime":updatedTime,
-															                                "Environment":"dev",
+															                                "Environment":build_env,
 															                                "By":loginuser,
 																							"Jobtype":jobtype,
-																							"flowstatus":'FAILURE'
+																							"flowstatus":'FAILURE',
+																							"iibhost":iibhost,
+																							"IIBNode":IIBNode,
+																							"executionGroup":executionGroup,
+																							"BrokerName":BrokerName
 													}
 													flowlogs.insert(log);
 													
@@ -1783,10 +1792,10 @@ app.get('/build1', function (req, res) {
 		params={
 			username :CentralizedParameters[0].username,
 			password : CentralizedParameters[0].password,
-			iibhost  : EnvironmentalParameters[0].iibhost,
+			iibhost  : iibhost,
 			mqsiprofile :  EnvironmentalParameters[0].mqsiprofile,
-			IIBNode: EnvironmentalParameters[0].IIBNode,
-			executionGroup:EnvironmentalParameters[0].executionGroup,
+			IIBNode: IIBNode,
+			executionGroup:executionGroup,
 			svnhost:CentralizedParameters[0].svnhost,
 			svnrepo:svnrepo,
 			svnusername:loginuser,
@@ -1804,9 +1813,9 @@ app.get('/build1', function (req, res) {
 			build_env :build_env,
 			username:CentralizedParameters[0].username,
 			password:CentralizedParameters[0].password,
-			BrokerName :EnvironmentalParameters[0].BrokerName,
+			BrokerName :BrokerName,
 			deployment_path:EnvironmentalParameters[0].deployment_path,
-			iibhost: EnvironmentalParameters[0].iibhost,
+			iibhost: iibhost,
 			svnusername:loginuser,
 		    svnpassword:password
 
@@ -1820,12 +1829,12 @@ app.get('/build1', function (req, res) {
 			build_env:build_env,
 			username:CentralizedParameters[0].username,
 			password :CentralizedParameters[0].password,
-			iibhost : EnvironmentalParameters[0].iibhost,
+			iibhost : iibhost,
 			deployment_path:EnvironmentalParameters[0].deployment_path,
 			Config_Service:Config_Service,
 			mqsiprofile :EnvironmentalParameters[0].mqsiprofile,
-			IIBNode:  EnvironmentalParameters[0].IIBNode,
-			executionGroup :EnvironmentalParameters[0].executionGroup,
+			IIBNode:  IIBNode,
+			executionGroup :executionGroup,
 			svnusername:loginuser,
 		    svnpassword:password
 		}
@@ -1841,9 +1850,9 @@ app.get('/build1', function (req, res) {
 			build_env :build_env,
 			username:CentralizedParameters[0].username,
 			password:CentralizedParameters[0].password,
-			BrokerName :EnvironmentalParameters[0].BrokerName,
+			BrokerName :BrokerName,
 			deployment_path:EnvironmentalParameters[0].deployment_path,
-			iibhost: EnvironmentalParameters[0].iibhost,
+			iibhost:iibhost,
 			svnusername:loginuser,
 		    svnpassword:password
 
@@ -1860,9 +1869,9 @@ app.get('/build1', function (req, res) {
 			artifactory_number:artifactory_number,
 			ArtifactoryURL : CentralizedParameters[0].ArtifactoryURL,
 			mqsiprofile:EnvironmentalParameters[0].mqsiprofile,
-			iibhost: EnvironmentalParameters[0].iibhost,
-			IIBNode:  EnvironmentalParameters[0].IIBNode,
-			executionGroup :EnvironmentalParameters[0].executionGroup,
+			iibhost: iibhost,
+			IIBNode:  IIBNode,
+			executionGroup :executionGroup,
 			deployment_path:EnvironmentalParameters[0].deployment_path,
 			ArtifactoryUserName : CentralizedParameters[0].ArtifactoryUserName,
             ArtifactoryPassword : CentralizedParameters[0].ArtifactoryPassword,
@@ -2558,9 +2567,9 @@ app.get('/recentjobs',function(req,res){
 				collection.find({interface_name : interface_name}).toArray(function (err, result) {
 					if (err) {
 						console.log(err);
-					} else if (result.length) {
+					} else  {
 					  
-					console.log(result[0].flowname);
+					//console.log(result[0].flowname);
 					/* data = {
 						'flowsCount' : result.length
 					}; */
@@ -2580,9 +2589,9 @@ app.get('/dashboardrecentjobs',function(req,res){
 				collection.find().toArray(function (err, result) {
 					if (err) {
 						console.log(err);
-					} else if (result.length) {
+					} else{
 					  
-					console.log(result[0].flowname);
+					//console.log(result[0].flowname);
 					/* data = {
 						'flowsCount' : result.length
 					}; */
@@ -2603,9 +2612,9 @@ app.get('/recenttestjobs',function(req,res){
 				collection.find({interface_name : interface_name}).toArray(function (err, result) {
 					if (err) {
 						console.log(err);
-					} else if (result.length) {
+					} else  {
 					  
-					console.log(result[0].interface_name);
+					//console.log(result[0].interface_name);
 					/* data = {
 						'flowsCount' : result.length
 					}; */
@@ -3477,4 +3486,206 @@ app.get('/recentlibjobs',function(req,res){
 			}
 		}
 	});
+});
+
+
+app.get('/recentdeploy',function(req,res){
+	var interface_name= req.query.interface_name;
+	var flowname= req.query.flowname;
+	var build_env= req.query.build_env
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('flowslog');
+			if(collection){
+				//db.flowslog.find({interface_name : "Test3",flowname : "Test3_Sender",Environment: "test"}).sort({"updatedDate": -1,"updatedTime": -1}).limit(1)
+				collection.find({interface_name : interface_name,flowname : flowname,Environment: build_env}).sort({"updatedDate": -1,"updatedTime": -1}).limit(1).toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					console.log(result[0].Environment);
+					/* data = {
+						'flowsCount' : result.length
+					}; */
+					res.send(result);
+					}
+					else
+					{
+						res.send("no_record")
+					}
+				});
+			}
+		}
+	});
+	
+	
+})
+
+
+app.get('/promote', function (req, res) {
+	data={};
+   console.log("entered promote"); 
+console.log(loginuser);
+console.log(password);
+         build_env = req.query.build_env;
+         console.log(build_env); 
+	     iibhost=req.query.iibhost;
+
+		 IIBNode=req.query.IIBNode;
+
+		 executionGroup=req.query.executionGroup;
+		
+		BrokerName=req.query.BrokerName;
+		
+		//svnpassword=req.query.svnpassword;
+      
+					MongoClient.connect(config.mongodburl, function(err, db) {
+				if(db){
+					var collection = db.collection('CentralizedParameters');
+					if(collection){
+						collection.find({}).toArray(function (err, result) {
+						  if (err) {
+							console.log(err);
+						  } else if (result.length) {
+							  console.log(result);
+							  CentralizedParameters=result;
+							  console.log(CentralizedParameters[0].ArtifactoryURL);
+															   MongoClient.connect(config.mongodburl, function(err, db) {
+										if(db){
+											var collection = db.collection('EnvironmentalParameters');
+											if(collection){
+												collection.find({build_env:build_env}).toArray(function (err, result) {
+												  if (err) {
+													console.log(err);
+												  } else if (result.length) {
+													  
+													console.log(result);
+													EnvironmentalParameters=result;
+				jenkins.job.get(folder+"/"+flowName+"/"+flowName+"_Build",({ depth: 2,pretty: 'true'}), function(err, data) {
+							  if (err) throw err;
+							 console.log('job', data.actions[0].parameterDefinitions[9].defaultParameterValue.value);
+							 projectname=data.actions[0].parameterDefinitions[8].defaultParameterValue.value;
+							 messageflowname=data.actions[0].parameterDefinitions[9].defaultParameterValue.value;
+							 svnrepo=data.actions[0].parameterDefinitions[10].defaultParameterValue.value; 
+							  if( data.builds == "")
+												     {
+														 console.log("entered if");
+														 build_no=0;
+													 }
+												  else{
+													  console.log("entered else");
+													  build_no=data.builds[0].number;
+													  } 
+							  console.log('job', projectname);
+							  if(folder=="Transform")
+							  {
+								 // svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
+				      // console.log( "Head revision=" + revision );
+					  // artifactory_number=revision;
+					  svnUltimate1(svnrepo, 'HEAD', function(err, info) {
+                          if(err) {
+                            throw err;
+                          }
+                          console.log(info.lastChangedRev);
+                          artifactory_number=info.lastChangedRev;
+					    jenkins.job.build({ name: folder+"/"+flowName+"/Library_Detection", parameters: { 
+										username :CentralizedParameters[0].username,
+										password : CentralizedParameters[0].password,
+										iibhost  : iibhost,
+										mqsiprofile :  EnvironmentalParameters[0].mqsiprofile,
+										IIBNode: IIBNode,
+										executionGroup:executionGroup,
+										svnhost:CentralizedParameters[0].svnhost,
+										svnrepo:svnrepo,
+										svnusername:loginuser,
+										svnpassword:password
+								} }, function(err) {
+												if (err) console.log(err);
+												console.log("build triggered");
+												setTimeout(function() {
+														executed_job=folder+"/"+flowName+"/Library_Detection";
+												 res.redirect("/console");
+											}, 11000);
+											}); 
+					   
+			         }); 
+							  }
+							  else
+							  {
+							   jenkins.job.get(folder+"/"+flowName+"/Create_Config_Services",({ depth: 2,pretty: 'true'}), function(err, data) {
+							  if (err) throw err;
+							 console.log('job', data.actions[0].parameterDefinitions[5].defaultParameterValue.value);
+							 Config_Service=data.actions[0].parameterDefinitions[5].defaultParameterValue.value;
+							 
+				//svnUltimate.util.getRevision( svnrepo, function( err, revision ) {
+				      // console.log( "Head revision=" + revision );
+					 //  artifactory_number=revision;
+					 svnUltimate1(svnrepo, 'HEAD', function(err, info) {
+                          if(err) {
+                            throw err;
+                          }
+                          console.log(info.lastChangedRev);
+                          artifactory_number=info.lastChangedRev;
+					    jenkins.job.build({ name: folder+"/"+flowName+"/Library_Detection", parameters: { 
+						                username :CentralizedParameters[0].username,
+										password : CentralizedParameters[0].password,
+										iibhost  : iibhost,
+										mqsiprofile :  EnvironmentalParameters[0].mqsiprofile,
+										IIBNode: IIBNode,
+										executionGroup:executionGroup,
+										svnhost:CentralizedParameters[0].svnhost,
+										svnrepo:svnrepo,
+										svnusername:loginuser,
+										svnpassword:password
+								} }, function(err) {
+												if (err) console.log(err);
+												console.log("build triggered");
+												setTimeout(function() {
+														executed_job=folder+"/"+flowName+"/Library_Detection";
+												 res.redirect("/console");
+											}, 11000);
+											}); 
+					   
+			         });   
+							 
+							 
+							 
+							 
+							  }); 
+							  }
+							  
+							  
+							  
+							}); 
+												  }
+												  else {
+													
+													console.log('No document(s) found with defined "find" criteria!');
+												  }
+												 
+												})
+											}    
+										}
+										else{
+											console.log("error is connecting to db");
+										}
+									}); 
+						  }
+						  else {
+							
+							console.log('No document(s) found with defined "find" criteria!');
+						  }
+						 
+						})
+					}    
+				}
+				else{
+					console.log("error is connecting to db");
+				}
+			});   
+       
+			        
+			  	
+				
+					
 });

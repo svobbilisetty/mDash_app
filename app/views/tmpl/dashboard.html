@@ -220,6 +220,13 @@ document.getElementById("names3").style.backgroundColor="transparent";
 document.getElementById("names1").style.backgroundColor="transparent";
 document.getElementById("names2").style.backgroundColor="transparent";
 }
+
+function names(uname){ alert("names -> "+uname);
+document.getElementById('information1').innerHTML=uname+"&nbsp;<i class='fa fa-angle-down'></i>";
+
+}
+
+
 </script>
 
   <!-- row -->
@@ -260,27 +267,13 @@ document.getElementById("names2").style.backgroundColor="transparent";
 				</li>-->
 			
 			
+				<li ng-repeat="x in username">
+				<a ng-click="hello({{x.uname}});">{{x.uname}}</a>
+				</li>
 			
-			<li>
-                  <a id="names1"  href  ng-click="ajaxFaker()" onclick="names1()" style="background-color:#f5f5f5">
-                    Srinivas
-                  </a>
-                </li>
-                <li>
-                  <a id="names" href  ng-click="ajaxFaker()" onclick="names2()">
-                    Rajiv
-                  </a>
-                </li>
-                <li>
-                  <a id="names3"href  ng-click="ajaxFaker()" onclick="names3()">
-                    Mounika
-                  </a>
-                </li>
-				<li>
-                  <a id="names4"href  ng-click="ajaxFaker()" onclick="names4()">
-                    Deepika
-                  </a>
-                </li>
+			
+			
+			
                
          
               </ul>
@@ -377,9 +370,8 @@ document.getElementById("names2").style.backgroundColor="transparent";
 
 
 
-
         <!-- tile body -->
-        <div class="tile-body p-0">
+        <div class="tile-body p-0" ng-show="recentFlowId">
 
 
               <div class="tile-header dvd dvd-btm">

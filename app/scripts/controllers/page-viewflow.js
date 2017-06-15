@@ -15,7 +15,8 @@
 	$scope.buildmodal=false;
 	$scope.status=false;
 	var socket;
-	 
+	 var interfacename1;
+	 var flowname1;
 	$http({
 		method : "GET",
 		url : "/public/serverHost.json"	
@@ -34,7 +35,9 @@
     });
      
    }; 
-   
+    var build_env=["dev","test","prod"];
+	   $scope.envs=build_env;
+	   $scope.env=$scope.envs[0];
 		
 	$http({
 		method : "GET",
@@ -44,6 +47,8 @@
 	  
 		  $scope.Interface_Name=response.data.interfaceName; 
 		  $scope.Flow_Name=response.data.flowName;
+		  interfacename1=response.data.interfaceName;
+		  flowname1=response.data.flowName;
 		 /*  $window.setInterval(function() {
 			var element = document.getElementById("console2");
 			element.scrollTop = element.scrollHeight;
@@ -95,13 +100,14 @@
 		
 	$scope.builddetails= function(){ 
 		$scope.buildmodal=true;	
-    document.getElementById('id01').style.display='block';		
+    document.getElementById('id01').style.display='block';	
+ var build_env=$scope.env;	
 	var iibhost1;
 	var IIBNode1;
 	var executionGroup1;
 		 $http({
     method : "GET",
-    url : serverHosturl+"EnvironmentalParameters?build_env=dev"	
+    url : serverHosturl+"EnvironmentalParameters?build_env="+build_env	
   }).then(function(response) {
      // alert(JSON.stringify(response.data));
 	 if(response.data=="no_record")
@@ -147,7 +153,7 @@
 	
 		//alert("Clicked on Build");     
 			
-		 /* var build_env = "dev"; */
+		   var build_env=$scope.env;
 	    
 	     var iibhost=$scope.iibhost;
 		
@@ -159,10 +165,10 @@
 		
 		//var svnpassword=$scope.svnpassword;
 			
-		
+	if(build_env=="dev"){	
 		 $http({
 			method : "GET",
-			url : serverHosturl+"build?build_env=dev"+
+			url : serverHosturl+"build?build_env="+build_env+
 			"&iibhost="+iibhost+
 			"&IIBNode="+IIBNode+
 			"&executionGroup="+executionGroup+
@@ -188,7 +194,38 @@
 			//	alert(response.data);
 				
 		}); 
-		
+		}
+		else
+		{
+					 $http({
+			method : "GET",
+			url : serverHosturl+"promote?build_env="+build_env+
+			"&iibhost="+iibhost+
+			"&IIBNode="+IIBNode+
+			"&executionGroup="+executionGroup+
+			"&BrokerName="+BrokerName
+			//"&svnpassword="+svnpassword
+		}).then(function(response){
+			
+			if((response.data.search('Job_FAILED'))>0){
+                $timeout( function(){ $scope.status=false; }, 3000);
+                document.getElementById('btns').style.display="none";
+                document.getElementById('load').innerHTML="Build and Deploy";
+                document.getElementById("roll").disabled = false;
+              //  document.getElementById("promote").disabled = false; 
+             }
+             else
+             {
+				 $timeout( function(){ $scope.status=false; }, 3000);
+                 document.getElementById('btns').style.display="none";
+                document.getElementById('load').innerHTML="Build and Deploy";
+                document.getElementById("roll").disabled = false;
+               // document.getElementById("promote").disabled = false;
+             }
+			//	alert(response.data);
+				
+		}); 
+		}
 	
 		
 		
@@ -198,51 +235,55 @@
 	$scope.rollbackdetails= function(){ 
 	document.getElementById('artifactory_numberDiv').style.display='block';
     //alert("rollback working");
+	var build_env=$scope.env;	
         $scope.buildmodal1=true;    
          $scope.targets = ["Rollback","Decomission"];
           $scope.target = $scope.targets[0];
     document.getElementById('id02').style.display='block';   
-    var iibhost1;
-	var IIBNode1;
-	var executionGroup1;	
+   	
          $http({
     method : "GET",
-    url : serverHosturl+"EnvironmentalParameters?build_env=dev"    
+    url : serverHosturl+"recentdeploy?interface_name="+interfacename1+"&flowname="+flowname1+"&build_env="+build_env    
  }).then(function(response) {
      // alert(JSON.stringify(response.data));
-     if(response.data=="no_record")
+      if(response.data=="no_record")
      {
-            
+           alert("No Recent Builds Happened") ;
+		   document.getElementById("execute").disabled = true;
           $scope.iibhost = "";
           $scope.IIBNode = "";
           $scope.executionGroup = "";
           $scope.BrokerName = "";
-         $scope.targets = "";
+        // $scope.targets = "";
      }
      else
      {
         
-          iibhost1= (response.data[0].iibhost).split(",");
+          /* iibhost1= (response.data[0].iibhost).split(",");
 		 IIBNode1 = (response.data[0].IIBNode).split(",");
-		 executionGroup1 = (response.data[0].executionGroup).split(",");
+		 executionGroup1 = (response.data[0].executionGroup).split(","); */
 		
-		  $scope.iibhosts = iibhost1;
-		  $scope.iibhost = $scope.iibhosts[0];
-		  $scope.IIBNodes = IIBNode1;
-		  $scope.IIBNode = $scope.IIBNodes[0];
-		  $scope.executionGroups = executionGroup1;
-		  $scope.executionGroup = $scope.executionGroups[0];
-          $scope.BrokerName = response.data[0].BrokerName;
-     }
+		  // $scope.iibhosts = iibhost1;
+		  $scope.iibhost = response.data[0].iibhost;
+		  document.getElementById("iibhost").readOnly = true;
+		//  $scope.IIBNodes = IIBNode1;
+		  $scope.IIBNode = response.data[0].IIBNode;
+		  document.getElementById("IIBNode").readOnly = true;
+		 //$scope.executionGroups = executionGroup1;
+		  $scope.executionGroup = response.data[0].executionGroup;
+		  document.getElementById("executionGroup").readOnly = true;
+          $scope.BrokerName = response.data[0].BrokerName; 
+		  document.getElementById("BrokerName1").readOnly = true;
+     } 
           
    });    
-    $http({
+   /*  $http({
     method : "GET",
     url : serverHosturl+"artifactory"	
   }).then(function(response) {
 	 // alert(JSON.stringify(response.data));
 	  $scope.artifactory_number = response.data.artifactory;  
-  })    
+  })    */ 
         
    }; 
     $scope.close1= function(){  
@@ -328,7 +369,83 @@ function btnm1(){
     document.getElementById('load1').innerHTML="&nbsp;Rollback in progress";
     
 }
+$scope.fieldspop = function(){
+	 var iibhost1;
+	var IIBNode1;
+	var executionGroup1;
+  var build_env=$scope.env;
+if(build_env=="prod" || build_env=="test")
+{document.getElementById('promote').innerHTML="&nbsp&nbsp;Promote";}
+else{document.getElementById('promote').innerHTML="&nbsp&nbsp;Build Now";}	
+	$http({
+    method : "GET",
+    url : serverHosturl+"EnvironmentalParameters?build_env="+build_env	
+  }).then(function(response) {
+     // alert(JSON.stringify(response.data));
+	 if(response.data=="no_record")
+	 {
+			
+		 $scope.iibhosts = "";
+		 $scope.IIBNodes = "";
+		 $scope.executionGroups = "";
+		 //$scope.mqsiprofile = "";
+	 }
+	 else
+	 {
+		 iibhost1= (response.data[0].iibhost).split(",");
+		 IIBNode1 = (response.data[0].IIBNode).split(",");
+		 executionGroup1 = (response.data[0].executionGroup).split(",");
+		
+		 
+		   $scope.IIBNodes=IIBNode1;
+	       $scope.IIBNode=$scope.IIBNodes[0];
+		   $scope.iibhosts=iibhost1;
+	       $scope.iibhost=$scope.iibhosts[0];
+	       $scope.executionGroups=executionGroup1;
+	       $scope.executionGroup=$scope.executionGroups[0];
+	 }
+	      
+    });   	
 	
-	});
+}
+$scope.changepopup = function(){
 	
- });
+  var build_env=$scope.env;
+	
+	$http({
+    method : "GET",
+    url : serverHosturl+"recentdeploy?interface_name="+interfacename1+"&flowname="+flowname1+"&build_env="+build_env    
+ }).then(function(response) {
+      //alert(JSON.stringify(response.data));
+	 if(response.data=="no_record")
+	 {
+			alert("No Recent Builds Happened") ;	//alert("no records");
+			document.getElementById("execute").disabled = true;
+		 $scope.iibhost = "";
+          $scope.IIBNode = "";
+          $scope.executionGroup = "";
+          $scope.BrokerName = "";
+	 }
+	 else
+	 {
+		 
+		
+		 document.getElementById("execute").disabled = false;
+		   $scope.iibhost = response.data[0].iibhost;
+		  document.getElementById("iibhost").readOnly = true;
+		//  $scope.IIBNodes = IIBNode1;
+		  $scope.IIBNode = response.data[0].IIBNode;
+		  document.getElementById("IIBNode").readOnly = true;
+		 //$scope.executionGroups = executionGroup1;
+		  $scope.executionGroup = response.data[0].executionGroup;
+		  document.getElementById("executionGroup").readOnly = true;
+          $scope.BrokerName = response.data[0].BrokerName; 
+		  document.getElementById("BrokerName1").readOnly = true;
+	 }
+	      
+    });   	
+	
+}
+
+	})
+ })
