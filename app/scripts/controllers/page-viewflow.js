@@ -101,7 +101,39 @@
 				alert(data1); */
 				dataPort.innerHTML=dataPort.innerHTML+JSON.stringify(data);
 				 $('.demo').scrollTop($('.demo')[0].scrollHeight);
-			}); 	
+			}); 
+
+
+$scope.passworddetails= function(){ 
+$scope.passswordmodal=true;	
+ document.getElementById('id03').style.display='block';
+ document.getElementById('id01').style.display='none';
+}
+$scope.close3= function(){  
+	   document.getElementById('id03').style.display='none';
+     };
+	 
+	 
+$scope.buildpassword= function(){  
+	  // document.getElementById('id03').style.display='none';
+	  $scope.build($scope.svnpassword);
+     };
+
+
+$scope.passworddetails1= function(){ 
+$scope.passswordmodal1=true;	
+ document.getElementById('id04').style.display='block';
+ document.getElementById('id02').style.display='none';
+}
+$scope.close4= function(){  
+	   document.getElementById('id04').style.display='none';
+     };
+	 
+	 
+$scope.buildpassword1= function(){  
+	  // document.getElementById('id03').style.display='none';
+	  $scope.build1($scope.svnpassword);
+     };	 
 			
 		
 	$scope.builddetails= function(){ 
@@ -149,8 +181,8 @@
      
 	};
 		
-	$scope.build = function(){ 
-	document.getElementById('id01').style.display='none';
+	$scope.build = function(svnpassword){ 
+	document.getElementById('id03').style.display='none';
 	btnm();
 	document.getElementById("roll").disabled = true;
 	//document.getElementById("promote").disabled = true;
@@ -175,7 +207,8 @@
 		var BrokerName=$scope.BrokerName;
 		
 		//var svnpassword=$scope.svnpassword;
-			
+			//alert(svnpassword);
+			//alert(iibhost);
 	if(build_env=="dev"){	
 		 $http({
 			method : "GET",
@@ -183,12 +216,12 @@
 			"&iibhost="+iibhost+
 			"&IIBNode="+IIBNode+
 			"&executionGroup="+executionGroup+
-			"&BrokerName="+BrokerName
-			//"&svnpassword="+svnpassword
+			"&BrokerName="+BrokerName+
+			"&svnpassword="+svnpassword
 		}).then(function(response){
 			
 			if((response.data.search('Job_FAILED'))>0){
-                $timeout( function(){ $scope.status=false; }, 3000);
+                $timeout( function(){ $scope.status=false; $scope.transformstatus=false;}, 3000);
                 document.getElementById('btns').style.display="none";
                 document.getElementById('load').innerHTML="Build and Deploy";
                 document.getElementById("roll").disabled = false;
@@ -196,7 +229,7 @@
              }
              else
              {
-				 $timeout( function(){ $scope.status=false; }, 3000);
+				 $timeout( function(){ $scope.status=false; $scope.transformstatus=false;}, 3000);
                  document.getElementById('btns').style.display="none";
                 document.getElementById('load').innerHTML="Build and Deploy";
                 document.getElementById("roll").disabled = false;
@@ -214,8 +247,8 @@
 			"&iibhost="+iibhost+
 			"&IIBNode="+IIBNode+
 			"&executionGroup="+executionGroup+
-			"&BrokerName="+BrokerName
-			//"&svnpassword="+svnpassword
+			"&BrokerName="+BrokerName+
+			"&svnpassword="+svnpassword
 		}).then(function(response){
 			
 			if((response.data.search('Job_FAILED'))>0){
@@ -301,16 +334,16 @@
        document.getElementById('id02').style.display='none';
      
     };
-    $scope.build1 = function(){ 
+    $scope.build1 = function(svnpassword){ 
 	btnm1();
-    document.getElementById('id02').style.display='none';
+    document.getElementById('id04').style.display='none';
     document.getElementById('console2').innerHTML='';
     document.getElementById("deploy").disabled = true;
     //document.getElementById("promote").disabled = true;
 	
      //  alert("Clicked on Build");     
             
-          var build_env = "dev"; 
+          var build_env=$scope.env;	
         
          var iibhost=$scope.iibhost;
         
@@ -333,7 +366,7 @@
             url : serverHosturl+"rollbackjob?iibhost="+iibhost+
             "&IIBNode="+IIBNode+
             "&executionGroup="+executionGroup+
-            "&BrokerName="+BrokerName+"&artifactory_number="+artifactory_number+"&target="+target+"&build_env="+build_env
+            "&BrokerName="+BrokerName+"&artifactory_number="+artifactory_number+"&target="+target+"&build_env="+build_env+"&svnpassword="+svnpassword
 			
         }).then(function(response){
 			

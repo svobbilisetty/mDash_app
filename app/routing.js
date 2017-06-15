@@ -1227,7 +1227,7 @@ app.get('/build', function (req, res) {
 	data={};
    console.log("entered build"); 
 console.log(loginuser);
-console.log(password);
+//console.log(password);
          build_env = req.query.build_env;
          console.log(build_env); 
 	     iibhost=req.query.iibhost;
@@ -1238,8 +1238,8 @@ console.log(password);
 		
 		BrokerName=req.query.BrokerName;
 		
-		//svnpassword=req.query.svnpassword;
-      
+		svnpassword=req.query.svnpassword;
+      console.log(svnpassword);
 					MongoClient.connect(config.mongodburl, function(err, db) {
 				if(db){
 					var collection = db.collection('CentralizedParameters');
@@ -1301,7 +1301,7 @@ console.log(password);
 														messageflowname: messageflowname,
 														svnrepo:svnrepo,
 														svnusername:loginuser,
-														svnpassword:password
+														svnpassword:svnpassword
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("build triggered");
@@ -1341,7 +1341,7 @@ console.log(password);
 														messageflowname: messageflowname,
 														svnrepo:svnrepo,
 														svnusername:loginuser,
-														svnpassword:password
+														svnpassword:svnpassword
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("build triggered");
@@ -1841,7 +1841,7 @@ app.get('/build1', function (req, res) {
 			svnhost:CentralizedParameters[0].svnhost,
 			svnrepo:svnrepo,
 			svnusername:loginuser,
-		    svnpassword:password
+		    svnpassword:svnpassword
 
 		       }
 			   
@@ -1859,7 +1859,7 @@ app.get('/build1', function (req, res) {
 			deployment_path:EnvironmentalParameters[0].deployment_path,
 			iibhost: iibhost,
 			svnusername:loginuser,
-		    svnpassword:password
+		    svnpassword:svnpassword
 
 		}
 		}
@@ -1878,7 +1878,7 @@ app.get('/build1', function (req, res) {
 			IIBNode:  IIBNode,
 			executionGroup :executionGroup,
 			svnusername:loginuser,
-		    svnpassword:password
+		    svnpassword:svnpassword
 		}
 		}
 		
@@ -1896,7 +1896,7 @@ app.get('/build1', function (req, res) {
 			deployment_path:EnvironmentalParameters[0].deployment_path,
 			iibhost:iibhost,
 			svnusername:loginuser,
-		    svnpassword:password
+		    svnpassword:svnpassword
 
 		}
 		
@@ -1918,7 +1918,7 @@ app.get('/build1', function (req, res) {
 			ArtifactoryUserName : CentralizedParameters[0].ArtifactoryUserName,
             ArtifactoryPassword : CentralizedParameters[0].ArtifactoryPassword,
 			svnusername:loginuser,
-		    svnpassword:password
+		    svnpassword:svnpassword
 		}
 		
 	}
@@ -2112,7 +2112,7 @@ app.get("/rollbackjob",function(req,res){
     var BrokerName = req.query.BrokerName;
 	var artifactory_number=req.query.artifactory_number;
     var target = req.query.target;
-	//var svnpassword = req.query.svnpassword;
+	var svnpassword = req.query.svnpassword;
 	console.log(target);
     var Config_Service;
          console.log("values are..."+iibhost+"  "+IIBNode+"  "+executionGroup+" "+BrokerName+""+target);
@@ -2168,7 +2168,7 @@ app.get("/rollbackjob",function(req,res){
 											Config_Service:Config_Service,
 											target:target,
 											svnusername:loginuser,
-		                                    svnpassword:password
+		                                    svnpassword:svnpassword
 											
 											} }, function(err) {
 																				if (err) console.log(err);
@@ -2214,7 +2214,7 @@ app.get("/rollbackjob",function(req,res){
             Config_Service:Config_Service,
             target:target,
 			svnusername:loginuser,
-		    svnpassword:password} }, function(err) {
+		    svnpassword:svnpassword} }, function(err) {
                                                 if (err) console.log(err);
                                                 console.log("rollback job triggered");
                                                 setTimeout(function() {
@@ -2433,7 +2433,7 @@ console.log("Login User"+loginuser);
             SenderPort_Num:SenderPort_Num,
             username:username,
             password:password,
-			svnusername:loginuser,
+			svnusername:username,
 			svnpassword:password,
 			IIBNode : IIBNode,
 	        iibhost : iibhost,
@@ -2473,6 +2473,22 @@ app.get('/RunTest',function(req,res){
     var iibhost = req.query.iibhost;
     var FlowName = req.query.FlowName;
      interface1 = req.query.i_name;
+	 
+	 
+	 
+	 MongoClient.connect(config.mongodburl, function(err, db) {
+        if(db){
+            var collection = db.collection('CentralizedParameters');
+            if(collection){
+                collection.find({}).toArray(function (err, result) {
+				  if (err) {
+					console.log(err);
+				  } else if (result.length) {
+					  console.log(result);
+					svnusername = result[0].username;	
+		            svnpassword = result[0].password;
+	 
+	 
 	jenkins.job.get("Test_Suite/Run_Test",({ depth: 2,pretty: 'true'}), function(err, data) {
 												  if (err) throw err;
 												  if( data.builds == "")
@@ -2489,8 +2505,8 @@ app.get('/RunTest',function(req,res){
             ReceiverPort:ReceiverPort,
             iibhost:iibhost,
             FlowName:FlowName,
-			svnusername:loginuser,
-			svnpassword:password
+			svnusername:svnusername,
+			svnpassword:svnpassword
             } }, function(err) {
                                           if (err) console.log(err);
                              console.log("RunTest job triggered");
@@ -2501,6 +2517,25 @@ app.get('/RunTest',function(req,res){
 											}, 10000); 
             })
 	})
+	
+	
+	}
+				  else {
+					
+					console.log('No document(s) found with defined "find" criteria!');
+				  }
+				 
+				})
+            }    
+        }
+        else{
+            console.log("error is connecting to db");
+        }
+    });   
+	
+	
+	
+	
 });
 
 
