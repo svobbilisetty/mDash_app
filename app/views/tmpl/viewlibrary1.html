@@ -213,7 +213,7 @@ element.appendChild(para);
 				</div>
 				<div class="form-group row col-sm-12">
 				
-			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="build()">Build Now</button>
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="passworddetails()">Build Now</button>
 			</div>
 							
 		
@@ -228,7 +228,7 @@ element.appendChild(para);
                                             <mark class="bg-white">v19.7</mark>
                                             <h1 class="">Test</h1>
                                         </div><br><br>
-										<button style="font-weight:900;background-color:#00aae7;color:#ffffff;" ng-click="deploydetails()" class="btn  mb-10 col-sm-12" activate-button="loading" id="deploy"><i id="btns" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load">Deploy</span></button>
+										<button style="font-weight:900;background-color:#00aae7;color:#ffffff;" ng-click="deploydetails()" class="btn  mb-10 col-sm-12" activate-button="loading" id="deploy"><i id="btns1" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load1">Deploy</span></button>
 	<div id="id03" class="w3-modal" ng-show="buildmodal2">
 	
     <div class="w3-modal-content">
@@ -283,7 +283,7 @@ element.appendChild(para);
 				</div>
 				<div class="form-group row col-sm-12">
 				
-			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="deploy()">Deploy</button>
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="passworddetails1()">Deploy</button>
 			</div>
 							
 		
@@ -299,7 +299,7 @@ element.appendChild(para);
                                             <mark class="bg-white">v9.2</mark>
                                             <h1 class="">Prod</h1>
                                         </div><br><br>
-										<button style="font-weight:900;background-color:#0d416b;color:#ffffff;" ng-click="rollbackdetails()" class="btn  mb-10 col-sm-12" activate-button="loading" id="rollback"><i id="btns" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load">Roll Back</span></button>
+										<button style="font-weight:900;background-color:#0d416b;color:#ffffff;" ng-click="rollbackdetails()" class="btn  mb-10 col-sm-12" activate-button="loading" id="rollback"><i id="btns2" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load2">Roll Back</span></button>
 	<div id="id04" class="w3-modal" ng-show="buildmodal3">
 	
     <div class="w3-modal-content">
@@ -363,6 +363,119 @@ element.appendChild(para);
 			
       </div>
     </div>
+	
+		<div id="id05" class="w3-modal" ng-show="passswordmodal">
+	
+    <div class="w3-modal-content">
+      <div class="w3-container" >
+	  
+	  <header class="w3-container w3-teal">
+       <span onclick="document.getElementById('id05').style.display='none'"
+
+       class="w3-button w3-display-topright" >&times;</span>
+
+       <h4 style="font-weight:900;color:#ffffff;">Please Authenticate yourself!!!</h4>
+     </header>
+
+        <span ng-click="close5()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
+	
+			<div class="form-group row">
+				<div class="col-sm-6">
+				
+				<div id="password " >
+                    <label for="password  ">SVN Password  </label>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
+                </div>
+				</div>
+				
+				</div>
+				<div class="form-group row col-sm-12">
+				
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="buildpassword()">Build Now</button>
+			</div>
+							
+		
+							
+			</div>
+			
+      </div>
+    </div>
+	
+		<div id="id06" class="w3-modal" ng-show="passswordmodal1">
+	
+    <div class="w3-modal-content">
+      <div class="w3-container" >
+	  
+	  <header class="w3-container w3-teal">
+       <span onclick="document.getElementById('id06').style.display='none'"
+
+       class="w3-button w3-display-topright" >&times;</span>
+
+       <h4 style="font-weight:900;color:#ffffff;">Please Authenticate yourself!!!</h4>
+     </header>
+
+        <span ng-click="close6()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
+	
+			<div class="form-group row">
+				<div class="col-sm-6">
+				
+				<div id="password " >
+                    <label for="password  ">SVN Password  </label>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
+                </div>
+				</div>
+				
+				</div>
+				<div class="form-group row col-sm-12">
+				
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="buildpassword1()">Deploy Now</button>
+			</div>
+							
+		
+							
+			</div>
+			
+      </div>
+    </div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
                                     </div>
                                 </div>
                             </div>

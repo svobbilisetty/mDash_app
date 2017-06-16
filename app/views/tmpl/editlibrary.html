@@ -62,7 +62,7 @@ border: 3px solid #22beef !important;
 
   <div class="pageheader">
 
-    <h2>Create New Library <span></span></h2>
+    <h2>Edit Library <span></span></h2>
 
     <div class="page-bar">
 
@@ -74,13 +74,13 @@ border: 3px solid #22beef !important;
           <a href="#">Library</a>
         </li>
         <li>
-          <a href="">Create New</a>
+          <a href="">Edit</a>
         </li>
       </ul>
     </div>
   </div>
   
-   <div ng-controller="AddLibrary">
+   <div ng-controller="editLibrary">
   <div class="row">
     <!-- col -->
     <div class="col-md-12">
@@ -103,7 +103,7 @@ border: 3px solid #22beef !important;
 			
 			<div  class="form-group ">
 			<!-- <button type="button" ng-click="saveInterface()" class="btn btn-cyan mb-10 col-sm-10"><b>Save Interface</b></button>-->
-			<button ng-click="savelibrary1()"  class="btn btn-cyan  mb-10 col-sm-6" activate-button="loading"><i id="btns" style="display:none;" class="fa fa-refresh fa-spin"></i><span id="load" style="position:relative;left:-13px;"><span style="font-weight: 900">Save Library</span></button>
+			<button ng-click="editlibrary1()"  class="btn btn-cyan  mb-10 col-sm-6" activate-button="loading"><i id="btns" style="display:none;" class="fa fa-refresh fa-spin"></i><span id="load" style="position:relative;left:-13px;"><span style="font-weight: 900">Edit Library</span></button>
 			</div>
 			
 			<div id="id01" class="w3-modal" ng-show="buildmodal">
@@ -133,7 +133,7 @@ border: 3px solid #22beef !important;
 				</div>
 				<div class="form-group row col-sm-12">
 				
-			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="AddLibrary()">Create Library</button>
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="editLibrary()">Save Library</button>
 			</div>
 							
 		

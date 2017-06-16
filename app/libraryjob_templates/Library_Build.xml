@@ -95,8 +95,8 @@ echo &apos;svnpassword=&apos;${svnpassword} &gt;&gt; Utility/SVN.properties</com
     <hudson.tasks.Shell>
       <command>svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Library_URL/Build --force /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build
 svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Library_URL --force /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/Library_Name
-svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/wsdl --force /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build
-svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/TCPIPTestCase/Utility --force /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/Utility
+svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert WSDL_SVN_Path --force /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build
+svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Java_Utility_SVN_Path --force /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/Utility
 rm -rf /var/lib/jenkins/workspace/LibraryManagement/Library_Name/Library_Name_Build/Library_Name/Build</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>

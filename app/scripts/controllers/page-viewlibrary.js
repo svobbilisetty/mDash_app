@@ -27,8 +27,9 @@
 	 // alert("clicked the edit Library page");
      $scope.editLibrary = function(){
 		// alert("clicked the edit Library page");
-		 $scope.buildmodal=true;    
-		document.getElementById('id01').style.display='block';
+		$state.go('app.editlibrary');
+		/*  $scope.buildmodal=true;    
+		document.getElementById('id01').style.display='block'; */
 	 }
 	 
 	 $scope.close= function(){  
@@ -75,6 +76,40 @@
      
     };
 	
+	
+	$scope.passworddetails= function(){ 
+$scope.passswordmodal=true;	
+ document.getElementById('id05').style.display='block';
+ document.getElementById('id02').style.display='none';
+}
+$scope.close5= function(){  
+	   document.getElementById('id05').style.display='none';
+     };
+	 
+	 
+$scope.buildpassword= function(){  
+	  // document.getElementById('id03').style.display='none';
+	  $scope.build($scope.svnpassword);
+     };
+
+
+$scope.passworddetails1= function(){ 
+$scope.passswordmodal1=true;	
+ document.getElementById('id06').style.display='block';
+ document.getElementById('id03').style.display='none';
+}
+$scope.close6= function(){  
+	   document.getElementById('id06').style.display='none';
+     };
+	 
+	 
+$scope.buildpassword1= function(){  
+	  // document.getElementById('id03').style.display='none';
+	  $scope.deploy($scope.svnpassword);
+     };	
+	
+
+	
 	$scope.builddetails = function(){
 		// alert("clicked the edit Library page");
 		$scope.buildmodal1=true;    
@@ -118,8 +153,11 @@
      
     };
 	
-	$scope.build= function(){  
-       document.getElementById('id02').style.display='none';
+	$scope.build= function(svnpassword){  
+       document.getElementById('id05').style.display='none';
+	   btns();
+	   document.getElementById("deploy").disabled = true;
+       document.getElementById("rollback").disabled = true;
 	     var iibhost=$scope.iibhost;
 		
 		 var IIBNode=$scope.IIBNode;
@@ -137,8 +175,8 @@
 			"&iibhost="+iibhost+
 			"&IIBNode="+IIBNode+
 			"&executionGroup="+executionGroup+
-			"&BrokerName="+BrokerName
-			//"&svnpassword="+svnpassword
+			"&BrokerName="+BrokerName+
+			"&svnpassword="+svnpassword
 		}).then(function(response){
 			
 			
@@ -155,21 +193,20 @@
 			
 			
 			if((response.data.search('Job_FAILED'))>0){
-				alert("failed");
-               /*  $timeout( function(){ $scope.status=false; }, 3000);
+				//alert("failed");
+                 
                 document.getElementById('btns').style.display="none";
-                document.getElementById('load').innerHTML="Build and Deploy";
-                document.getElementById("roll").disabled = false;
-              //  document.getElementById("promote").disabled = false;  */
+                document.getElementById('load').innerHTML="Build";
+                document.getElementById("deploy").disabled = false;
+                document.getElementById("rollback").disabled = false;  
              }
              else
              {
-				 alert("success")
-				/*  $timeout( function(){ $scope.status=false; }, 3000);
-                 document.getElementById('btns').style.display="none";
-                document.getElementById('load').innerHTML="Build and Deploy";
-                document.getElementById("roll").disabled = false; */
-               // document.getElementById("promote").disabled = false;
+				// alert("success")
+				document.getElementById('btns').style.display="none";
+                document.getElementById('load').innerHTML="Build";
+                document.getElementById("deploy").disabled = false;
+                document.getElementById("rollback").disabled = false;
              }
 			//	alert(response.data);
 				
@@ -220,8 +257,11 @@
      
     };
 	
-	$scope.deploy= function(){  
-       document.getElementById('id03').style.display='none';
+	$scope.deploy= function(svnpassword){  
+       document.getElementById('id06').style.display='none';
+	   btns1();
+	   document.getElementById("build").disabled = true;
+       document.getElementById("rollback").disabled = true;
 	  var iibhost=$scope.iibhost_d;
 		
 		 var IIBNode=$scope.IIBNode_d;
@@ -239,8 +279,8 @@
 			"&iibhost="+iibhost+
 			"&IIBNode="+IIBNode+
 			"&executionGroup="+executionGroup+
-			"&BrokerName="+BrokerName
-			//"&svnpassword="+svnpassword
+			"&BrokerName="+BrokerName+
+			"&svnpassword="+svnpassword
 		}).then(function(response){
 			
 			$http({
@@ -254,21 +294,20 @@
 		
 			
 			if((response.data.search('Job_FAILED'))>0){
-				alert("failed");
-               /*  $timeout( function(){ $scope.status=false; }, 3000);
-                document.getElementById('btns').style.display="none";
-                document.getElementById('load').innerHTML="Build and Deploy";
-                document.getElementById("roll").disabled = false;
-              //  document.getElementById("promote").disabled = false;  */
+				//alert("failed");
+                 
+                document.getElementById('btns1').style.display="none";
+                document.getElementById('load1').innerHTML="Deploy";
+                document.getElementById("build").disabled = false;
+                document.getElementById("rollback").disabled = false;  
              }
              else
              {
-				 alert("success")
-				/*  $timeout( function(){ $scope.status=false; }, 3000);
-                 document.getElementById('btns').style.display="none";
-                document.getElementById('load').innerHTML="Build and Deploy";
-                document.getElementById("roll").disabled = false; */
-               // document.getElementById("promote").disabled = false;
+				// alert("success")
+				document.getElementById('btns1').style.display="none";
+                document.getElementById('load1').innerHTML="Deploy";
+                document.getElementById("build").disabled = false;
+                document.getElementById("rollback").disabled = false; 
              }
 			//	alert(response.data);
 				
@@ -297,7 +336,20 @@
 		$state.go('app.libraryList');
 	}
 		
-	
+	function btns(){
+    document.getElementById('btns').style.display="inline-flex";
+    document.getElementById('load').innerHTML="&nbsp&nbsp;Build in Progress";  
+}
+function btns1(){
+    document.getElementById('btns1').style.display="inline-flex";
+    document.getElementById('load1').innerHTML="&nbsp;Deploy in progress";
+    
+}
+function btns2(){
+    document.getElementById('btns2').style.display="inline-flex";
+    document.getElementById('load2').innerHTML="&nbsp;Rollback in progress";
+    
+}
 	
 	
 	

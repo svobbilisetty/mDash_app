@@ -91,7 +91,7 @@ echo &apos;svnusername=&apos;${svnusername} &gt;&gt; Utility/SVN.properties
 echo &apos;svnpassword=&apos;${svnpassword} &gt;&gt; Utility/SVN.properties</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert https://icisr032/svn-poc/iib/TCPIPTestCase/Utility --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Library_Detection/Utility
+      <command>svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Java_Utility_SVN_Path --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Library_Detection/Utility
 svn export --username ${svnusername} --password ${svnpassword} --non-interactive --trust-server-cert Remote_SVN_URL --force /var/lib/jenkins/workspace/Flow_Type/Flow_Name/Library_Detection/Flow_Name
 
 </command>

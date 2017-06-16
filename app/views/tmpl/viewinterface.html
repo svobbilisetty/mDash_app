@@ -172,7 +172,7 @@ background-color: #0d416b !important;
                         <!-- tile -->
                         <section class="tile" fullscreen="isFullscreen02">
                           <!-- tile body -->
-                          <div class="tile-body p-0" style="height:445px;overflow-y:scroll;">
+                          <div class="tile-body p-0" style="height:445px;overflow-y:scroll;" ng-show="recentFlowsId">
 
                            <div class="tile-header dvd dvd-btm">
                             <h1 class="custom-font">Recent Jobs</h1>
@@ -382,6 +382,81 @@ background-color: #0d416b !important;
       </div>
     </div>
   </div>
+  
+  	<div id="id03" class="w3-modal" ng-show="passswordmodal">
+	
+    <div class="w3-modal-content">
+      <div class="w3-container" >
+	  
+	  <header class="w3-container w3-teal">
+       <span onclick="document.getElementById('id03').style.display='none'"
+
+       class="w3-button w3-display-topright" >&times;</span>
+
+       <h4 style="font-weight:900;color:#ffffff;">Please Authenticate yourself!!!</h4>
+     </header>
+
+        <span ng-click="close3()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
+	
+			<div class="form-group row">
+				<div class="col-sm-6">
+				
+				<div id="password " >
+                    <label for="password  ">SVN Password  </label>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
+                </div>
+				</div>
+				
+				</div>
+				<div class="form-group row col-sm-12">
+				
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="buildpassword()">Build Now</button>
+			</div>
+							
+		
+							
+			</div>
+			
+      </div>
+    </div>
+	
+		<div id="id04" class="w3-modal" ng-show="passswordmodal1">
+	
+    <div class="w3-modal-content">
+      <div class="w3-container" >
+	  
+	  <header class="w3-container w3-teal">
+       <span onclick="document.getElementById('id04').style.display='none'"
+
+       class="w3-button w3-display-topright" >&times;</span>
+
+       <h4 style="font-weight:900;color:#ffffff;">Please Authenticate yourself!!!</h4>
+     </header>
+
+        <span ng-click="close4()" class="w3-button w3-display-topright" style="color:#ffffff !important;">&times;</span><br>
+	
+			<div class="form-group row">
+				<div class="col-sm-6">
+				
+				<div id="password " >
+                    <label for="password  ">SVN Password  </label>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
+                </div>
+				</div>
+				
+				</div>
+				<div class="form-group row col-sm-12">
+				
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="buildpassword1()">Build Now</button>
+			</div>
+							
+		
+							
+			</div>
+			
+      </div>
+    </div>
+	
 </div>
 
 <div>

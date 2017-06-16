@@ -659,6 +659,13 @@ var app = angular
       templateUrl: 'views/tmpl/libraryList.html'
     })
 	
+	.state('app.editlibrary', {
+      url: '/editlibrary',
+     // controller: 'librarylist',
+      templateUrl: 'views/tmpl/editlibrary.html'
+    })
+	
+	
 	.state('app.addlibrary', {
       url: '/addlibrary',
      // controller: 'MailInboxCtrl',

@@ -85,6 +85,7 @@ border: 3px solid #22beef !important;
     <!-- col -->
     <div class="col-md-12">
       <!-- tile -->
+	  <form name="form1">
       <section class="tile" fullscreen="isFullscreen01">
 
 
@@ -94,7 +95,7 @@ border: 3px solid #22beef !important;
 		 
         <div class="tile-body">
 		<div class="form-group">
-<div class="form-group "> <label for="inputPassword3" class="col-sm-4 control-label"><b> Interface Name</b></label>  <br><br><span class="col-sm-6"><input class="form-control col-sm-6"  id="Interface" placeholder="Interface Name" ng-model="interface_name" ></span> </div><br><br>
+<div class="form-group "> <label for="inputPassword3" class="col-sm-4 control-label"><b> Interface Name</b></label>  <br><br><span class="col-sm-6"><input class="form-control col-sm-6"  id="Interface" placeholder="Interface Name" ng-model="interface_name"  required/></span> </div><br><br>
 <!--<div class="form-group "><label for="inputPassword3" class="col-sm-5 control-label"><b>SVN Password</b></label><br><br><span class="col-sm-6"><input  type="password" class="form-control col-sm-6"  id="svnpassword" placeholder="SVN Password" ng-model="svnpassword" ></span> </div>-->
 		
           <div >
@@ -120,9 +121,9 @@ border: 3px solid #22beef !important;
                                         <tbody id="myList">
                                         <tr id="hidethis">
                                             <td>
-											<input class="form-control" placeholder="Flow Name"  name="inputflow1" id="inputflow1" type="text" ng-model="flowname1" ng-keyup="myFunc(1)" >	</td>
+											<input class="form-control" placeholder="Flow Name"  name="inputflow1" id="inputflow1"  ng-model="flowname1" ng-keyup="myFunc(1)"  required/>	</td>
                                             <td>
-											<input class="form-control" placeholder="SVN Path for Flow" id="inputsvn1" type="text" ng-model="Remote_SVN_Path1">
+											<input class="form-control" placeholder="SVN Path for Flow" id="inputsvn1"  ng-model="Remote_SVN_Path1"  required/>
 											</td>
                                             <td><button onclick="del()" class="btn btn-sm btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">x</button></td>
 										</tr>	
@@ -164,9 +165,9 @@ border: 3px solid #22beef !important;
 			</div>
 			<div class="col-sm-2">
 			<!-- <button type="button" ng-click="saveInterface()" class="btn btn-cyan mb-10 col-sm-10"><b>Save Interface</b></button>-->
-			<button ng-click="saveInterface1()"  class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 col-sm-12" activate-button="loading"><i id="btns" style="display:none;" class="fa fa-refresh fa-spin"></i><span id="load" style="position:relative;left:-13px;"><span style="font-weight: 900">Save Interface</span></button>
+			<button  type="submit" ng-click="saveInterface1()"   ng-disabled="!form1.$dirty" class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 col-sm-12" activate-button="loading"><i id="btns" style="display:none;" class="fa fa-refresh fa-spin"></i><span id="load" style="position:relative;left:-13px;"><span style="font-weight: 900">Save Interface</span></button>
 			</div>
-			
+			 </form>
 			<div id="id01" class="w3-modal" ng-show="buildmodal">
 	
     <div class="w3-modal-content">
@@ -193,11 +194,11 @@ border: 3px solid #22beef !important;
 				
 				<div id="password " >
                     <label for="password  ">SVN Password  </label>
-                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
+                    <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword" required></input>
                 </div>
 				</div>
 				
-				</div>
+				</div> 
 				<div class="form-group row col-sm-12">
 				
 			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="save()">Create Interface</button>
@@ -219,6 +220,7 @@ border: 3px solid #22beef !important;
         
         
         </section>
+		
      </div>
   
 </div>

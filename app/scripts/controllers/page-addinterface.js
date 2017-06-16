@@ -104,7 +104,7 @@
 			// alert("enterd saveInterface")
 				var interface_name = $scope.interface_name;
 				//var svnpassword = $scope.svnpassword;
-				alert($scope.svnpassword);
+				//alert($scope.svnpassword);
 				 var no_rows = document.getElementById("svnTable").rows.length;
 				// alert(no_rows);
 				var no_flows=no_rows-1;
@@ -150,7 +150,7 @@ $scope.myFunction1 = function()
 	 
    var node = document.createElement("tr");
 	node.setAttribute("id",x);
-	node.innerHTML="<td ><input class='form-control' placeholder='Flow Name' type='text' ng-model='flowname"+x+"' id='inputflow"+x+"' ng-keyup='myFunc2()'>	</td><td><input class='form-control' placeholder='SVN Path for Flow' id='inputsvn"+x+"' type='text' ng-model='Remote_SVN_Path"+x+"'></td>   <td><button class='btn btn-sm btn-danger' ng-click='rate = 0' ng-disabled='isReadonly' onclick='del("+x+")'>x</button></td>"
+	node.innerHTML="<td ><input class='form-control' placeholder='Flow Name' type='text' ng-model='flowname"+x+"' id='inputflow"+x+"' ng-keyup='myFunc2()' required/>	</td><td><input class='form-control' placeholder='SVN Path for Flow' id='inputsvn"+x+"' type='text' ng-model='Remote_SVN_Path"+x+"'  required/></td>   <td><button class='btn btn-sm btn-danger' ng-click='rate = 0' ng-disabled='isReadonly' onclick='del("+x+")'>x</button></td>"
  var newButt = angular.element(node);
     newButt.bind('keyup', $scope.myFunc2);
     angular.element(document.getElementById("myList")).append(newButt);

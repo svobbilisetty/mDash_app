@@ -143,6 +143,31 @@ app.get('/CInterface', function(req, res){
 	 folder=type;
  
 	 console.log(Remote_SVN_URL);
+	 
+	 MongoClient.connect(config.mongodburl, function(err, db) {
+    if(db){
+            var collection = db.collection('CentralizedParameters');
+            
+           if(collection){
+                collection.find({}).toArray(function (finderror, result)
+                {
+                
+                   if(finderror)
+                        {
+                        console.log("Unable to execute find operation");
+                        }
+                   else if (result.length)
+                        {
+                             console.log(result[0].JavaUtilitySVNPath);
+                              console.log(result[0].SVNLibraryRootPath);
+                               console.log(result[0].WSDLSVNPath);
+    
+                    var JavaUtilitySVNPath = result[0].JavaUtilitySVNPath;
+                    var SVNLibraryRootPath = result[0].SVNLibraryRootPath;
+                    var WSDLSVNPath = result[0].WSDLSVNPath;
+	 
+	 
+	 
 	
 	  /* rmdir(__dirname+'/job_configfiles', function(error){
                 if(error){
@@ -198,7 +223,10 @@ app.get('/CInterface', function(req, res){
     var newValue = data.replace(/Remote_SVN_URL/gim, Remote_SVN_URL);
 	var newValue1 = newValue.replace(/Flow_Name/gim, flowname);
 	var newValue2 = newValue1.replace(/Flow_Type/gim, folder);
-    fs.writeFileSync('C:\\Ruby23\\files\\job_configfiles\\'+flowname+'_Build.xml',newValue2, 'utf-8');
+	var newValue3 = newValue2.replace(/Java_Utility_SVN_Path/gim, JavaUtilitySVNPath);
+    var newValue4 = newValue3.replace(/SVN_Library_Root_Path/gim, SVNLibraryRootPath);
+     var newValue5 = newValue4.replace(/WSDL_SVN_Path/gim, WSDLSVNPath);
+    fs.writeFileSync('C:\\Ruby23\\files\\job_configfiles\\'+flowname+'_Build.xml',newValue5, 'utf-8');
     /*Changes for Flow_name_Build.xml file*/
 	
 	/*Changes for Library_Detection.xml file*/
@@ -206,7 +234,8 @@ app.get('/CInterface', function(req, res){
     var newValue = data.replace(/Remote_SVN_URL/gim, Remote_SVN_URL);
 	var newValue1 = newValue.replace(/Flow_Name/gim, flowname);
 	var newValue2 = newValue1.replace(/Flow_Type/gim, folder);
-    fs.writeFileSync('C:\\Ruby23\\files\\job_configfiles\\Library_Detection.xml',newValue2, 'utf-8');
+	var newValue3 = newValue2.replace(/Java_Utility_SVN_Path/gim, JavaUtilitySVNPath);
+    fs.writeFileSync('C:\\Ruby23\\files\\job_configfiles\\Library_Detection.xml',newValue3, 'utf-8');
     /*Changes for Library_Detection.xml file*/
 	
 	/*Changes for Rollback_test.xml file*/
@@ -219,9 +248,22 @@ app.get('/CInterface', function(req, res){
     /*Changes for Rollback_test.xml file*/
 	
 	
-	 if (fs.existsSync('C:\\Ruby23\\files\\job_configfiles/'+flowname+'_Build.xml')){
-       res.redirect('/createjob');      
+		 if (fs.existsSync('C:\\Ruby23\\files\\job_configfiles/'+flowname+'_Build.xml')){
+		   res.redirect('/createjob');      
+		}
+	
+	
+	
+	}
+                        else
+                        {
+                            console.log("no records found");
+                        }
+    
+                })
+            }
     }
+ });
 	 
 });
 
@@ -876,10 +918,11 @@ console.log(type);
                 svnUltimate.commands.cleanup('C:\\Ruby23\\files\\svn_repo',function(err){
                     svnUltimate.commands.commit('C:\\Ruby23\\files\\svn_repo','-q',function(err){
                         console.log( "commit complete" );
+                        setTimeout(function() {
                         fs1.removeSync('C:\\Ruby23\\files\\svn_repo');
-						fs1.removeSync('C:\\Ruby23\\files\\Build');
-						//res.send("created");
-						res.redirect('/CInterface');
+                        fs1.removeSync('C:\\Ruby23\\files\\Build');
+                        res.redirect('/CInterface');
+                                            }, 5000);
                     });
                 });
             });
@@ -1185,7 +1228,7 @@ app.get('/build', function (req, res) {
 	data={};
    console.log("entered build"); 
 console.log(loginuser);
-console.log(password);
+//console.log(password);
          build_env = req.query.build_env;
          console.log(build_env); 
 	     iibhost=req.query.iibhost;
@@ -1196,8 +1239,8 @@ console.log(password);
 		
 		BrokerName=req.query.BrokerName;
 		
-		//svnpassword=req.query.svnpassword;
-      
+		svnpassword=req.query.svnpassword;
+      console.log(svnpassword);
 					MongoClient.connect(config.mongodburl, function(err, db) {
 				if(db){
 					var collection = db.collection('CentralizedParameters');
@@ -1216,7 +1259,7 @@ console.log(password);
 												collection.find({build_env:build_env}).toArray(function (err, result) {
 												  if (err) {
 													console.log(err);
-												  } else{
+												  } else if (result.length) {
 													  
 													console.log(result);
 													EnvironmentalParameters=result;
@@ -1259,7 +1302,7 @@ console.log(password);
 														messageflowname: messageflowname,
 														svnrepo:svnrepo,
 														svnusername:loginuser,
-														svnpassword:password
+														svnpassword:svnpassword
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("build triggered");
@@ -1299,7 +1342,7 @@ console.log(password);
 														messageflowname: messageflowname,
 														svnrepo:svnrepo,
 														svnusername:loginuser,
-														svnpassword:password
+														svnpassword:svnpassword
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("build triggered");
@@ -1399,7 +1442,7 @@ log.on('end', function(end) {
 							  console.log('job status'+ data.builds[0]+" build number  "+data.builds[0].number);
 							// res.send(data);
 							if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
-								//if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
+							//if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
 							{
 								client.emit('progress', uri);
 								current_job=uri;
@@ -1799,7 +1842,7 @@ app.get('/build1', function (req, res) {
 			svnhost:CentralizedParameters[0].svnhost,
 			svnrepo:svnrepo,
 			svnusername:loginuser,
-		    svnpassword:password
+		    svnpassword:svnpassword
 
 		       }
 			   
@@ -1817,7 +1860,7 @@ app.get('/build1', function (req, res) {
 			deployment_path:EnvironmentalParameters[0].deployment_path,
 			iibhost: iibhost,
 			svnusername:loginuser,
-		    svnpassword:password
+		    svnpassword:svnpassword
 
 		}
 		}
@@ -1836,7 +1879,7 @@ app.get('/build1', function (req, res) {
 			IIBNode:  IIBNode,
 			executionGroup :executionGroup,
 			svnusername:loginuser,
-		    svnpassword:password
+		    svnpassword:svnpassword
 		}
 		}
 		
@@ -1854,7 +1897,7 @@ app.get('/build1', function (req, res) {
 			deployment_path:EnvironmentalParameters[0].deployment_path,
 			iibhost:iibhost,
 			svnusername:loginuser,
-		    svnpassword:password
+		    svnpassword:svnpassword
 
 		}
 		
@@ -1876,7 +1919,7 @@ app.get('/build1', function (req, res) {
 			ArtifactoryUserName : CentralizedParameters[0].ArtifactoryUserName,
             ArtifactoryPassword : CentralizedParameters[0].ArtifactoryPassword,
 			svnusername:loginuser,
-		    svnpassword:password
+		    svnpassword:svnpassword
 		}
 		
 	}
@@ -1918,6 +1961,9 @@ app.get("/SaveCentralizedParameters",function(req,res){
   var  SVNBaseURL = req.query.SVNBaseURL;
   var  SVNUserName = req.query.SVNUserName;
   var  SVNPassword = req.query.SVNPassword;
+  var  JavaUtilitySVNPath=req.query.JavaUtilitySVNPath;
+  var  SVNLibraryRootPath=req.query.SVNLibraryRootPath;
+  var  WSDLSVNPath=req.query.WSDLSVNPath;
     
      MongoClient.connect(config.mongodburl, function(err, db) {
         if(db){
@@ -1932,7 +1978,10 @@ app.get("/SaveCentralizedParameters",function(req,res){
 					"svnhost":svnhost,
 					"SVNBaseURL":SVNBaseURL,
 					"SVNUserName":SVNUserName,
-					"SVNPassword":SVNPassword					
+					"SVNPassword":SVNPassword,
+                    "JavaUtilitySVNPath":JavaUtilitySVNPath,
+                    "SVNLibraryRootPath":SVNLibraryRootPath,
+                    "WSDLSVNPath":WSDLSVNPath					
                 }
 				collection.remove();
                 console.log("Inserting the data -------- "+JSON.stringify(data));
@@ -2064,7 +2113,7 @@ app.get("/rollbackjob",function(req,res){
     var BrokerName = req.query.BrokerName;
 	var artifactory_number=req.query.artifactory_number;
     var target = req.query.target;
-	//var svnpassword = req.query.svnpassword;
+	var svnpassword = req.query.svnpassword;
 	console.log(target);
     var Config_Service;
          console.log("values are..."+iibhost+"  "+IIBNode+"  "+executionGroup+" "+BrokerName+""+target);
@@ -2120,7 +2169,7 @@ app.get("/rollbackjob",function(req,res){
 											Config_Service:Config_Service,
 											target:target,
 											svnusername:loginuser,
-		                                    svnpassword:password
+		                                    svnpassword:svnpassword
 											
 											} }, function(err) {
 																				if (err) console.log(err);
@@ -2166,7 +2215,7 @@ app.get("/rollbackjob",function(req,res){
             Config_Service:Config_Service,
             target:target,
 			svnusername:loginuser,
-		    svnpassword:password} }, function(err) {
+		    svnpassword:svnpassword} }, function(err) {
                                                 if (err) console.log(err);
                                                 console.log("rollback job triggered");
                                                 setTimeout(function() {
@@ -2385,7 +2434,7 @@ console.log("Login User"+loginuser);
             SenderPort_Num:SenderPort_Num,
             username:username,
             password:password,
-			svnusername:loginuser,
+			svnusername:username,
 			svnpassword:password,
 			IIBNode : IIBNode,
 	        iibhost : iibhost,
@@ -2425,6 +2474,22 @@ app.get('/RunTest',function(req,res){
     var iibhost = req.query.iibhost;
     var FlowName = req.query.FlowName;
      interface1 = req.query.i_name;
+	 
+	 
+	 
+	 MongoClient.connect(config.mongodburl, function(err, db) {
+        if(db){
+            var collection = db.collection('CentralizedParameters');
+            if(collection){
+                collection.find({}).toArray(function (err, result) {
+				  if (err) {
+					console.log(err);
+				  } else if (result.length) {
+					  console.log(result);
+					svnusername = result[0].username;	
+		            svnpassword = result[0].password;
+	 
+	 
 	jenkins.job.get("Test_Suite/Run_Test",({ depth: 2,pretty: 'true'}), function(err, data) {
 												  if (err) throw err;
 												  if( data.builds == "")
@@ -2441,8 +2506,8 @@ app.get('/RunTest',function(req,res){
             ReceiverPort:ReceiverPort,
             iibhost:iibhost,
             FlowName:FlowName,
-			svnusername:loginuser,
-			svnpassword:password
+			svnusername:svnusername,
+			svnpassword:svnpassword
             } }, function(err) {
                                           if (err) console.log(err);
                              console.log("RunTest job triggered");
@@ -2453,6 +2518,25 @@ app.get('/RunTest',function(req,res){
 											}, 10000); 
             })
 	})
+	
+	
+	}
+				  else {
+					
+					console.log('No document(s) found with defined "find" criteria!');
+				  }
+				 
+				})
+            }    
+        }
+        else{
+            console.log("error is connecting to db");
+        }
+    });   
+	
+	
+	
+	
 });
 
 
@@ -2695,10 +2779,12 @@ console.log(Library_URL);
                 svnUltimate.commands.cleanup('C:\\Ruby23\\files\\libsvn_repo',function(err){
                     svnUltimate.commands.commit('C:\\Ruby23\\files\\libsvn_repo','-q',function(err){
                         console.log( "commit complete" );
+						setTimeout(function() {
                         fs1.removeSync('C:\\Ruby23\\files\\libsvn_repo');
 						fs1.removeSync('C:\\Ruby23\\files\\LibBuild');
 						//res.send("created");
 						res.redirect('/libInterface');
+						         }, 3000);
                     });
                 });
             });
@@ -2720,7 +2806,30 @@ console.log(Library_URL);
 app.get('/libInterface',function(req,res){
 console.log("libcreateInterface");
 console.log(Library_Name);
-		
+
+MongoClient.connect(config.mongodburl, function(err, db) {
+    if(db){
+            var collection = db.collection('CentralizedParameters');
+            
+           if(collection){
+                collection.find({}).toArray(function (finderror, result)
+                {
+                
+                   if(finderror)
+                        {
+                        console.log("Unable to execute find operation");
+                        }
+                   else if (result.length)
+                        {
+                             console.log(result[0].JavaUtilitySVNPath);
+                              console.log(result[0].SVNLibraryRootPath);
+                               console.log(result[0].WSDLSVNPath);
+    
+                    var JavaUtilitySVNPath = result[0].JavaUtilitySVNPath;
+                    var SVNLibraryRootPath = result[0].SVNLibraryRootPath;
+                    var WSDLSVNPath = result[0].WSDLSVNPath;
+
+	
 	 if (!fs.existsSync('C:\\Ruby23\\files\\libjob_configfiles')){
 		 console.log("created new folder");
         fs.mkdirSync('C:\\Ruby23\\files\\libjob_configfiles');        
@@ -2747,7 +2856,9 @@ console.log(Library_Name);
     var data = fs.readFileSync(__dirname+'/libraryjob_templates/Library_Build.xml', 'utf-8');
     var newValue = data.replace(/Library_URL/gim, Library_URL);
 	var newValue1 = newValue.replace(/Library_Name/gim, Library_Name);
-    fs.writeFileSync('C:\\Ruby23\\files\\libjob_configfiles\\'+Library_Name+'_Build.xml',newValue1, 'utf-8');
+	var newValue2 = newValue1.replace(/Java_Utility_SVN_Path/gim, JavaUtilitySVNPath);
+    var newValue3 = newValue2.replace(/WSDL_SVN_Path/gim, WSDLSVNPath);
+    fs.writeFileSync('C:\\Ruby23\\files\\libjob_configfiles\\'+Library_Name+'_Build.xml',newValue3, 'utf-8');
     /*Changes for Library_Build.xml file*/
 	
 	
@@ -2756,6 +2867,18 @@ console.log(Library_Name);
        res.redirect('/createlibjob'); 
 //res.send("jobfiles created")	   
     }
+	
+	}
+                        else
+                        {
+                            console.log("no records found");
+                        }
+    
+                })
+            }
+    }
+ });
+	
 	
 });
 
@@ -3233,7 +3356,7 @@ data={};
 		
 		BrokerName=req.query.BrokerName;
 		
-	//	svnpassword=req.query.svnpassword;
+		svnpassword=req.query.svnpassword;
       
 			MongoClient.connect(config.mongodburl, function(err, db) {
 				if(db){
@@ -3280,7 +3403,7 @@ data={};
 														projectname :projectname,
 														svnrepo:svnrepo,
 														svnusername:loginuser,
-														svnpassword:password
+														svnpassword:svnpassword
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("build triggered");
@@ -3365,7 +3488,7 @@ app.get("/libdeploy",function(req,res){
 		
 		BrokerName=req.query.BrokerName;
 		
-	//	svnpassword=req.query.svnpassword;
+		svnpassword=req.query.svnpassword;
       
 			MongoClient.connect(config.mongodburl, function(err, db) {
 				if(db){
@@ -3418,7 +3541,7 @@ app.get("/libdeploy",function(req,res){
 															ArtifactoryUserName : CentralizedParameters[0].ArtifactoryUserName,
 															ArtifactoryPassword : CentralizedParameters[0].ArtifactoryPassword,
 															svnusername:loginuser,
-															svnpassword:password
+															svnpassword:svnpassword
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("deploy triggered");
@@ -3683,9 +3806,28 @@ console.log(password);
 					console.log("error is connecting to db");
 				}
 			});   
-       
-			        
-			  	
-				
 					
+});
+
+
+app.get('/recentflowjobs',function(req,res){
+	var interfacename = req.query.interface_name;
+	var flowname = req.query.flowname
+	
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('flowslog');
+			if(collection){
+				collection.find({interface_name : interfacename,flowname:flowname}).toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					
+					res.send(result);
+					}
+					else{console.log("no_records")}
+				});
+			}
+		}
+	});
 });

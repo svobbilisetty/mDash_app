@@ -115,7 +115,7 @@
 		 $scope.saveInterface = function(svnpassword)
 		 {
 			  $scope.close();
-			  alert($scope.svnpassword);
+			 // alert($scope.svnpassword);
 			 btnm();
 			// alert("enterd saveInterface")
 				var interface_name = $scope.interface_name;
@@ -253,7 +253,7 @@ var i=this.id;
 								"&svnpassword="+svnpassword
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
-									alert(response.data);
+									//alert(response.data);
 								}
 								//alert("response: "+response.data);
 								 if (flow_names.length > 0) {   //callback
@@ -314,7 +314,7 @@ var i=this.id;
 								"&Remote_SVN_URL="+Remote_SVN_URLs1+
 								"&svnpassword="+svnpassword
                             }).then(function(response){
-                                alert(response.data);
+                              //  alert(response.data);
 								if(response.data=="deleted")
 								{
 									 $http({
@@ -326,7 +326,7 @@ var i=this.id;
 								"&svnpassword="+svnpassword
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
-									alert(response.data);
+									//alert(response.data);
 								}
 								//alert("response: "+response.data);
 								 if (flow_names.length > 0) {   //callback

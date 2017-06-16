@@ -33,8 +33,9 @@
 			
 	// Library Add pop-up - START
 	$scope.addLibrary = function(){	
-		$scope.buildmodal=true;    
-		document.getElementById('id01').style.display='block';
+		/* $scope.buildmodal=true;    
+		document.getElementById('id01').style.display='block'; */
+		 $state.go('app.addlibrary');
 	}
 	$scope.close= function(){  
        document.getElementById('id01').style.display='none';
