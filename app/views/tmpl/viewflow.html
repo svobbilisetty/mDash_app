@@ -1612,6 +1612,7 @@ border-radius:15px;
                                    	  <tr ng-repeat="x in flowjobs |  orderBy: '-updatedDate' && orderBy: '-updatedTime'">
 										<td>{{x.Jobtype}}</td>
 										<td>{{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
+										<!--<td>{{x.Environment}}</td>-->
 										 <td ><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
 										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
 										 <td>{{x.By}}</td>

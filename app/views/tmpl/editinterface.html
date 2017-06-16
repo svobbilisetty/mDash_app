@@ -61,7 +61,7 @@ border: 3px solid #22beef !important;
 
   <div class="pageheader">
 
-    <h2>Edit Interface <span></span></h2>
+    <h2>Edit Interface <!-- : <strong>{{interface_name_breadcrumb}} </strong>--> <span></span></h2>
 
     <div class="page-bar">
 
@@ -69,8 +69,11 @@ border: 3px solid #22beef !important;
         <li>
           <a href="index.html"><i class="fa fa-home"></i> mDash</a>
         </li>
+		<!--<li>
+          <a ng-click="interfaceList()">Interface</a>
+        </li>-->
         <li>
-          <a href="#">Interface</a>
+          <a href="">{{interface_name_breadcrumb}}</a>
         </li>
         <li>
           <a href="">Edit</a>

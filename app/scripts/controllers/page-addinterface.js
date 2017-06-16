@@ -19,6 +19,12 @@
 	var j;
 	var x;
 	var repo;
+	 $scope.interfaceList=function(){
+		  //alert("HAI");
+		  $state.go('app.interfacelist');
+	  }
+	  
+	  
 	 $http({
 			method : "GET",
 			url : "/public/serverHost.json"	
@@ -202,7 +208,6 @@ $scope.myFunc = function(i) {
       };
 	  
 	  
-	  
 $scope.myFunc2 = function() {
 //alert(this.id);
 var i=this.id;
@@ -265,7 +270,7 @@ var i=this.id;
 							}); 
 		 }
 	  
-	  
+	 
 function btnm(){
     document.getElementById('btns').style.display="block";
     document.getElementById('load').innerHTML="&nbsp;&nbsp;Creating Interface";

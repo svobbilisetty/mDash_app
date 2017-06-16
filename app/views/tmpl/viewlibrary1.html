@@ -79,7 +79,7 @@ element.appendChild(para);
                     <a href="index.html"><i class="fa fa-home"></i> mDash</a>
                 </li>
 				<li>
-                    <a ng-model="Libraries" id="Libraries" ng-click="gotoLibList()">Libraries</a>
+                    <a ng-click="gotoLibList()">Libraries</a>
                 </li>
                 <li>
                     <a ng-model="libraryName" id="libraryName" href="">{{libraryName}}</a>
@@ -524,9 +524,9 @@ element.appendChild(para);
 										   <td>{{x.Jobtype}}</td>
 										   <td> {{x.createdDate || ''}} - {{x.createdtime || ''}}</td>
 									    <td> {{x.updatedDate || ''}} - {{x.updatedTime || ''}}</td>
-										 <td align="center"><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
-										<span class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
-                                       <td>{{x.Environment}}</td>
+										 <td><!-- {{x.result==null ? "IN PROGRESS": x.result}} -->
+										<span style="position:relative;left:40px;" class="{{x.flowstatus == 'SUCCESS' ? 'fa fa-square text-success' : ((x.flowstatus == 'FAILURE' ? 'fa fa-square text-danger' : 'fa fa-square text-warning'))}}"></span></td>
+                                       <td>{{x.Environment  | uppercase}}</td>
 									   <td>{{x.By}}</td>
                                       <!--  <td><center><i class="fa fa-square text-danger"></i>{{x.flowstatus || ""}}</center></td> -->
                                     

@@ -592,7 +592,8 @@ var app = angular
     })
 	.state('app.addinterface', {
       url: '/addinterface',
-      templateUrl: 'views/tmpl/addinterface.html',
+      controller: 'AddInterface',
+	  templateUrl: 'views/tmpl/addinterface.html',
     })
 	.state('app.viewinterface', {
       url: '/viewinterface',

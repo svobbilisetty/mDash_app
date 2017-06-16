@@ -16,6 +16,11 @@
 	 var repo;
 	  var flownames1=[];
 	 var interfacenames=[];
+	 
+	$scope.interfaceList=function(){
+		  //alert("HAI");
+		  $state.go('app.interfacelist');
+	  }
 	 $http({
 			method : "GET",
 			url : "/public/serverHost.json"	
@@ -36,7 +41,7 @@
     url : serverHosturl+"editflowsretrive"
     }).then(function(response1) {
 		$scope.interface_name=response1.data.interfaceName;
-		
+		$scope.interface_name_breadcrumb = response1.data.interfaceName;
 		for (var i=0; i <response1.data.result.length;i++){
 		
 				  if(i>0)
@@ -153,7 +158,7 @@ $scope.myFunction1 = function()	{
 	node.setAttribute("id",x);
 	node.innerHTML="<td ><input class='form-control' placeholder='Flow Name' type='text' ng-model='flowname"+x+"' id='inputflow"+x+"' ng-keyup='myFunc2()'>	</td><td><input class='form-control' placeholder='SVN Path for Flow' id='inputsvn"+x+"' type='text' ng-model='Remote_SVN_Path"+x+"'></td>   <td><button class='btn btn-sm btn-danger' ng-click='rate = 0' ng-disabled='isReadonly' onclick='del("+x+")'>x</button></td>"
  var newButt = angular.element(node);
-   // newButt.bind('keyup', $scope.myFunc2);
+    newButt.bind('keyup', $scope.myFunc2);
     angular.element(document.getElementById("myList")).append(newButt);
    // document.getElementById("myList").appendChild(node);
 count++;
@@ -261,7 +266,7 @@ var i=this.id;
 								 }
 								 else
 								 {
-									alert("Flow edited successfully")
+									//alert("Flow edited successfully")
 									 document.getElementById('btns').style.display="none";
                                      document.getElementById('load').innerHTML="Edit Interface";
 									 document.getElementById('load').style.fontWeight="bold";
@@ -334,7 +339,7 @@ var i=this.id;
 								 }
 								 else
 								 {
-									 alert("Flow edited sucessfully")
+								//	 alert("Flow edited sucessfully")
 									  document.getElementById('btns').style.display="none";
                                      document.getElementById('load').innerHTML="Edit Interface";
 									 document.getElementById('load').style.fontWeight="bold";

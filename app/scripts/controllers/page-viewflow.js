@@ -438,6 +438,7 @@ else{document.getElementById('promote').innerHTML="&nbsp&nbsp;Build Now";}
 		 $scope.iibhosts = "";
 		 $scope.IIBNodes = "";
 		 $scope.executionGroups = "";
+		 $scope.BrokerName = "";
 		 //$scope.mqsiprofile = "";
 	 }
 	 else
@@ -453,6 +454,7 @@ else{document.getElementById('promote').innerHTML="&nbsp&nbsp;Build Now";}
 	       $scope.iibhost=$scope.iibhosts[0];
 	       $scope.executionGroups=executionGroup1;
 	       $scope.executionGroup=$scope.executionGroups[0];
+		   $scope.BrokerName = response.data[0].BrokerName;
 	 }
 	      
     });   	
@@ -469,7 +471,7 @@ $scope.changepopup = function(){
       //alert(JSON.stringify(response.data));
 	 if(response.data=="no_record")
 	 {
-			alert("No Builds Available") ;	//alert("no records");
+			alert("No Recent Builds Happened") ;	//alert("no records");
 			document.getElementById("execute").disabled = true;
 		 $scope.iibhost = "";
           $scope.IIBNode = "";
