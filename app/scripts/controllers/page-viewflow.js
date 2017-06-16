@@ -51,12 +51,19 @@
 		  interfacename1=response.data.interfaceName;
 		  flowname1=response.data.flowName;
 		  type=flowname1.split("_").pop();
+<<<<<<< HEAD
 		  $http({
     method : "GET",
     url : serverHosturl+"recentflowjobs?interface_name="+response.data.interfaceName+"&flowname="+response.data.flowName	
   }).then(function(response) {
 	  $scope.flowjobs=response.data;  
   });
+=======
+		 /*  $window.setInterval(function() {
+			var element = document.getElementById("console2");
+			element.scrollTop = element.scrollHeight;
+			}, 2000); */
+>>>>>>> 3aecf62dd375c2d46ffce2b4c8ccbf7dda1ecdf9
 	});
 			socket = io('http://localhost:9003');
 			 socket.on('progress', function (data) {
@@ -193,10 +200,13 @@ $scope.buildpassword1= function(){
 	fa2reset();
 	fa3reset();
 	fa4reset();
+<<<<<<< HEAD
 	fa1preset();
 	fa2preset();
 	fa3preset();
 	fa4preset();
+=======
+>>>>>>> 3aecf62dd375c2d46ffce2b4c8ccbf7dda1ecdf9
 	if(type=="Transform"){$scope.transformstatus=true;}else{$scope.status=true;}
 	
 	

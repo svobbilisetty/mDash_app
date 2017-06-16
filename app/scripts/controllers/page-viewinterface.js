@@ -209,17 +209,23 @@
             
                 
             //alert(response.data);
-			 $http({
+			$http({
             method : "GET",
             url : serverHosturl+"recenttestjobs?interfacename="+i_name
           }).then(function(response) {
 			 //alert(JSON.stringify(response.data));
-			  $scope.testlog=response.data;
-		  });
+			 if(response.data.length>0){
+				 //alert("data");
+				 $scope.recentTestsId=true;
+                $scope.testlog=response.data;
+            }else{
+				// alert(" no data");
+                $scope.recentTestsId=false;
+            }
                 
         }); 
           
-    
+     }); 
     }
     $scope.runtest= function(){ 
         $scope.buildmodal1=true;    
@@ -260,8 +266,16 @@
             url : serverHosturl+"recenttestjobs?interfacename="+i_name
           }).then(function(response) {
 			 //alert(JSON.stringify(response.data));
-			  $scope.testlog=response.data;
-		  });
+			 if(response.data.length>0){
+				// alert("data");
+				 $scope.recentTestsId=true;
+                $scope.testlog=response.data;
+            }else{
+				//alert(" no data");
+                $scope.recentTestsId=false;
+            }
+                
+        }); 
 			   
                 
         }); 

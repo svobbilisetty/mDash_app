@@ -7,3 +7,6 @@ app/views/tmpl/interfacelist.html
 app/views/tmpl/viewinterface.html
 app/views/tmpl/interfacelist.html
 app/routing.js
+app/routing.js
+app/scripts/controllers/page-viewflow.js
+app/views/tmpl/viewflow.html
