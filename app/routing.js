@@ -1563,7 +1563,47 @@ log.on('end', function(end) {
 														if (err) throw console.log(err);
 														console.log(res.result.nModified + " record updated");
 													});
-												}  
+												}
+
+                                                var FlowDeploymentStatus = db.collection('FlowDeploymentStatus');
+												if(FlowDeploymentStatus)
+												{
+													
+												FlowDeploymentStatus.find({flowname:flowName,interface_name:interface_name_update,Environment:build_env}).toArray(function 
+											(err, result1) {
+												if (err) {
+													console.log(err);
+												  } else if (result1.length) {	  
+													console.log(result1);
+													FlowDeploymentStatus.update({flowname:flowName,interface_name:interface_name_update,Environment:build_env,Jobtype:jobtype},{$set:{executedDate:updatedDate,executedTime:updatedTime,VersionNo:artifactory_number}},function(err, res){
+														if (err) throw console.log(err);
+														console.log(res.result.nModified + " record updated");
+													});
+													
+												  }
+												  else {
+													console.log('No document(s) found with defined "find" criteria!');
+													status=
+													{
+														                                    "interface_name":interface_name_update,
+																							"flowname":flowName,
+																							"svn_url": result[0].svn_url,
+																							"executedDate":updatedDate,
+																							"executedTime":updatedTime,
+															                                "Environment":build_env,
+																							"Jobtype":jobtype,
+																							"VersionNo":artifactory_number,
+																							
+													}
+													FlowDeploymentStatus.insert(status);
+													
+												  }											
+												
+											})
+													
+													
+												}
+											
 											});											
 										}
 										else{
@@ -3782,6 +3822,8 @@ console.log(loginuser);
 		BrokerName=req.query.BrokerName;
 		
 		svnpassword=req.query.svnpassword;
+		
+		current_Interface= req.query.interface_name;
       
 					MongoClient.connect(config.mongodburl, function(err, db) {
 				if(db){
@@ -4049,4 +4091,38 @@ app.get('/deletelibrary',function(req,res){
 	  res.send("deleted");
     });
 	
-})
+});
+
+app.get('/versionno',function(req,res){
+ var interfacename = req.query.interface_name;
+ var flowname = req.query.flowname;
+ var environment = req.query.environment;
+ 
+      MongoClient.connect(config.mongodburl, function(err, db) {
+        if(db){
+            var collection = db.collection('FlowDeploymentStatus');
+            if(collection){
+               collection.find({flowname:flowname,interface_name:interfacename,Environment:environment,Jobtype:"Deploy"}).toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					console.log("version----------"+result[0].flowname);
+					/* data = {
+						'flowsCount' : result.length
+					}; */
+					res.send(result);
+					}
+					else
+					{
+						res.send("no_records");
+					}
+				});
+            }    
+        }
+        else{
+            console.log("error is connecting to db");
+        }
+    }); 
+	
+});

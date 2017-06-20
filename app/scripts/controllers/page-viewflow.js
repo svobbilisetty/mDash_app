@@ -36,6 +36,8 @@
     });
      
    }; 
+	
+   
     var build_env=["dev","test","prod"];
 	   $scope.envs=build_env;
 	   $scope.env=$scope.envs[0];
@@ -51,20 +53,61 @@
 		  interfacename1=response.data.interfaceName;
 		  flowname1=response.data.flowName;
 		  type=flowname1.split("_").pop();
+		$http({
+			method : "GET",
+			url : serverHosturl+"recentflowjobs?interface_name="+response.data.interfaceName+"&flowname="+response.data.flowName	
+		  }).then(function(response) {
+			  if(response.data=="no_records")
+			  {
+				  $scope.recentbuildsId = false;
+			  }
+			  else{
+				  $scope.recentbuildsId = true;
+				   $scope.flowjobs=response.data;
+			  }
+			   
+		  });
 		  $http({
-    method : "GET",
-    url : serverHosturl+"recentflowjobs?interface_name="+response.data.interfaceName+"&flowname="+response.data.flowName	
-  }).then(function(response) {
-	  if(response.data=="no_records")
-	  {
-		  $scope.recentbuildsId = false;
-	  }
-      else{
-		  $scope.recentbuildsId = true;
-		   $scope.flowjobs=response.data;
-	  }
-	   
-  });
+			method : "GET",
+			url : serverHosturl+"versionno?interface_name="+response.data.interfaceName+"&flowname="+response.data.flowName+"&environment=dev"			
+		  }).then(function(response) {
+			// alert(JSON.stringify(response.data));
+			 if(response.data=="no_records")
+			  {
+				   $scope.dev_versionno= "-";
+			  }
+			  else{
+				   $scope.dev_versionno= response.data[0].VersionNo;
+			  }
+			  
+		  });
+		  $http({
+			method : "GET",
+			url : serverHosturl+"versionno?interface_name="+response.data.interfaceName+"&flowname="+response.data.flowName+"&environment=test"			
+		  }).then(function(response) {
+			 //alert(JSON.stringify(response.data));
+			  if(response.data=="no_records")
+			  {
+				   $scope.test_versionno= "-";
+			  }
+			  else{
+				   $scope.test_versionno= response.data[0].VersionNo;
+			  }
+		  });
+		  $http({
+			method : "GET",
+			url : serverHosturl+"versionno?interface_name="+response.data.interfaceName+"&flowname="+response.data.flowName+"&environment=prod"			
+		  }).then(function(response) {
+			// alert(JSON.stringify(response.data));
+			  if(response.data=="no_records")
+			  {
+				   $scope.prod_versionno= "-";
+			  }
+			  else{
+				   $scope.prod_versionno= response.data[0].VersionNo;
+			  }
+		  });
+  
 	});
 			socket = io('http://localhost:9003');
 			 socket.on('progress', function (data) {
