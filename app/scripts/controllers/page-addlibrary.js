@@ -27,11 +27,16 @@
 		 $scope.AddLibrary = function(){
 			 	//alert($scope.svnpassword);
 				$scope.AddLibrary1($scope.svnpassword);
+				$scope.disableall=true;
 		 }
 		 $scope.close= function(){  
        document.getElementById('id01').style.display='none';
      
     };
+	   
+	$scope.librarylist= function(){
+		$state.go('app.libraryList');
+	}   
 	   
 	   
 	$scope.AddLibrary1= function(svnpassword){
@@ -48,6 +53,7 @@
 								"&Library_URL="+LibraryURL+"&svnpassword="+svnpassword
 							}).then(function(response){
 								//alert(response.data);
+								$scope.disableall=false;
 								$state.go('app.libraryList');
 															/*  $http({
 										method : "GET",
@@ -66,7 +72,7 @@
 	   
 function btnm(){
     document.getElementById('btns').style.display="inline-flex";
-    document.getElementById('load').innerHTML="&nbsp;&nbsp;Creating Library";
+    document.getElementById('load').innerHTML="&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creating Library";
     document.getElementById('load').style.fontWeight="bold";
 }		   
 	   

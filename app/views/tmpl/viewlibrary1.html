@@ -47,28 +47,29 @@ element.appendChild(para);
 
 
 
-
 <style>
-    html,
-    body {
-        font-family: "Lato", sans-serif !important;
-    }
-    
-    .w3-btn,
-    .w3-button {
-        padding: 10px 16px;
-    }
-    
-    .w3-teal,
-    .w3-hover-teal:hover {
-        color: #fff !important;
-        background-color: #0d416b !important;
-        margin-left: -17px;
-    }
-    
-    .w3-button:hover {
-        background-color: #0d416b !important;
-    }
+html, body {
+    font-family: "Lato",sans-serif !important;
+  
+}
+.w3-btn{
+ padding: 10px 15px;
+}
+
+.w3-button {
+ font-size: 16px;
+ line-height: 1.6;
+ padding: 8px 15px;
+}
+.w3-teal, .w3-hover-teal:hover {
+ color: #fff !important;
+background-color: #0d416b !important;
+ margin-left:-17px;
+
+}
+.w3-button:hover {
+    background-color: #0d416b !important;
+}
 </style>
 <div class="page page-tables-bootstrap">
     <div class="pageheader">
@@ -79,7 +80,7 @@ element.appendChild(para);
                     <a href="index.html"><i class="fa fa-home"></i> mDash</a>
                 </li>
 				<li>
-                    <a ng-click="gotoLibList()">Libraries</a>
+                    <a ng-model="Libraries" id="Libraries" ng-click="gotoLibList()">Libraries</a>
                 </li>
                 <li>
                     <a ng-model="libraryName" id="libraryName" href="">{{libraryName}}</a>
@@ -87,12 +88,12 @@ element.appendChild(para);
             </ul>
             <!-- ui-sref="app.editinterface" -->
             <div class="page-toolbar ng-scope">
-                <a ng-click="editLibrary()" class="btn btn-lightred no-border ng-isolate-scope" > <i class="fa fa-edit"></i>&nbsp;&nbsp;<span class="ng-binding">Edit</span> </a>
+                <a ng-click="editLibrary(libraryName)" class="btn btn-lightred no-border ng-isolate-scope" > <i class="fa fa-edit"></i>&nbsp;&nbsp;<span class="ng-binding">Edit</span> </a>
             </div>
         </div>
     </div>
 	
-<!-- Pop-up for edit Library - START -->
+<!--  Pop-up for edit Library - START
 					  <div id="id01" class="w3-modal" ng-show="buildmodal">
 	
     <div class="w3-modal-content">
@@ -138,7 +139,7 @@ element.appendChild(para);
 			
       </div>
     </div>
-<!-- Pop-up for edit Library - END -->
+Pop-up for edit Library - END  -->
 	
 	
 <div class="row ">
@@ -186,16 +187,16 @@ element.appendChild(para);
 					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="IIBNode" ng-options="x for x in IIBNodes"></select>
 				</div><br>
 				
-				<div id="messageflownameDiv" >
+				<!-- <div id="messageflownameDiv" >
 					<label for="BrokerName ">Broker </label>
 					<input class="form-group col-sm-12" id="BrokerName " type="text" ng-model="BrokerName "></input>
 				</div>
 				<!-- <div id="password " >
                     <label for="password  ">SVN Password  </label>
                     <input class="form-group col-sm-12" id="password  " type="password" ng-model="svnpassword"></input>
-                </div> -->
+                </div> 
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-6"> -->
 				
 				<div id="Config_ServiceDiv" >
 					<label for="iibhost">IIB Host</label>
@@ -246,20 +247,25 @@ element.appendChild(para);
 	
 			<div class="form-group row">
 				<div class="col-sm-6">
-				 <div id="build_envDiv" >
-					<!-- <label for="Build Environment">Build Environment</label> -->
-			   <input class="form-group col-sm-12" id="build_env_d" type="text" ng-model="build_env_d" style="display: none;"></input>
+				  <div id="env" >
+					<label for="env">Environment</label>
+					<!-- <input class="form-group col-sm-12" id="iibhost" type="text" ng-model="iibhost"></input> -->
+					<br><select class="form-group col-sm-12" style="padding:3px;" ng-model="env" ng-options="x for x in envs" ng-change="fieldspop()"></select>
 				</div> 
+				<!--  <div id="build_envDiv" >
+					<label for="Build Environment">Build Environment</label> 
+			   <input class="form-group col-sm-12" id="build_env_d" type="text" ng-model="build_env_d" style="display: none;"></input>
+				</div>  -->
 				<div id="svnrepoDiv" >
 					<label for="IIBNode">IIB Node</label>
 					<!-- <input class="form-group col-sm-12" id="IIBNode" type="text" ng-model="IIBNode"></input> -->
 					<br><select style="padding:3px;" class="form-group col-sm-12" ng-model="IIBNode_d" ng-options="x for x in IIBNodes_d"></select>
 				</div><br>
 				
-				<div id="messageflownameDiv" >
+				<!-- <div id="messageflownameDiv" >
 					<label for="BrokerName ">Broker </label>
 					<input class="form-group col-sm-12" id="BrokerName_d " type="text" ng-model="BrokerName_d "></input>
-				</div>
+				</div> -->
 				<!-- <div id="password " >
                     <label for="password  ">SVN Password  </label>
                     <input class="form-group col-sm-12" id="password_d  " type="password" ng-model="svnpassword_d"></input>
@@ -283,7 +289,7 @@ element.appendChild(para);
 				</div>
 				<div class="form-group row col-sm-12">
 				
-			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" class="btn mb-10 col-sm-3" ng-click="passworddetails1()">Deploy</button>
+			<button type="button"  style="font-weight:900;background-color:#0d416b;color:#ffffff" id="promote" class="btn mb-10 col-sm-3" ng-click="passworddetails1()">Deploy</button>
 			</div>
 							
 		
@@ -496,12 +502,12 @@ element.appendChild(para);
 </div>
 </div>
    <div >
-                    <section class="tile" fullscreen="isFullscreen02">
+                    <section class="tile" fullscreen="isFullscreen02" ng-show="recentlibbuildsId">
                         <div class="row">
                             <div class="col-md-12">
                                 <section class="tile" fullscreen="isFullscreen02" >
                                     <div class="tile-body p-0">
-                                        <div class="tile-header dvd dvd-btm">
+                                        <div class="tile-header dvd dvd-btm"  >
                                             <h1 class="custom-font">Library Details</h1>
                                         </div>
                                     </div>

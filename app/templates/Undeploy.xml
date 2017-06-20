@@ -21,7 +21,7 @@
 		</taskdef>
 		<switch value="${action}">
 			<case value="Rollback">
-				<antcall target="DelConfigService"/>
+				<antcall target="DelConfigServiceRollBack"/>
 				<antcall target="deployBar"/>
 			</case>
 			
@@ -111,7 +111,7 @@
      
 	 <ant antfile="ConfigService.xml" target="runConfigService" />
      
-	<ant antfile="QueueDeploy.xml" target="runQueue" />
+	<!--<ant antfile="QueueDeploy.xml" target="runQueue" /> -->
 	
   <echo message="Waiting for 20secs to refresh MQ"/>  
   <sleep seconds="20"/>

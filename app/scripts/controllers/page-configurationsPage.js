@@ -140,9 +140,9 @@
 	 if(response.data=="no_record")
 	 {
 		 $scope.toolkithome = "";	
-		  self.iibhost = "";
-		  self.IIBNode = "";
-		  self.executionGroup = "";
+		 // self.iibhost = "";
+		 // self.IIBNode = "";
+		 // self.executionGroup = "";
 		  $scope.deployment_path = "";
 		  $scope.mqsiprofile = "";
 		  $scope.BrokerName = "";

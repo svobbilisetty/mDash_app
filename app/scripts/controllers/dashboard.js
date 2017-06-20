@@ -236,6 +236,33 @@ app
         }).then(function(response) {
 			  $scope.dev_flows_count = response.data.flowsCount;
 		});
+		$http({
+            method : "GET",
+            url : serverHosturl+"gettestflowscount"
+        }).then(function(response) {
+			if(response.data=="no_records")
+			{
+				$scope.test_flows_count = 0;
+		    }
+			else{
+				  $scope.test_flows_count = response.data.flowsCount;
+			}
+		
+		});
+		$http({
+            method : "GET",
+            url : serverHosturl+"getprodflowscount"
+        }).then(function(response) {
+			//alert(response.data);
+			if(response.data=="no_records")
+			{
+				$scope.prod_flows_count = 0;
+		    }
+			else{
+				  $scope.prod_flows_count = response.data.flowsCount;
+			}
+			
+		});
 	});
     $scope.easypiechart = {
 

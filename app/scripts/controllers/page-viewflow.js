@@ -55,7 +55,15 @@
     method : "GET",
     url : serverHosturl+"recentflowjobs?interface_name="+response.data.interfaceName+"&flowname="+response.data.flowName	
   }).then(function(response) {
-	  $scope.flowjobs=response.data;  
+	  if(response.data=="no_records")
+	  {
+		  $scope.recentbuildsId = false;
+	  }
+      else{
+		  $scope.recentbuildsId = true;
+		   $scope.flowjobs=response.data;
+	  }
+	   
   });
 	});
 			socket = io('http://localhost:9003');
@@ -72,20 +80,25 @@
 				}else if((data.search('Library_Detection'))>0){
 					//alert("Library_Detection completed");
 					fa1();
-					fa1p()
+					fa1_p();
+					fa4p();
+					fa4pp();
 				}else if((data.search('Create_Config_Services'))>0){
 					//alert("Create_Config_Services1 completed");
 					fa2();
+					fa1p();
 				}else if((data.search('Create_Queues'))>0){
 					//alert("Create Queues completed");
 					fa3();
 					fa2p()
+					fa1pp();
 				}else if((data.search('Deploy'))>0){
 					//alert("Deploy completed");
 					fa4();
-					fa3p()
+					fa3p();
+					fa2pp();
 									
-											$timeout( function(){ $scope.status=false; }, 5000);
+											/* $timeout( function(){ $scope.status=false; }, 5000); */
 					 
 				}
 				
@@ -194,10 +207,15 @@ $scope.buildpassword1= function(){
 	fa3reset();
 	fa4reset();
 	fa1preset();
+	fa1_preset();
 	fa2preset();
 	fa3preset();
 	fa4preset();
-	if(type=="Transform"){$scope.transformstatus=true;}else{$scope.status=true;}
+	fa1ppreset();
+	fa2ppreset();
+	fa3ppreset();
+	fa4ppreset();
+	
 	
 	
 		//alert("Clicked on Build");     
@@ -216,6 +234,9 @@ $scope.buildpassword1= function(){
 			//alert(svnpassword);
 			//alert(iibhost);
 	if(build_env=="dev"){	
+	
+	if(type=="Transform"){$scope.transformstatus=true;}else{$scope.status=true;}
+	
 		 $http({
 			method : "GET",
 			url : serverHosturl+"build?build_env="+build_env+
@@ -223,8 +244,10 @@ $scope.buildpassword1= function(){
 			"&IIBNode="+IIBNode+
 			"&executionGroup="+executionGroup+
 			"&BrokerName="+BrokerName+
-			"&svnpassword="+svnpassword
+			"&svnpassword="+svnpassword+
+			"&interface_name="+interfacename1
 		}).then(function(response){
+											
 			
 			if((response.data.search('Job_FAILED'))>0){
                 $timeout( function(){ $scope.status=false; $scope.transformstatus=false;}, 3000);
@@ -241,12 +264,27 @@ $scope.buildpassword1= function(){
                 document.getElementById("roll").disabled = false;
                // document.getElementById("promote").disabled = false;
              }
+			   $http({
+				method : "GET",
+				url : serverHosturl+"recentflowjobs?interface_name="+interfacename1+"&flowname="+flowname1	
+			  }).then(function(response) {
+				  if(response.data=="no_records")
+				  {
+					  $scope.recentbuildsId = false;
+				  }
+				  else{
+					  $scope.recentbuildsId = true;
+					   $scope.flowjobs=response.data;
+				  }
+				   
+			  });
 			//	alert(response.data);
 				
 		}); 
 		}
 		else
 		{
+			if(type=="Transform"){$scope.transformpromotestatus=true;}else{$scope.promotestatus=true;}
 					 $http({
 			method : "GET",
 			url : serverHosturl+"promote?build_env="+build_env+
@@ -254,11 +292,12 @@ $scope.buildpassword1= function(){
 			"&IIBNode="+IIBNode+
 			"&executionGroup="+executionGroup+
 			"&BrokerName="+BrokerName+
-			"&svnpassword="+svnpassword
+			"&svnpassword="+svnpassword+
+			"&interface_name="+interfacename1
 		}).then(function(response){
 			
 			if((response.data.search('Job_FAILED'))>0){
-                $timeout( function(){ $scope.status=false; }, 3000);
+                $timeout( function(){ $scope.promotestatus=false; $scope.transformpromotestatus=false;}, 3000);
                 document.getElementById('btns').style.display="none";
                 document.getElementById('load').innerHTML="Build and Deploy";
                 document.getElementById("roll").disabled = false;
@@ -266,13 +305,27 @@ $scope.buildpassword1= function(){
              }
              else
              {
-				 $timeout( function(){ $scope.status=false; }, 3000);
+				 $timeout( function(){ $scope.promotestatus=false; $scope.transformpromotestatus=false;}, 3000);
                  document.getElementById('btns').style.display="none";
                 document.getElementById('load').innerHTML="Build and Deploy";
                 document.getElementById("roll").disabled = false;
                // document.getElementById("promote").disabled = false;
              }
 			//	alert(response.data);
+			$http({
+				method : "GET",
+				url : serverHosturl+"recentflowjobs?interface_name="+interfacename1+"&flowname="+flowname1	
+			  }).then(function(response) {
+				  if(response.data=="no_records")
+				  {
+					  $scope.recentbuildsId = false;
+				  }
+				  else{
+					  $scope.recentbuildsId = true;
+					   $scope.flowjobs=response.data;
+				  }
+				   
+			  });
 				
 		}); 
 		}
@@ -372,7 +425,12 @@ $scope.buildpassword1= function(){
             url : serverHosturl+"rollbackjob?iibhost="+iibhost+
             "&IIBNode="+IIBNode+
             "&executionGroup="+executionGroup+
-            "&BrokerName="+BrokerName+"&artifactory_number="+artifactory_number+"&target="+target+"&build_env="+build_env+"&svnpassword="+svnpassword
+            "&BrokerName="+BrokerName+
+			"&artifactory_number="+artifactory_number+
+			"&target="+target+
+			"&build_env="+build_env+
+			"&svnpassword="+svnpassword+
+			"&interface_name="+interfacename1
 			
         }).then(function(response){
 			
@@ -393,6 +451,21 @@ $scope.buildpassword1= function(){
                    //  document.getElementById("promote").disabled = false;
                     // alert("rollback job failed");
                      }
+					 
+					 $http({
+				method : "GET",
+				url : serverHosturl+"recentflowjobs?interface_name="+interfacename1+"&flowname="+flowname1	
+			  }).then(function(response) {
+				  if(response.data=="no_records")
+				  {
+					  $scope.recentbuildsId = false;
+				  }
+				  else{
+					  $scope.recentbuildsId = true;
+					   $scope.flowjobs=response.data;
+				  }
+				   
+			  });
                  
         });
     }
@@ -471,7 +544,7 @@ $scope.changepopup = function(){
       //alert(JSON.stringify(response.data));
 	 if(response.data=="no_record")
 	 {
-			alert("No Recent Builds Happened") ;	//alert("no records");
+			 alert("No Builds Available")  ;	//alert("no records");
 			document.getElementById("execute").disabled = true;
 		 $scope.iibhost = "";
           $scope.IIBNode = "";

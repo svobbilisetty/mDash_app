@@ -46,6 +46,11 @@ border: 3px solid #22beef !important;
  position:relative;
  top:-110px;left:115px;
 }
+fieldset {
+    border: 0 solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
   
 </style>
 <style>
@@ -58,7 +63,7 @@ border: 3px solid #22beef !important;
 
 </style>
 
-<div class="page page-tables-bootstrap">
+<div class="page page-tables-bootstrap" ng-controller="AddLibrary">
 
   <div class="pageheader">
 
@@ -71,7 +76,7 @@ border: 3px solid #22beef !important;
           <a href="index.html"><i class="fa fa-home"></i> mDash</a>
         </li>
         <li>
-          <a href="#">Library</a>
+          <a ng-click="librarylist()">Library</a>
         </li>
         <li>
           <a href="">Create New</a>
@@ -80,7 +85,7 @@ border: 3px solid #22beef !important;
     </div>
   </div>
   
-   <div ng-controller="AddLibrary">
+   <div >
   <div class="row">
     <!-- col -->
     <div class="col-md-12">
@@ -94,6 +99,7 @@ border: 3px solid #22beef !important;
 		 
         <div class="tile-body">
 		<div class="form-group">
+		<fieldset ng-disabled="disableall">
 <div class="form-group "> <label for="inputPassword3" class="col-sm-4 control-label"><b> Library Name</b></label>  <br><br><span class="col-sm-6"><input class="form-control col-sm-6"  id="Interface" placeholder="Library Name" ng-model="LibraryName" ></span> </div><br><br>
 <div class="form-group "><label for="inputPassword3" class="col-sm-5 control-label"><b>Library URL</b></label><br><br><span class="col-sm-6"><input  type="text" class="form-control col-sm-6"  id="svnpassword" placeholder="Library URL" ng-model="LibraryURL" ></span> </div>
 		
@@ -147,9 +153,10 @@ border: 3px solid #22beef !important;
 			</div>
 			   
          <!-- /tile body--> 
+		  </fieldset>
 		 </div>
  
-        
+       
         
         </section>
      </div>
@@ -164,3 +171,4 @@ border: 3px solid #22beef !important;
 		  
 			
 	
+</div>

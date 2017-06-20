@@ -10,17 +10,13 @@
  app.controller('EditInterface', function ($scope, $state,$http,$window,$location,$timeout,$parse) {
 	 //alert("enterd add interface");
 	 var  serverHosturl;
-	 var svnrepohost;
+//	 var svnrepohost;
 	 var count=1;
 	 var x;
 	 var repo;
 	  var flownames1=[];
 	 var interfacenames=[];
 	 
-	$scope.interfaceList=function(){
-		  //alert("HAI");
-		  $state.go('app.interfacelist');
-	  }
 	 $http({
 			method : "GET",
 			url : "/public/serverHost.json"	
@@ -32,7 +28,7 @@
     method : "GET",
     url : serverHosturl+"CentralizedParameters"
     }).then(function(response2) {
-		 svnrepohost = response2.data[0].SVNBaseURL;
+		// svnrepohost = response2.data[0].SVNBaseURL;
 		// alert(svnrepohost); 
 	
 	
@@ -50,8 +46,8 @@
 					  $scope.myFunction1();
 				  }
 				   document.getElementById("inputflow"+(i+1)).value=response1.data.result[i].flowname;
-				   repo = response1.data.result[i].svn_url.replace(svnrepohost, "");
-				   document.getElementById("inputsvn"+(i+1)).value=repo;
+				 //  repo = response1.data.result[i].svn_url.replace(svnrepohost, "");
+				   document.getElementById("inputsvn"+(i+1)).value=response1.data.result[i].svn_url;
 				  
 				  }  		 
 	});
@@ -98,6 +94,21 @@
   }
 );
 	  }); 
+	  
+	  
+	  
+	  	$scope.viewflow= function(interfaceName){  
+	//alert(interfaceName);
+    $http({
+    method : "GET",
+    url : serverHosturl+"viewflow?interfaceName="+interfaceName
+    }).then(function(response) {
+     $state.go('app.viewinterface');
+      }, function(response) {
+     
+    });
+     
+   }; 
 	$scope.saveInterface1 = function()
 		 {
 				$scope.buildmodal=true;	
@@ -108,6 +119,7 @@
 		 $scope.save = function(){
 			 	//alert($scope.svnpassword);
 				$scope.saveInterface($scope.svnpassword);
+				$scope.disableall=true;
 		 }
 		 $scope.close= function(){  
        document.getElementById('id01').style.display='none';
@@ -138,7 +150,8 @@
 				{
 					flow_names[i]= document.getElementById("inputflow"+(i+1)).value;
 					last[i]=flow_names[i].split("_").pop();
-					Remote_SVN_URLs[i]=svnrepohost+document.getElementById("inputsvn"+(i+1)).value;
+					Remote_SVN_URLs[i]=document.getElementById("inputsvn"+(i+1)).value;
+					//Remote_SVN_URLs[i]=svnrepohost+document.getElementById("inputsvn"+(i+1)).value;
 					
 				}	
                    //alert(flow_names)	;	
@@ -197,11 +210,11 @@ $scope.myFunc = function(i) {
                   else{
 					  // alert(svnrepohost);
 					  // alert(response.data[0].svn_url);
-                          repo = response.data[0].svn_url.replace(svnrepohost, "");;
+                         // repo = response.data[0].svn_url.replace(svnrepohost, "");;
 					 // var repo=(response.data[0].svn_url).indexOf(svnrepohost);
 					 // alert(repo);
 					// document.getElementById("inputsvn"+i).disabled = true;
-                      $scope.Remote_SVN_Path1=repo;
+                      $scope.Remote_SVN_Path1=response.data[0].svn_url;
                   }
               })
       };
@@ -244,12 +257,22 @@ var i=this.id;
 					//alert("flow_names -> "+flow_names1);
 						$http({
 					method : "GET",
-					url : serverHosturl+"svnurlretrive?flowname="+flow_names1
+					url : serverHosturl+"svnurlretrive1?flowname="+flow_names1+"&interface_name="+interface_name
 				  }).then(function(response) {
 					   if(response.data=="no_match")
                   {
-					 // alert("entered new flow");
-					 $http({
+					 // alert("no match for interface");
+					  
+						$http({
+							method : "GET",
+							url : serverHosturl+"svnurlretrive?flowname="+flow_names1
+						  }).then(function(response1) {
+							  
+							  if (response1.data=="no_match")
+							  {
+								  // alert("no match for flow");
+								  
+								   $http({
 								method : "GET",
 								url : serverHosturl+"createBuildFolder?interface_name="+interface_name+
 								"&flowname="+flow_names1+
@@ -258,7 +281,7 @@ var i=this.id;
 								"&svnpassword="+svnpassword
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
-									//alert(response.data);
+									alert(response.data);
 								}
 								//alert("response: "+response.data);
 								 if (flow_names.length > 0) {   //callback
@@ -266,11 +289,12 @@ var i=this.id;
 								 }
 								 else
 								 {
-									//alert("Flow edited successfully")
+									alert("Flow edited successfully")
 									 document.getElementById('btns').style.display="none";
                                      document.getElementById('load').innerHTML="Edit Interface";
 									 document.getElementById('load').style.fontWeight="bold";
                                      document.getElementById("showAccordian").disabled = false;
+									 $scope.disableall=false;
 							/* $http({
                                 method : "GET",
                                 url : serverHosturl+"saveInterface?interface_name="+interface_name
@@ -278,12 +302,46 @@ var i=this.id;
                                 $state.go('app.interfacelist');
                             }); */
 								 }
-							}); 
+							});
+							  }
+						       else
+							   {
+								  // alert("match for flow");
+									$http({
+										method : "GET",
+										url : serverHosturl+"svnassociation?flowname="+flow_names1+"&interface_name="+interface_name+"&Remote_SVN_URL="+Remote_SVN_URLs1
+									  }).then(function(response) {
+										  //alert(response.data);
+										  
+										  if (flow_names.length > 0) {   //callback
+												buildFolderTest(flow_names,last,Remote_SVN_URLs,interface_name,no_flows,svnpassword)
+											 }
+											 else
+											 {
+												alert("Flow edited successfully")
+												 document.getElementById('btns').style.display="none";
+												 document.getElementById('load').innerHTML="Edit Interface";
+												 document.getElementById('load').style.fontWeight="bold";
+												 document.getElementById("showAccordian").disabled = false;
+												 $scope.disableall=false;
+											 }
+									  })
+								   
+								   
+								   
+							   }
+						  })
+					  
+					  
+					 // alert("entered new flow");
+					 
                       					
                   }
                   else{
-					  repo = response.data[0].svn_url.replace(svnrepohost, "");
-					  var repo1= Remote_SVN_URLs1.replace(svnrepohost, "");
+					 // repo = response.data[0].svn_url.replace(svnrepohost, "");
+					 // var repo1= Remote_SVN_URLs1.replace(svnrepohost, "");
+					 repo = response.data[0].svn_url;
+					 var repo1= Remote_SVN_URLs1;
 					//  alert(repo+"===="+repo1);
 					   if(repo1==repo)
 					   {
@@ -298,6 +356,7 @@ var i=this.id;
                                      document.getElementById('load').innerHTML="Edit Interface";
 									 document.getElementById('load').style.fontWeight="bold";
                                      document.getElementById("showAccordian").disabled = false;
+									 $scope.disableall=false;
 							/* $http({
                                 method : "GET",
                                 url : serverHosturl+"saveInterface?interface_name="+interface_name
@@ -319,7 +378,7 @@ var i=this.id;
 								"&Remote_SVN_URL="+Remote_SVN_URLs1+
 								"&svnpassword="+svnpassword
                             }).then(function(response){
-                              //  alert(response.data);
+                               // alert(response.data);
 								if(response.data=="deleted")
 								{
 									 $http({
@@ -331,7 +390,7 @@ var i=this.id;
 								"&svnpassword="+svnpassword
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
-									//alert(response.data);
+									alert(response.data);
 								}
 								//alert("response: "+response.data);
 								 if (flow_names.length > 0) {   //callback
@@ -339,11 +398,12 @@ var i=this.id;
 								 }
 								 else
 								 {
-								//	 alert("Flow edited sucessfully")
+									 alert("Flow edited sucessfully")
 									  document.getElementById('btns').style.display="none";
                                      document.getElementById('load').innerHTML="Edit Interface";
 									 document.getElementById('load').style.fontWeight="bold";
-                                     document.getElementById("showAccordian").disabled = false;
+                                     document.getElementById("showAccordian").disabled = false
+									 $scope.disableall=false;
 							/* $http({
                                 method : "GET",
                                 url : serverHosturl+"saveInterface?interface_name="+interface_name

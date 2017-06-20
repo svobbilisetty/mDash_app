@@ -21,6 +21,11 @@
 		.w3-button:hover {
 			background-color: #0d416b !important;
 		}
+		fieldset {
+    border: 0 solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
 
 	 .tabs-dark .nav-tabs > li.active > a, .tabs-dark .nav-tabs > li.active > a:hover, .tabs-dark .nav-tabs > li.active > a:focus {
     background-color: #2368a0;
@@ -95,6 +100,7 @@ border: 3px solid #22beef !important;
 		 
         <div class="tile-body">
 		<div class="form-group">
+		<fieldset ng-disabled="disableall">
 <div class="form-group "> <label for="inputPassword3" class="col-sm-4 control-label"><b> Interface Name</b></label>  <br><br><span class="col-sm-6"><input class="form-control col-sm-6"  id="Interface" placeholder="Interface Name" ng-model="interface_name"  required/></span> </div><br><br>
 <!--<div class="form-group "><label for="inputPassword3" class="col-sm-5 control-label"><b>SVN Password</b></label><br><br><span class="col-sm-6"><input  type="password" class="form-control col-sm-6"  id="svnpassword" placeholder="SVN Password" ng-model="svnpassword" ></span> </div>-->
 		
@@ -163,10 +169,12 @@ border: 3px solid #22beef !important;
 			<div class="col-sm-2">
 			 <button type="button" ng-click="myFunction1()" id="showAccordian"  return false;" class="btn btn-blue mb-10 col-sm-10" style="font-weight: 900"><i class="fa fa-plus"></i> &nbspAdd Flow</button>
 			</div>
+			
 			<div class="col-sm-2">
 			<!-- <button type="button" ng-click="saveInterface()" class="btn btn-cyan mb-10 col-sm-10"><b>Save Interface</b></button>-->
 			<button  type="submit" ng-click="saveInterface1()"   ng-disabled="!form1.$dirty" class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 col-sm-12" activate-button="loading"><i id="btns" style="display:none;" class="fa fa-refresh fa-spin"></i><span id="load" style="position:relative;left:-13px;"><span style="font-weight: 900">Save Interface</span></button>
 			</div>
+			</fieldset>
 			 </form>
 			<div id="id01" class="w3-modal" ng-show="buildmodal">
 	

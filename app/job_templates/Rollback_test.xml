@@ -125,7 +125,6 @@ svn export --username ${svnusername} --password ${svnpassword} --non-interactive
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>value=$(cut -d/ -f7 &lt;&lt;&lt;&quot;${WORKSPACE}&quot;)
-echo &apos;runmqsc &apos;${BrokerName} &apos;&lt; &apos;${deployment_path}&apos;/&apos;$value&apos;/CreateFlow_TypeQueues.mqsc&apos; &gt; QueueCommands.txt
 echo &apos;runmqsc &apos;${BrokerName} &apos;&lt; &apos;${deployment_path}&apos;/&apos;$value&apos;/CreateFlow_TypeQueues.mqsc&apos; &gt; DelQueueCommands.txt
 echo ${mqsiprofile} &apos;;&apos;${Config_Service}&apos;;mqsireload&apos; ${IIBNode}&apos; -e &apos;${executionGroup} &gt; ConfigCommands.txt</command>
     </hudson.tasks.Shell>

@@ -45,6 +45,11 @@ border: 3px solid #22beef !important;
  position:relative;
  top:-110px;left:115px;
 }
+fieldset {
+    border: 0 solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
   
 </style>
 <style>
@@ -73,7 +78,7 @@ border: 3px solid #22beef !important;
           <a ng-click="interfaceList()">Interface</a>
         </li>-->
         <li>
-          <a href="">{{interface_name_breadcrumb}}</a>
+          <a  ng-click="viewflow(interface_name_breadcrumb)" >{{interface_name_breadcrumb}}</a>
         </li>
         <li>
           <a href="">Edit</a>
@@ -96,6 +101,7 @@ border: 3px solid #22beef !important;
 		 
         <div class="tile-body">
 		<div class="form-group">
+		<fieldset ng-disabled="disableall">
 <div class="form-group "> <label for="inputPassword3" class="col-sm-4 control-label"><b> Interface Name</b></label>  <br><br><span class="col-sm-6"><input class="form-control col-sm-6"  id="Interface" placeholder="Interface Name" ng-model="interface_name" ></span> </div>
 		
           <div >
@@ -121,7 +127,7 @@ border: 3px solid #22beef !important;
                                         <tbody id="myList">
                                         <tr id="hidethis">
                                             <td>
-											<input class="form-control" placeholder="Flow Name"  name="inputflow1" id="inputflow1" type="text" ng-model="flowname1">	</td>
+											<input class="form-control" placeholder="Flow Name"  name="inputflow1" id="inputflow1" type="text" ng-model="flowname1"  ng-keyup="myFunc(1)" >	</td>
                                             <td>
 											<input class="form-control" placeholder="SVN Path for Flow" id="inputsvn1" type="text" ng-model="Remote_SVN_Path1">
 											</td>
@@ -216,7 +222,7 @@ border: 3px solid #22beef !important;
          <!-- /tile body--> 
 		 </div>
  
-        
+        </fieldset>
         
         </section>
      </div>

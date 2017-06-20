@@ -11,7 +11,7 @@
 	 //alert("enterd add interface");
 	 var  serverHosturl;
 	$scope.buildmodal=false;
-	 var svnrepohost;
+	// var svnrepohost;
 	 var flownames1=[];
 	 var interfacenames=[];
 	 var svnurl;
@@ -32,13 +32,13 @@
 			serverHosturl = response.data.serverHosturl;
 			//svnrepohost = response.data.svnrepohost;
            // alert(serverHosturl); 
-  $http({
+ /*  $http({
     method : "GET",
     url : serverHosturl+"CentralizedParameters"
     }).then(function(response2) {
-		 svnrepohost = response2.data[0].SVNBaseURL;
+		// svnrepohost = response2.data[0].SVNBaseURL;
 		// alert(svnrepohost); 
-	});
+	}); */
 	
       $http({
     method : "GET",
@@ -98,6 +98,7 @@
 		 $scope.save = function(){
 			 	//alert($scope.svnpassword);
 				$scope.saveInterface($scope.svnpassword);
+				$scope.disableall=true;
 		 }
 		 $scope.close= function(){  
        document.getElementById('id01').style.display='none';
@@ -125,7 +126,8 @@
 				{
 					flow_names[i]= document.getElementById("inputflow"+(i+1)).value;
 					last[i]=flow_names[i].split("_").pop();
-					Remote_SVN_URLs[i]=svnrepohost+document.getElementById("inputsvn"+(i+1)).value;
+					Remote_SVN_URLs[i]=document.getElementById("inputsvn"+(i+1)).value;
+					//Remote_SVN_URLs[i]=svnrepohost+document.getElementById("inputsvn"+(i+1)).value;
 					
 				}	
                    // alert(flow_names)	;	
@@ -198,14 +200,15 @@ $scope.myFunc = function(i) {
                   else{
 					  // alert(svnrepohost);
 					  // alert(response.data[0].svn_url);
-                          repo = response.data[0].svn_url.replace(svnrepohost, "");
-					 // var repo=(response.data[0].svn_url).indexOf(svnrepohost);
+                        //  repo = response.data[0].svn_url.replace(svnrepohost, "");
+					
 					 // alert(repo);
 					 document.getElementById("inputsvn"+i).disabled = true;
-                      $scope.Remote_SVN_Path1=repo;
+                      $scope.Remote_SVN_Path1=response.data[0].svn_url;
                   }
               })
       };
+	  
 	  
 	  
 $scope.myFunc2 = function() {
@@ -227,9 +230,9 @@ var i=this.id;
                       //document.getElementById("inputsvn"+(i)).value="";
                   }
                   else{
-					  repo = response.data[0].svn_url.replace(svnrepohost, "");
+					//  repo = response.data[0].svn_url.replace(svnrepohost, "");
 					 document.getElementById("inputsvn"+i).disabled = true;
-                      document.getElementById("inputsvn"+(i)).value=repo;
+                      document.getElementById("inputsvn"+(i)).value=response.data[0].svn_url;
                   }
               })
       };	  
@@ -252,6 +255,7 @@ var i=this.id;
 							}).then(function(response){
 								if(response.data == "Authentication Failed"){
 									alert(response.data);
+									$scope.disableall=false;
 									$state.go('app.interfacelist');
 								}
 								//alert("response: "+response.data);
@@ -264,13 +268,14 @@ var i=this.id;
                                 method : "GET",
                                 url : serverHosturl+"saveInterface?interface_name="+interface_name
                             }).then(function(response){
+								$scope.disableall=false;
                                 $state.go('app.interfacelist');
                             });
 								 }
 							}); 
 		 }
 	  
-	 
+	  
 function btnm(){
     document.getElementById('btns').style.display="block";
     document.getElementById('load').innerHTML="&nbsp;&nbsp;Creating Interface";

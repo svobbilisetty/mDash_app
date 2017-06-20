@@ -46,7 +46,11 @@ border: 3px solid #22beef !important;
  position:relative;
  top:-110px;left:115px;
 }
-  
+  fieldset {
+    border: 0 solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
 </style>
 <style>
 
@@ -58,8 +62,8 @@ border: 3px solid #22beef !important;
 
 </style>
 
-<div class="page page-tables-bootstrap">
-
+<div class="page page-tables-bootstrap"  ng-controller="editLibrary">
+<fieldset ng-disabled="disableall">
   <div class="pageheader">
 
     <h2>Edit Library <span></span></h2>
@@ -71,7 +75,7 @@ border: 3px solid #22beef !important;
           <a href="index.html"><i class="fa fa-home"></i> mDash</a>
         </li>
         <li>
-          <a href="#">Library</a>
+          <a  ng-click="viewlibrary(library_name)" >{{library_name}}</a>
         </li>
         <li>
           <a href="">Edit</a>
@@ -80,7 +84,7 @@ border: 3px solid #22beef !important;
     </div>
   </div>
   
-   <div ng-controller="editLibrary">
+   <div>
   <div class="row">
     <!-- col -->
     <div class="col-md-12">
@@ -161,6 +165,7 @@ border: 3px solid #22beef !important;
 	
 			
 		
-		  
+</fieldset>		  
 			
 	
+</div>

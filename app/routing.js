@@ -859,11 +859,11 @@ console.log(type);
 	/*Changes for Undeploy file*/
     var data = fs.readFileSync(__dirname+'/templates/Undeploy.xml', 'utf-8');
 	if(type == 'Receiver'){
-	 Undeploy_Config_Service = '<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideleteconfigurableservice ${iib.node} -c TCPIPServer -o ENT_PS360_ORU_Receiver;mqsireload ${iib.node} -e ${execution.group}"/>';
+	 Undeploy_Config_Service = '<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideleteconfigurableservice ${iib.node} -c TCPIPServer -o Flow_Name;mqsireload ${iib.node} -e ${execution.group}"/>';
   
 		}
 		else if(type == 'Sender'){
-	 Undeploy_Config_Service = '<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideleteconfigurableservice ${iib.node} -c TCPIPClient -o ENT_PS360_ORU_Receiver;mqsireload ${iib.node} -e ${execution.group}"/>';
+	 Undeploy_Config_Service = '<sshexec trust="true" host="${iib.host}" username="${iib.userid}" password="${iib.userpassword}" command="${mqsiprofile};mqsideleteconfigurableservice ${iib.node} -c TCPIPClient -o Flow_Name;mqsireload ${iib.node} -e ${execution.group}"/>';
 		}
 	else{Undeploy_Config_Service="";}
 	var new1 = data.replace(/Undeploy_Config_Service/gim, Undeploy_Config_Service);
@@ -1240,6 +1240,8 @@ console.log(loginuser);
 		BrokerName=req.query.BrokerName;
 		
 		svnpassword=req.query.svnpassword;
+		
+		current_Interface= req.query.interface_name;
       console.log(svnpassword);
 					MongoClient.connect(config.mongodburl, function(err, db) {
 				if(db){
@@ -1442,7 +1444,7 @@ log.on('end', function(end) {
 							  console.log('job status'+ data.builds[0]+" build number  "+data.builds[0].number);
 							// res.send(data);
 							if(data.builds[0].result=="SUCCESS" || data.builds[0].result=="UNSTABLE")
-							//if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
+						//	if(data.builds[0].result=="FAILURE" || data.builds[0].result=="UNSTABLE")
 							{
 								client.emit('progress', uri);
 								current_job=uri;
@@ -1521,11 +1523,11 @@ log.on('end', function(end) {
 											var flowCollection = db.collection('flows');
 											var flowlogs= db.collection('flowslog');
 											//flowCollection.find({flowname:flowName},({interface_name:true,_id:false})).toArray(function
-											flowCollection.find({flowname:flowName}).toArray(function 
+											flowCollection.find({flowname:flowName,interface_name:current_Interface}).toArray(function 
 											(err, result) {
 												interface_name_update = result[0].interface_name;
 												console.log("interface_name_update =====> "+interface_name_update);
-												flowCollection.update({flowname:flowName},{$set:{updatedDate:updatedDate,updatedTime:updatedTime,flowstatus:'SUCCESS'}},function(err, res){
+												flowCollection.update({flowname:flowName,interface_name:current_Interface},{$set:{updatedDate:updatedDate,updatedTime:updatedTime,flowstatus:'SUCCESS'}},function(err, res){
 														if (err) throw console.log(err);
 														console.log(res.result.nModified + " record updated");
 													});
@@ -2106,14 +2108,15 @@ app.get("/rollbackjob",function(req,res){
     console.log("this is rollback job");
     var CentralizedParameters;
     var EnvironmentalParameters;
-    var build_env = req.query.build_env;
-    var iibhost = req.query.iibhost;
-    var IIBNode = req.query.IIBNode;
-    var executionGroup = req.query.executionGroup;
-    var BrokerName = req.query.BrokerName;
+    build_env = req.query.build_env;
+    iibhost = req.query.iibhost;
+    IIBNode = req.query.IIBNode;
+    executionGroup = req.query.executionGroup;
+    BrokerName = req.query.BrokerName;
 	var artifactory_number=req.query.artifactory_number;
     var target = req.query.target;
 	var svnpassword = req.query.svnpassword;
+	current_Interface= req.query.interface_name;
 	console.log(target);
     var Config_Service;
          console.log("values are..."+iibhost+"  "+IIBNode+"  "+executionGroup+" "+BrokerName+""+target);
@@ -2176,7 +2179,7 @@ app.get("/rollbackjob",function(req,res){
 																				console.log("rollback job triggered");
 																				setTimeout(function() {
 																				 executed_job=folder+"/"+flowName+"/"+"Rollback_Decomission";
-																				 res.redirect("/console");
+																				  res.redirect("/console");
 																			}, 10000);
 																			}); 
 													   });	
@@ -2381,6 +2384,39 @@ db.close()
 })
 });
 
+app.get('/svnurlretrive1', function (req, res) {
+   // Prepare output in JSON format
+ var flowname=req.query.flowname;
+ var interface_name=req.query.interface_name;
+console.log("flowname : "+flowname);
+MongoClient.connect(config.mongodburl, function(err, db) {
+  if(!err) {
+    console.log("We are connected");
+ var collection = db.collection('flows');
+
+collection.find({flowname:flowname,interface_name:interface_name},({svn_url:true,_id:false})).toArray(function (err, result) {
+      if (err) {
+        console.log(err);
+      } else if (result.length) {
+          
+        /* for(i=0;i<result.length;i++)
+        {
+        console.log('Found:', result[i].flowname);
+        } */
+        console.log(result);
+        res.send(result);
+      }
+      else {
+        res.send("no_match")
+        console.log('No document(s) found with defined "find" criteria!');
+      }
+    
+   })
+db.close()
+  }
+})
+});
+
 app.get('/AddInterface',function(req,res){
 	console.log("Add Interface app.get");
 	var flowName = req.query.flow_names;
@@ -2545,7 +2581,6 @@ app.get('/editInterface',function(req,res){
   res.send("true");
 });
 
-
 app.get("/editflowsretrive",function(req,res){  
      
 	 var i_Name = editInterfaceName
@@ -2643,6 +2678,56 @@ app.get('/getdevflowscount',function(req,res){
 		}
 	});
 });
+app.get('/gettestflowscount',function(req,res){
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('flowslog');
+			if(collection){
+				 collection.distinct('flowname',{Environment : "test"},function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					//console.log(result.length);
+					data = {
+						'flowsCount' : result.length
+					};
+					res.send(data);
+					}
+					else{
+					 console.log("in else"+result.length);
+					 res.send("no_records");
+					 }
+				});
+			}
+		}
+	});
+});
+app.get('/getprodflowscount',function(req,res){
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('flowslog');
+			if(collection){
+				 collection.distinct('flowname',{Environment : "prod"},function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					console.log("in cond"+result.length);
+					data = {
+						'flowsCount' : result.length
+					};
+					res.send(data);
+					}
+				 else{
+					 console.log("in else"+result.length);
+					 res.send("no_records");
+					 }
+				});
+			}
+		}
+	});
+});
 app.get('/recentjobs',function(req,res){
 	var interface_name= req.query.interfacename;
 	MongoClient.connect(config.mongodburl, function(err, db) {
@@ -2718,6 +2803,37 @@ app.get('/getinterfaceflowscount',function(req,res){
 			var collection = db.collection('flows');
 			if(collection){
 				collection.find({interface_name : interface2}).toArray(function (err, result) {
+					if (err) {
+						console.log(err);
+					} else if (result.length) {
+					  
+					  for(var i=0; i<result.length;i++)
+					  {
+						  if(result[i].flowstatus=='SUCCESS')
+						  {
+							  successcount++;
+						  }
+					  }
+					//console.log(result.length);
+					data = {
+						'successcount' : successcount,
+						'flowsCount' : result.length
+					};
+					res.send(data);
+					}
+				});
+			}
+		}
+	});
+});
+app.get('/getinterface_envflowscount',function(req,res){
+	var interface2 = req.query.interfacename;
+	var successcount=0;
+	MongoClient.connect(config.mongodburl, function(err, db) {
+		if(db){
+			var collection = db.collection('flowslog');
+			if(collection){
+				collection.find({interface_name : interface2,Environment : "test"}).toArray(function (err, result) {
 					if (err) {
 						console.log(err);
 					} else if (result.length) {
@@ -3355,7 +3471,7 @@ data={};
 
 		 executionGroup=req.query.executionGroup;
 		
-		BrokerName=req.query.BrokerName;
+		//BrokerName=req.query.BrokerName;
 		
 		svnpassword=req.query.svnpassword;
       
@@ -3487,7 +3603,7 @@ app.get("/libdeploy",function(req,res){
 
 		 executionGroup=req.query.executionGroup;
 		
-		BrokerName=req.query.BrokerName;
+	//	BrokerName=req.query.BrokerName;
 		
 		svnpassword=req.query.svnpassword;
       
@@ -3529,15 +3645,15 @@ app.get("/libdeploy",function(req,res){
 													  console.log(info.lastChangedRev);
 													  artifactory_number=info.lastChangedRev; 
 													 jenkins.job.build({ name: "LibraryManagement/"+Library_Name+"/"+"Deploy_"+Library_Name, parameters: {        
-													        build_env:build_env,
+													       // build_env:build_env,
 															username:CentralizedParameters[0].username,
 															password:CentralizedParameters[0].password,
 															artifactory_number:artifactory_number,
 															ArtifactoryURL : CentralizedParameters[0].ArtifactoryURL,
 															mqsiprofile:EnvironmentalParameters[0].mqsiprofile,
-															iibhost: EnvironmentalParameters[0].iibhost,
-															IIBNode:  EnvironmentalParameters[0].IIBNode,
-															executionGroup :EnvironmentalParameters[0].executionGroup,
+															iibhost: iibhost,
+															IIBNode:  IIBNode,
+															executionGroup :executionGroup,
 															deployment_path:EnvironmentalParameters[0].deployment_path,
 															ArtifactoryUserName : CentralizedParameters[0].ArtifactoryUserName,
 															ArtifactoryPassword : CentralizedParameters[0].ArtifactoryPassword,
@@ -3606,6 +3722,10 @@ app.get('/recentlibjobs',function(req,res){
 					}; */
 					res.send(result);
 					}
+					else
+					{
+						res.send("no_records");
+					}
 				});
 			}
 		}
@@ -3650,7 +3770,7 @@ app.get('/promote', function (req, res) {
 	data={};
    console.log("entered promote"); 
 console.log(loginuser);
-console.log(password);
+//console.log(password);
          build_env = req.query.build_env;
          console.log(build_env); 
 	     iibhost=req.query.iibhost;
@@ -3661,7 +3781,7 @@ console.log(password);
 		
 		BrokerName=req.query.BrokerName;
 		
-		//svnpassword=req.query.svnpassword;
+		svnpassword=req.query.svnpassword;
       
 					MongoClient.connect(config.mongodburl, function(err, db) {
 				if(db){
@@ -3722,7 +3842,7 @@ console.log(password);
 										svnhost:CentralizedParameters[0].svnhost,
 										svnrepo:svnrepo,
 										svnusername:loginuser,
-										svnpassword:password
+										svnpassword:svnpassword
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("build triggered");
@@ -3760,7 +3880,7 @@ console.log(password);
 										svnhost:CentralizedParameters[0].svnhost,
 										svnrepo:svnrepo,
 										svnusername:loginuser,
-										svnpassword:password
+										svnpassword:svnpassword
 								} }, function(err) {
 												if (err) console.log(err);
 												console.log("build triggered");
@@ -3814,7 +3934,7 @@ console.log(password);
 app.get('/recentflowjobs',function(req,res){
 	var interfacename = req.query.interface_name;
 	var flowname = req.query.flowname
-	
+	console.log("flowjobslog-----"+interfacename+flowname)
 	MongoClient.connect(config.mongodburl, function(err, db) {
 		if(db){
 			var collection = db.collection('flowslog');
@@ -3832,3 +3952,101 @@ app.get('/recentflowjobs',function(req,res){
 		}
 	});
 });
+
+app.get('/svnassociation',function(req,res){
+	var interfacename = req.query.interface_name;
+	var flowname = req.query.flowname;
+	var Remote_SVN_URL = req.query.Remote_SVN_URL;
+	
+	
+	MongoClient.connect(config.mongodburl, function(err, db) {
+															 if(db){
+																		var collection = db.collection('flows');
+																		
+										if(collection){
+											var createTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+											var createdate1 = new Date().toDateString();
+											var createDate =createdate1.slice(createdate1.indexOf(" "),createdate1.length);
+											
+											var data = {
+															"interface_name":interface_name,
+															"flowname":flowname,
+															"svn_url": Remote_SVN_URL,
+															"createdDate": createDate,
+															"createdtime": createTime,
+															"updatedDate":"",
+															"updatedTime":"",
+															"Environment":"dev",
+															"By":loginuser
+														}
+														console.log("Inserting the data -------- "+JSON.stringify(data));
+														collection.insert(data);
+														res.send("inserted association");
+										}
+									}
+	});		
+});
+
+app.get('/editlibraryname',function(req,res){ 
+  editLibraryName = req.query.editLibraryName;
+  console.log(editLibraryName);
+  res.send("true");
+});
+
+app.get('/editLibrarydetails',function(req,res){ 
+var l_Name = editLibraryName
+     MongoClient.connect(config.mongodburl, function(err, db) {
+        if(db){
+            var collection = db.collection('svn_library_urls_list');
+            if(collection){
+                collection.find({url_key : l_Name}).toArray(function (err, result) {
+				  if (err) {
+					console.log(err);
+				  } else if (result.length) {
+					  
+					for(i=0;i<result.length;i++)
+					{
+					console.log('Found:', result[i].url_value);
+					}
+					data = {
+						'result' : result,
+						'LibraryName' : l_Name
+					}
+					res.send(data);
+				  }
+				  else {
+					
+					console.log('No document(s) found with defined "find" criteria!');
+				  }
+				 
+				})
+            }    
+        }
+        else{
+            console.log("error is connecting to db");
+        }
+    });    
+});
+
+app.get('/deletelibrary',function(req,res){
+ var  library_name = req.query.library_name;
+ 
+      MongoClient.connect(config.mongodburl, function(err, db) {
+        if(db){
+            var collection = db.collection('svn_library_urls_list');
+            if(collection){
+                collection.remove({url_key : library_name});
+				console.log("database entry removed")
+            }    
+        }
+        else{
+            console.log("error is connecting to db");
+        }
+    }); 
+	jenkins.job.destroy("LibraryManagement/"+library_name, function(err) {
+    if (err) throw err;
+	  console.log("flow entry removed")
+	  res.send("deleted");
+    });
+	
+})

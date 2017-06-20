@@ -22,14 +22,21 @@
 	}).then(function(response){
 		serverHosturl = response.data.serverHosturl;
 		
+		var build_env=["dev","test","prod"];
+	   $scope.envs=build_env;
+	   $scope.env=$scope.envs[0];
 	
 		
 	 // alert("clicked the edit Library page");
-     $scope.editLibrary = function(){
-		// alert("clicked the edit Library page");
-		$state.go('app.editlibrary');
-		/*  $scope.buildmodal=true;    
-		document.getElementById('id01').style.display='block'; */
+     $scope.editLibrary = function(library_name){
+		//alert(library_name);
+		$http({
+			method : "GET",
+			url : serverHosturl+"editlibraryname?editLibraryName="+library_name
+		}).then(function(response){
+			$state.go('app.editlibrary');
+		})
+		
 	 }
 	 
 	 $scope.close= function(){  
@@ -44,12 +51,22 @@
 			//alert(response.data);
 			$scope.libraryName = response.data;
 			Library_name=response.data; 
+			
 			$http({
             method : "GET",
             url : serverHosturl+"recentlibjobs?url_key="+response.data
           }).then(function(response) {
 			  //alert(JSON.stringify(response.data));
-			  $scope.librarylog=response.data;
+			  if(response.data=="no_records")
+			  {
+				  $scope.recentlibbuildsId = false;
+			  }
+			  else
+			  {
+				  $scope.recentlibbuildsId = true;
+				   $scope.librarylog=response.data;
+			  }
+			 
 		  });
 		
 		});
@@ -66,7 +83,7 @@
 				dataPort.innerHTML=dataPort.innerHTML+JSON.stringify(data);
 				 $('.demo').scrollTop($('.demo')[0].scrollHeight);
 			}); 
-	$scope.EditLib= function(){  
+/* 	$scope.EditLib= function(){  
        document.getElementById('id01').style.display='none';
 	  var LibraryName = $scope.LibraryName;
 	  var LibraryURL = $scope.LibraryURL; 
@@ -74,7 +91,7 @@
 	 // alert(LibraryName);
 	 // alert(LibraryURL);
      
-    };
+    }; */
 	
 	
 	$scope.passworddetails= function(){ 
@@ -128,7 +145,7 @@ $scope.buildpassword1= function(){
 		  $scope.iibhosts = "";
 		  $scope.IIBNodes = "";
 		  $scope.executionGroups = "";
-		  $scope.BrokerNames = "";
+		//  $scope.BrokerNames = "";
 	 }
 	 else
 	 {
@@ -142,7 +159,7 @@ $scope.buildpassword1= function(){
 		  $scope.IIBNode = $scope.IIBNodes[0];
 		  $scope.executionGroups = executionGroup1;
 		  $scope.executionGroup = $scope.executionGroups[0];
-		  $scope.BrokerName = response.data[0].BrokerName;
+		//  $scope.BrokerName = response.data[0].BrokerName;
 	 }
 	      
     });    
@@ -164,7 +181,7 @@ $scope.buildpassword1= function(){
 		 
 		var executionGroup=$scope.executionGroup;
 	
-		var BrokerName=$scope.BrokerName;
+		//var BrokerName=$scope.BrokerName;
 		
 		//var svnpassword=$scope.svnpassword;
 			
@@ -175,7 +192,7 @@ $scope.buildpassword1= function(){
 			"&iibhost="+iibhost+
 			"&IIBNode="+IIBNode+
 			"&executionGroup="+executionGroup+
-			"&BrokerName="+BrokerName+
+		//	"&BrokerName="+BrokerName+
 			"&svnpassword="+svnpassword
 		}).then(function(response){
 			
@@ -184,8 +201,17 @@ $scope.buildpassword1= function(){
             method : "GET",
             url : serverHosturl+"recentlibjobs?url_key="+Library_name
           }).then(function(response) {
-			 // alert(JSON.stringify(response.data));
-			  $scope.librarylog=response.data;
+			  //alert(JSON.stringify(response.data));
+			  if(response.data=="no_records")
+			  {
+				  $scope.recentlibbuildsId = false;
+			  }
+			  else
+			  {
+				  $scope.recentlibbuildsId = true;
+				   $scope.librarylog=response.data;
+			  }
+			 
 		  });
 		
 		
@@ -232,7 +258,7 @@ $scope.buildpassword1= function(){
 		  $scope.iibhosts_d = "";
 		  $scope.IIBNodes_d = "";
 		  $scope.executionGroups_d = "";
-		  $scope.BrokerName_d = "";
+		 // $scope.BrokerName_d = "";
 	 }
 	 else
 	 {
@@ -246,7 +272,7 @@ $scope.buildpassword1= function(){
 		  $scope.IIBNode_d = $scope.IIBNodes_d[0];
 		  $scope.executionGroups_d = executionGroup12;
 		  $scope.executionGroup_d = $scope.executionGroups_d[0];
-		  $scope.BrokerName_d = response.data[0].BrokerName;
+		//  $scope.BrokerName_d = response.data[0].BrokerName;
 	 }
 	      
     });    
@@ -262,24 +288,27 @@ $scope.buildpassword1= function(){
 	   btns1();
 	   document.getElementById("build").disabled = true;
        document.getElementById("rollback").disabled = true;
-	  var iibhost=$scope.iibhost_d;
+	    
+		 var build_env=$scope.env;	
+		
+		var iibhost=$scope.iibhost_d;
 		
 		 var IIBNode=$scope.IIBNode_d;
 		 
 		var executionGroup=$scope.executionGroup_d;
 	
-		var BrokerName=$scope.BrokerName_d;
+		//var BrokerName=$scope.BrokerName_d;
 		
 		//var svnpassword=$scope.svnpassword_d;
-			
 		
-		 $http({
+			
+			$http({
 			method : "GET",
 			url : serverHosturl+"libdeploy?build_env=dev"+
 			"&iibhost="+iibhost+
 			"&IIBNode="+IIBNode+
 			"&executionGroup="+executionGroup+
-			"&BrokerName="+BrokerName+
+		//	"&BrokerName="+BrokerName+
 			"&svnpassword="+svnpassword
 		}).then(function(response){
 			
@@ -287,8 +316,17 @@ $scope.buildpassword1= function(){
             method : "GET",
             url : serverHosturl+"recentlibjobs?url_key="+Library_name
           }).then(function(response) {
-			 // alert(JSON.stringify(response.data));
-			  $scope.librarylog=response.data;
+			  //alert(JSON.stringify(response.data));
+			  if(response.data=="no_records")
+			  {
+				  $scope.recentlibbuildsId = false;
+			  }
+			  else
+			  {
+				  $scope.recentlibbuildsId = true;
+				   $scope.librarylog=response.data;
+			  }
+			 
 		  });
 		
 		
@@ -311,7 +349,9 @@ $scope.buildpassword1= function(){
              }
 			//	alert(response.data);
 				
-		}); 
+		}); 	
+		
+		 
     };
 	
 	$scope.rollbackdetails = function(){
@@ -349,6 +389,48 @@ function btns2(){
     document.getElementById('btns2').style.display="inline-flex";
     document.getElementById('load2').innerHTML="&nbsp;Rollback in progress";
     
+}
+
+$scope.fieldspop = function(){
+	 var iibhost1;
+	var IIBNode1;
+	var executionGroup1;
+  var build_env=$scope.env;
+if(build_env=="prod" || build_env=="test")
+{document.getElementById('promote').innerHTML="&nbsp&nbsp;Promote";}
+else{document.getElementById('promote').innerHTML="&nbsp&nbsp;Deploy";}	
+	$http({
+    method : "GET",
+    url : serverHosturl+"EnvironmentalParameters?build_env="+build_env	
+  }).then(function(response) {
+   //  alert(JSON.stringify(response.data));
+	 if(response.data=="no_record")
+	 {
+			
+		 $scope.iibhosts_d = "";
+		 $scope.IIBNodes_d = "";
+		 $scope.executionGroups_d = "";
+		// $scope.BrokerName = "";
+		 //$scope.mqsiprofile = "";
+	 }
+	 else
+	 {
+		 iibhost1= (response.data[0].iibhost).split(",");
+		 IIBNode1 = (response.data[0].IIBNode).split(",");
+		 executionGroup1 = (response.data[0].executionGroup).split(",");
+		
+		 
+		   $scope.IIBNodes_d=IIBNode1;
+	       $scope.IIBNode_d=$scope.IIBNodes_d[0];
+		   $scope.iibhosts_d=iibhost1;
+	       $scope.iibhost_d=$scope.iibhosts_d[0];
+	       $scope.executionGroups=executionGroup1;
+	       $scope.executionGroup_d=$scope.executionGroups_d[0];
+		//   $scope.BrokerName = response.data[0].BrokerName;
+	 }
+	      
+    });   	
+	
 }
 	
 	

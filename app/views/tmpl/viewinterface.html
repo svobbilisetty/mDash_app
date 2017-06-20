@@ -26,7 +26,8 @@ background-color: #0d416b !important;
     background-color: #0d416b !important;
 }
 </style>
-			  <div class="page page-tables-bootstrap">
+<body>			 
+			 <div class="page page-tables-bootstrap">
 
                     <div class="pageheader">
 
@@ -253,11 +254,15 @@ background-color: #0d416b !important;
                                     <form role="form" class="ng-pristine ng-valid">
 <div class="row">
 <br>
-			<div class="col-sm-5">
-			 <button type="button"   ng-click="ChangeSenderConfigService()" class="btn btn-blue mb-10 col-sm-12 "><b> Update Sender Config</b></button>
+			<div class="col-sm-6">
+			 <!-- <button type="button"   ng-click="ChangeSenderConfigService()" class="btn btn-blue mb-10 col-sm-12 "><b> Update Sender Config</b></button> -->
+			 <button style="font-weight:900" ng-click="ChangeSenderConfigService()"  class="btn btn-blue mb-10 col-sm-12" activate-button="loading" id="SenderConfigService"><i id="btns" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load">Update Sender Config</span></button>
 			</div>
-			<div class="col-sm-4">
-			<button type="button" style="font-weight:900" ng-click="runtest()" class="btn btn-danger mb-10 col-sm-12 ">Run Test</button>
+			<div class="col-sm-6">
+			<!-- <button type="button" style="font-weight:900" ng-click="runtest()" class="btn btn-danger mb-10 col-sm-12 ">Run Test</button> -->
+			
+			<button style="font-weight:900" ng-click="runtest()"  class="btn btn-danger mb-10 col-sm-12" activate-button="loading" id="runtest"><i id="btns1" style="display:none;position:relative;" class="fa fa-refresh fa-spin"></i><span id="load1">Run Test</span></button>
+			
 			</div>
 			</div>
 <div id="id01" class="w3-modal" ng-show="buildmodal">
@@ -349,32 +354,18 @@ background-color: #0d416b !important;
             <div class="form-group row">
     <div class="col-sm-6">
 	<div id="InputData" >
-                    <label for="InputData    ">Input Data    </label>
-                    <textarea class="form-group col-sm-12" id="InputData" type="text" ng-model="InputData"></textarea>
+                    <label for="InputData">Input Data    </label>
+                    <textarea rows="4" cols="100" class="form-group col-sm-12" id="InputData" type="text" ng-model="InputData"></textarea>
                 </div>
-				  <div id="iibhost  " >
-                    <label for="iibhost   ">IIB Host   </label>
-                    <input class="form-group col-sm-12" style="padding:2px;" id="iibhost   " type="text" ng-model="iibhost   "></input>
-                </div>
-						<!-- <div id="password">
-		<label for="password">SVN Password</label>
-		<input class="form-group col-sm-12" id="password" type="password" ng-model="password"></input>
-	 </div> -->
-	</div>
-	 <div class="col-sm-6">
-	  <div id="ReceiverPort  " >
+				 <div id="ReceiverPort  " >
                     <label for="ReceiverPort   ">Receiver Port   </label>
                     <input class="form-group col-sm-12" id="ReceiverPort   " type="text" ng-model="ReceiverPort   "></input>
                 </div>
-				<br><br><br>
-				 <div id="FlowName  " style="position:relative;top:13px;">
-                    <label for="FlowName">Flow Name   </label>
-					<br>
-                   <!-- <input class="form-group col-sm-12" id="FlowName   " type="text" ng-model="FlowName   "></input>-->
-				   <select class="col-sm-12" style="padding:3px;" ng-model="FlowName" ng-options="x for x in flowNames_Run"></select>
-                </div>  
-		
-	 </div>
+				  <div id="iibhost  " >
+                    <label for="iibhost" >IIB Host   </label>
+                    <input class="form-group col-sm-12" style="padding:2px;" id="iibhost   " type="text" ng-model="iibhost   "></input>
+                </div>
+	</div>
             </div>
             <div class="form-group row col-sm-12">
             <button type="button"  class="btn btn-darkgray mb-10 col-sm-3" ng-click="test()" style="background-color:#0d416b;font-weight:900;">Run Test </button>

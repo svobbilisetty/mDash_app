@@ -180,7 +180,7 @@
     };
         
     $scope.change = function(){ 
-     
+     btnm();
     document.getElementById('id01').style.display='none';
     //    alert("Clicked on Build");     
             var ConfigServiceName = $scope.ConfigServiceName;
@@ -207,7 +207,9 @@
 			"&i_name="+i_name
         }).then(function(response){
             
-                
+                 document.getElementById('btns').style.display="none";
+                 document.getElementById('load').innerHTML="Update Sender Config";
+				 document.getElementById("runtest").disabled = false;
             //alert(response.data);
 			$http({
             method : "GET",
@@ -228,6 +230,7 @@
      }); 
     }
     $scope.runtest= function(){ 
+	btnm1();
         $scope.buildmodal1=true;    
    document.getElementById('id02').style.display='block';                
    document.getElementById('console3').innerHTML='';
@@ -259,7 +262,9 @@
 			//"&svnpassword="+svnpassword+
 			"&i_name="+i_name
         }).then(function(response){
-            
+                 document.getElementById('btns1').style.display="none";
+                 document.getElementById('load1').innerHTML="Run Test";
+				 document.getElementById("SenderConfigService").disabled = false;
               // alert(response.data);
 			    $http({
             method : "GET",
@@ -319,6 +324,21 @@ $scope.fieldspop = function(){
     });   	
 	
 }
+
+
+function btnm(){
+    document.getElementById('btns').style.display="inline-flex";
+    document.getElementById('load').innerHTML="&nbsp;&nbsp;&nbsp;Updating Config Service";
+	document.getElementById("runtest").disabled = true;
+	
+}
+function btnm1(){
+    document.getElementById('btns1').style.display="inline-flex";
+    document.getElementById('load1').innerHTML="&nbsp;&nbsp;&nbsp;Running Test";
+	document.getElementById("SenderConfigService").disabled = true;
+}
+
+
  socket = io('http://localhost:9003');
 	socket.on('news', function (data) {
 				//alert(JSON.stringify(data));
